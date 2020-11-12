@@ -31,6 +31,6 @@ jq -s '.[].definitions' $DOCS/* | jq -s add > $BUILD/defs.json
 jq '.paths |= $paths' --argfile paths $BUILD/paths.json swagger_template.json > $BUILD/merged_paths.json
 jq '.definitions |= $defs' --argfile defs $BUILD/defs.json $BUILD/merged_paths.json > $OUT/code42api.json
 
-# put the merged file into the directory for publising
+# put the merged file into the directory for publishing
 cp $OUT/code42api.json $SANDBOX
 echo "Done."
