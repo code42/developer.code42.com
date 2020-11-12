@@ -1,0 +1,26 @@
+name: github pages
+
+on:
+  push:
+    branches:
+      - main
+    workflow_dipatch:
+    schedule:
+      - cron: '0 */12 * * *' # twice daily
+
+jobs:
+  deploy:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Build
+        run: bash ./build.sh
+
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          cname: developer.code42.com
+          full_commit_message: ${{ github.event.head_commit.message }}
