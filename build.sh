@@ -19,9 +19,11 @@ printf "%s\n" "$DOCS_ENDPOINTS" > $BUILD/docs_endpoints.txt
 sed -i -e "s~^~$DOCS_SERVER~" $BUILD/docs_endpoints.txt
 
 # download all of the swagger files into the $DOCS directory
+echo "fetching swagger documents..."
 wget -i $BUILD/docs_endpoints.txt -P $DOCS
 
 # grab all the paths and definitions from every swagger file that was found
+echo "building unified swagger document..."
 jq -s '.[].paths' $DOCS/* | jq -s add > $BUILD/paths.json
 jq -s '.[].definitions' $DOCS/* | jq -s add > $BUILD/defs.json
 
@@ -31,3 +33,4 @@ jq '.definitions |= $defs' --argfile defs $BUILD/defs.json $BUILD/merged_paths.j
 
 # put the merged file into the directory for publising
 cp $OUT/code42api.json $SANDBOX
+echo "Done."
