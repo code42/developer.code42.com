@@ -8,7 +8,7 @@ To build, execute:
 ./build.sh
 ```
 
-Once built, the site can be run locally using a local web server serving the current working directory, such as python's built in http module:
+Once built, the site can be run locally using a local web server serving the current working directory, such as python's built-in http module:
 
 ```bash
 python -m http.server 1337
