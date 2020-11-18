@@ -41,6 +41,10 @@ html, body {
 ////////////////////////////////////////////////////////////////////////////////
 
 #toc > ul > li > a > span {
+<<<<<<< HEAD
+  float: right;
+=======
+>>>>>>> chore/INTEG-1220-add-slate
   background-color: #2484FF;
   border-radius: 40px;
   width: 20px;
@@ -250,10 +254,15 @@ html, body {
   margin-left: $nav-width;
   position: relative;
   z-index: 10;
+<<<<<<< HEAD
+  background-color: $main-bg;
+  min-height: 100%;
+=======
   background-color: #f4f4f4;
   min-height: 100%;
   display: flex;
   justify-content: center;
+>>>>>>> chore/INTEG-1220-add-slate
 
   padding-bottom: 1px; // prevent margin overflow
 
@@ -313,6 +322,10 @@ html, body {
 ////////////////////////////////////////////////////////////////////////////////
 // CONTENT STYLES
 ////////////////////////////////////////////////////////////////////////////////
+<<<<<<< HEAD
+// This is all the stuff with the light background in the left half of the page
+=======
+>>>>>>> chore/INTEG-1220-add-slate
 
 .content {
   // fixes webkit rendering bug for some: see #538
@@ -320,10 +333,13 @@ html, body {
   // to place content above the dark box
   position: relative;
   z-index: 30;
+<<<<<<< HEAD
+=======
   max-width: 1400px;
   margin: 15px 40px;
   background-color: $main-bg;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+>>>>>>> chore/INTEG-1220-add-slate
 
   &:after {
     content: '';
@@ -332,6 +348,10 @@ html, body {
   }
 
   &>h1, &>h2, &>h3, &>h4, &>h5, &>h6, &>p, &>table, &>ul, &>ol, &>aside, &>dl {
+<<<<<<< HEAD
+    margin-right: $examples-width;
+=======
+>>>>>>> chore/INTEG-1220-add-slate
     padding: 0 $main-padding;
     box-sizing: border-box;
     display: block;
@@ -354,6 +374,10 @@ html, body {
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     margin-bottom: $h1-margin-bottom;
+<<<<<<< HEAD
+    margin-top: 2em;
+=======
+>>>>>>> chore/INTEG-1220-add-slate
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     background-color: #fdfdfd;
@@ -367,6 +391,10 @@ html, body {
   h2 {
     @extend %header-font;
     font-size: 19px;
+<<<<<<< HEAD
+    margin-top: 4em;
+=======
+>>>>>>> chore/INTEG-1220-add-slate
     margin-bottom: 0;
     border-top: 1px solid #ccc;
     padding-top: 1.2em;
@@ -384,6 +412,10 @@ html, body {
   h3, h4, h5, h6 {
     @extend %header-font;
     font-size: 15px;
+<<<<<<< HEAD
+    margin-top: 2.5em;
+=======
+>>>>>>> chore/INTEG-1220-add-slate
     margin-bottom: 0.8em;
   }
 
@@ -520,6 +552,15 @@ html, body {
     background-color: $code-bg;
     color: #fff;
 
+<<<<<<< HEAD
+    margin: 0;
+    width: $examples-width;
+
+    float:right;
+    clear:right;
+
+=======
+>>>>>>> chore/INTEG-1220-add-slate
     box-sizing: border-box;
 
     @extend %right-col;
@@ -556,6 +597,8 @@ html, body {
 // There are also a couple styles disperesed
 
 @media (max-width: $tablet-width) {
+<<<<<<< HEAD
+=======
   .page-wrapper {
       display: block;
   }
@@ -564,6 +607,7 @@ html, body {
       margin: 15px;
   }
 
+>>>>>>> chore/INTEG-1220-add-slate
   .toc-wrapper {
     left: -$nav-width;
 
