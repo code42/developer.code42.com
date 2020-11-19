@@ -8,5 +8,7 @@ includes:
     - track_hre_file_activity
 
 search: true
+
+code_clipboard: true
 ---
 
