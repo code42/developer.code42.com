@@ -26,13 +26,10 @@ under the License.
 
 html, body {
   color: $main-text;
-  padding: 0;
-  margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @extend %default-font;
   background-color: $main-bg;
-  height: 100%;
   -webkit-text-size-adjust: none; /* Never autoresize text */
 }
 
@@ -170,6 +167,15 @@ html, body {
 
   .toc-h2 {
     padding-left: $nav-padding + $nav-indent;
+    font-size: 12px;
+  }
+
+  .toc-list-h3 {
+    background-color: $nav-subitem-bg;
+  }
+
+  .toc-h3 {
+    padding-left: $nav-padding + $nav-padding + $nav-indent;
     font-size: 12px;
   }
 
@@ -320,8 +326,7 @@ html, body {
   // to place content above the dark box
   position: relative;
   z-index: 30;
-  max-width: 1400px;
-  margin: 15px 40px;
+  max-width: 75%;
   background-color: $main-bg;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 
@@ -344,13 +349,13 @@ html, body {
   }
 
   // the div is the tocify hidden div for placeholding stuff
-  &>h1, &>h2, &>div {
+  &>h1, &>h2, &>h3, &>div {
     clear:both;
   }
 
   h1 {
     @extend %header-font;
-    font-size: 25px;
+    font-size: 32px;
     padding-top: 0.5em;
     padding-bottom: 0.5em;
     margin-bottom: $h1-margin-bottom;
@@ -366,9 +371,19 @@ html, body {
 
   h2 {
     @extend %header-font;
-    font-size: 19px;
+    font-size: 26px;
     margin-bottom: 0;
     border-top: 1px solid #ccc;
+    padding-top: 1.2em;
+    padding-bottom: 1.2em;
+    background-image: linear-gradient(to bottom, rgba(#fff, 0.2), rgba(#fff, 0));
+  }
+
+  h3 {
+    @extend %header-font;
+    font-size: 21px;
+    margin-top: 0.5em;
+    margin-bottom: 0;
     padding-top: 1.2em;
     padding-bottom: 1.2em;
     background-image: linear-gradient(to bottom, rgba(#fff, 0.2), rgba(#fff, 0));
@@ -381,14 +396,14 @@ html, body {
     border-top: none;
   }
 
-  h3, h4, h5, h6 {
+  h4, h5, h6 {
     @extend %header-font;
-    font-size: 15px;
+    font-size: 21px;
     margin-bottom: 0.8em;
   }
 
   h4, h5, h6 {
-    font-size: 10px;
+    font-size: 16px;
   }
 
   hr {
