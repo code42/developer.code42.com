@@ -1,23 +1,21 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <title>ReDoc</title>
-    <!-- needed for adaptive design -->
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,700|Roboto:300,400,700" rel="stylesheet">
-
-    <!--
-    ReDoc doesn't change outer page styles
-    -->
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Code42 API Documentation</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
     <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      #redoc-container .operation-type {
-        display: none !important;
-      }
+        html, body {
+            background-color: #F3F7F9;
+            margin: 0;
+        }
+        h2 { color: #333333 !important;}
+        #redoc-container .operation-type {
+            display: none;
+        }
+        div[data-section-id] { padding: 15px 0 !important};
     </style>
   </head>
   <body>
@@ -27,6 +25,11 @@
         var opts = {
             hideHostname: true,
             theme: {
+                colors: {
+                    primary: {
+                        main: "#333333"
+                    }
+                },
                 menu: {
                     width: "345px",
                     backgroundColor: "#00284c",
@@ -34,6 +37,12 @@
                 },
                 rightPanel: {
                     backgroundColor: "#00284c"
+                },
+                typography: {
+                    headings: {
+                        fontFamily: "Roboto, sans-serif",
+                        fontWeight: "700"
+                    }
                 }
             }
         };
