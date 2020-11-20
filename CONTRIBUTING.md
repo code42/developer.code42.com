@@ -1,6 +1,38 @@
 # Contributing to developer.code42.com
 
-## Authoring a new articleas
+## Authoring a new article
+
+To create a new article, follow these steps:
+
+1. Add a file anywhere under the `source` directory of this repo.
+   * The file should be named in the format of `<something>.html.md`
+
+   * You may also create a new directory as long as it is under `source`. 
+
+   *  the folder/file path will be the url used to access the article. For example, if you created `source/subdir/another-subdir/my-article.html.md`, The url to access it would be `developer.code42.com/subdir/another-subdir/my-article`.
+
+   * if the file is named `index.html.md`, then the final segment of its URL is not needed. For example, `source/subdir/another-subdir/index.html.md` would be accessed at `developer.code42.com/subdir/another-subdir`.
+  
+2. Paste a configuration block at the top of your new file (all options except title should be the same as shown here):
+
+```
+---
+title: <insert whatever you to be in the browser's title bar here>
+
+toc_footers:
+  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+
+search: true
+
+code_clipboard: true
+---
+```
+
+3. Write you article using the markdown syntax outlined below.
+
+4. Open a PR! 
+
+   
 
 ## Markdown Reference
 
@@ -170,7 +202,7 @@ This is an [internal link](#error-code-definitions), this is an [external link](
 
 ### Notes and Warnings
 
-You can add little highlighted warnings and notes with just a little HTML embedded in your markdown document:
+You can add highlighted warnings and notes with just a little HTML embedded in your markdown document:
 
 ```html
 <aside class="notice">
