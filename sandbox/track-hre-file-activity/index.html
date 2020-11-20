@@ -1,0 +1,627 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Track file activity of a high risk employee</title>
+
+    <style media="screen">
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s, .highlight .sa, .highlight .dl {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf, .highlight .fm {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv, .highlight .vm {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #f92672;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <style media="print">
+      * {
+        -webkit-transition:none!important;
+        transition:none!important;
+      }
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #586e75;
+}
+.highlight .err {
+  color: #002b36;
+  background-color: #dc322f;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #657b83;
+}
+.highlight .cp {
+  color: #b58900;
+}
+.highlight .nt {
+  color: #b58900;
+}
+.highlight .o, .highlight .ow {
+  color: #93a1a1;
+}
+.highlight .p, .highlight .pi {
+  color: #93a1a1;
+}
+.highlight .gi {
+  color: #859900;
+}
+.highlight .gd {
+  color: #dc322f;
+}
+.highlight .gh {
+  color: #268bd2;
+  background-color: #002b36;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #6c71c4;
+}
+.highlight .kc {
+  color: #cb4b16;
+}
+.highlight .kt {
+  color: #cb4b16;
+}
+.highlight .kd {
+  color: #cb4b16;
+}
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #859900;
+}
+.highlight .sr {
+  color: #2aa198;
+}
+.highlight .si {
+  color: #d33682;
+}
+.highlight .se {
+  color: #d33682;
+}
+.highlight .nn {
+  color: #b58900;
+}
+.highlight .nc {
+  color: #b58900;
+}
+.highlight .no {
+  color: #b58900;
+}
+.highlight .na {
+  color: #268bd2;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #859900;
+}
+.highlight .ss {
+  color: #859900;
+}
+    </style>
+    <link href="../../stylesheets/screen-2da917e3.css" rel="stylesheet" media="screen" />
+    <link href="../../stylesheets/print-89f3d691.css" rel="stylesheet" media="print" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+      <script src="../../javascripts/all-0c8f7524.js"></script>
+
+    <script>
+      $(function() { setupCodeCopy(); });
+    </script>
+  </head>
+
+  <body class="sandbox sandbox_track-hre-file-activity sandbox_track-hre-file-activity_index" data-languages="[]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../images/navbar-cad8cdcb.png" alt="" />
+      </span>
+    </a>
+    <div class="toc-wrapper">
+      <img src="../../images/logo-31118639.png" class="logo" alt="" />
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#track-file-activity-of-a-high-risk-employee" class="toc-h1 toc-link" data-title="Track file activity of a high risk employee">Track file activity of a high risk employee</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#overview" class="toc-h2 toc-link" data-title="Overview">Overview</a>
+                  </li>
+                  <li>
+                    <a href="#considerations" class="toc-h2 toc-link" data-title="Considerations">Considerations</a>
+                  </li>
+                  <li>
+                    <a href="#before-you-begin" class="toc-h2 toc-link" data-title="Before you begin">Before you begin</a>
+                    <ul class="toc-list-h3">
+                        <li>
+                            <a href="#plan-your-work" class="toc-h3 toc-link" data-title="Plan your work">Plan your work</a>
+                        </li>
+                        <li>
+                            <a href="#gather-your-inputs" class="toc-h3 toc-link" data-title="Gather your inputs">Gather your inputs</a>
+                        </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#steps" class="toc-h2 toc-link" data-title="Steps">Steps</a>
+                    <ul class="toc-list-h3">
+                        <li>
+                            <a href="#add-the-user-to-the-high-risk-employees-list" class="toc-h3 toc-link" data-title="Add the user to the High Risk Employees list">Add the user to the High Risk Employees list</a>
+                        </li>
+                        <li>
+                            <a href="#add-risk-factors" class="toc-h3 toc-link" data-title="Add risk factors">Add risk factors</a>
+                        </li>
+                        <li>
+                            <a href="#add-the-user-to-alerts" class="toc-h3 toc-link" data-title="Add the user to alerts">Add the user to alerts</a>
+                        </li>
+                        <li>
+                            <a href="#search-for-alert-activity" class="toc-h3 toc-link" data-title="Search for alert activity">Search for alert activity</a>
+                        </li>
+                        <li>
+                            <a href="#remove-the-user-from-the-high-risk-employees-list" class="toc-h3 toc-link" data-title="Remove the user from the High Risk Employees list">Remove the user from the High Risk Employees list</a>
+                        </li>
+                    </ul>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="content">
+        <h1 id='track-file-activity-of-a-high-risk-employee'>Track file activity of a high risk employee</h1><h2 id='overview'>Overview</h2>
+<p>The Code42 APIs offer a way to automatically manage High Risk Employees from the time they are identified to when you no longer need to monitor their file activity. You can use the APIs to:</p>
+
+<ol>
+<li>Add users to the High Risk Employees list.</li>
+<li>Add risk factors to users.</li>
+<li>Add users to alerts.</li>
+<li>Search for alerts the users triggered.</li>
+<li>Remove users from the High Risk Employees list when tracking is no longer desired.</li>
+</ol>
+
+<p>This article describes in detail the Code42 APIs needed to follow users through the entire High Risk Employees lifecycle. </p>
+
+<p>For more information about these APIs, see the following articles:</p>
+
+<ul>
+<li><a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs">Detection list management APIs</a></li>
+<li><a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Manage_security_alerts_with_the_Code42_API">Manage security alerts with the Code42 API</a></li>
+</ul>
+<h2 id='considerations'>Considerations</h2>
+<ul>
+<li><p>The tasks in this article require use of the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Introduction_to_the_Code42_API">Code42 API</a>.</p>
+
+<ul>
+<li>If you are not familiar with using Code42 APIs, review <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Code42_API_syntax_and_usage">Code42 API syntax and usage</a>.</li>
+<li>For assistance with using the Code42 API, contact your Customer Success Manager (CSM) to engage the Code42 Professional Services team. Or, <a href="https://success.code42.com/">post your question to the Code42 community</a> to get advice from fellow Code42 administrators.</li>
+</ul></li>
+<li><p>The examples in this article use the command line tool curl to interact with the Code42 API. For a list of tools that can be used to interact with the API, see <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Tools_for_interacting_with_the_Code42_API">Tools for interacting with the Code42 API</a>.</p></li>
+<li><p>This functionality is available only if your <a href="https://support.code42.com/Terms_and_conditions/Code42_customer_support_resources/Code42_product_plans">product plan</a> includes <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Secure_data_throughout_employee_tenure">Risk Detection lenses</a>. Contact your Customer Success Manager (CSM) for assistance with licensing, or to upgrade to the Incydr Advanced product plan for a free trial​​​. If you don&#39;t know who your CSM is, email <a href="mailto:csmsupport@code42.com">csmsupport@code42.com</a>. </p></li>
+<li><p>To add users to the High Risk Employees list, you must have <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Role_assignment_use_cases#Use_case_1:_Add_users_to_detection_lists">roles that provide the necessary permissions</a>.  </p></li>
+</ul>
+<h2 id='before-you-begin'>Before you begin</h2><h3 id='plan-your-work'>Plan your work</h3>
+<p>Before you start writing scripts using the Code42 APIs, consider the following questions to help you plan your work:</p>
+
+<p><strong>Why do you want to automate adding users to the High Risk Employees list?</strong></p>
+
+<p>Adding users to the High Risk Employees list automatically provides economies of scale. If you monitor insider risk at a small company, you could use the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Add_high_risk_employees">High Risk Employees list in the Code42 console</a> to track file activity. But for larger companies with many more employees to track, automating the process with the Code42 API provides a much faster and efficient method. As an added benefit, you can <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_integrations_resources">integrate the Code42 APIs</a> with other systems such as your company&#39;s security tools. Planning and implementing Code42 APIs can take some time. Before you begin using Code42 APIs to manage High Risk Employees, consider the effort involved to set them up against the time savings provided when they run.</p>
+
+<p><strong>What are the kinds of alerts you want to receive?</strong></p>
+
+<p>The primary reason to add users to the High Risk Employees list is to receive alerts when those users perform actions that are considered high risk. Before you start adding users, determine the kinds of actions that you want to receive alerts about and then <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/How_to_create_a_security_alert">create alerts</a> that will be triggered by those actions. Creating the right kinds of alerts provides the best monitoring possible of your High Risk Employees file activity. </p>
+
+<p><strong>What are &quot;risk factors&quot; and why might you assign them to people?</strong></p>
+
+<p>&quot;Risk factors&quot; are predefined labels for the kinds of activities that are considered high risk. Before you start adding users to the High Risk Employees list, review Code42&#39;s <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors">risk factors</a> and determine which ones you want to assign to different kinds of employees. You might be able to devise some rules for which employees are assigned what risk factors. For example, you might assign the &quot;Contract employee&quot; risk factor to all temporary workers, or the &quot;Performance concerns&quot; factor to all employees who are on performance improvement plans. You can then set up alerts to be triggered when individuals with certain risk factors perform certain file activities. Good planning early on with risk factor assignments results in more precise alerting later.</p>
+
+<p><strong>What other systems with data about risk factors should you consider?</strong></p>
+
+<p>When determining risk factors to assign to employees, consider where else to look for supporting evidence, such as HR systems, security scanning tools, access management applications, Internet access monitoring tools, and so on. These can all provide additional information that you can place in the notes for the High Risk Employees, which will help guide any investigations that might be opened on these users.</p>
+<h3 id='gather-your-inputs'>Gather your inputs</h3>
+<p>Before attempting to write scripts using the Code42 API examples in this article, gather the following inputs:</p>
+
+<ul>
+<li><p><strong>Authentication token</strong> <br>
+<a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Authentication">Authentication tokens</a> are required to run the APIs. The tokens must be generated by a Code42 administrator with the proper <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Role_assignment_use_cases#Use_case_1:_Add_users_to_detection_lists">role assignments to add users to the High Risk Employees list</a>.</p></li>
+<li><p><strong>Tenant ID</strong> <br>
+Your company&#39;s entity in the Code42 cloud is known as a &quot;tenant&quot;. To <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Get_a_tenant_ID">obtain your tenant ID</a>, use your Code42 administrator credentials to submit a request to the customer API.</p></li>
+<li><p><strong>Code42 usernames for the people you want to add to the High Risk Employees list</strong> <br>
+The names of employees you want to add to the High Risk Employees list may come from a number of sources, such as an HR system or a directory service. While you can integrate with such systems using the Code42 API, remember that you need the Code42 username of these employees to be able to add them to the High Risk Employees list. The Code42 username is assigned when the <a href="https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually">user is added to Code42</a>. You can obtain usernames via <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Users_reference#CSV_export">CSV export</a> or the <a href="https://console.us.code42.com/swagger/#/Private/getUsers">user API</a>. </p></li>
+</ul>
+<h2 id='steps'>Steps</h2><h3 id='add-the-user-to-the-high-risk-employees-list'>Add the user to the High Risk Employees list</h3><h4 id='create-a-detection-list-profile'>Create a detection list profile</h4>
+<p>Before you can add the user to the High Risk Employees list using the Code42 API, you must <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Create_a_detection_list_profile_for_a_user">create a detection list profile for the user</a>. This profile will contain all the user&#39;s information, including their risk factors and notes about why they are considered high risk.</p>
+
+<p>To create a detection list profile, use the <code>api/v2/user/create</code>  API command as shown in the following example.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;requestURL&gt;/create <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{"tenantId": "&lt;SampleTenant&gt;", "userName": "&lt;Code42Username&gt;", "notes": "&lt;UserNotes&gt;", "riskFactors": ["&lt;Risk1&gt;", "&lt;Risk2&gt;", "&lt;Risk3&gt;"], "cloudUsernames": ["&lt;UsernameInCloudService&gt;"]}'</span>
+</code></pre></div>
+<p>In the preceding example:</p>
+
+<ul>
+<li><p>Replace <RequestURL> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Summary">request URL</a> of your Code42 cloud instance, for example, 
+<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/user/</code></p></li>
+<li><p>Replace <code>&lt;AuthToken&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Authentication">authentication</a> token.</p></li>
+<li><p>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Get_a_tenant_ID">tenant ID</a>.</p></li>
+<li><p>Replace <code>&lt;Code42Username&gt;</code> with the Code42 username. The username is assigned when the <a href="https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually">user is added to Code42</a>.</p></li>
+<li><p>Replace <code>&lt;UserNotes&gt;</code> with an explanation of why the user is considered high risk.</p></li>
+<li><p>Replace <code>&lt;Risk1&gt;</code>, <code>&lt;Risk2&gt;</code>, etc. with the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors">risk factors</a> associated with the user. You can also <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Track_file_activity_of_a_high_risk_employee_with_the_Code42_API#Step_2:_Add_risk_factors">add risk factors later with the API</a>.</p></li>
+<li><p>Replace <code>&lt;UsernameInCloudService&gt;</code> with the username of the user in a cloud service (such as Google Drive) if the username is different than the Code42 username. </p></li>
+</ul>
+<h4 id='add-the-user-to-the-high-risk-employees-list-2'>Add the user to the High Risk Employees list</h4>
+<p>To <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Add_a_high_risk_employee">add the user to the High Risk Employees list</a>, use the <code>api/v2/highriskemployee/add</code>  API command.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/add <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "userId": "&lt;ID&gt;" }'</span>
+</code></pre></div>
+<p>Use the <code>api/v2/highriskemployee/add</code> API command as shown in the following example.</p>
+
+<aside class="notice">
+To add multiple users at once, you can use the <a href="https://clidocs.code42.com/en/latest/">Code42 command-line interface</a> to <a href="https://clidocs.code42.com/en/latest/commands/highriskemployee.html?highlight=%22bulk%20add%20users%20to%20the%20high%20risk%20employees%22#high-risk-employee-bulk-add">bulk add users to the High Risk Employees list</a>.
+For an introduction to the CLI, see <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Introduction_to_the_Code42_command-line_interface">Introduction to the Code42 command-line interface</a>.    
+</aside>
+
+<p>In the preceding example: </p>
+
+<ul>
+<li><p>Replace <code>&lt;RequestURL&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Summary">request URL</a> of your Code42 cloud instance, for example, 
+<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee</code></p></li>
+<li><p>Replace <code>&lt;AuthToken&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Authentication">authentication</a> token.</p></li>
+<li><p>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Get_a_tenant_ID">tenant ID</a>.</p></li>
+<li><p>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Track_file_activity_of_a_high_risk_employee_with_the_Code42_API#Create_a_detection_list_profile">Create a detection list profile</a> section. If you don&#39;t know a user&#39;s ID, you can <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Get_the_detection_list_profile_for_a_user">look it up using the Code42 username</a>.</p></li>
+</ul>
+<h3 id='add-risk-factors'>Add risk factors</h3><h4 id='add-risk-factors-to-the-user'>Add risk factors to the user</h4>
+<p>To add risk factors to the user, use the <code>/api/v2/user/addriskfactors</code>  API command from the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Summary">detection list management API</a>. (To remove risk factors from the user, use the <code>/api/v2/user/removeriskfactors</code> <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Summary">API resource</a>.)</p>
+
+<p>Use the <code>/api/v2/user/addriskfactors</code>  API command as shown in the following example.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;requestURL&gt;/addriskfactors <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{"tenantId": "&lt;SampleTenant&gt;", "userName": "&lt;Code42Username&gt;", "riskFactors": ["&lt;Risk1&gt;", "&lt;Risk2&gt;", "&lt;Risk3&gt;"] }'</span>
+</code></pre></div>
+<p>In the preceding example:</p>
+
+<ul>
+<li><p>Replace <code>&lt;RequestURL&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Summary">request URL</a> of your Code42 cloud instance, for example, 
+<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/user/</code> </p></li>
+<li><p>Replace <code>&lt;AuthToken&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Authentication">authentication</a> token.</p></li>
+<li><p>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Get_a_tenant_ID">tenant ID</a>. </p></li>
+<li><p>Replace <code>&lt;Code42Username&gt;</code> with the Code42 username. The username is assigned when the <a href="https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually">user is added to Code42</a>.</p></li>
+<li><p>Replace <code>&lt;UserNotes&gt;</code> with an explanation of why the user is considered high risk. </p></li>
+<li><p>Replace <code>&lt;Risk1&gt;</code>, <code>&lt;Risk2&gt;</code>, etc. with the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors">risk factors</a> associated with the user. Valid values are:</p>
+
+<ul>
+<li>CONTRACT_EMPLOYEE</li>
+<li>ELEVATED_ACCESS_PRIVILEGES</li>
+<li>FLIGHT_RISK</li>
+<li>HIGH_IMPACT_EMPLOYEE</li>
+<li>PERFORMANCE_CONCERNS</li>
+<li>POOR_SECURITY_PRACTICES</li>
+<li>SUSPICIOUS_SYSTEM_ACTIVITY</li>
+</ul></li>
+</ul>
+<h4 id='view-risk-factors-in-the-user-39-s-details'>View risk factors in the user&#39;s details</h4>
+<p>To <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#View_details_of_a_user_in_a_detection_list">view details of the user</a> in the High Risk Employees list, including their risk factors, use the <code>api/v2/highriskemployee/get</code>  API command as shown in the following example.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/get <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "userId": "&lt;ID&gt;" }'</span>
+</code></pre></div>
+<p>In the preceding example: </p>
+
+<ul>
+<li><p>Replace <code>&lt;RequestURL&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Summary">request URL</a> of your Code42 cloud instance, for example, 
+<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee</code> </p></li>
+<li><p>Replace <code>&lt;AuthToken&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Authentication">authentication</a> token.</p></li>
+<li><p>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Get_a_tenant_ID">tenant ID</a>.</p></li>
+<li><p>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Track_file_activity_of_a_high_risk_employee_with_the_Code42_API#Create_a_detection_list_profile">Create a detection list profile</a> section. If you don&#39;t know a user&#39;s ID, you can <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Get_the_detection_list_profile_for_a_user">look it up using the Code42 username</a>.</p></li>
+</ul>
+
+<p>An excerpt of an example successful response:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH_RISK_EMPLOYEE_V2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an example note."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-31T19:35:49.4400500Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cloudUsernames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"john.doe@example.com"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"riskFactors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"FLIGHT_RISK"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"HIGH_IMPACT_EMPLOYEE"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='add-the-user-to-alerts'>Add the user to alerts</h3>
+<p>Do the following to add the user to alerts using the APIs. Before adding the user to alerts, make sure you have enabled alerts for all users in the High Risk Employees list.</p>
+<h4 id='add-the-user-to-default-high-risk-employees-alert-rules'>Add the user to default High Risk Employees alert rules</h4>
+<p>When the user is added to the High Risk Employees list they are automatically added to the the High Risk Employees default alert rules. Because all users in the High Risk Employees list are added to the default alert rules, there is no need to use the API to add the user to, or remove a user from, default alert rules.</p>
+<h4 id='add-the-user-to-other-alert-rules'>Add the user to other alert rules</h4>
+<p>You can use the API to add the user to other existing <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Manage_Rules">alert rules</a> that monitor user file activity. </p>
+
+<p>To <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Manage_security_alerts_with_the_Code42_API#Add_users_to_an_alert_rule">add the user to an alert rule</a>, use the following <code>/api/v1/Rules/add-users</code> API command.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
+<span class="s2">"&lt;RequestURL&gt;/Rules/add-users"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"accept: application/json"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "ruleId": "&lt;SampleRuleId&gt;", "userList": [ { "userIdFromAuthority": "&lt;SampleUserUID&gt;", "userAliasList": [ "&lt;SampleAlias1&gt;", "&lt;SampleAlias2&gt;" ] } ]}'</span>
+</code></pre></div>
+<p>In the preceding example:</p>
+
+<ul>
+<li><p>Replace <code>&lt;RequestURL&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Manage_security_alerts_with_the_Code42_API#Summary">request URL</a> of your Code42 cloud instance, for example,
+<code>https://fed-observer-default.prod.ffs.us2.code42.com/svc/api/v1/</code></p></li>
+<li><p>Replace <code>&lt;AuthToken&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Authentication">authentication</a> token.</p></li>
+<li><p>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Get_a_tenant_ID">tenant ID</a>.</p></li>
+<li><p>Replace <code>&lt;SampleRuleID&gt;</code> with the ID of the alert rule from which you want to remove users.</p></li>
+<li><p>Replace <code>&lt;SampleUserID&gt;</code> with a value that uniquely identifies the user you want to add. As a best practice, use the user&#39;s <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Manage_security_alerts_with_the_Code42_API#Identify_userUIDs">userUID</a> in Code42 for this value.
+The userAliasList parameter identifies the list of email addresses or cloud aliases to associate with that <code>&lt;SampleUserID&gt;</code>.</p></li>
+<li><p>Replace <code>&lt;SampleAlias1&gt;</code> and <code>&lt;SampleAlias2&gt;</code> with the email addresses or cloud aliases you want to add to the rule&#39;s inclusion or exclusion list for that user ID.</p>
+
+<ul>
+<li>If you want to enter only one email address or cloud alias, use this construction: <code>&quot;userAliasList&quot;: [ &quot;&lt;SampleAlias1&gt;&quot; ]</code></li>
+<li>If you want to enter multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.</li>
+</ul></li>
+</ul>
+
+<p>The aliases that you enter here become the values that are added to the rule&#39;s inclusion or exclusion list and used to trigger or filter alert notifications.</p>
+<h3 id='search-for-alert-activity'>Search for alert activity</h3>
+<p>To find alerts triggered by the user, <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Manage_security_alerts_with_the_Code42_API#Search_for_alert_notifications_by_alert_filter_criteria">search for alerts</a> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Manage_security_alerts_with_the_Code42_API#Filter_syntax_for_the_query-alerts_API_command">Actor filter</a> using the <code>api/v1/query-alerts</code> API command as shown in the following example:</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
+<span class="s2">"&lt;RequestURL&gt;/query-alerts"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"accept: text/plain"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "groups": [ { "filters": [ { "term": "Actor, "operator": "Is", "value": "&lt;ActorUsername&gt;" } ], "filterClause": "AND" } ], "groupClause": "OR", "pgSize": "20", "pgNum": "0", "srtKey": "CreatedAt", "srtDirection": "DESC" }'</span>
+</code></pre></div><h4 id='search-for-alerts-triggered-by-the-user'>Search for alerts triggered by the user</h4>
+<p>In the preceding example:</p>
+
+<ul>
+<li><p>Replace <code>&lt;RequestURL&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Manage_security_alerts_with_the_Code42_API#Summary">request URL</a> of your Code42 cloud instance, for example,
+<code>https://alert-service-default.prod.ffs.us2.code42.com/svc/api/v1/</code></p></li>
+<li><p>Replace <code>&lt;AuthToken&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Authentication">authentication</a> token.</p></li>
+<li><p>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Get_a_tenant_ID">tenant ID</a>.</p></li>
+<li><p>Replace <code>&lt;ActorUsername&gt;</code> with the Code42 username of the user. See the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Manage_security_alerts_with_the_Code42_API#Filter_syntax_for_the_query-alerts_API_command">filter syntax for the query-alerts API command</a> for details.</p></li>
+</ul>
+
+<p>A successful response returns basic information about the alert notifications that match your search criteria, including the alert IDs of those notifications (look for the <code>&quot;id&quot;:&quot;value&quot;</code> entry):</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ALERT_SUMMARY"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FED_ENDPOINT_EXFILTRATION"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Exposure on an endpoint from High Risk Employees system rule"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"System rule for exposure on an endpoint from High Risk Employees."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"actor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"burt.morales@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"N/A"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"ruleId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"ruleSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"High Risk Employee"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"987654321424242"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-04-03T15:21:44.6139300Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h4 id='filter-alerts'>Filter alerts</h4>
+<p>You can further filter alerts by adding more <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Manage_security_alerts_with_the_Code42_API#Filter_syntax_for_the_query-alerts_API_command">filter types</a>. For example, you could use the Severity filter to find only those alerts that were high severity, or the RuleName filter to find only alerts from a particular rule.</p>
+<h4 id='search-the-user-39-s-file-activity'>Search the user&#39;s file activity</h4>
+<p>In addition to using alerts to identify file activity, you can use the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Forensic_Search_API">Forensic Search API</a> to search for the user&#39;s file activity. </p>
+<h3 id='remove-the-user-from-the-high-risk-employees-list'>Remove the user from the High Risk Employees list</h3>
+<p>You can <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Remove_a_user_from_a_detection_list">remove the user from the High Risk Employees list</a> using the <code>api/v2/highriskemployee/remove</code>  API.  Using this API removes the user from the High Risk Employees list and system alerts, but it does not remove risk factors associated with the user.</p>
+
+<aside class="notice">
+To remove multiple users at once, you can use the <a href="https://clidocs.code42.com/en/latest/">Code42 command-line interface</a> to <a href="https://clidocs.code42.com/en/latest/commands/highriskemployee.html?highlight=bulk%20remove#high-risk-employee-bulk-remove">bulk remove users from the High Risk Employees list</a>.
+For an introduction to the CLI, see <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Introduction_to_the_Code42_command-line_interface">Introduction to the Code42 command-line interface</a>.     
+</aside>
+
+<p>To remove a user from the High Risk Employees list, use the <code>api/v2/highriskemployee/remove</code>  API command as shown in the following example.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/remove <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "userId": "&lt;ID&gt;" }'</span>
+</code></pre></div>
+<p>In the preceding example: </p>
+
+<ul>
+<li><p>Replace <code>&lt;RequestURL&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Summary">request URL</a> of your Code42 cloud instance, for example, 
+<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee</code></p></li>
+<li><p>Replace <code>&lt;AuthToken&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Authentication">authentication</a> token.</p></li>
+<li><p>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Get_a_tenant_ID">tenant ID</a>. </p></li>
+<li><p>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Track_file_activity_of_a_high_risk_employee_with_the_Code42_API#Create_a_detection_list_profile">Create a detection list profile</a> section. If you don&#39;t know a user&#39;s ID, you can <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Get_the_detection_list_profile_for_a_user">look it up using the Code42 username</a>.</p></li>
+</ul>
+
+<p>To verify that the user is removed, <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs#Obtain_a_listing_of_all_users_in_a_detection_list">obtain a listing of all users in the detection list</a>.</p>
+
+      </div>
+    </div>
+  </body>
+</html>

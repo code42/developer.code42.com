@@ -2,6 +2,11 @@
   "swagger": "2.0",
   "info": {
     "title": "Code42 API Documentation",
+    "x-logo": {
+      "url": "/images/logo.png",
+      "backgroundColor": "#00284C",
+      "altText": "Code42 logo"
+    },
     "version": "v1",
     "description": "# Disclaimer\nNOTE: This documentation is a work in progress. The APIs documented here are likely to not work and / or change in the future. Do not use or depend on them until this project has officially launched."
   },
@@ -848,6 +853,34 @@
         "deprecated": false
       }
     },
+    "/v1/cases/{caseNumber}/export": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Download case summary as a PDF file.",
+        "operationId": "pdfExportUsingGET",
+        "parameters": [
+          {
+            "name": "caseNumber",
+            "in": "path",
+            "description": "caseNumber",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
     "/v1/cases/{caseNumber}/fileevent": {
       "get": {
         "tags": [
@@ -874,6 +907,34 @@
           },
           "404": {
             "description": "Case not found"
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/cases/{caseNumber}/fileevent/export": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Export file events for a case as a CSV file.",
+        "operationId": "csvExportUsingGET",
+        "parameters": [
+          {
+            "name": "caseNumber",
+            "in": "path",
+            "description": "caseNumber",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
+            }
           }
         },
         "deprecated": false
@@ -4482,6 +4543,10 @@
         }
       },
       "title": "SingleSlimCaseResponse"
+    },
+    "StreamingResponseBody-cases": {
+      "type": "object",
+      "title": "StreamingResponseBody"
     },
     "UpdateCaseRequest-cases": {
       "type": "object",
