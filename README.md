@@ -9,8 +9,8 @@ To build the site locally, you will need the following:
 
 After installing the above, check the links below to finish installing your dependenices:
 
-[Installing Dependencies on Ubuntu 18.04+](https://github.com/slatedocs/slate/wiki/Using-Slate-Natively#installing-dependencies-on-ubuntu-1804)
-[Installing dependencies on macOS](https://github.com/slatedocs/slate/wiki/Using-Slate-Natively#installing-dependencies-on-macos)
+* [Installing Dependencies on Ubuntu 18.04+](https://github.com/slatedocs/slate/wiki/Using-Slate-Natively#installing-dependencies-on-ubuntu-1804)
+* [Installing dependencies on macOS](https://github.com/slatedocs/slate/wiki/Using-Slate-Natively#installing-dependencies-on-macos)
 
 Note that slate is unsupported on Windows.
 
