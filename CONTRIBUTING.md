@@ -9,9 +9,9 @@ To create a new article, follow these steps:
 
    * You may also create a new directory as long as it is under `source`. 
 
-   *  the folder/file path will be the url used to access the article. For example, if you created `source/subdir/another-subdir/my-article.html.md`, The url to access it would be `developer.code42.com/subdir/another-subdir/my-article`.
+   *  The folder/file path will be the url used to access the article. For example, if you created `source/subdir/another-subdir/my-article.html.md`, the url to access it would be `developer.code42.com/subdir/another-subdir/my-article`.
 
-   * if the file is named `index.html.md`, then the final segment of its URL is not needed. For example, `source/subdir/another-subdir/index.html.md` would be accessed at `developer.code42.com/subdir/another-subdir`.
+   * If the file is named `index.html.md`, then the final segment of its URL is not needed. For example, `source/subdir/another-subdir/index.html.md` would be accessed at `developer.code42.com/subdir/another-subdir`.
   
 2. Paste a configuration block at the top of your new file (all options except title should be the same as shown here):
 
@@ -104,7 +104,7 @@ For the full list of supported languages, see [rouge](https://github.com/jneen/r
 
 ### Tables
 
-Slate uses PHP Markdown Extra style tables:
+Slate uses [PHP Markdown Extra](https://michelf.ca/projects/php-markdown/extra/#table) style tables:
 
 ```markdown
 Table Header 1 | Table Header 2 | Table Header 3
@@ -135,7 +135,7 @@ Renders:
 
 This text is **bold**, this is *italic*, this is an `inline code block`.
 
-You can use those formatting rules in tables, paragraphs, lists, wherever, although they'll appear verbatim in code blocks.
+You can use these formatting rules anywhere on the page (tables, paragraphs, lists, wherever!). However, they will appear verbatim in code blocks.
 
 ### Lists
 
@@ -193,12 +193,12 @@ Will render:
 ### Links
 
 ```markdown
-This is an [internal link](#error-code-definitions), this is an [external link](http://google.com).
+This is an [internal link](#markdown-reference), this is an [external link](http://google.com).
 ```
 
 Will render:
 
-This is an [internal link](#error-code-definitions), this is an [external link](http://google.com).
+This is an [internal link](#markdown-reference), this is an [external link](http://google.com).
 
 ### Notes and Warnings
 
