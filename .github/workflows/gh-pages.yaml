@@ -21,9 +21,20 @@ jobs:
         with:
             ruby-version: ${{ env.ruby-version }}
 
+      - uses: actions/cache@v2
+        with:
+            path: vendor/bundle
+            key: gems-${{ runner.os }}-${{ matrix.ruby-version }}-${{ hashFiles('**/Gemfile.lock') }}
+            restore-keys: |
+                gems-${{ runner.os }}-${{ matrix.ruby-version }}-
+                gems-${{ runner.os }}-
+
+      - run: bundle config set deployment 'true'
+
       - name: bundle install
         run: |
-            bundle install
+            bundle config path vendor/bundle
+            bundle install --jobs 4 --retry 3
 
       - name: Build
         run: bash ./build.sh prod
