@@ -5,7 +5,7 @@
 To build the site locally, you will need the following:
 
 * [Ruby](https://www.ruby-lang.org/en/) >= 2.3
-* [homebrew](https://brew.sh/)
+* [homebrew](https://brew.sh/) (if using macOS)
 
 After installing the above, check the links below to finish installing your dependenices:
 

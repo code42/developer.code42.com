@@ -10,9 +10,20 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
+    env:
+        ruby-version: 2.5
     steps:
       - uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+            ruby-version: ${{ env.ruby-version }}
+
+      - name: bundle install
+        run: |
+            bundle install
 
       - name: Build
         run: bash ./build.sh prod

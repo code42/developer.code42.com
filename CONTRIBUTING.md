@@ -17,7 +17,7 @@ To create a new article, follow these steps:
 
 ```
 ---
-title: <insert whatever you to be in the browser's title bar here>
+title: <insert whatever you want to be in the browser's title bar here>
 
 toc_footers:
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
@@ -28,7 +28,7 @@ code_clipboard: true
 ---
 ```
 
-3. Write you article using the markdown syntax outlined below.
+3. Write your article using the markdown syntax outlined below.
 
 4. Open a PR! 
 
