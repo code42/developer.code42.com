@@ -13,7 +13,7 @@ To create a new article, follow these steps:
 
    * If the file is named `index.html.md`, then the final segment of its URL is not needed. For example, `source/subdir/another-subdir/index.html.md` would be accessed at `developer.code42.com/subdir/another-subdir`. This is the preferred method for creating a new page because the url will not end in `.html` this way.
   
-2. Paste a configuration block at the top of your new file (all options except `title` and `category` should be the same as shown here).
+2. Paste a configuration block at the top of your new file (all options except `title` and `category` should be the same as shown below).
 
 The `title` will be:
 - displayed in the title bar of the browser while viewing the article
