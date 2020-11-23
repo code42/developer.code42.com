@@ -36,9 +36,9 @@ code_clipboard: true
 ---
 ```
 
-1. Write your article using the markdown syntax outlined below.
+3. Write your article using the markdown syntax outlined below.
 
-2. Open a PR! 
+4. Open a PR! 
 
    
 
