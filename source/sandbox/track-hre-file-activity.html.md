@@ -1,7 +1,7 @@
 ---
 title: Track file activity of a high risk employee
 
-category: Use cases
+category: use-cases
 
 toc_footers:
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>

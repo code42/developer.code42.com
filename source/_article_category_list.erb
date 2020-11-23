@@ -1,0 +1,10 @@
+<% articles = sitemap.resources.select { |n| n.data.category == category} %>
+<% if articles.length() > 0 %>
+## <%= heading %>
+
+<%= description %>
+
+<% articles.each do |page| %>
+* <%=link_to page.data.title, page.url %>
+<% end %>
+<% end %>
