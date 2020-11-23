@@ -9,15 +9,23 @@ To create a new article, follow these steps:
 
    * You may also create a new directory as long as it is under `source`. 
 
-   *  The folder/file path will be the url used to access the article. For example, if you created `source/subdir/another-subdir/my-article.html.md`, the url to access it would be `developer.code42.com/subdir/another-subdir/my-article`.
+   *  The folder/file path will be the url used to access the article. For example, if you created `source/subdir/another-subdir/my-article.html.md`, the url to access it would be `developer.code42.com/subdir/another-subdir/my-article.html`.
 
-   * If the file is named `index.html.md`, then the final segment of its URL is not needed. For example, `source/subdir/another-subdir/index.html.md` would be accessed at `developer.code42.com/subdir/another-subdir`.
+   * If the file is named `index.html.md`, then the final segment of its URL is not needed. For example, `source/subdir/another-subdir/index.html.md` would be accessed at `developer.code42.com/subdir/another-subdir`. This is the preferred method for creating a new page because the url will not end in `.html` this way.
   
-2. Paste a configuration block at the top of your new file (all options except title should be the same as shown here):
+2. Paste a configuration block at the top of your new file (all options except `title` and `category` should be the same as shown here).
+
+The `title` will be:
+- displayed in the title bar of the browser while viewing the article
+- The link text used on the landing page (which lists all articles).
+
+`category` indicates the heading under which the article will appear on the landing page. This must be one of `get-started`, `detect-and-respond`, `splunk`, `use-cases`, or `other`. If you wish to create a new category, you must first edit the [landing page](source/sandbox/index.html.md.erb) to define it.
 
 ```
 ---
-title: <insert whatever you want to be in the browser's title bar here>
+title: <enter title here>
+
+category: <enter category here>
 
 toc_footers:
   - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
@@ -28,9 +36,9 @@ code_clipboard: true
 ---
 ```
 
-3. Write your article using the markdown syntax outlined below.
+1. Write your article using the markdown syntax outlined below.
 
-4. Open a PR! 
+2. Open a PR! 
 
    
 
