@@ -3,11 +3,6 @@
 Welcome to the Code42 Developer Portal! Here you will find a wealth of information to assist you in leveraging
 the Code42 API.
 
-<% get_started = sitemap.resources.select { |n| n.data.category == "get-started"} %>
-<% detect_and_respond = sitemap.resources.select { |n| n.data.category == "detect-and-respond"} %>
-<% splunk = sitemap.resources.select { |n| n.data.category == "splunk"} %>
-<% other = sitemap.resources.select { |n| n.data.category == "other"} %>
-
 <%= partial(:article_category_list, :locals => {
      :category => "get-started",
      :heading => "Get started",
