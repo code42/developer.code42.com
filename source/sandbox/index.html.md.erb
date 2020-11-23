@@ -1,0 +1,60 @@
+# Code42 Developer Portal
+
+Welcome to the Code42 Developer Portal! Here you will find a wealth of information to assist you in leveraging
+the Code42 API.
+
+<% detect_and_respond_articles = sitemap.resources.select { |n| n.data.category == "detect-and-respond"} %>
+<% if detect_and_respond_articles.length() > 0 %>
+## Get Started
+
+Learn about the Code42 API.
+
+<% detect_and_respond_articles.each do |page| %>
+* <%=link_to page.data.title, page.url %>
+<% end %>
+<% end %>
+
+<% detect_and_respond_articles = sitemap.resources.select { |n| n.data.category == "detect-and-respond"} %>
+<% if detect_and_respond_articles.length() > 0 %>
+## Detect and respond to insider risk
+
+Integrate the Code42 API with your security team's applications to streamline your company's insider threat response.
+
+<% detect_and_respond_articles.each do |page| %>
+* <%=link_to page.data.title, page.url %>
+<% end %>
+<% end %>
+
+<% splunk_articles = sitemap.resources.select { |n| n.data.category == "splunk"} %>
+<% if splunk_articles.length() > 0 %>
+## Integrate with Splunk
+
+Integrate the Code42 API with [Splunk](https://www.splunk.com/).
+
+<% splunk_articles.each do |page| %>
+* <%=link_to page.data.title, page.url %>
+<% end %>
+<% end %>
+
+<% use_case_articles = sitemap.resources.select { |n| n.data.category == "use-cases"} %>
+<% if use_case_articles.length() > 0 %>
+## Use cases
+
+Leverage the Code42 API for specific use cases
+
+<% use_case_articles.each do |page| %>
+* <%=link_to page.data.title, page.url %>
+<% end %>
+
+<% end %>
+
+<% other_articles = sitemap.resources.select { |n| n.data.category == "other"} %>
+<% if other_articles.length() > 0 %>
+## Other uses
+
+Use the Code42 API to perform a variety of tasks.
+
+<% other_articles.each do |page| %>
+* <%=link_to page.data.title, page.url %>
+<% end %>
+<% end %>
