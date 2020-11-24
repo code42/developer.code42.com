@@ -1,0 +1,45 @@
+---
+title: Home
+
+toc_footers:
+  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+
+search: true
+
+code_clipboard: true
+---
+
+# Code42 Developer Portal
+
+Welcome to the Code42 Developer Portal! Here you will find resources to assist you in leveraging
+the Code42 API for automation and scripting. The Code42 APIs are a powerful set of tools you can use
+for everything from performing automated actions to integrating Code42 with your company's security applications.
+
+Code42 also offers a [Python SDK](https://py42docs.code42.com) and [Command Line Interface](https://clidocs.code42.com) that you may also find useful for automating tasks.
+Be sure to explore the documentation for these tools in addition to the complete API documentation before deciding what
+tools are right for your use case.
+
+<%= partial(:article_category_list, :locals => {
+     :category => "get-started",
+     :heading => "Get started",
+     :description => "Learn about the Code42 API." }) %>
+
+<%= partial(:article_category_list, :locals => {
+    :category => "detect-and-respond",
+    :heading => "Detect and respond to insider risks",
+    :description => "Integrate the Code42 API with your security team's applications to streamline your company's insider threat response." }) %>
+
+<%= partial(:article_category_list, :locals => {
+    :category => "splunk",
+    :heading => "Integrate with Splunk",
+    :description => "Integrate the Code42 API with [Splunk](https://www.splunk.com/)." }) %>
+
+<%= partial(:article_category_list, :locals => {
+    :category => "use-cases",
+    :heading => "Use cases",
+    :description => "Leverage the Code42 API for specific use cases." }) %>
+
+<%= partial(:article_category_list, :locals => {
+    :category => "other",
+    :heading => "Other uses",
+    :description => "Use the Code42 API to perform a variety of tasks." }) %>

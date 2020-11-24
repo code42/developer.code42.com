@@ -262,8 +262,7 @@ html, body {
   min-height: 100%;
   display: flex;
   justify-content: center;
-
-  padding-bottom: 1px; // prevent margin overflow
+  padding: 15px;
 
   // The dark box is what gives the code samples their dark background.
   // It sits essentially under the actual content block, which has a
@@ -328,7 +327,8 @@ html, body {
   // to place content above the dark box
   position: relative;
   z-index: 30;
-  max-width: 75%;
+  width: 100%;
+  padding-bottom: 15px;
   background-color: $main-bg;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
 
@@ -580,11 +580,6 @@ html, body {
 @media (max-width: $tablet-width) {
   .page-wrapper {
       display: block;
-  }
-
-  .content {
-      margin: 15px;
-      max-width: 100%;
   }
 
   .toc-wrapper {
