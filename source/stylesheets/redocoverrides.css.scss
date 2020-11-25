@@ -1,0 +1,31 @@
+@import 'top-nav';
+
+html, body {
+    background-color: #F3F7F9;
+    margin: 0;
+}
+
+h2 { color: #333333 !important;}
+#redoc-container .operation-type {
+    display: none;
+}
+
+#redoc-container .api-content {
+    margin-top: $top-nav-height;
+}
+
+#redoc-container .menu-content {
+    z-index: 2;
+}
+
+.top-nav {
+    z-index: 2;
+}
+
+div[data-section-id] {
+    padding: 0 !important;
+    @extend %anchor-offset;
+    &::before {
+        margin-bottom: 40px;
+    }
+};

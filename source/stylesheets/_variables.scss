@@ -86,6 +86,15 @@ $phone-width: $tablet-width - $nav-width !default; // min width before reverting
   line-height: 1.5;
 }
 
+%anchor-offset {
+    &::before {
+        display: block;
+        content: " ";
+        margin-top: -$top-nav-height;
+        padding-top: $top-nav-height;
+      }
+}
+
 
 // OTHER
 ////////////////////

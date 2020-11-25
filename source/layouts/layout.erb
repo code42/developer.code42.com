@@ -63,13 +63,7 @@ under the License.
         <%= image_tag('navbar.png') %>
       </span>
     </a>
-    <nav class="top-nav">
-      <div class="nav-menu">
-        <a href= "/sandbox" class="nav-item">Docs</a>
-        <div class="nav-item">APIs & SDKs</div>
-        <a href= "https://support.code42.com" class="nav-item">Support</a>
-      </div>
-    </nav>
+    <%= partial(:top_nav) %>
     <div class="toc-wrapper">
       <%= image_tag "logo.png", class: 'logo' %>
       <% if current_page.data.search %>
