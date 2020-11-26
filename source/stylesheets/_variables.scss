@@ -86,6 +86,9 @@ $phone-width: $tablet-width - $nav-width !default; // min width before reverting
   line-height: 1.5;
 }
 
+// Using a pinned top nav interferes with the browser's ability to "jump" to elements
+// on the same page using links starting with "#". Without this, those elements
+// will end up _behind_ the top nav when navigating to those links.
 %anchor-offset {
     &::before {
         display: block;
