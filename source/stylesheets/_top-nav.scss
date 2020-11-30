@@ -22,7 +22,6 @@
 .nav-item {
     display: flex;
     align-items: center;
-    font-size: 16px;
     font-family: Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-weight: 700;
     &:hover {
@@ -32,7 +31,7 @@
     }
     a {
         display: block;
-        padding: 12px;
+        padding: 0.75rem;
         color: #fff;
         text-decoration: none;
     }

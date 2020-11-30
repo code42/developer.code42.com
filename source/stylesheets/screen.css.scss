@@ -55,7 +55,6 @@ html, body {
   bottom: 0;
   width: $nav-width;
   background-color: $nav-bg;
-  font-size: 16px;
   font-weight: bold;
 
   // language selector for mobile devices
@@ -169,7 +168,7 @@ html, body {
 
   .toc-h2 {
     padding-left: $nav-padding + $nav-indent;
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .toc-list-h3 {
@@ -178,7 +177,7 @@ html, body {
 
   .toc-h3 {
     padding-left: $nav-padding + $nav-padding + $nav-indent;
-    font-size: 14px;
+    font-size: 0.875rem;
   }
 
   .toc-footer {
@@ -358,7 +357,7 @@ html, body {
 
   h1 {
     @extend %header-font;
-    font-size: 32px;
+    font-size: 2rem;
     padding-bottom: 0.5em;
     margin-bottom: $h1-margin-bottom;
     border-top: 1px solid #ccc;
@@ -373,7 +372,7 @@ html, body {
 
   h2 {
     @extend %header-font;
-    font-size: 26px;
+    font-size: 1.625rem;
     margin-bottom: 0;
     padding-bottom: 0.5em;
         &::before {
@@ -384,7 +383,7 @@ html, body {
 
   h3 {
     @extend %header-font;
-    font-size: 21px;
+    font-size: 1.3125rem;
     margin-bottom: 0;
     padding-bottom: 0.5em;
   }
@@ -403,12 +402,8 @@ html, body {
 
   h4, h5, h6 {
     @extend %header-font;
-    font-size: 21px;
     margin: 0.8em 0;
-  }
-
-  h4, h5, h6 {
-    font-size: 16px;
+    font-size: 1.3125rem;
   }
 
   hr {

@@ -10,6 +10,7 @@
 html, body {
     background-color: #F3F7F9;
     margin: 0;
+    @extend %default-font;
 }
 
 @media print, screen and (max-width: 75rem) {
@@ -29,12 +30,12 @@ h2 { color: #333333 !important;}
 }
 
 #redoc-container .menu-content ul li {
-    font-size: 14px;
+    font-size: 0.875rem !important;
     font-weight: 400;
 }
 
 #redoc-container .menu-content .scrollbar-container > ul > li {
-    font-size: 16px;
+    font-size: 1rem !important;
     font-weight: 700;
 }
 
