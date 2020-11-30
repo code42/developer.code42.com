@@ -5,12 +5,31 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Code42 API Documentation</title>
+    <link href="../../stylesheets/redocoverrides-465558c4.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
-    <link href="../../stylesheets/redoc-overrides-150392f8.css" rel="stylesheet">
   </head>
   <body>
+    <nav class="top-nav">
+    <div class="nav-menu">
+        <div class="nav-item">
+            <a href="/sandbox">Docs</a>
+        </div>
+        <div class="nav-item">
+            <a href="#">APIs & SDKs</a>
+            <ul class="drop-menu">
+                <li><a href="/sandbox/api">API Reference</a></li>
+                <li><a href="https://py42docs.code42.com">Python SDK</a></li>
+                <li><a href="https://clidocs.code42.com">Command Line Interface</a></li>
+            </ul>
+        </div>
+        <div class="nav-item">
+            <a href="https://support.code42.com">Support</a>
+        </div>
+    </ul>
+</nav>
+
     <div id="redoc-container"></div>
-    <script src="https://cdn.jsdelivr.net/npm/redoc@next/bundles/redoc.standalone.js"> </script>
+    <script src="https://cdn.jsdelivr.net/npm/redoc@2.0.0-rc.40/bundles/redoc.standalone.js"> </script>
     <script>
         var opts = {
             hideHostname: true,
@@ -20,7 +39,7 @@
                         main: "#333333"
                     }
                 },
-                menu: {
+                sidebar: {
                     width: "345px",
                     backgroundColor: "#00284c",
                     textColor: "#fff"
