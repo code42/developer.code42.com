@@ -1,0 +1,54 @@
+@import 'top-nav';
+
+#redoc-container .operation-type {
+    display: none;
+}
+
+// Make the top nav, left nav, background color, and headings look the same
+// as on the Docs page.
+
+html, body {
+    background-color: #F3F7F9;
+    margin: 0;
+    @extend %default-font;
+}
+
+@media print, screen and (max-width: 75rem) {
+    h1 {
+        margin: -40px 0;
+    }
+}
+
+h2 { color: #333333 !important;}
+
+#redoc-container .api-content {
+    margin-top: $top-nav-height;
+}
+
+#redoc-container .menu-content {
+    z-index: 2;
+}
+
+#redoc-container .menu-content ul li {
+    font-size: 0.875rem !important;
+    font-weight: 400;
+}
+
+#redoc-container .menu-content .scrollbar-container > ul > li {
+    font-size: 1rem !important;
+    font-weight: 700;
+}
+
+.top-nav {
+    z-index: 2;
+}
+
+// Make "#" link targets appear under the top nav instead of being overlapped by it.
+
+div[data-section-id] {
+    padding: 0 !important;
+    @extend %anchor-offset;
+    &::before {
+        margin-bottom: 15px;
+    }
+};
