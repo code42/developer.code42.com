@@ -4,9 +4,9 @@ on:
   push:
     branches:
       - main
-    workflow_dipatch:
-    schedule:
-      - cron: '0 */12 * * *' # twice daily
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */12 * * *' # twice daily
 
 jobs:
   deploy:
