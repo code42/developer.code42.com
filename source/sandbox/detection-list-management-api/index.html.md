@@ -40,12 +40,8 @@ When you create a detection list profile for a user, a user ID is generated. You
 
 Keep in mind that a detection list profile is created automatically when you add Code42 users to detection lists using the Code42 console. You only have to create a detection list profile for a user if one has not been created yet.
 
-<aside class="success">
-
-**Check if a detection list profile already exists**
-
+**Note:** Check if a detection list profile already exists. 
 Before attempting to create a detection list profile for a user, [check to see if a profile already exists](#get-the-detection-list-profile-for-a-user ) by running the `api/v2/user/getbyusername`  API or `api/v2/user/getbyid`  API. If a profile already exists, attempting to create a profile for the user results in an error.
-</aside>
 
 To create a detection list profile, use the `api/v2/user/create`  API command as shown in the following example.
 
@@ -57,6 +53,7 @@ curl -X POST <requestURL>/create \
 ```
 
 In the preceding example:
+
 * Replace <RequestURL> with the [request URL](#summary) of your Code42 cloud instance, for example, 
 `https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/user/` 
 * Replace <AuthToken> with the authentication token you obtained in the [Authentication](#authentication) section.
@@ -85,6 +82,7 @@ curl -X POST <requestURL>/getbyusername \
 ```
 
 In the preceding example:
+
 * Replace <RequestURL> with the [request URL](#summary) of your Code42 cloud instance, for example, 
 `https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/user/` 
 * Replace <AuthToken> with the authentication token you obtained in the [Authentication](#authentication) section.
@@ -105,12 +103,8 @@ Following are some of the actions you can perform using the [Detection List Mana
 
 You can add a user to the Departing Employees list using the `api/v2/departingemployee/add`  API, or add a user to the High Risk Employees list using the `api/v2/highriskemployee/add`  API. 
 
-<aside class="success">
-
-**Bulk add users to a detection list** 
-
+**Note:**  Bulk add users to a detection list.
 To leverage these APIs to add multiple users at once, see the [Code42 command-line interface](https://clidocs.code42.com/en/latest/userguides/detectionlists.html?highlight=departing%20employee#add-users-to-the-departing-employees-list). 
-</aside>
 
 #### Add a departing employee
 
@@ -124,6 +118,7 @@ curl -X POST <RequestURL>/add \
 ```
 
 In the preceding example: 
+
 * Replace <RequestURL> with the [request URL](#summary) of your Code42 cloud instance, for example, 
 `https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/departingemployee` 
 * Replace <AuthToken> with the authentication token you obtained in the [Authentication](#authentication) section.
@@ -147,6 +142,7 @@ curl -X POST <RequestURL>/add \
 ```
 
 In the preceding example: 
+
 * Replace <RequestURL> with the [request URL](#summary) of your Code42 cloud instance, for example, 
 `https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee` 
 * Replace <AuthToken> with the authentication token you obtained in the [Authentication](#authentication) section.
@@ -175,6 +171,7 @@ curl -X POST <RequestURL>/search  \
 ```
 
 In the preceding example: 
+
 * Replace <RequestURL> with the [request URL](#summary) of your Code42 cloud instance, for example, 
 `https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/departingemployee` 
 * Replace <AuthToken> with the authentication token you obtained in the [Authentication](#authentication) section.
@@ -198,6 +195,7 @@ curl -X POST <RequestURL>/search  \
 ```
 
 In the preceding example: 
+
 * Replace <RequestURL> with the [request URL](#summary) of your Code42 cloud instance, for example, 
 `https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee` 
 * Replace <AuthToken> with the authentication token you obtained in the [Authentication](#authentication) section.
@@ -223,6 +221,7 @@ curl -X POST <RequestURL>/get \
 ```
 
 In the preceding example: 
+
 * Replace <RequestURL> with the request URL of your Code42 cloud instance, for example, 
 `https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee` 
 * Replace <AuthToken> with the authentication token you obtained in the [Authentication](#authentication) section.
@@ -250,6 +249,7 @@ curl -X POST <RequestURL>/setalertstate \
 ```
 
 In the preceding example: 
+
 * Replace <RequestURL> with the [request URL](#summary) of your Code42 cloud instance, for example, 
 `https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee` 
 * Replace <AuthToken> with the authentication token you obtained in the [Authentication](#authentication) section.
@@ -279,6 +279,7 @@ curl -X POST <RequestURL>/remove \
 ```
 
 In the preceding example: 
+
 * Replace <RequestURL> with the request URL of your Code42 cloud instance, for example, 
 `https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee` 
 Replace <AuthToken> with the authentication token you obtained in the [Authentication](#authentication) section.
@@ -294,6 +295,7 @@ To verify that the user is removed, generate a listing of all users in the detec
 **Request URL**
  
 * United States:
+
     * If you sign in to the Code42 console at [https://www.crashplan.com/console](https://www.crashplan.com/console), use:
 `https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/<resource>` 
     * If you sign in to the Code42 console at [https://console.us.code42.com/console](https://console.us.code42.com/console), use: 
@@ -307,6 +309,7 @@ To verify that the user is removed, generate a listing of all users in the detec
 **Resources**
 
 * **User API:** `/user/`
+
     * `addcloudusernames`: Add cloud user names to a user
     * `addriskfactors`: Add a list of risk factors to a user
     * `create`: Create a user ID
@@ -318,6 +321,7 @@ To verify that the user is removed, generate a listing of all users in the detec
     * `updatenotes`: Update notes for a user
 
 * **Departing employee:** `/departingemployee/` 
+
     * `add`: A​​​​​dd a departing employee
     * `get`: View the details of a specific departing employee
     * `remove`: Remove a departing employee
@@ -326,6 +330,7 @@ To verify that the user is removed, generate a listing of all users in the detec
     * `update`: Update a departing employee's details
 
 * **High risk employee:** `/highriskemployee/` 
+
     * `add`: A​​​​​dd a high risk employee
     * `get`: View the details of a specified high risk employee
     * `remove`: Remove a high risk employee
@@ -335,7 +340,9 @@ To verify that the user is removed, generate a listing of all users in the detec
 **Authentication method:** Include a token in the request header (see the [Authentication](#authentication) section below)
 
 **Complete API documentation**
+
 * United States:
+
     * [https://ecm-default.prod.ffs.us2.code42.com/svc/swagger/index.html](https://ecm-default.prod.ffs.us2.code42.com/svc/swagger/index.html), or 
     * [https://ecm-east.us.code42.com/svc/swagger/index.html](https://ecm-east.us.code42.com/svc/swagger/index.html)
     * [https://ecm-default.gov.code42.com/svc/swagger/index.html](https://ecm-default.gov.code42.com/svc/swagger/index.html) (Code42 federal environment only)
@@ -344,9 +351,11 @@ To verify that the user is removed, generate a listing of all users in the detec
 For more information about Code42 API syntax, see [Code42 API syntax and usage](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Code42_API_syntax_and_usage).
 
 ### Authentication 
+
 This API resource requires an [authentication token](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Code42_API_authentication_methods#Use_token_authentication) in the header of all requests. To obtain an authentication token, use your Code42 administrator credentials to submit a `GET` request to:
 
 **United States:** 
+
 * If you sign in to the Code42 console at [https://www.crashplan.com/console](https://www.crashplan.com/console), use: 
 `https://www.crashplan.com/c42api/v3/auth/jwt?useBody=true`
 * If you sign in to the Code42 console at [https://console.us.code42.com/console](https://console.us.code42.com/console), use: 
@@ -375,15 +384,18 @@ A successful request returns an authentication token. For example:
 ```
 
 **Token considerations**
+
 * Use this authentication token in your requests.
 * Authentication tokens expire after 30 minutes.
 * You must have credentials for a Code42 user with the Customer Cloud Admin role.
 * The authentication example above only applies to users who authenticate locally with Code42. Single sign-on (SSO) users must also complete SAML authentication with their SSO provider. If you need assistance with this process, contact your SSO provider.
 
 ### Get a tenant ID 
+
 The APIs require that you provide the unique ID of your organization (or tenant) in the Code42 cloud. To obtain the tenant ID, use your Code42 administrator credentials to submit a `GET` request to:
 
 * United States: 
+
     * If you sign in to the Code42 console at [https://www.crashplan.com/console](https://www.crashplan.com/console), use: 
 `https://www.crashplan.com/c42api/v3/customer/my`
     * If you sign in to the Code42 console at [https://console.us.code42.com/console](https://console.us.code42.com/console), use: 
