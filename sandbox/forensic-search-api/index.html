@@ -1,0 +1,942 @@
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>Forensic Search API</title>
+
+    <style media="screen">
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight .gh {
+  color: #999999;
+}
+.highlight .sr {
+  color: #f6aa11;
+}
+.highlight .go {
+  color: #888888;
+}
+.highlight .gp {
+  color: #555555;
+}
+.highlight .gs {
+}
+.highlight .gu {
+  color: #aaaaaa;
+}
+.highlight .nb {
+  color: #f6aa11;
+}
+.highlight .cm {
+  color: #75715e;
+}
+.highlight .cp {
+  color: #75715e;
+}
+.highlight .c1 {
+  color: #75715e;
+}
+.highlight .cs {
+  color: #75715e;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cpf {
+  color: #75715e;
+}
+.highlight .err {
+  color: #960050;
+}
+.highlight .gr {
+  color: #960050;
+}
+.highlight .gt {
+  color: #960050;
+}
+.highlight .gd {
+  color: #49483e;
+}
+.highlight .gi {
+  color: #49483e;
+}
+.highlight .ge {
+  color: #49483e;
+}
+.highlight .kc {
+  color: #66d9ef;
+}
+.highlight .kd {
+  color: #66d9ef;
+}
+.highlight .kr {
+  color: #66d9ef;
+}
+.highlight .no {
+  color: #66d9ef;
+}
+.highlight .kt {
+  color: #66d9ef;
+}
+.highlight .mf {
+  color: #ae81ff;
+}
+.highlight .mh {
+  color: #ae81ff;
+}
+.highlight .il {
+  color: #ae81ff;
+}
+.highlight .mi {
+  color: #ae81ff;
+}
+.highlight .mo {
+  color: #ae81ff;
+}
+.highlight .m, .highlight .mb, .highlight .mx {
+  color: #ae81ff;
+}
+.highlight .sc {
+  color: #ae81ff;
+}
+.highlight .se {
+  color: #ae81ff;
+}
+.highlight .ss {
+  color: #ae81ff;
+}
+.highlight .sd {
+  color: #e6db74;
+}
+.highlight .s2 {
+  color: #e6db74;
+}
+.highlight .sb {
+  color: #e6db74;
+}
+.highlight .sh {
+  color: #e6db74;
+}
+.highlight .si {
+  color: #e6db74;
+}
+.highlight .sx {
+  color: #e6db74;
+}
+.highlight .s1 {
+  color: #e6db74;
+}
+.highlight .s, .highlight .sa, .highlight .dl {
+  color: #e6db74;
+}
+.highlight .na {
+  color: #a6e22e;
+}
+.highlight .nc {
+  color: #a6e22e;
+}
+.highlight .nd {
+  color: #a6e22e;
+}
+.highlight .ne {
+  color: #a6e22e;
+}
+.highlight .nf, .highlight .fm {
+  color: #a6e22e;
+}
+.highlight .vc {
+  color: #ffffff;
+}
+.highlight .nn {
+  color: #ffffff;
+}
+.highlight .ni {
+  color: #ffffff;
+}
+.highlight .bp {
+  color: #ffffff;
+}
+.highlight .vg {
+  color: #ffffff;
+}
+.highlight .vi {
+  color: #ffffff;
+}
+.highlight .nv, .highlight .vm {
+  color: #ffffff;
+}
+.highlight .w {
+  color: #ffffff;
+}
+.highlight {
+  color: #ffffff;
+}
+.highlight .n, .highlight .py, .highlight .nx {
+  color: #ffffff;
+}
+.highlight .nl {
+  color: #f92672;
+}
+.highlight .ow {
+  color: #f92672;
+}
+.highlight .nt {
+  color: #f92672;
+}
+.highlight .k, .highlight .kv {
+  color: #f92672;
+}
+.highlight .kn {
+  color: #f92672;
+}
+.highlight .kp {
+  color: #f92672;
+}
+.highlight .o {
+  color: #f92672;
+}
+    </style>
+    <style media="print">
+      * {
+        -webkit-transition:none!important;
+        transition:none!important;
+      }
+      .highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight, .highlight .w {
+  color: #586e75;
+}
+.highlight .err {
+  color: #002b36;
+  background-color: #dc322f;
+}
+.highlight .c, .highlight .ch, .highlight .cd, .highlight .cm, .highlight .cpf, .highlight .c1, .highlight .cs {
+  color: #657b83;
+}
+.highlight .cp {
+  color: #b58900;
+}
+.highlight .nt {
+  color: #b58900;
+}
+.highlight .o, .highlight .ow {
+  color: #93a1a1;
+}
+.highlight .p, .highlight .pi {
+  color: #93a1a1;
+}
+.highlight .gi {
+  color: #859900;
+}
+.highlight .gd {
+  color: #dc322f;
+}
+.highlight .gh {
+  color: #268bd2;
+  background-color: #002b36;
+  font-weight: bold;
+}
+.highlight .k, .highlight .kn, .highlight .kp, .highlight .kr, .highlight .kv {
+  color: #6c71c4;
+}
+.highlight .kc {
+  color: #cb4b16;
+}
+.highlight .kt {
+  color: #cb4b16;
+}
+.highlight .kd {
+  color: #cb4b16;
+}
+.highlight .s, .highlight .sa, .highlight .sb, .highlight .sc, .highlight .dl, .highlight .sd, .highlight .s2, .highlight .sh, .highlight .sx, .highlight .s1 {
+  color: #859900;
+}
+.highlight .sr {
+  color: #2aa198;
+}
+.highlight .si {
+  color: #d33682;
+}
+.highlight .se {
+  color: #d33682;
+}
+.highlight .nn {
+  color: #b58900;
+}
+.highlight .nc {
+  color: #b58900;
+}
+.highlight .no {
+  color: #b58900;
+}
+.highlight .na {
+  color: #268bd2;
+}
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh, .highlight .mi, .highlight .il, .highlight .mo, .highlight .mx {
+  color: #859900;
+}
+.highlight .ss {
+  color: #859900;
+}
+    </style>
+    <link href="../../stylesheets/screen-d655e705.css" rel="stylesheet" media="screen" />
+    <link href="../../stylesheets/print-eb4d5df7.css" rel="stylesheet" media="print" />
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+      <script src="../../javascripts/all-0c8f7524.js"></script>
+
+    <script>
+      $(function() { setupCodeCopy(); });
+    </script>
+  </head>
+
+  <body class="sandbox sandbox_forensic-search-api sandbox_forensic-search-api_index" data-languages="[]">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="../../images/navbar.png" alt="" />
+      </span>
+    </a>
+    <nav class="top-nav">
+    <div class="nav-menu">
+        <div class="nav-item">
+            <a href="/sandbox">Docs</a>
+        </div>
+        <div class="nav-item">
+            <a href="#">APIs & SDKs</a>
+            <ul class="drop-menu">
+                <li><a href="/sandbox/api">API Reference</a></li>
+                <li><a href="https://py42docs.code42.com">Python SDK</a></li>
+                <li><a href="https://clidocs.code42.com">Command Line Interface</a></li>
+            </ul>
+        </div>
+        <div class="nav-item">
+            <a href="https://support.code42.com">Support</a>
+        </div>
+    </ul>
+</nav>
+
+    <div class="toc-wrapper">
+      <img src="../../images/logo.png" class="logo" alt="" />
+        <div class="search">
+          <input type="text" class="search" id="input-search" placeholder="Search">
+        </div>
+        <ul class="search-results"></ul>
+      <ul id="toc" class="toc-list-h1">
+          <li>
+            <a href="#forensic-search-api" class="toc-h1 toc-link" data-title="Forensic Search API">Forensic Search API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#overview" class="toc-h2 toc-link" data-title="Overview">Overview</a>
+                  </li>
+                  <li>
+                    <a href="#forensic-search-api-structure-and-syntax" class="toc-h2 toc-link" data-title="Forensic Search API structure and syntax">Forensic Search API structure and syntax</a>
+                    <ul class="toc-list-h3">
+                        <li>
+                            <a href="#summary" class="toc-h3 toc-link" data-title="Summary">Summary</a>
+                        </li>
+                        <li>
+                            <a href="#authentication" class="toc-h3 toc-link" data-title="Authentication">Authentication</a>
+                        </li>
+                        <li>
+                            <a href="#groups-and-filters" class="toc-h3 toc-link" data-title="Groups and filters">Groups and filters</a>
+                        </li>
+                        <li>
+                            <a href="#sample-request" class="toc-h3 toc-link" data-title="Sample request">Sample request</a>
+                        </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#sample-use-cases" class="toc-h2 toc-link" data-title="Sample Use Cases">Sample Use Cases</a>
+                    <ul class="toc-list-h3">
+                        <li>
+                            <a href="#use-case-1-search-for-application-files-in-unexpected-locations" class="toc-h3 toc-link" data-title="Use case 1: Search for application files in unexpected locations">Use case 1: Search for application files in unexpected locations</a>
+                        </li>
+                        <li>
+                            <a href="#use-case-2-search-for-files-on-a-device-within-a-specific-date-range-based-on-md5-values" class="toc-h3 toc-link" data-title="Use case 2: Search for files on a device within a specific date range based on MD5 values">Use case 2: Search for files on a device within a specific date range based on MD5 values</a>
+                        </li>
+                        <li>
+                            <a href="#use-case-3-see-all-cloud-sync-destinations-for-a-user" class="toc-h3 toc-link" data-title="Use case 3: See all cloud sync destinations for a user">Use case 3: See all cloud sync destinations for a user</a>
+                        </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <a href="#external-resources" class="toc-h2 toc-link" data-title="External resources">External resources</a>
+                  </li>
+              </ul>
+          </li>
+      </ul>
+        <ul class="toc-footer">
+            <li><a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a></li>
+        </ul>
+    </div>
+    <div class="page-wrapper">
+      <div class="content">
+        <h1 id='forensic-search-api'>Forensic Search API</h1><h2 id='overview'>Overview</h2>
+<p>This article explains how to use the Code42 API with Forensic Search. While the Code42 console contains <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Forensic_Search_reference_guide">a flexible and powerful web interface</a> to perform searches and view results, the Code42 API provides additional capabilities for performing more complicated or customized searches.</p>
+
+<p>The examples in this article use <a href="https://curl.se/">curl</a>, but the concepts apply to <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Tools_for_interacting_with_the_Code42_API">any tool you choose for interacting with the Code42 API</a>.</p>
+<h2 id='forensic-search-api-structure-and-syntax'>Forensic Search API structure and syntax</h2><h3 id='summary'>Summary</h3>
+<p><strong>Request URL</strong> </p>
+
+<ul>
+<li><p>United States:</p>
+
+<ul>
+<li>If you sign in to the Code42 console at <a href="https://console.us.code42.com/console">https://console.us.code42.com/console</a>, use: 
+<code>https://forensicsearch-east.us.code42.com/forensic-search/queryservice/api/v1/</code></li>
+<li>If you sign in to the Code42 console at <a href="https://www.crashplan.com/console">https://www.crashplan.com/console</a>, use:
+<code>https://forensicsearch-default.prod.ffs.us2.code42.com/forensic-search/queryservice/api/v1/</code></li>
+<li>If you sign in to the Code42 console for the Code42 federal environment at <a href="https://console.gov.code42.com/console">https://console.gov.code42.com/console</a>, use: 
+<code>https://forensicsearch-default.gov.code42.com/forensic-search/queryservice/api/v1/</code></li>
+</ul></li>
+<li><p>Ireland: <code>https://forensicsearch-default.ie.code42.com/forensic-search/queryservice/api/v1/</code></p></li>
+</ul>
+
+<p><strong>Resource names:</strong></p>
+
+<ul>
+<li><code>fileevent</code>: To search file activity and receive results in JSON format</li>
+<li><code>fileevent/export</code>: To search file activity receive results in CSV format</li>
+<li><code>fileevent/grouping</code>: To group file activity results by a particular value and receive a count of unique events in each group</li>
+</ul>
+
+<p><strong>Authentication method:</strong> In the authorization request header, specify a scheme of <code>v3_user_token</code> and include the token as the credentials. See the <a href="#authentication">Authentication</a> section below for steps to obtain the token.</p>
+
+<p><strong>Complete API documentation</strong></p>
+
+<ul>
+<li><p>United States:</p>
+
+<ul>
+<li><a href="https://forensicsearch-east.us.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller">https://forensicsearch-east.us.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller</a>, or</li>
+<li><a href="https://forensicsearch-default.prod.ffs.us2.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller/">https://forensicsearch-default.prod.ffs.us2.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller/</a></li>
+<li><a href="https://forensicsearch-default.gov.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller">https://forensicsearch-default.gov.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller</a> (Code42 federal environment only)</li>
+</ul></li>
+<li><p>Ireland: <a href="https://forensicsearch-default.ie.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller">https://forensicsearch-default.ie.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller</a></p></li>
+</ul>
+
+<aside class="notice">
+
+**API limits**
+
+* **Request rate:** To ensure optimal performance throughout your Code42 environment, Code42 limits API requests to 120 per minute. Requests that exceed this limit are blocked and do not return results.
+
+* **Result set:**
+   * `fileevent` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `fileevent` query with a `pgSize` of 10,000 cannot display `pgNum` 2). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details: from the **Complete API documentation** links above, see the **Model** tab in the **SearchRequest** and **FileEventResponse** sections.)
+   * `fileevent/export` queries are limited to 200,000 events. 
+   * `fileevent/grouping` queries are limited to 1,000 groups.
+
+</aside>
+<h3 id='authentication'>Authentication</h3>
+<p>Authentication tokens are required in the header of all requests. To obtain an authentication token, use your Code42 administrator credentials to submit a <code>GET</code> request to:</p>
+
+<ul>
+<li><p>United States: </p>
+
+<ul>
+<li>If you sign in to the Code42 console at <a href="https://console.us.code42.com/console">https://console.us.code42.com/console</a>, use: 
+<code>https://console.us.code42.com/c42api/v3/auth/jwt?useBody=true</code></li>
+<li>If you sign in to the Code42 console at <a href="https://www.crashplan.com/console">https://www.crashplan.com/console</a>, use: 
+<code>https://www.crashplan.com/c42api/v3/auth/jwt?useBody=true</code></li>
+<li>If you sign in to the Code42 console for the Code42 federal environment at <a href="https://console.gov.code42.com/console">https://console.gov.code42.com/console</a>, use: 
+<code>https://console.gov.code42.com/c42api/v3/auth/jwt?useBody=true</code></li>
+</ul></li>
+<li><p>Ireland: <code>https://console.ie.code42.com/c42api/v3/auth/jwt?useBody=true</code></p></li>
+</ul>
+
+<p>For example:</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> GET <span class="nt">-u</span> <span class="s2">"username"</span> <span class="nt">-H</span> <span class="s2">"Accept: application/json"</span> <span class="s2">"https://console.us.code42.com/c42api/v3/auth/jwt?useBody=true"</span>
+</code></pre></div>
+<p>If your organization uses <a href="https://support.code42.com/Administrator/Cloud/Configuring/Two-factor_authentication_for_local_users">two-factor authentication for local users</a>, you must also include a <code>totp-auth</code> header value containing the Time-based One-Time Password (TOTP) supplied by the Google Authenticator mobile app. The example below includes a TOTP value of 424242.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> GET <span class="nt">-u</span> <span class="s2">"username"</span> <span class="nt">-H</span> <span class="s2">"totp-auth: 424242"</span> <span class="s2">"Accept: application/json"</span> <span class="s2">"https://console.us.code42.com/c42api/v3/auth/jwt?useBody=true"</span>
+</code></pre></div>
+<p>A successful request returns an authentication token. For example:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"v3_user_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJjdHkiOiJKV1QiLCJlbmMiOiJBMTI4R0NNIiwiZXhwIjoiMjAxOC0wNC0zMFQyMTo0MDoyNy4xMDZaIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.0H-4bl43zA3cIE5D3o_8vZzJIUgtJt64mZbimNa2TNha761RgVBFaTfttMODXF1ntLUTHl-rD0JuHEAMrIxjpnaODictPizrDVeTA1PgkPrsKot9jp6D7uTEC1Y56qHS1qjP6WHQBpv6ADBfrAfePX3NnwkA5a1I8pB88kSWc1MXZ4uMt-rFcNtlLLPVfwtEXHyNG_bxYJOOn28y2ysJGSBD_Xx1-uK4zKvjWwXfVQG581TntFPy0LamJfJ7IM4wOIG-QrKeV796fJAaHBxNfOe4UWC8WeNcDEvgNZvOPchWTHY4l66OaOjHNeEkoKkxvc35j4V_QpYxe6GXRYK4NA.TJXe9M6goiZbw-tr.y0lUTHHkHU5tRS7bWI8jntMLcxv0HajXTXquV62IG4400i7wi0YSX-6vpsXVgivzztxnPaukgUsLavhZ8-wCiMdEkut4GfijTlDAM_tfmJyZG6Cn5GKIJgSCENrR1JTxvC6dhTvHc41p6T3jXqBWikoJwD9z9Ec3u-OhM3gotQZUfCq0rR8T043RZSN9-0TpxhpPUEUAS6rkAI07QP08l_nUqdQTsNF0Tafe1yfPTYJabkslHhYMlLRYuXwhWr_39h5BY89ud0cW_OyUtjzz83m9iGxv6sba9VBIb2Y95ipXLu6Ie-5wz8zivfjizX6ZQatp5Ep4UZxzsMdqD9j0BFXkXQZuITJLtKfmUX-FZYR8utNrbwtt8u2tvNUK8Ix4Fwa3bWPxlkwrhOdz70M-mxluxpR6EKSrf8xwHagMcahzVPcW5NVL2khr4MwMUKyRV69dAdGiaTKh2rd52znA0aE3OCtelnBrBn4rls0KX71_qZEAdPaLyyqZ4VaurWUfl35zSi2LW_a3-TebgIebHZxC-MxvFEH4DQq6gJDdoX92_YEYEn4tO_dhUTlD0CZ9HhT39XFrO9MBe4DoDzG-Iql_A-nhmCyOrRmQvUlR72XpHVFQQx3X6tqdPxFocgDh5z03-kLB4SjznQSlzJNbzl_knXTBGopoFLn3WHvjX8q327Vmwx1hjrQnO8Eg5rJMoXTJCMEEOkMyjkbFeEzEhTf2jcvvAlnNnxdtjb1Zo05RWwMsPwwHAgGr-0mm-ungNjIGW0MyMTZtK0StP1uRqfI1Q6ghqnGZxEZN_0fvsVlsz4u9A1eBYRE0xzg8p-0g62nAQ8GftpYaUoymgqbL2WCL15r38emLklXSruztosGU4Dtusg4JHEhYPxO4ieqeBu6FLX9fPSA_y3zmd_AEjW40-_6zC3quPYJwytaEIwVH6phtfa2phsOLLw-U-b2QY09-d27YirIjgNRZ7rO4GF3iX8hW3LfFIWj0WKA5HGtGHg.JzHVCE8zfy1qRBf__rhchA"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p><strong>Token considerations</strong> </p>
+
+<ul>
+<li>Use this authentication token in your search requests (see examples below).</li>
+<li>Authentication tokens expire after one hour.</li>
+<li>You must have credentials for a Code42 user with either the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin">Customer Cloud Admin</a> or <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Security_Center_User">Security Center User</a> role.</li>
+<li>The example above only applies to users who authenticate locally with Code42. Single sign-on (SSO) users must also complete SAML authentication with their SSO provider. If you need assistance with this process, contact your SSO provider.</li>
+<li>The URL to obtain the authentication token is different than the URL used to query file event data.</li>
+</ul>
+<h3 id='groups-and-filters'>Groups and filters</h3>
+<p>Forensic Search API queries are organized by <strong>groups of filters</strong>. This structure facilitates complicated requests with-application-files-in-unexpected-locations) in the next section searches for files matching any one of 11 different file extensions that also exist in any one of nine different locations. Search queries are limited to a total of 1,024 criteria per request.</p>
+
+<p>For example, the JSON below uses two groups of filters:</p>
+
+<ul>
+<li>The first group uses a <code>filterClause</code> value of <code>OR</code>, which returns results if <strong>any</strong> of the four MD5 values are found (db349b97c37d22f5ea1d1841e3c89eb4 or 84c82835a5d21bbcf75a61706d8ab549 or f351e1fcca0c4ea05fc44d15a17f8b36 or 7bf2b57f2a205768755c07f238fb32cc).</li>
+<li>The second group uses a <code>filterClause</code> value of <code>AND</code>, which returns results only if <strong>all</strong> criteria in the filter are met (in this example, on or after 2018-02-01 <strong>and</strong> on or before 2018-02-07).</li>
+<li>Finally, to link these two groups together, the <code>groupClause</code> value of <code>AND</code> returns results only if both the first group and second group criteria are met. </li>
+</ul>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IS"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"term"</span><span class="p">:</span><span class="w"> </span><span class="s2">"md5Checksum"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"db349b97c37d22f5ea1d1841e3c89eb4"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IS"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"term"</span><span class="p">:</span><span class="w"> </span><span class="s2">"md5Checksum"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"84c82835a5d21bbcf75a61706d8ab549"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IS"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"term"</span><span class="p">:</span><span class="w"> </span><span class="s2">"md5Checksum"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"f351e1fcca0c4ea05fc44d15a17f8b36"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IS"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"term"</span><span class="p">:</span><span class="w"> </span><span class="s2">"md5Checksum"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7bf2b57f2a205768755c07f238fb32cc"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"filterClause"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OR"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ON_OR_AFTER"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"term"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eventTimestamp"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-01T00:00:00.00Z"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ON_OR_BEFORE"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"term"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eventTimestamp"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-07T23:59:59.59Z"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"filterClause"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AND"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"groupClause"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AND"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pgNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pgSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"srtDir"</span><span class="p">:</span><span class="w"> </span><span class="s2">"asc"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"srtKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eventTimestamp"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='sample-request'>Sample request</h3>
+<p>This simple example demonstrates a search for all files on all devices with the file extension .docx that exist anywhere <strong>except</strong> the file path <code>C:/Users</code>. For more complicated examples with multiple groups and additional filters, see the <a href="#sample-use-cases">sample use cases</a> in the next section. Use this simple example as a starting point for your own searches and replace the content of the <code>-d</code> section with your specific search criteria.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST  https://forensicsearch-east.us.code42.com/forensic-search/queryservice/api/v1/fileevent <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;authentication token goes here (without the angle brackets)&gt;"</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{
+    "groups": [{
+        "filters": [{
+            "operator": "IS", 
+            "term": "fileName", 
+            "value": "*.docx"       
+        },
+        {
+            "operator": "IS_NOT",
+            "term": "filePath",
+            "value": "C:/Users*"
+        }
+    ],
+    "filterClause": "AND"
+    }], 
+    "groupClause": "AND",
+    "pgNum": 1, 
+    "pgSize": 100
+}'</span>
+</code></pre></div>
+<aside class="success">
+
+**Format results as CSV**
+
+To receive results in CSV format instead of JSON, use the `fileevent/export` resource instead of `fileevent`. 
+For example: 
+`https://forensicsearch-east.us.code42.com/forensic-search/queryservice/api/v1/fileevent/export`
+</aside>
+<h2 id='sample-use-cases'>Sample Use Cases</h2><h3 id='use-case-1-search-for-application-files-in-unexpected-locations'>Use case 1: Search for application files in unexpected locations</h3>
+<p>The sample JSON below shows how to search for files with any of these extensions (.action, .app, .bat, .bin, .cmd, .com, .command, .cpl, .exe, .msc, .osx) that exist outside these locations:</p>
+
+<ul>
+<li>C:\Program Files</li>
+<li>/Applications</li>
+<li>/Library</li>
+<li>/User/*/Applications</li>
+<li>/User/*/Library</li>
+<li>/usr/bin</li>
+<li>/usr/local/bin</li>
+<li>/sbin</li>
+<li>/bin</li>
+</ul>
+<h4 id='sample-json-search-query-for-application-files-in-specific-locations'>Sample JSON search query for application files in specific locations</h4>
+<p>Modify this sample to fit your environment and then include it in a request (as shown in the <a href="#sample-request">Sample request</a> section above).</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="o">{</span>
+  <span class="s2">"groups"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"filters"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"fileName"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"*.action"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"fileName"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"*.app"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"fileName"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"*.bat"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"fileName"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"*.bin"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"fileName"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"*.cmd"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"fileName"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"*.com"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"fileName"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"*.command"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"fileName"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"*.cpl"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"fileName"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"*.exe"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"fileName"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"*.msc"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"fileName"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"*.osx"</span>
+        <span class="o">}</span>
+      <span class="o">]</span>,
+      <span class="s2">"filterClause"</span>: <span class="s2">"OR"</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"filters"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS_NOT"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"filePath"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"C:</span><span class="se">\P</span><span class="s2">rogram Files*"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS_NOT"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"filePath"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"/Applications*"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS_NOT"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"filePath"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"/Library*"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS_NOT"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"filePath"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"/User/*/Applications*"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS_NOT"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"filePath"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"/User/*/Library*"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS_NOT"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"filePath"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"/usr/bin*"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS_NOT"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"filePath"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"/usr/local/bin*"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS_NOT"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"filePath"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"/sbin*"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS_NOT"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"filePath"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"/bin*"</span>
+        <span class="o">}</span>
+      <span class="o">]</span>,
+      <span class="s2">"filterClause"</span>: <span class="s2">"AND"</span>
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"groupClause"</span>: <span class="s2">"AND"</span>,
+  <span class="s2">"pgNum"</span>: 1,
+  <span class="s2">"pgSize"</span>: 100,
+  <span class="s2">"srtDir"</span>: <span class="s2">"asc"</span>,
+  <span class="s2">"srtKey"</span>: <span class="s2">"eventTimestamp"</span>
+<span class="o">}</span>
+</code></pre></div><h4 id='sample-results-of-application-files-in-specific-locations'>Sample results of application files in specific locations</h4><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fileEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843318595055164516_6"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-10T23:57:33.682Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/$GetCurrent/SafeOS/"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SetupComplete.cmd"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">307</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Administrators"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0582b19fa3b500db28f976ed33efa487"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:42.041Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:42.120Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="mf">192.0</span><span class="err">.</span><span class="mf">2.0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"127.0.0.1"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424242"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843318595055164516_7"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-10T23:57:33.682Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/$GetCurrent/SafeOS/"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"preoobe.cmd"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">74</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Administrators"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2f9537b7f7cb5b559ed6ec3694832fe6"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:41.936Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:42.041Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paige@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-2"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="mf">192.0</span><span class="err">.</span><span class="mf">2.0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"127.0.0.1"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424243"</span><span class="w">
+        </span><span class="p">},</span><span class="w">       
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843419521787010148_344"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-11T16:40:11.090Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/Windows/en-US/"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bootfix.bin"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TrustedInstaller"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eb145d5f87ddf43c8bd6f27e97db8bf2"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-29T14:41:10.345Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-29T14:41:10.346Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-3"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="mf">192.0</span><span class="err">.</span><span class="mf">4.0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"127.0.0.1"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424242"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"problems"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h3 id='use-case-2-search-for-files-on-a-device-within-a-specific-date-range-based-on-md5-values'>Use case 2: Search for files on a device within a specific date range based on MD5 values</h3>
+<p>The sample JSON below shows how to search for files files matching any of four MD5 values that existed on devices between February 1 and 7, 2018. </p>
+
+<aside class="notice">
+
+**The Code42 API also supports SHA256 searches**
+
+To search for SHA256 hash values instead of MD5, replace `md5Checksum` with `sha256Checksum` in the sample JSON below.
+
+</aside>
+<h4 id='sample-json-search-query-for-md5-values-between-two-dates'>Sample JSON search query for MD5 values between two dates</h4>
+<p>Modify this sample to fit your environment and then include it in a request (as shown in the <a href="#sample-request">Sample request</a> section above).</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="o">{</span>
+  <span class="s2">"groups"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"filters"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"md5Checksum"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"db349b97c37d22f5ea1d1841e3c89eb4"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"md5Checksum"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"84c82835a5d21bbcf75a61706d8ab549"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"md5Checksum"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"f351e1fcca0c4ea05fc44d15a17f8b36"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"md5Checksum"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"7bf2b57f2a205768755c07f238fb32cc"</span>
+        <span class="o">}</span>
+      <span class="o">]</span>,
+      <span class="s2">"filterClause"</span>: <span class="s2">"OR"</span>
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"filters"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"ON_OR_AFTER"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"eventTimestamp"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"2018-02-01T00:00:00.00Z"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+          <span class="s2">"operator"</span>: <span class="s2">"ON_OR_BEFORE"</span>,
+          <span class="s2">"term"</span>: <span class="s2">"eventTimestamp"</span>,
+          <span class="s2">"value"</span>: <span class="s2">"2018-02-07T23:59:59.59Z"</span>
+        <span class="o">}</span>
+      <span class="o">]</span>,
+      <span class="s2">"filterClause"</span>: <span class="s2">"AND"</span>
+    <span class="o">}</span>
+  <span class="o">]</span>,
+  <span class="s2">"groupClause"</span>: <span class="s2">"AND"</span>,
+  <span class="s2">"pgNum"</span>: 1,
+  <span class="s2">"pgSize"</span>: 100,
+  <span class="s2">"srtDir"</span>: <span class="s2">"asc"</span>,
+  <span class="s2">"srtKey"</span>: <span class="s2">"eventTimestamp"</span>
+<span class="o">}</span>
+</code></pre></div><h4 id='sample-results-of-file-events-matching-the-md5-values-and-date-range'>Sample results of file events matching the MD5 values and date range</h4><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"fileEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843279264407737861_1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-04T18:40:37.790Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/Windows/"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mssecsvc.exe"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">282</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"db349b97c37d22f5ea1d1841e3c89eb4"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-03T15:43:29.388Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-04T15:13:28.783Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-01"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="mf">192.0</span><span class="err">.</span><span class="mf">2.0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"127.0.0.1"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"425916091791253442"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424242"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843317905847131236_1"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MODIFIED"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-02T23:50:42.294Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/Users/Paige/Downloads/"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tasksche.exe"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">282</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paige"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"84c82835a5d21bbcf75a61706d8ab549"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-01T15:43:29.388Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-02T23:47:04.336Z"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paige@example.com"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-02"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="mf">192.0</span><span class="err">.</span><span class="mf">4.0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"127.0.0.1"</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424243"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"problems"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w"> 
+</span></code></pre></div><h3 id='use-case-3-see-all-cloud-sync-destinations-for-a-user'>Use case 3: See all cloud sync destinations for a user</h3>
+<p>The sample JSON below shows how to use the <code>fileevent/grouping</code> resource to find an approximate count of <strong>Synced to cloud service</strong> file events for a specific user for each cloud service. This sample groups by the <code>syncDestination</code> value, but you can choose any <code>groupingTerm</code> listed in the <a href="https://forensicsearch-east.us.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller/groupingUsingPOST">Code42 API documentation viewer</a> in your requests.</p>
+<h4 id='sample-json-search-query-for-cloud-service-file-event-counts'>Sample JSON search query for cloud service file event counts</h4>
+<p>Modify this sample to fit your environment and then include it in a request (as shown in the <a href="#sample-request">Sample request</a> section above). For grouping queries, you must use the <code>fileevent/grouping</code> resource.</p>
+<div class="highlight"><pre class="highlight shell"><code><span class="o">{</span>
+    <span class="s2">"groupingTerm"</span>: <span class="s2">"syncDestination"</span>,
+    <span class="s2">"groups"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"filters"</span>: <span class="o">[</span>
+                <span class="o">{</span>
+                    <span class="s2">"operator"</span>: <span class="s2">"IS"</span>,
+                    <span class="s2">"term"</span>: <span class="s2">"deviceUserName"</span>,
+                    <span class="s2">"value"</span>: <span class="s2">"clyde@example.com"</span>
+                <span class="o">}</span>
+            <span class="o">]</span>
+        <span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+
+<span class="c">#### Sample results of cloud service file event counts </span>
+
+<span class="sb">```</span>json
+<span class="o">{</span>
+  <span class="s2">"groups"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"value"</span>: <span class="s2">"Dropbox"</span>,
+      <span class="s2">"docCount"</span>: 114
+    <span class="o">}</span>,
+    <span class="o">{</span>
+      <span class="s2">"value"</span>: <span class="s2">"Google Drive"</span>,
+      <span class="s2">"docCount"</span>: 8
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
+</code></pre></div>
+<aside class="notice">
+
+**Missing or unknown values**
+
+Some file events may not capture all metadata. Reasons for omitted metadata can include:
+* The file did not exist on disk long enough for Code42 to capture all the metadata.
+* Several values, including `deviceUserName` and `userUid`, are captured and reported from the Code42 cloud instead of directly from the user device. If those values haven't been reported yet, they may be blank or may display as UNKNOWN or NAME_NOT_AVAILABLE. In those cases, you can use the `deviceUid` to get details via the [Computer API resource](https://console.us.code42.com/apidocviewer/#Computer-get).
+
+</aside>
+<h2 id='external-resources'>External resources</h2>
+<p>Curl: <a href="https://curl.se/">Command line tool and library reference</a></p>
+
+      </div>
+    </div>
+  </body>
+</html>
