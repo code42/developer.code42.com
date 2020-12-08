@@ -27,9 +27,6 @@ title: <enter title here>
 
 category: <enter category here>
 
-toc_footers:
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
-
 search: true
 
 code_clipboard: true

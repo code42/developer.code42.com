@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Code42 API Documentation</title>
     <%= stylesheet_link_tag :redocoverrides %>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/sxu2uqu.css">
+    <%= favicon_tag 'favicon.ico' %>
   </head>
   <body>
     <%= partial(:top_nav) %>
@@ -15,6 +16,7 @@
     <script>
         var opts = {
             hideHostname: true,
+            scrollYOffset: 68,
             theme: {
                 colors: {
                     primary: {
@@ -31,7 +33,7 @@
                 },
                 typography: {
                     headings: {
-                        fontFamily: "Roboto, sans-serif",
+                        fontFamily: "'proxima-nova', sans-serif",
                         fontWeight: "700"
                     }
                 }
