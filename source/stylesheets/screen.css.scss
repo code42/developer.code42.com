@@ -49,8 +49,7 @@ html, body {
   overflow-y: auto;
   overflow-x: hidden;
   position: fixed;
-  z-index: 30;
-  top: 0;
+  top: $top-nav-height;
   left: 0;
   bottom: 0;
   width: $nav-width;
@@ -258,7 +257,6 @@ html, body {
   margin-top: $top-nav-height;
   position: relative;
   z-index: 10;
-  background-color: #f4f4f4;
   min-height: 100%;
   display: flex;
   justify-content: center;
@@ -330,7 +328,7 @@ html, body {
   width: 100%;
   padding-bottom: 15px;
   background-color: $main-bg;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 
   &:after {
     content: '';
@@ -521,7 +519,10 @@ html, body {
 
   a {
       text-decoration: none;
-      color: #d84215;
+      color: #1976d2;
+      &:hover {
+        color: #1565c0;
+      }
   }
 }
 
