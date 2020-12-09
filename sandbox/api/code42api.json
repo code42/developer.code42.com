@@ -1100,6 +1100,21 @@
         }
       }
     },
+    "/v1/customer": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CustomerResponse-core"
+            }
+          }
+        }
+      }
+    },
     "/v1/users": {
       "get": {
         "tags": [
@@ -4593,6 +4608,23 @@
         "bearerToken": {
           "type": "string",
           "readOnly": true
+        }
+      }
+    },
+    "CustomerResponse-core": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "registrationKey": {
+          "type": "string"
+        },
+        "tenantId": {
+          "type": "string"
+        },
+        "tenantUid": {
+          "type": "string"
         }
       }
     },
