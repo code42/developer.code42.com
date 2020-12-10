@@ -6,7 +6,7 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="../../images/favicon-430ccdd6.ico" rel="icon" type="image/ico" />
-    <title>Security alerts API</title>
+    <title>Security Alerts API</title>
     <style media="screen">
       .highlight table td { padding: 5px; }
 .highlight table pre { margin: 0; }
@@ -381,25 +381,6 @@
                         </li>
                     </ul>
                   </li>
-                  <li>
-                    <a href="#alerts-management-api-structure-and-syntax" class="toc-h2 toc-link" data-title="Alerts management API structure and syntax">Alerts management API structure and syntax</a>
-                    <ul class="toc-list-h3">
-                        <li>
-                            <a href="#summary" class="toc-h3 toc-link" data-title="Summary">Summary</a>
-                        </li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="#authentication" class="toc-h2 toc-link" data-title="Authentication">Authentication</a>
-                    <ul class="toc-list-h3">
-                        <li>
-                            <a href="#get-your-organization-39-s-tenant-id" class="toc-h3 toc-link" data-title="Get your organization's tenant ID">Get your organization's tenant ID</a>
-                        </li>
-                        <li>
-                            <a href="#identify-useruids" class="toc-h3 toc-link" data-title="Identify userUIDs">Identify userUIDs</a>
-                        </li>
-                    </ul>
-                  </li>
               </ul>
           </li>
       </ul>
@@ -407,323 +388,394 @@
     <div class="page-wrapper">
       <div class="content">
         <h1 id='security-alerts-api'>Security alerts API</h1><h2 id='overview'>Overview</h2>
-<p>You review alert notifications and manage alert rules using the Alerts menu of the Code42 console. To automate the process of viewing alert notifications, adding notes, or opening or dismissing alert notifications, you can write scripts that use the Alerts management APIs. This article introduces those APIs and shows examples of their use.</p>
+<p>You review alert notifications and manage alert rules using the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference">Alerts menu of the Code42 console</a>. To automate the process of viewing alert notifications, adding notes, or opening or dismissing alert notifications, you can write scripts that use the <a href="/sandbox/api/#tag/Rules">Rules APIs</a> and <a href="/sandbox/api/#tag/Alerts">Alerts APIs</a>. This article introduces those APIs and shows examples of their use.</p>
 <h2 id='considerations'>Considerations</h2>
 <ul>
-<li>The tasks in this article require use of the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Introduction_to_the_Code42_API">Code42 API</a>.
+<li>The tasks in this article require use of the Code42 API. For assistance with using the Code42 API, contact your Customer Success Manager (CSM) to engage the Code42 Professional Services team. Or, <a href="https://success.code42.com/home">post your question to the Code42 community</a> to get advice from fellow Code42 administrators.</li>
+<li>The examples in this article use <a href="https://curl.se/">curl</a>. For other tools that you can use, see <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Tools_for_interacting_with_the_Code42_API">Tools for interacting with the Code42 API</a>.</li>
+<li>To perform tasks in this article, you must:
 
 <ul>
-<li>If you are not familiar with using Code42 APIs, review <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Code42_API_syntax_and_usage">Code42 API syntax and usage</a>.</li>
-<li>For assistance with using the Code42 API, contact your Customer Success Manager (CSM) to engage the Code42 Professional Services team. Or, <a href="https://success.code42.com/home">post your question to the Code42 community</a> to get advice from fellow Code42 administrators.</li>
-</ul></li>
-<li>To perform tasks in this article, you must: 
-
-<ul>
-<li>Have either the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin">Customer Cloud Admin</a> or <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Security_Center_User">Security Center User</a> role.</li>
-<li>Obtain an authentication token and your organization&#39;s tenant ID.</li>
+<li>Have the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin">Customer Cloud Admin</a> or <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Security_Center_User">Security Center User</a> role.</li>
+<li>Know the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Obtain an <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a> and a <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
 </ul></li>
 <li>You can also use the Code42 command-line interface (CLI) to work with alert notifications and rules. For more information, see the <a href="https://clidocs.code42.com/en/latest/commands/alerts.html">Code42 CLI documentation</a>.</li>
 </ul>
 <h2 id='manage-alert-notifications'>Manage alert notifications</h2>
 <p>To work with alert notifications, use the API query commands to search for alert notifications. Once you <a href="#locate-alert-rule-ids">identify specific alert IDs</a>, you can then add a note, dismiss, or reopen those alert notifications.</p>
 <h3 id='search-for-alert-notifications-by-alert-filter-criteria'>Search for alert notifications by alert filter criteria</h3>
-<p>To search for alert notifications using filter criteria and identify alert IDs, use the <code>api/v1/query-alerts</code> API command. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;RequestURL&gt;/query-alerts"</span> <span class="se">\</span>
+<p>To search for alert notifications using filter criteria and identify alert IDs, use the <a href="/sandbox/api/#operation/Alerts_QueryAlert">/v1/alerts/query-alerts</a> API command.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alerts/query-alerts"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: text/plain"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "groups": [ { "filters": [ { "term": "&lt;FilterType&gt;", "operator": "&lt;OperatorValue&gt;", "value": "&lt;Criteria&gt;" } ], "filterClause": "AND" } ], "groupClause": "OR", "pgSize": "20", "pgNum": "0", "srtKey": "CreatedAt", "srtDirection": "DESC" }'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example,
-<code>https://alert-service-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-your-organizations-tenant-id">Get your organization&#39;s tenant ID</a> section.
-* Replace <FilterType> with the filter, <OperatorValue> with the operator option, and <Criteria> with the search term to use in the search. See <a href="#filter-syntax-for-the-query-alerts-API-command">Filter syntax for the query-alerts API command</a> below for details.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;FilterType&gt;</code> with the filter, <code>&lt;OperatorValue&gt;</code> with the operator option, and <code>&lt;Criteria&gt;</code> with the search term to use in the search. See <a href="#filter-syntax-for-the-query-alerts-API-command">Filter syntax for the query-alerts API command</a> below for details.</li>
+</ul>
 
 <p>A successful response returns basic information about the alert notifications that match your search criteria, including the alert IDs of those notifications (look for the <code>&quot;id&quot;:&quot;value&quot;</code> entry):</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"ALERT_SUMMARY"</span><span class="p">,</span><span class="nl">"tenantId"</span><span class="p">:</span><span class="s2">"123456"</span><span class="p">,</span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"FED_ENDPOINT_EXFILTRATION"</span><span class="p">,</span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Departing employee endpoint exfiltration system rule"</span><span class="p">,</span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"System rule for departing employee endpoint exfiltration."</span><span class="p">,</span><span class="nl">"actor"</span><span class="p">:</span><span class="s2">"burt.morales@example.com"</span><span class="p">,</span><span class="nl">"target"</span><span class="p">:</span><span class="s2">"N/A"</span><span class="p">,</span><span class="nl">"severity"</span><span class="p">:</span><span class="s2">"HIGH"</span><span class="p">,</span><span class="nl">"ruleId"</span><span class="p">:</span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="nl">"ruleSource"</span><span class="p">:</span><span class="s2">"Departing Employee"</span><span class="p">,</span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"987654321424242"</span><span class="p">,</span><span class="nl">"createdAt"</span><span class="p">:</span><span class="s2">"2020-04-03T15:21:44.6139300Z"</span><span class="p">,</span><span class="nl">"state"</span><span class="p">:</span><span class="s2">"OPEN"</span><span class="p">}]</span><span class="err">,</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">1</span><span class="err">,</span><span class="nl">"problems"</span><span class="p">:[]}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ALERT_QUERY_RESPONSE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"alerts"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ALERT_SUMMARY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FED_ENDPOINT_EXFILTRATION"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Departing employee endpoint exfiltration system rule"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"System rule for departing employee endpoint exfiltration."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"actor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"burt.morales@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"N/A"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ruleId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ruleSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Departing Employee"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"987654321424242"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-04-03T15:21:44.6139300Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"problems"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='search-for-multiple-alert-notifications-by-alert-ids'>Search for multiple alert notifications by alert IDs</h3>
-<p>After you&#39;ve located the alert IDs for specific alerts, use the <code>/api/v1/query-details</code> API command to search those IDs and view more details about those alert notifications. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;RequestURL&gt;/query-details"</span> <span class="se">\</span>
+<p>After you&#39;ve located the alert IDs for specific alerts, use the <a href="/sandbox/api/#operation/Alerts_QueryAlertDetails">/v1/alerts/query-details</a> API command to search those IDs and view more details about those alert notifications.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alerts/query-details"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: text/plain"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "alertIds": [ "&lt;SampleAlertID1&gt;", "&lt;SampleAlertID2&gt;" ]}'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example, <code>https://alert-service-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleAlertID1> and <SampleAlertID2> with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleAlertID1&gt;</code> and <code>&lt;SampleAlertID2&gt;</code> with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.</li>
+</ul>
 
 <p>A successful response returns full details about the alert notifications, including a list of files involved in the activity.</p>
-<div class="highlight"><pre class="highlight shell"><code><span class="o">{</span><span class="s2">"type$"</span>:<span class="s2">"ALERT_DETAILS_RESPONSE"</span>,<span class="s2">"alerts"</span>:[<span class="o">{</span><span class="s2">"type$"</span>:<span class="s2">"ALERT_DETAILS"</span>,<span class="s2">"tenantId"</span>:<span class="s2">"123456"</span>,<span class="s2">"type"</span>:<span class="s2">"FED_ENDPOINT_EXFILTRATION"</span>,<span class="s2">"name"</span>:<span class="s2">"Departing employee endpoint exfiltration system rule"</span>,<span class="s2">"description"</span>:<span class="s2">"System rule for departing employee endpoint exfiltration."</span>,<span class="s2">"actor"</span>:<span class="s2">"burt.morales@example.com"</span>,<span class="s2">"target"</span>:<span class="s2">"N/A"</span>,<span class="s2">"severity"</span>:<span class="s2">"HIGH"</span>,<span class="s2">"ruleId"</span>:<span class="s2">"123456789424242"</span>,<span class="s2">"ruleSource"</span>:<span class="s2">"Departing Employee"</span>,<span class="s2">"id"</span>:<span class="s2">"987654321424242"</span>,<span class="s2">"createdAt"</span>:<span class="s2">"2020-04-08T13:50:25.3644410Z"</span>,<span class="s2">"state"</span>:<span class="s2">"OPEN"</span>,<span class="s2">"observations"</span>:[<span class="o">{</span><span class="s2">"type$"</span>:<span class="s2">"OBSERVATION"</span>,<span class="s2">"id"</span>:<span class="s2">"112233445566"</span>,<span class="s2">"observedAt"</span>:<span class="s2">"2020-04-08T13:40:00.0000000Z"</span>,<span class="s2">"type"</span>:<span class="s2">"FedEndpointExfiltration"</span>,<span class="s2">"data"</span>:<span class="s2">"{</span><span class="se">\"</span><span class="s2">type</span><span class="nv">$\</span><span class="s2">"</span>:<span class="se">\"</span>OBSERVED_ENDPOINT_ACTIVITY<span class="se">\"</span>,<span class="se">\"</span><span class="nb">id</span><span class="se">\"</span>:<span class="se">\"</span>665544332211<span class="se">\"</span>,<span class="se">\"</span>sources<span class="se">\"</span>:[<span class="se">\"</span>Endpoint<span class="se">\"</span><span class="o">]</span>,<span class="se">\"</span>exposureTypes<span class="se">\"</span>:[<span class="se">\"</span>ApplicationRead<span class="se">\"</span>,<span class="se">\"</span>CloudStorage<span class="se">\"</span><span class="o">]</span>,<span class="se">\"</span>firstActivityAt<span class="se">\"</span>:<span class="se">\"</span>2020-04-08T13:40:00.0000000Z<span class="se">\"</span>,<span class="se">\"</span>lastActivityAt<span class="se">\"</span>:<span class="se">\"</span>2020-04-08T13:45:00.0000000Z<span class="se">\"</span>,<span class="se">\"</span>fileCount<span class="se">\"</span>:2,<span class="se">\"</span>totalFileSize<span class="se">\"</span>:311096,<span class="se">\"</span>fileCategories<span class="se">\"</span>:[<span class="o">{</span><span class="se">\"</span><span class="nb">type</span><span class="nv">$\</span><span class="s2">":</span><span class="se">\"</span><span class="s2">OBSERVED_FILE_CATEGORY</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">category</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Image</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">fileCount</span><span class="se">\"</span><span class="s2">:2,</span><span class="se">\"</span><span class="s2">totalFileSize</span><span class="se">\"</span><span class="s2">:311096,</span><span class="se">\"</span><span class="s2">isSignificant</span><span class="se">\"</span><span class="s2">:false}],</span><span class="se">\"</span><span class="s2">files</span><span class="se">\"</span><span class="s2">:[{</span><span class="se">\"</span><span class="s2">type</span><span class="nv">$\</span><span class="s2">"</span>:<span class="se">\"</span>OBSERVED_FILE<span class="se">\"</span>,<span class="se">\"</span>eventId<span class="se">\"</span>:<span class="se">\"</span>998877665544<span class="se">\"</span>,<span class="se">\"</span>path<span class="se">\"</span>:<span class="se">\"</span>C:/Users/burt.morales/<span class="se">\"</span>,<span class="se">\"</span>name<span class="se">\"</span>:<span class="se">\"</span>1586353274_family_photo.png<span class="se">\"</span>,<span class="se">\"</span>category<span class="se">\"</span>:<span class="se">\"</span>Image<span class="se">\"</span><span class="o">}</span>,<span class="o">{</span><span class="se">\"</span><span class="nb">type</span><span class="nv">$\</span><span class="s2">":</span><span class="se">\"</span><span class="s2">OBSERVED_FILE</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">eventId</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">334455667788</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">path</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">C:/Users/burt.morales/Dropbox/</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">1586353274_family_photo.png</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">category</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Image</span><span class="se">\"</span><span class="s2">}],</span><span class="se">\"</span><span class="s2">syncToServices</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">Dropbox</span><span class="se">\"</span><span class="s2">],</span><span class="se">\"</span><span class="s2">sendingIpAddresses</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">192.0.2.0</span><span class="se">\"</span><span class="s2">]}"</span><span class="o">}]}]}</span>
+<div class="highlight"><pre class="highlight shell"><code><span class="o">{</span>
+  <span class="s2">"type$"</span>: <span class="s2">"ALERT_DETAILS_RESPONSE"</span>,
+  <span class="s2">"alerts"</span>: <span class="o">[</span>
+    <span class="o">{</span>
+      <span class="s2">"type$"</span>: <span class="s2">"ALERT_DETAILS"</span>,
+      <span class="s2">"tenantId"</span>: <span class="s2">"123456"</span>,
+      <span class="s2">"type"</span>: <span class="s2">"FED_ENDPOINT_EXFILTRATION"</span>,
+      <span class="s2">"name"</span>: <span class="s2">"Departing employee endpoint exfiltration system rule"</span>,
+      <span class="s2">"description"</span>: <span class="s2">"System rule for departing employee endpoint exfiltration."</span>,
+      <span class="s2">"actor"</span>: <span class="s2">"burt.morales@example.com"</span>,
+      <span class="s2">"target"</span>: <span class="s2">"N/A"</span>,
+      <span class="s2">"severity"</span>: <span class="s2">"HIGH"</span>,
+      <span class="s2">"ruleId"</span>: <span class="s2">"123456789424242"</span>,
+      <span class="s2">"ruleSource"</span>: <span class="s2">"Departing Employee"</span>,
+      <span class="s2">"id"</span>: <span class="s2">"987654321424242"</span>,
+      <span class="s2">"createdAt"</span>: <span class="s2">"2020-04-08T13:50:25.3644410Z"</span>,
+      <span class="s2">"state"</span>: <span class="s2">"OPEN"</span>,
+      <span class="s2">"observations"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+          <span class="s2">"type$"</span>: <span class="s2">"OBSERVATION"</span>,
+          <span class="s2">"id"</span>: <span class="s2">"112233445566"</span>,
+          <span class="s2">"observedAt"</span>: <span class="s2">"2020-04-08T13:40:00.0000000Z"</span>,
+          <span class="s2">"type"</span>: <span class="s2">"FedEndpointExfiltration"</span>,
+          <span class="s2">"data"</span>: <span class="s2">"{</span><span class="se">\"</span><span class="s2">type</span><span class="nv">$\</span><span class="s2">"</span>:<span class="se">\"</span>OBSERVED_ENDPOINT_ACTIVITY<span class="se">\"</span>,<span class="se">\"</span><span class="nb">id</span><span class="se">\"</span>:<span class="se">\"</span>665544332211<span class="se">\"</span>,<span class="se">\"</span>sources<span class="se">\"</span>:[<span class="se">\"</span>Endpoint<span class="se">\"</span><span class="o">]</span>,<span class="se">\"</span>exposureTypes<span class="se">\"</span>:[<span class="se">\"</span>ApplicationRead<span class="se">\"</span>,<span class="se">\"</span>CloudStorage<span class="se">\"</span><span class="o">]</span>,<span class="se">\"</span>firstActivityAt<span class="se">\"</span>:<span class="se">\"</span>2020-04-08T13:40:00.0000000Z<span class="se">\"</span>,<span class="se">\"</span>lastActivityAt<span class="se">\"</span>:<span class="se">\"</span>2020-04-08T13:45:00.0000000Z<span class="se">\"</span>,<span class="se">\"</span>fileCount<span class="se">\"</span>:2,<span class="se">\"</span>totalFileSize<span class="se">\"</span>:311096,<span class="se">\"</span>fileCategories<span class="se">\"</span>:[<span class="o">{</span><span class="se">\"</span><span class="nb">type</span><span class="nv">$\</span><span class="s2">":</span><span class="se">\"</span><span class="s2">OBSERVED_FILE_CATEGORY</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">category</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Image</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">fileCount</span><span class="se">\"</span><span class="s2">:2,</span><span class="se">\"</span><span class="s2">totalFileSize</span><span class="se">\"</span><span class="s2">:311096,</span><span class="se">\"</span><span class="s2">isSignificant</span><span class="se">\"</span><span class="s2">:false}],</span><span class="se">\"</span><span class="s2">files</span><span class="se">\"</span><span class="s2">:[{</span><span class="se">\"</span><span class="s2">type</span><span class="nv">$\</span><span class="s2">"</span>:<span class="se">\"</span>OBSERVED_FILE<span class="se">\"</span>,<span class="se">\"</span>eventId<span class="se">\"</span>:<span class="se">\"</span>998877665544<span class="se">\"</span>,<span class="se">\"</span>path<span class="se">\"</span>:<span class="se">\"</span>C:/Users/burt.morales/<span class="se">\"</span>,<span class="se">\"</span>name<span class="se">\"</span>:<span class="se">\"</span>1586353274_family_photo.png<span class="se">\"</span>,<span class="se">\"</span>category<span class="se">\"</span>:<span class="se">\"</span>Image<span class="se">\"</span><span class="o">}</span>,<span class="o">{</span><span class="se">\"</span><span class="nb">type</span><span class="nv">$\</span><span class="s2">":</span><span class="se">\"</span><span class="s2">OBSERVED_FILE</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">eventId</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">334455667788</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">path</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">C:/Users/burt.morales/Dropbox/</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">1586353274_family_photo.png</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">category</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Image</span><span class="se">\"</span><span class="s2">}],</span><span class="se">\"</span><span class="s2">syncToServices</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">Dropbox</span><span class="se">\"</span><span class="s2">],</span><span class="se">\"</span><span class="s2">sendingIpAddresses</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">192.0.2.0</span><span class="se">\"</span><span class="s2">]}"</span>
+        <span class="o">}</span>
+      <span class="o">]</span>
+    <span class="o">}</span>
+  <span class="o">]</span>
+<span class="o">}</span>
 </code></pre></div><h3 id='search-for-a-single-notification-by-alert-id'>Search for a single notification by alert ID</h3>
-<p>Use the <code>/api/v1/query-details-aggregate</code> API command to search for a single alert notification using its alert ID. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;RequestURL&gt;/query-details-aggregate"</span> <span class="se">\</span>
+<p>Use the <a href="/sandbox/api/#operation/Alerts_QueryAlertDetailsAggregate">/v1/alerts/query-details-aggregate</a> API command to search for a single alert notification using its alert ID.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alerts/query-details-aggregate"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: text/plain"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "alertId": "&lt;SampleAlertID&gt;"}'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the request URL of your Code42 cloud instance, for example,
-<code>https://alert-service-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleAlertID> with the alert ID.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleAlertID&gt;</code> with the alert ID.</li>
+</ul>
 
 <p>A successful response returns full details about the alert notification with all file activity aggregated into a single Observation value.</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"ALERT_DETAILS_IN_AGGREGATE_RESPONSE"</span><span class="p">,</span><span class="nl">"alert"</span><span class="p">:{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"ALERT_DETAILS_AGGREGATE"</span><span class="p">,</span><span class="nl">"tenantId"</span><span class="p">:</span><span class="s2">"123456"</span><span class="p">,</span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"FED_ENDPOINT_EXFILTRATION"</span><span class="p">,</span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Departing employee endpoint exfiltration system rule"</span><span class="p">,</span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"System rule for departing employee endpoint exfiltration."</span><span class="p">,</span><span class="nl">"actor"</span><span class="p">:</span><span class="s2">"burt.morales@c42se.com"</span><span class="p">,</span><span class="nl">"target"</span><span class="p">:</span><span class="s2">"N/A"</span><span class="p">,</span><span class="nl">"severity"</span><span class="p">:</span><span class="s2">"HIGH"</span><span class="p">,</span><span class="nl">"ruleId"</span><span class="p">:</span><span class="s2">"1234567894242"</span><span class="p">,</span><span class="nl">"ruleSource"</span><span class="p">:</span><span class="s2">"Departing Employee"</span><span class="p">,</span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"9876543214242"</span><span class="p">,</span><span class="nl">"createdAt"</span><span class="p">:</span><span class="s2">"2020-04-08T13:50:25.3644410Z"</span><span class="p">,</span><span class="nl">"state"</span><span class="p">:</span><span class="s2">"OPEN"</span><span class="p">,</span><span class="nl">"observation"</span><span class="p">:{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"OBSERVATION_AGGREGATE"</span><span class="p">,</span><span class="nl">"observedAt"</span><span class="p">:</span><span class="s2">"2020-04-08T13:40:00.0000000Z"</span><span class="p">,</span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"FedEndpointExfiltration"</span><span class="p">,</span><span class="nl">"data"</span><span class="p">:</span><span class="s2">"{</span><span class="se">\"</span><span class="s2">type$</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">OBSERVED_ENDPOINT_ACTIVITY</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">id</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">112233445566</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">sources</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">Endpoint</span><span class="se">\"</span><span class="s2">],</span><span class="se">\"</span><span class="s2">exposureTypes</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">ApplicationRead</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">CloudStorage</span><span class="se">\"</span><span class="s2">],</span><span class="se">\"</span><span class="s2">firstActivityAt</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">2020-04-08T13:40:00.0000000Z</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">lastActivityAt</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">2020-04-08T13:45:00.0000000Z</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">fileCount</span><span class="se">\"</span><span class="s2">:2,</span><span class="se">\"</span><span class="s2">totalFileSize</span><span class="se">\"</span><span class="s2">:311096,</span><span class="se">\"</span><span class="s2">fileCategories</span><span class="se">\"</span><span class="s2">:[{</span><span class="se">\"</span><span class="s2">type$</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">OBSERVED_FILE_CATEGORY</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">category</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Image</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">fileCount</span><span class="se">\"</span><span class="s2">:2,</span><span class="se">\"</span><span class="s2">totalFileSize</span><span class="se">\"</span><span class="s2">:311096,</span><span class="se">\"</span><span class="s2">isSignificant</span><span class="se">\"</span><span class="s2">:false}],</span><span class="se">\"</span><span class="s2">files</span><span class="se">\"</span><span class="s2">:[{</span><span class="se">\"</span><span class="s2">type$</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">OBSERVED_FILE</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">eventId</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">998877665544</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">path</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">C:/Users/burt.morales/</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">1586353274_family_photo.png</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">category</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Image</span><span class="se">\"</span><span class="s2">},{</span><span class="se">\"</span><span class="s2">type$</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">OBSERVED_FILE</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">eventId</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">334455667788</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">path</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">C:/Users/burt.morales/Dropbox/</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">1586353274_family_photo.png</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">category</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Image</span><span class="se">\"</span><span class="s2">}],</span><span class="se">\"</span><span class="s2">syncToServices</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">Dropbox</span><span class="se">\"</span><span class="s2">],</span><span class="se">\"</span><span class="s2">sendingIpAddresses</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">192.0.2.0</span><span class="se">\"</span><span class="s2">],</span><span class="se">\"</span><span class="s2">isRemoteActivity</span><span class="se">\"</span><span class="s2">:false}"</span><span class="p">}}}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ALERT_DETAILS_IN_AGGREGATE_RESPONSE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"alert"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ALERT_DETAILS_AGGREGATE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FED_ENDPOINT_EXFILTRATION"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Departing employee endpoint exfiltration system rule"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"System rule for departing employee endpoint exfiltration."</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"actor"</span><span class="p">:</span><span class="w"> </span><span class="s2">"burt.morales@c42se.com"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"target"</span><span class="p">:</span><span class="w"> </span><span class="s2">"N/A"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ruleId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567894242"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"ruleSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Departing Employee"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876543214242"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-04-08T13:50:25.3644410Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"observation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OBSERVATION_AGGREGATE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"observedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-04-08T13:40:00.0000000Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FedEndpointExfiltration"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="s2">"{</span><span class="se">\"</span><span class="s2">type$</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">OBSERVED_ENDPOINT_ACTIVITY</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">id</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">112233445566</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">sources</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">Endpoint</span><span class="se">\"</span><span class="s2">],</span><span class="se">\"</span><span class="s2">exposureTypes</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">ApplicationRead</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">CloudStorage</span><span class="se">\"</span><span class="s2">],</span><span class="se">\"</span><span class="s2">firstActivityAt</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">2020-04-08T13:40:00.0000000Z</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">lastActivityAt</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">2020-04-08T13:45:00.0000000Z</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">fileCount</span><span class="se">\"</span><span class="s2">:2,</span><span class="se">\"</span><span class="s2">totalFileSize</span><span class="se">\"</span><span class="s2">:311096,</span><span class="se">\"</span><span class="s2">fileCategories</span><span class="se">\"</span><span class="s2">:[{</span><span class="se">\"</span><span class="s2">type$</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">OBSERVED_FILE_CATEGORY</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">category</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Image</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">fileCount</span><span class="se">\"</span><span class="s2">:2,</span><span class="se">\"</span><span class="s2">totalFileSize</span><span class="se">\"</span><span class="s2">:311096,</span><span class="se">\"</span><span class="s2">isSignificant</span><span class="se">\"</span><span class="s2">:false}],</span><span class="se">\"</span><span class="s2">files</span><span class="se">\"</span><span class="s2">:[{</span><span class="se">\"</span><span class="s2">type$</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">OBSERVED_FILE</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">eventId</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">998877665544</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">path</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">C:/Users/burt.morales/</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">1586353274_family_photo.png</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">category</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Image</span><span class="se">\"</span><span class="s2">},{</span><span class="se">\"</span><span class="s2">type$</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">OBSERVED_FILE</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">eventId</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">334455667788</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">path</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">C:/Users/burt.morales/Dropbox/</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">1586353274_family_photo.png</span><span class="se">\"</span><span class="s2">,</span><span class="se">\"</span><span class="s2">category</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">Image</span><span class="se">\"</span><span class="s2">}],</span><span class="se">\"</span><span class="s2">syncToServices</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">Dropbox</span><span class="se">\"</span><span class="s2">],</span><span class="se">\"</span><span class="s2">sendingIpAddresses</span><span class="se">\"</span><span class="s2">:[</span><span class="se">\"</span><span class="s2">192.0.2.0</span><span class="se">\"</span><span class="s2">],</span><span class="se">\"</span><span class="s2">isRemoteActivity</span><span class="se">\"</span><span class="s2">:false}"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='add-a-note-to-an-alert-notification'>Add a note to an alert notification</h3>
-<p>To add a note to an alert notification, first locate its alert ID using one of the queries above. Then use the <code>/api/v1/add-note</code> command to add a note to that alert. Be aware that any note you add overwrites any existing note attached to the alert.</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;RequestURL&gt;/add-note"</span> <span class="se">\</span>
+<p>To add a note to an alert notification, first locate its alert ID using one of the queries above. Then use the <a href="/sandbox/api/#operation/Alerts_AddNoteToAlert">/v1/alerts/add-note</a> API command to add a note to that alert. Be aware that any note you add overwrites any existing note attached to the alert.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alerts/add-note"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: application/json"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "alertId": "&lt;SampleAlertID&gt;", "note": "This is an example note." }'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the request URL of your Code42 cloud instance, for example,
-<code>https://alert-service-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-your-organization's-tenant-ID">Get your organization&#39;s tenant ID</a> section.
-* Replace <SampleAlertID> with the alert ID.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;SampleAlertID&gt;</code> with the alert ID.</li>
+</ul>
 <h3 id='dismiss-alert-notifications'>Dismiss alert notifications</h3>
-<p>You can dismiss multiple alert notifications at once using the API. To dismiss alert notifications, first locate the alert IDs using one of the queries above. Then use the <code>/api/v1/resolve-alert</code> command to dismiss those alerts. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;RequestURL&gt;/resolve-alert"</span> <span class="se">\</span>
+<p>You can dismiss multiple alert notifications at once using the API. To dismiss alert notifications, first locate the alert IDs using one of the queries above. Then use the <a href="/sandbox/api/#operation/Alerts_UpdateAlertState">/v1/alerts/update-state</a> API command with a <code>state</code> value of <code>RESOLVED</code> to dismiss those alerts.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alerts/update-state"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: application/json"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-<span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "alertIds": [ "&lt;SampleAlertID1&gt;", &lt;SampleAlertID2&gt;" ], "note": "This is an example note."}'</span>
+<span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "alertIds": [ "&lt;SampleAlertID1&gt;", "&lt;SampleAlertID2&gt;" ], "state": "RESOLVED", "note": "This is an example note."}'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example, <code>https://alert-service-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-your-organization's-tenant-ID">Get your organization&#39;s tenant ID</a> section.
-* Replace <SampleAlertID1> and <SampleAlertID2> with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.
-* Be aware that any note you enter overwrites any existing note attached to the alert. If you want to dismiss the alert without adding a note (or want to preserve existing notes), delete the &quot;note&quot; term and sample text from the command.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;SampleAlertID1&gt;</code> and <code>&lt;SampleAlertID2&gt;</code> with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.</li>
+<li>Be aware that any note you enter overwrites any existing note attached to the alert. If you want to dismiss the alert without adding a note (or want to preserve existing notes), delete the &quot;note&quot; term and sample text from the command.</li>
+</ul>
 <h3 id='reopen-dismissed-alert-notifications'>Reopen dismissed alert notifications</h3>
-<p>You can reopen multiple dismissed alert notifications at once using the API. To reopen alert notifications, first locate the alert IDs using one of the queries above. Then use the /api/v1/reopen-alert command to reopen those alerts. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;RequestURL&gt;/reopen-alert"</span> <span class="se">\</span>
+<p>You can reopen multiple dismissed alert notifications at once using the API. To reopen alert notifications, first locate the alert IDs using one of the queries above. Then use the <a href="/sandbox/api/#operation/Alerts_UpdateAlertState">/v1/alerts/update-state</a> API command with the OPEN state value to reopen those alerts.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alerts/update-state"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: application/json"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-<span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "alertIds": [ "&lt;SampleAlertID1&gt;", &lt;SampleAlertID2&gt;" ], "note": "This is an example note."}'</span>
+<span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "alertIds": [ "&lt;SampleAlertID1&gt;", "&lt;SampleAlertID2&gt;" ], "state": "OPEN", "note": "This is an example note."}'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the request URL of your Code42 cloud instance, for example,
-<code>https://alert-service-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-your-organization's-tenant-ID">Get your organization&#39;s tenant ID</a> section.
-* Replace <SampleAlertID1> and <SampleAlertID2> with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.
-* Be aware that any note you enter overwrites any existing note attached to the alert. If you want to reopen the alert without adding a note (or want to preserve existing notes), delete the &quot;note&quot; term and sample text from the command.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;SampleAlertID1&gt;</code> and <code>&lt;SampleAlertID2&gt;</code> with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.</li>
+<li>Be aware that any note you enter overwrites any existing note attached to the alert. If you want to reopen the alert without adding a note (or want to preserve existing notes), delete the &quot;note&quot; term and sample text from the command.</li>
+</ul>
 <h2 id='manage-alert-rule-user-lists'>Manage alert rule user lists</h2>
 <p>If a rule either applies only to specific users or applies to all users except specific users, you can manage the users in those inclusion or exclusion lists using the API. As with alert notifications, you&#39;ll need to identify the rule ID associated with the rule before you can manage the users to which it applies.</p>
-
-<aside class="notice">
-
-**Be careful with request URLs**
-The API commands in this section use different request URLs, so use caution when crafting the calls.
-</aside>
 <h3 id='locate-alert-rule-ids'>Locate alert rule IDs</h3>
-<p>Before you can manage the users associated with an alert rule, you need to view details about alert rules and identify the rule IDs for which you want to manage users. Use the <code>/api/v1/Rules/query-rule-metadata</code> API command to locate alert rule IDs. </p>
+<p>Before you can manage the users associated with an alert rule, you need to view details about alert rules and identify the rule IDs for which you want to manage users. Use the <a href="/sandbox/api/#operation/Rules_QueryRuleMetadata">/v1/alerts/rules/query-rule-metadata</a> API command to locate alert rule IDs.</p>
 
-<aside class="success">
-
-**Rule IDs are also included in alert notification searches**
-The API commands for alert notification searches described above also include the ID of the rule that generated the alert. Look for the "ruleID": "<value>" entry in the details returned by the query.
-</aside>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;Request URL&gt;/Rules/query-rule-metadata"</span> <span class="se">\</span>
+<p><strong>Note:</strong> The API commands for alert notification searches described above also include the ID of the rule that generated the alert. Look for the &quot;ruleID&quot;: <code>&quot;&lt;value&gt;&quot;</code> entry in the details returned by the query.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alerts/rules/query-rule-metadata"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: text/plain"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "groups": [ { "filters": [ { "term": "&lt;FilterTerm&gt;", "operator": "&lt;OperatorValue&gt;", "value": "&lt;Criteria&gt;" } ], "filterClause": "AND" } ], "groupClause": "OR", "pgSize": "20", "pgNum": "0", "srtKey": "CreatedAt", "srtDirection": "DESC"}'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the request URL of your Code42 cloud instance, for example,
-<code>https://alert-service-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-your-organization's-tenant-ID">Get your organization&#39;s tenant ID</a> section.
-*Replace <FilterType> with the filter, <OperatorValue> with the operator option, and <Criteria> with the search term to use in the search. See <a href="#filter-syntax-for-the-rules/query-rule-metadata-API-command">Filter syntax for the rules/query-rule-metadata API command</a> below for details.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;FilterType&gt;</code> with the filter, <code>&lt;OperatorValue&gt;</code> with the operator option, and <code>&lt;Criteria&gt;</code> with the search term to use in the search. See <a href="#filter-syntax-for-the-rules/query-rule-metadata-API-command">Filter syntax for the rules/query-rule-metadata API command</a> below for details.</li>
+</ul>
 
 <p>A successful response returns basic information about the alert notifications that match your search criteria, including the rule IDs of those notifications (look for the &quot;observerRuleId&quot;:&quot;value&quot; entry):</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"RULE_METADATA_SEARCH_RESPONSE"</span><span class="p">,</span><span class="nl">"ruleMetadata"</span><span class="p">:[{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"RULE_METADATA"</span><span class="p">,</span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="s2">"Code42"</span><span class="p">,</span><span class="nl">"modifiedAt"</span><span class="p">:</span><span class="s2">"2020-06-04T21:07:03.5417950Z"</span><span class="p">,</span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"Exposure on an endpoint"</span><span class="p">,</span><span class="nl">"description"</span><span class="p">:</span><span class="s2">"This default rule alerts you when departing employees move data from an endpoint."</span><span class="p">,</span><span class="nl">"severity"</span><span class="p">:</span><span class="s2">"HIGH"</span><span class="p">,</span><span class="nl">"isSystem"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"isEnabled"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nl">"ruleSource"</span><span class="p">:</span><span class="s2">"Departing Employee"</span><span class="p">,</span><span class="nl">"tenantId"</span><span class="p">:</span><span class="s2">"123456"</span><span class="p">,</span><span class="nl">"observerRuleId"</span><span class="p">:</span><span class="s2">"1234567894242"</span><span class="p">,</span><span class="nl">"type"</span><span class="p">:</span><span class="s2">"FED_ENDPOINT_EXFILTRATION"</span><span class="p">,</span><span class="nl">"id"</span><span class="p">:</span><span class="s2">"9876543214242"</span><span class="p">,</span><span class="nl">"createdBy"</span><span class="p">:</span><span class="s2">"Code42"</span><span class="p">,</span><span class="nl">"createdAt"</span><span class="p">:</span><span class="s2">"2020-01-10T12:16:40.7765970Z"</span><span class="p">}],</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">8</span><span class="p">,</span><span class="nl">"problems"</span><span class="p">:[]}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RULE_METADATA_SEARCH_RESPONSE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"ruleMetadata"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RULE_METADATA"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Code42"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifiedAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-06-04T21:07:03.5417950Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Exposure on an endpoint"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This default rule alerts you when departing employees move data from an endpoint."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"severity"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"isSystem"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"isEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"ruleSource"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Departing Employee"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"observerRuleId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1234567894242"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FED_ENDPOINT_EXFILTRATION"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"9876543214242"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Code42"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-10T12:16:40.7765970Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"problems"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='view-an-alert-rule-39-s-user-list'>View an alert rule&#39;s user list</h3>
-<p>Use the <code>/api/v1/Rules/query-users</code> API command to view a list of users that are either included in or excluded from a specific alert rule. The output from this command groups the user email addresses and cloud aliases in the rule&#39;s inclusion or exclusion list by the user ID associated with those details (which is generally the userUID value in Code42). You can then use this user ID to remove specific email addresses and cloud aliases from a rule&#39;s inclusion or exclusion list as needed. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;RequestURL&gt;/Rules/query-users"</span> <span class="se">\</span>
+<p>Use the <a href="/sandbox/api/#operation/Rules_QueryUsersOnRule">/v1/alert-rules/query-users</a> API command to view a list of users that are either included in or excluded from a specific alert rule. The output from this command groups the user email addresses and cloud aliases in the rule&#39;s inclusion or exclusion list by the user ID associated with those details (which is generally the <a href="/sandbox/intro-to-developer-portal/#get-useruid">userUID value in Code42</a>). You can then use this user ID to remove specific email addresses and cloud aliases from a rule&#39;s inclusion or exclusion list as needed.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alert-rules/query-users"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: text/plain"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "ruleId": "&lt;SampleRuleID&gt;"}'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the request URL of your Code42 cloud instance, for example,
-<code>https://fed-observer-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-your-organization's-tenant-ID">Get your organization&#39;s tenant ID</a> section.
-* Replace <SampleRuleID> with the ID of the alert rule for which you want to view users.</p>
+<p>In the preceding example:</p>
 
-<p>A successful response lists the email addresses and cloud aliases of the users in the alert rule&#39;s inclusion or exclusion list, grouped by the user ID value (identified by the &quot;userIdFromAuthority&quot; label) associated with that information. The &quot;usersToAlertOn&quot; label identifies whether the rule applies only to the specified users in an inclusion list (SPECIFIED_USERS), to all users except the specified users in an exclusion list (ALL_USERS_NOT_SPECIFIED), or to all users (ALL_USERS).</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"USERS_IN_RULE_RESPONSE"</span><span class="p">,</span><span class="nl">"users"</span><span class="p">:[{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"USER_BAG"</span><span class="p">,</span><span class="nl">"userIdFromAuthority"</span><span class="p">:</span><span class="s2">"947210378478595410"</span><span class="p">,</span><span class="nl">"userAliasList"</span><span class="p">:[</span><span class="s2">"SCassidy"</span><span class="p">,</span><span class="s2">"SeanCassidy"</span><span class="p">,</span><span class="s2">"sean.cassidy@example.com"</span><span class="p">]}],</span><span class="nl">"usersToAlertOn"</span><span class="p">:</span><span class="s2">"SPECIFIED_USERS"</span><span class="p">}</span><span class="w">
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;SampleRuleID&gt;</code> with the ID of the alert rule for which you want to view users.</li>
+</ul>
+
+<p>A successful response lists the email addresses and cloud aliases of the users in the alert rule&#39;s inclusion or exclusion list, grouped by the user ID value (identified by the &quot;userIdFromAuthority&quot; label) associated with that information. The &quot;usersToAlertOn&quot; label identifies whether the rule applies only to the specified users in an inclusion list (<code>SPECIFIED_USERS</code>), to all users except the specified users in an exclusion list (<code>ALL_USERS_NOT_SPECIFIED</code>), or to all users (<code>ALL_USERS</code>).</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USERS_IN_RULE_RESPONSE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER_BAG"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userIdFromAuthority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"947210378478595410"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userAliasList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"SCassidy"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"SeanCassidy"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sean.cassidy@example.com"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"usersToAlertOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPECIFIED_USERS"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div>
-<p>If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with Alerts in the Code42 console), the results note that the &quot;userIdFromAuthority&quot; value is null. To work with an alert rule&#39;s inclusion or exclusion list if the user ID value is null, use the Alerts screens in the Code42 console to manually add and remove users. Alternately, you can use the <code>/api/v1/Rules/remove-all-users</code> API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the <code>/api/v1/Rules/add-users</code> using the users&#39; userUIDs in Code42.</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"USERS_IN_RULE_RESPONSE"</span><span class="p">,</span><span class="nl">"users"</span><span class="p">:[{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"USER_BAG"</span><span class="p">,</span><span class="nl">"userIdFromAuthority"</span><span class="p">:</span><span class="s2">"Null UserIdFromAuthority.  These usernames must be edited in the web app."</span><span class="p">,</span><span class="nl">"userAliasList"</span><span class="p">:[</span><span class="s2">"burt.morales@example.com"</span><span class="p">,</span><span class="s2">"astrid.ludwig@example.com"</span><span class="p">]}],</span><span class="nl">"usersToAlertOn"</span><span class="p">:</span><span class="s2">"SPECIFIED_USERS"</span><span class="p">}</span><span class="w">
+<p>If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference">Alerts in the Code42 console</a>), the results note that the &quot;userIdFromAuthority&quot; value is null. To work with an alert rule&#39;s inclusion or exclusion list if the user ID value is null, use the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Review_Alerts">Alerts screens in the Code42 console</a> to manually add and remove users. Alternately, you can use the <a href="/sandbox/api/#operation/Rules_RemoveAllUsersFromRule">/v1/alert-rules/remove-all-users</a> API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the <a href="/sandbox/api/#operation/Rules_AddUsersToRule">/v1/alert-rules/add-users</a> using the <a href="/sandbox/intro-to-developer-portal/#get-useruid">users&#39; userUID in Code42</a>.</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USERS_IN_RULE_RESPONSE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"users"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER_BAG"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userIdFromAuthority"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Null UserIdFromAuthority.  These usernames must be edited in the web app."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userAliasList"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"burt.morales@example.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"astrid.ludwig@example.com"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"usersToAlertOn"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SPECIFIED_USERS"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='add-users-to-an-alert-rule'>Add users to an alert rule</h3>
-<p>If the rule applies to specific users, or if it applies to all users except specific users, you can add users to those inclusion or exclusion lists with the <code>/api/v1/Rules/add-users</code> API command. You cannot add users to rules that monitor all users.</p>
+<p>If the rule applies to specific users, or if it applies to all users except specific users, you can add users to those inclusion or exclusion lists with the <a href="/sandbox/api/#operation/Rules_AddUsersToRule">/v1/alert-rules/add-users</a> API command. You cannot add users to rules that monitor all users.</p>
 
-<p>Manage default rule user lists with the Code42 console or Detection List Management APIs
-You cannot use these alerts APIs to add or remove users from the inclusion or exclusion lists of default rules created by the Departing Employees list or High Risk Employees list. Instead, users are added to and removed from these lists directly in the Departing Employees list and High Risk Employees list or with the Detection List Management APIs.</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;RequestURL&gt;/Rules/add-users"</span> <span class="se">\</span>
+<p><strong>Note:</strong> You cannot use these alerts APIs to add or remove users from the inclusion or exclusion lists of default rules created by the Departing Employees list or High Risk Employees list. Instead, users are added to and removed from these lists directly in the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Departing_Employees_reference">Departing Employees list</a> and <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference">High Risk Employees list</a> or with the <a href="/sandbox/detection-list-management-api/#detection-list-management-api">Detection List Management API</a>.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alert-rules/add-users"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: application/json"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "ruleId": "&lt;SampleRuleId&gt;", "userList": [ { "userIdFromAuthority": "&lt;SampleUserUID&gt;", "userAliasList": [ "&lt;SampleAlias1&gt;", "&lt;SampleAlias2&gt;" ] } ]}'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example, <code>https://fed-observer-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-your-organization's-tenant-ID">Get your organization&#39;s tenant ID</a> section.
-* Replace <SampleRuleID> with the ID of the alert rule from which you want to remove users.
-* Replace <SampleUserID> with a value that uniquely identifies the user you want to add. As a best practice, use the user&#39;s userUID in Code42 for this value. See the Identify userUIDs section to locate these values.
-* The <code>userAliasList</code> parameter identifies the list of email addresses or cloud aliases to associate with that <SampleUserID>. Replace <SampleAlias1> and <SampleAlias2> with the email addresses or cloud aliases you want to add to the rule&#39;s inclusion or exclusion list for that user ID.
-    * If you want to enter only one email address or cloud alias, use this construction: <code>&quot;userAliasList&quot;: [ &quot;&lt;SampleAlias1&gt;&quot; ]</code>
-    * If you want to enter multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;SampleRuleID&gt;</code> with the ID of the alert rule from which you want to remove users.</li>
+<li>Replace <code>&lt;SampleUserID&gt;</code> with a value that uniquely identifies the user you want to add. As a best practice, use <a href="/sandbox/intro-to-developer-portal/#get-useruid">the user&#39;s userUID in Code42</a> for this value.</li>
+<li>The <code>userAliasList</code> parameter identifies the list of email addresses or cloud aliases to associate with that <code>&lt;SampleUserID&gt;</code>. Replace <code>&lt;SampleAlias1&gt;</code> and <code>&lt;SampleAlias2&gt;</code> with the email addresses or cloud aliases you want to add to the rule&#39;s inclusion or exclusion list for that user ID.
+
+<ul>
+<li>If you want to enter only one email address or cloud alias, use this construction: <code>&quot;userAliasList&quot;: [ &quot;&lt;SampleAlias1&gt;&quot; ]</code></li>
+<li>If you want to enter multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.</li>
+</ul></li>
+</ul>
 
 <p>The aliases that you enter here become the values that are added to the rule&#39;s inclusion or exclusion list and used to trigger or filter alert notifications.</p>
 <h3 id='remove-specific-users-from-an-alert-rule'>Remove specific users from an alert rule</h3>
-<p>You can also remove users&#39; email addresses or cloud aliases from an alert rule&#39;s inclusion or exclusion list with the <code>/api/v1/Rules/remove-users</code> API command. This command removes all of the email addresses or cloud aliases associated with the user&#39;s ID from the specified rule. You cannot remove users from rules that monitor all users.</p>
+<p>You can also remove users&#39; email addresses or cloud aliases from an alert rule&#39;s inclusion or exclusion list with the <a href="/sandbox/api/#operation/Rules_RemoveUsersFromRule">/v1/alert-rules/remove-users</a> API command. This command removes all of the email addresses or cloud aliases associated with the user&#39;s ID from the specified rule. You cannot remove users from rules that monitor all users.</p>
 
-<aside class="notice">
-
-**Manage default rule user lists with the Code42 console or Detection List Management APIs**
-You cannot use these alerts APIs to add or remove users from the inclusion or exclusion lists of default rules created by the Departing Employees list or High Risk Employees list. Instead, users are added to and removed from these lists directly in the [Departing Employees list](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Add_departing_employees) and [High Risk Employees list](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Add_high_risk_employees) or with the [Detection List Management APIs](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Detection_list_management_APIs).
-</aside>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;Request URL&gt;/Rules/remove-users"</span> <span class="se">\</span>
+<p><strong>Note:</strong> You cannot use these alerts APIs to add or remove users from the inclusion or exclusion lists of <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/How_to_create_a_security_alert#Default_alert_rules_and_notifications">default rules</a> created by the Departing Employees list or High Risk Employees list. Instead, users are added to and removed from these lists directly in the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Add_departing_employees">Departing Employees list</a> and <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Add_high_risk_employees">High Risk Employees list</a> or with the <a href="/sandbox/detection-list-management-api/#detection-list-management-api">Detection List Management API</a>.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alert-rules/remove-users"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: application/json"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "ruleId": "&lt;SampleRuleID&gt;", "userIdList": [ "&lt;SampleUserUID&gt;" ]}'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the request URL of your Code42 cloud instance, for example,
-<code>https://fed-observer-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-your-organization's-tenant-ID">Get your organization&#39;s tenant ID</a> section.
-* Replace <SampleRuleID> with the ID of the alert rule from which you want to remove users.
-* Replace <SampleUserUID> with the value that uniquely identifies the alias list of the user you want to remove (such as the <a href="#identifyuseruids">user&#39;s userUID in Code42</a>).</p>
+<p>In the preceding example:</p>
 
-<aside class="notice">
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;SampleRuleID&gt;</code> with the ID of the alert rule from which you want to remove users.</li>
+<li>Replace <code>&lt;SampleUserUID&gt;</code> with the value that uniquely identifies the alias list of the user you want to remove (such as the <a href="/sandbox/intro-to-developer-portal/#get-useruid">user&#39;s userUID in Code42</a>).</li>
+</ul>
 
-**Results depend on the user ID value**
-The `/api/v1/Rules/remove-users` API command uses the <SampleUserUID> value to identify the user alias list to remove from the rule. This value may not always be supplied when users are added to rules, such as when users are added via the Code42 command-line interface or manually with Alerts in the Code42 console. Therefore, results from using `/api/v1/Rules/remove-users` may not be what you expect: if no <SampleUserUID> value exists, the corresponding alias list cannot be identified and no users are removed.
-
-To resolve this issue using the API, use the `/api/v1/Rules/remove-all-users` API command to remove all users from a rule's inclusion or exclusion list, then use the `/api/v1/Rules/add-users` to add user aliases that are associated with a <SampleUserUID> value. 
-</aside>
+<p><strong>Note:</strong> The <a href="/sandbox/api/#operation/Rules_RemoveUsersFromRule">/v1/alert-rules/remove-users</a> API command uses the <code>&lt;SampleUserUID&gt;</code> value to identify the user alias list to remove from the rule. This value may not always be supplied when users are added to rules, such as when users are added via the Code42 command-line interface or manually with <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference">Alerts in the Code42 console</a>. Therefore, results from using <a href="/sandbox/api/#operation/Rules_RemoveUsersFromRule">/v1/alert-rules/remove-users</a> may not be what you expect: if no <code>&lt;SampleUserUID&gt;</code> value exists, the corresponding alias list cannot be identified and no users are removed. To resolve this issue using the API, use the <a href="/sandbox/api/#operation/Rules_RemoveAllUsersFromRule">/v1/alert-rules/remove-all-users</a> API command to remove all users from a rule&#39;s inclusion or exclusion list, then use the <a href="/sandbox/api/#operation/Rules_AddUsersToRule">/v1/alert-rules/add-users</a> API command to add user aliases that are associated with a <code>&lt;SampleUserUID&gt;</code> value.</p>
 <h3 id='remove-a-user-39-s-aliases-from-an-alert-rule'>Remove a user&#39;s aliases from an alert rule</h3>
-<p>Before removing user information from an alert rule&#39;s inclusion or exclusion list, use the <code>/api/v1/Rules/query-users</code> API command to identify what user information is contained in that list and whether it is associated with a user ID. After identifying the user ID associated with the email addresses or cloud aliases in a rule&#39;s inclusion or exclusion list, you can then use the <code>/api/v1/Rules/remove-user-aliases</code> API command to remove only that user information from the list.</p>
+<p>Before removing user information from an alert rule&#39;s inclusion or exclusion list, use the <a href="/sandbox/api/#operation/Rules_QueryUsersOnRule">/v1/alert-rules/query-users</a> API command to identify what user information is contained in that list and whether it is associated with a user ID. After identifying the user ID associated with the email addresses or cloud aliases in a rule&#39;s inclusion or exclusion list, you can then use the <a href="/sandbox/api/#operation/Rules_RemoveUserAliasesFromRule">/v1/alert-rules/remove-user-aliases</a> API command to remove only that user information from the list.</p>
 
-<aside class="notice">
+<p><strong>Note:</strong> If there are no user IDs associated with the user information in an alert rule&#39;s inclusion or exclusion list, you cannot remove specific email addresses or cloud aliases from that list with this API command. Instead, you can use one of these methods to work with a rule&#39;s user information:</p>
 
-**Requires the user ID**
-If there are no user IDs associated with the user information in an alert rule's inclusion or exclusion list, you cannot remove specific email addresses or cloud aliases from that list with this API command. Instead, you can use one of these methods to work with a rule's user information:
-* Use the Alerts screen in the Code42 console to manually add and remove users
-* Use the `/api/v1/Rules/remove-all-users` and `/api/v1/Rules/add-users` API commands to remove all user information and then re-add the email addresses and cloud aliases (associated with a Code42 userUID value) that you want to keep
-</aside>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;RequestURL&gt;/Rules/remove-user-aliases"</span> <span class="se">\</span>
+<ul>
+<li>Use the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference">Alerts screen in the Code42 console</a> to manually add and remove users.</li>
+<li>Use the <a href="/sandbox/api/#operation/Rules_RemoveAllUsersFromRule">/v1/alert-rules/remove-all-users</a> and <a href="/sandbox/api/#operation/Rules_AddUsersToRule">/v1/alert-rules/add-users</a> API commands to remove all user information and then re-add the email addresses and cloud aliases (associated with a <a href="/sandbox/intro-to-developer-portal/#get-useruid">Code42 userUID</a> value) that you want to keep.</li>
+</ul>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alert-rules/remove-user-aliases"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: application/json"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "ruleId": "&lt;SampleRuleID&gt;", "userList": [ { "userIdFromAuthority": "&lt;SampleUserID&gt;", "userAliasList": [ "&lt;SampleAlias1&gt;", "&lt;SampleAlias2&gt;" ] } ]}'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the request URL of your Code42 cloud instance, for example,
-<code>https://fed-observer-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-your-organization's-tenant-ID">Get your organization&#39;s tenant ID</a> section.
-* Replace <SampleRuleID> with the ID of the alert rule from which you want to remove users.
-* Replace <SampleUserID> with the value that is associated with the email addresses or cloud aliases that you want to remove.
-* The userAliasList parameter identifies the email addresses or cloud aliases associated with that <SampleUserID> that should be removed from the list. Replace <SampleAlias1> and <SampleAlias2> with the email addresses or cloud aliases you want to remove from the rule&#39;s inclusion or exclusion list for that user ID.
-    * If you want to remove only one email address or cloud alias, use this construction: <code>&quot;userAliasList&quot;: [ &quot;&lt;SampleAlias1&gt;&quot; ]</code>
-    * If you want to remove multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.
-    * If there are multiple email addresses or cloud aliases associated with that user ID but you want to remove only one or two, specify only the values to remove.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;SampleRuleID&gt;</code> with the ID of the alert rule from which you want to remove users.</li>
+<li>Replace <code>&lt;SampleUserID&gt;</code> with the value that is associated with the email addresses or cloud aliases that you want to remove.</li>
+<li><p>The userAliasList parameter identifies the email addresses or cloud aliases associated with that <code>&lt;SampleUserID&gt;</code> that should be removed from the list. Replace <code>&lt;SampleAlias1&gt;</code> and <code>&lt;SampleAlias2&gt;</code> with the email addresses or cloud aliases you want to remove from the rule&#39;s inclusion or exclusion list for that user ID.</p>
+
+<ul>
+<li>If you want to remove only one email address or cloud alias, use this construction: <code>&quot;userAliasList&quot;: [ &quot;&lt;SampleAlias1&gt;&quot; ]</code></li>
+</ul></li>
+<li><p>If you want to remove multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.</p>
+
+<ul>
+<li>If there are multiple email addresses or cloud aliases associated with that user ID but you want to remove only one or two, specify only the values to remove.</li>
+</ul></li>
+</ul>
 <h3 id='remove-all-users-from-an-alert-rule'>Remove all users from an alert rule</h3>
-<p>If you do not know the user ID associated with the list of email addresses or cloud aliases for a user, you can use the <code>/api/v1/Rules/remove-all-users</code> to remove all users from an alert rule&#39;s inclusion or exclusion list. You can then use the add-users API command to rebuild those lists using known user IDs.</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="se">\</span>
-<span class="s2">"&lt;Request URL&gt;/Rules/remove-all-users"</span> <span class="se">\</span>
+<p>If you do not know the user ID associated with the list of email addresses or cloud aliases for a user, you can use the <a href="/sandbox/api/#operation/Rules_RemoveAllUsersFromRule">/v1/alert-rules/remove-all-users</a> API command to remove all users from an alert rule&#39;s inclusion or exclusion list. You can then use the add-users API command to rebuild those lists using known user IDs.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alert-rules/remove-all-users"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: application/json"</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "ruleId": "&lt;SampleRuleID&gt;" }'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example, <code>https://fed-observer-default.prod.ffs.us2.code42.com/svc/api/v1/</code>
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-your-organization's-tenant-ID">Get your organization&#39;s tenant ID</a> section.
-* Replace <SampleRuleID> with the ID of the alert rule from which you want to remove all users.</p>
-<h2 id='alerts-management-api-structure-and-syntax'>Alerts management API structure and syntax</h2><h3 id='summary'>Summary</h3>
-<p><strong>Request URL</strong>
-* United States alerts
-    * If you sign in to the Code42 console at <a href="https://www.crashplan.com/console">https://www.crashplan.com/console</a>, use:
-<code>https://alert-service-default.prod.ffs.us2.code42.com/svc/api/v1/&lt;resource&gt;</code>
-    * If you sign in to the Code42 console at <a href="https://console.us.code42.com/console">https://console.us.code42.com/console</a>, use: 
-<code>https://alert-service-east.us.code42.com/svc/api/v1/&lt;resource&gt;</code>
-    * If you sign in to the Code42 console for the Code42 federal environment at <a href="https://console.gov.code42.com/console">https://console.gov.code42.com/console</a>, use: 
-<code>https://alert-service-default.gov.code42.com/svc/api/v1/&lt;resource&gt;</code>
-* United States alert rule list management
-    * If you sign in to the Code42 console at <a href="https://www.crashplan.com/console">https://www.crashplan.com/console</a>, use:
-<code>https://fed-observer-default.prod.ffs.us2.code42.com/svc/api/v1/&lt;resource&gt;</code>
-    * If you sign in to the Code42 console at <a href="https://console.us.code42.com/console">https://console.us.code42.com/console</a>, use: 
-<code>https://fed-observer-east.us.code42.com/svc/api/v1/&lt;resource&gt;</code>
-    * If you sign in to the Code42 console for the Code42 federal environment at <a href="https://console.gov.code42.com/console">https://console.gov.code42.com/console</a>, use: <code>https://fed-observer-default.gov.code42.com/svc/api/v1/&lt;resource&gt;</code>
-* Ireland
-    * For alerts, if you sign in to the Code42 console at <a href="https://console.ie.code42.com/console">https://console.ie.code42.com/console</a>, use: 
-https://alert-service-default.ie.code42.com/svc/api/v1/<resource>
-    * For alert rule list management, if you sign in to the Code42 console at <a href="https://console.ie.code42.com/console">https://console.ie.code42.com/console</a>, use: 
-<code>https://fed-observer-default.ie.code42.com/svc/api/v1/&lt;resource&gt;</code></p>
+<p>In the preceding example:</p>
 
-<p><strong>Resources</strong>
-* Alerts API commands
-    * <code>resolve-alert</code>: Dismiss an alert.
-    * <code>reopen-alert</code>: Reopen an alert.
-    * <code>add-note</code>: Add a note to an alert.
-    * <code>query-alerts</code>: Search for alerts using alert filter criteria. See <a href="#filter-syntax-for-the-query-alerts-api-command">Filter syntax for the query-alerts API command</a> below for details.
-    * <code>query-details</code>: Search for alerts by alert ID.
-    * <code>query-details-aggregate</code>: Search for an alert by its alert ID. Details about the alert are aggregated into a single Observation value.
-    * <code>rules/query-rule-metadata</code>: Search for alert rules in your organization&#39;s tenant using filter criteria and view basic rule information. See <a href="#filter-syntax-for-the-rules/query-rule-metadata">Filter syntax for the rules/query-rule-metadata</a> below for details.
-* Alert list management API commands
-    * <code>rules/update-is-enabled</code>: Enable or disable a list of alert rules.
-    * <code>rules/add-users</code>: Add users to a rule&#39;s inclusion or exclusion list.
-    * <code>rules/remove-users</code>: Remove users (and all aliases associated with those users) from a rule&#39;s inclusion or exclusion list.
-    * <code>rules/remove-user-aliases</code>: Remove specific user aliases from a rule&#39;s inclusion or exclusion list.
-    * <code>rules/remove-all-users</code>: Remove all users (and all aliases associated with those users) from a rule&#39;s inclusion or exclusion list.
-    * <code>rules/query-cloud-share-permissions-rule</code>: Search for <strong>Cloud share permissions changes</strong> alert rules by rule ID.
-    * <code>rules/query-endpoint-exfiltration-rule</code>: Search for <strong>Exposure on an endpoint alert</strong> alert rules by rule ID.
-    * <code>rules/query-file-type-mismatch-rule</code>: Search for <strong>Suspicious file mismatch</strong> alert rules by rule ID.</p>
-
-<p><strong>Authentication method:</strong> Include a token in the request header. See the <a href="#authentication">Authentication</a> section below.</p>
-
-<p><strong>Tenant ID:</strong> Many of the API commands require a tenant ID. See the <a href="#get-your-organization's-tenant-ID">Get your organization&#39;s tenant ID</a> section below.</p>
-
-<p><strong>Complete API documentation</strong>
-* United States
-    * <a href="https://alert-service-default.prod.ffs.us2.code42.com/svc/swagger/index.html">https://alert-service-default.prod.ffs.us2.code42.com/svc/swagger/index.html</a> and     * <a href="https://fed-observer-default.prod.ffs.us2.code42.com/svc/swagger/index.html">https://fed-observer-default.prod.ffs.us2.code42.com/svc/swagger/index.html</a>
-    * <a href="https://alert-service-east.us.code42.com/svc/swagger/index.html">https://alert-service-east.us.code42.com/svc/swagger/index.html</a> and <a href="https://fed-observer-east.us.code42.com/svc/swagger/index.html">https://fed-observer-east.us.code42.com/svc/swagger/index.html</a>
-    * <a href="https://alert-service-default.gov.code42.com/svc/swagger/index.html">https://alert-service-default.gov.code42.com/svc/swagger/index.html</a> and <a href="https://fed-observer-default.gov.code42.com/svc/swagger/index.html">https://fed-observer-default.gov.code42.com/svc/swagger/index.html</a>
-* Ireland
-<a href="https://alert-service-default.ie.code42.com/svc/swagger/index.html">https://alert-service-default.ie.code42.com/svc/swagger/index.html</a> and <a href="https://fed-observer-default.ie.code42.com/svc/swagger/index.html">https://fed-observer-default.ie.code42.com/svc/swagger/index.html</a></p>
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;SampleRuleID&gt;</code> with the ID of the alert rule from which you want to remove all users.</li>
+</ul>
 <h4 id='filter-syntax-for-the-query-alerts-api-command'>Filter syntax for the query-alerts API command</h4>
-<p>The <code>query-alerts</code> API uses these filter types, operators, and criteria values to search for alert notifications.</p>
+<p>The <a href="/sandbox/api/#operation/Alerts_QueryAlert">/v1/alerts/query-alerts</a> API uses these filter types, operators, and criteria values to search for alert notifications.</p>
 
 <table><thead>
 <tr>
@@ -735,7 +787,7 @@ https://alert-service-default.ie.code42.com/svc/api/v1/<resource>
 <tr>
 <td>DateObserved</td>
 <td>On, On or after, On or before</td>
-<td>Date the alert was triggered, in YYYY-MM-DD format</td>
+<td>Date the alert was triggered, in yyyy-MM-dd format</td>
 </tr>
 <tr>
 <td>Actor</td>
@@ -769,86 +821,82 @@ https://alert-service-default.ie.code42.com/svc/api/v1/<resource>
 </tr>
 </tbody></table>
 <h4 id='filter-syntax-for-the-rules-query-rule-metadata-api-command'>Filter syntax for the rules/query-rule-metadata API command</h4>
-<p>The <code>rules/query-rule-metadata</code> uses these filter types, operators, and criteria values to search for alert rules.</p>
+<p>The <a href="/sandbox/api/#operation/Rules_QueryRuleMetadata">/v1/alerts/rules/query-rule-metadata</a> API uses these filter types, operators, and criteria values to search for alert rules.</p>
 
-<p> 
-Filter Type | Operator | Criteria
--------------- | -------------- | --------------
-TenantId | Is | The ID of your organization or tenant in {{c42}}
-ObserverRuleId | Is | The ID of a specific alert rule.
-Type | Is, Is not | The rule&#39;s exposure type (Cloud share permissions changes rules: FED_CLOUD_SHARE_PERMISSIONS), (Exposure on an endpoint rules: FED_ENDPOINT_EXFILTRATION), (Suspicious file mismatch rules: FED_FILE_TYPE_MISMATCH) 
-Name | Is, Is not, Contains, Does not contain | The name of the rule, or portions thereof
-Description | Is, Is not, Contains, Does not contain | The description of the rule, or portions thereof
-Severity | Is, Is not | High, Medium, or low
-IsSystem | Is | True or False. Indicates whether the rule is a default rule created by the Departing Employee list or High Risk Employees list
-IsEnabled | Is | True or False. Indicates whether the rule is enabled or disabled.
-RuleSource | Is, Is not | The source that created the rule. For rules created manually: Alerting. For rules created by the Departing Employee list: Departing Employee. For rules created by the High Risk Employees list: High Risk Employee
-ModifiedAt | On, On or after, On or before | Date the rule was modified, in YYYY-MM-DD format
-ModifiedBy | Is, Is not, Contains, Does not contain | Username of the person who last modified the rule. For default rules created by the Departing Employee list or High Risk Employees list, use Code42 as the user name.
-CreatedAt | On, On or after, On or before | Date the rule was created, in YYYY-MM-DD format
-CreatedBy | Is, Is not, Contains, Does not contain | Username of the person who created the rule. For default rules created by the Departing Employee list or High Risk Employees list, use Code42 as the user name.</p>
-<h2 id='authentication'>Authentication</h2>
-<p>This API resource requires an <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Code42_API_authentication_methods#Use_token_authentication">authentication token</a> in the header of all requests. To obtain an authentication token, use your Code42 administrator credentials to submit a <code>GET</code> request to:</p>
+<table><thead>
+<tr>
+<th>Filter Type</th>
+<th>Operator</th>
+<th>Criteria</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>TenantId</td>
+<td>Is</td>
+<td>The ID of your organization or tenant in Code42.</td>
+</tr>
+<tr>
+<td>ObserverRuleId</td>
+<td>Is</td>
+<td>The ID of a specific alert rule.</td>
+</tr>
+<tr>
+<td>Type</td>
+<td>Is, Is not</td>
+<td>The rule&#39;s exposure type (Cloud share permissions changes rules: FED_CLOUD_SHARE_PERMISSIONS), (Exposure on an endpoint rules: FED_ENDPOINT_EXFILTRATION), (Suspicious file mismatch rules: FED_FILE_TYPE_MISMATCH)</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>Is, Is not, Contains, Does not contain</td>
+<td>The name of the rule, or portions thereof</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>Is, Is not, Contains, Does not contain</td>
+<td>The description of the rule, or portions thereof</td>
+</tr>
+<tr>
+<td>Severity</td>
+<td>Is, Is not</td>
+<td>High, Medium, or low</td>
+</tr>
+<tr>
+<td>IsSystem</td>
+<td>Is</td>
+<td>True or False. Indicates whether the rule is a default rule created by the Departing Employee list or High Risk Employees list</td>
+</tr>
+<tr>
+<td>IsEnabled</td>
+<td>Is</td>
+<td>True or False. Indicates whether the rule is enabled or disabled.</td>
+</tr>
+<tr>
+<td>RuleSource</td>
+<td>Is, Is not</td>
+<td>The source that created the rule. For rules created manually: Alerting. For rules created by the Departing Employee list: Departing Employee. For rules created by the High Risk Employees list: High Risk Employee</td>
+</tr>
+<tr>
+<td>ModifiedAt</td>
+<td>On, On or after, On or before</td>
+<td>Date the rule was modified, in yyyy-MM-dd format</td>
+</tr>
+<tr>
+<td>ModifiedBy</td>
+<td>Is, Is not, Contains, Does not contain</td>
+<td>Username of the person who last modified the rule. For default rules created by the Departing Employee list or High Risk Employees list, use Code42 as the user name.</td>
+</tr>
+<tr>
+<td>CreatedAt</td>
+<td>On, On or after, On or before</td>
+<td>Date the rule was created, in yyyy-MM-dd format</td>
+</tr>
+<tr>
+<td>CreatedBy</td>
+<td>Is, Is not, Contains, Does not contain</td>
+<td>Username of the person who created the rule. For default rules created by the Departing Employee list or High Risk Employees list, use Code42 as the user name.</td>
+</tr>
+</tbody></table>
 
-<ul>
-<li>United States: 
-
-<ul>
-<li>If you sign in to the Code42 console at <a href="https://www.crashplan.com/console">https://www.crashplan.com/console</a>, use: 
-<code>https://www.crashplan.com/c42api/v3/auth/jwt?useBody=true</code></li>
-<li>If you sign in to the Code42 console at <a href="https://console.us.code42.com/console">https://console.us.code42.com/console</a>, use: 
-<code>https://console.us.code42.com/c42api/v3/auth/jwt?useBody=true</code></li>
-<li>If you sign in to the Code42 console for the Code42 federal environment at <a href="https://console.gov.code42.com/console">https://console.gov.code42.com/console</a>, use:
-<code>https://console.gov.code42.com/c42api/v3/auth/jwt?useBody=true</code></li>
-</ul></li>
-<li>Ireland: If you sign in to the Code42 console at <a href="https://console.ie.code42.com/console">https://console.ie.code42.com/console</a>, use: <code>https://console.ie.code42.com/c42api/v3/auth/jwt?useBody=true</code></li>
-</ul>
-
-<p>For example:</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> GET <span class="nt">-u</span> <span class="s2">"username"</span> <span class="nt">-H</span> <span class="s2">"Accept: application/json"</span> <span class="s2">"https://www.crashplan.com/c42api/v3/auth/jwt?useBody=true"</span>
-</code></pre></div>
-<p>If your organization uses <a href="https://support.code42.com/Administrator/Cloud/Configuring/Two-factor_authentication_for_local_users">two-factor authentication for local users</a>, you must also include a <code>totp-auth</code> header value containing the Time-based One-Time Password (TOTP) supplied by the Google Authenticator mobile app. The example below includes a TOTP value of 424242.</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> GET <span class="nt">-u</span> <span class="s2">"username"</span> <span class="nt">-H</span> <span class="s2">"totp-auth: 424242"</span> <span class="s2">"Accept: application/json"</span> <span class="s2">"https://www.crashplan.com/c42api/v3/auth/jwt?useBody=true"</span>
-</code></pre></div>
-<p>A successful request returns an authentication token. For example:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"v3_user_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eyJjdHkiO_bxYJOOn28y...5HGtGHgJzHVCE8zfy1qRBf_rhchA"</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
-<p><strong>Token considerations</strong>
-* Use this authentication token in your requests.
-* Authentication tokens expire after 30 minutes.
-* You must have credentials for a Code42 user with the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin">Customer Cloud Admin</a> role.
-* The authentication example above only applies to users who authenticate locally with Code42. Single sign-on (SSO) users must also complete SAML authentication with their SSO provider. If you need assistance with this process, contact your SSO provider.</p>
-<h3 id='get-your-organization-39-s-tenant-id'>Get your organization&#39;s tenant ID</h3>
-<p>The APIs require that you provide the unique ID of your organization (or tenant) in the Code42 cloud. To obtain the tenant ID, use your Code42 administrator credentials to submit a GET request to:
-* United States: 
-    * If you sign in to the Code42 console at <a href="https://www.crashplan.com/console">https://www.crashplan.com/console</a>, use: <code>https://www.crashplan.com/c42api/v3/customer/my</code>
-    * If you sign in to the Code42 console at <a href="https://console.us.code42.com/console">https://console.us.code42.com/console</a>, use: 
-<code>https://console.us.code42.com/c42api/v3/customer/my</code> 
-    * If you sign in to the Code42 console for the Code42 federal environment at <a href="https://console.gov.code42.com/console">https://console.gov.code42.com/console</a>, use: 
-https://console.gov.code42.com/c42api/v3/customer/my 
-* Ireland: If you sign in to the Code42 console at <a href="https://console.ie.code42.com/console">https://console.ie.code42.com/console</a>, use: <code>https://console.ie.code42.com/c42api/v3/customer/my</code></p>
-
-<p>In the following example, replace <AuthToken> with the authentication token you obtained and replace console.us.code42.com with the URL of your Code42 cloud instance:</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-vvv</span> <span class="nt">-X</span> GET <span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="s1">'https://console.us.code42.com/c42api/v3/customer/my'</span>
-</code></pre></div>
-<p>A successful response returns the tenantUid:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"data"</span><span class="p">:{</span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"My Org"</span><span class="p">,</span><span class="nl">"registrationKey"</span><span class="p">:</span><span class="s2">"4s42ukut7pwpwr4c"</span><span class="p">,</span><span class="nl">"deploymentModel"</span><span class="p">:</span><span class="s2">"PUBLIC"</span><span class="p">,</span><span class="nl">"maintenanceMode"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nl">"tenantUid"</span><span class="p">:</span><span class="s2">"42b42dfe-4242-4242-428a-8a1dfd352f2f"</span><span class="p">,</span><span class="nl">"masterServicesAgreement"</span><span class="p">:{</span><span class="nl">"accepted"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"acceptanceRequired"</span><span class="p">:</span><span class="kc">false</span><span class="p">}},</span><span class="nl">"error"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nl">"warnings"</span><span class="p">:</span><span class="kc">null</span><span class="p">}</span><span class="w">
-</span></code></pre></div><h3 id='identify-useruids'>Identify userUIDs</h3>
-<p>Each user in Code42 is uniquely identified by a userUID value. You use this userUID with the <code>/api/v1/rules/add-user</code> and <code>api/v1/rules/remove-user</code> to associate a list of email addresses or cloud aliases with a specific user, and to add and remove those alias lists in alert rules.</p>
-
-<p>You can locate userUIDs directly in the Code42 console:
-* Export a <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Users_reference#CSV_export">list of Code42 users to a CSV file</a>. The file includes each user&#39;s userUID.
-* View userUIDs in the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/User_Backup_report_reference#User_Backup_report">User Backup report</a> and <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Device_Status_report_reference#Device_Status_report">Device Status report</a>.</p>
-
-<p>You can also use the <code>/api/User</code> API command to <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Device_Status_report_reference#Device_Status_report">identify a userUID</a>. In the following example:
-* Replace <YourUsername> with your username in Code42
-* Replace <RequestURL> with the address you use to access the Code42 console, for example, <code>https://www.crashplan.com/</code>
-* Replace <Code42Username> with the Code42 username of the user whose userUID value you want to view.</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> GET <span class="nt">-u</span> <span class="s1">'&lt;YourUsername&gt;'</span> <span class="s1">'&lt;RequestURL&gt;/api/User?q=&lt;Code42Username&gt;&amp;active=true'</span>
-</code></pre></div>
-<p>When prompted, enter your Code42 password. A successful response lists information about that user, including the userUID.</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"metadata"</span><span class="p">:{</span><span class="nl">"timestamp"</span><span class="p">:</span><span class="s2">"2020-06-12T19:45:41.962Z"</span><span class="p">,</span><span class="nl">"params"</span><span class="p">:{</span><span class="nl">"q"</span><span class="p">:</span><span class="s2">"astrid.ludwig@example.com"</span><span class="p">,</span><span class="nl">"active"</span><span class="p">:</span><span class="s2">"true"</span><span class="p">}},</span><span class="nl">"data"</span><span class="p">:{</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nl">"users"</span><span class="p">:[{</span><span class="nl">"userId"</span><span class="p">:</span><span class="mi">199520</span><span class="p">,</span><span class="nl">"userUid"</span><span class="p">:</span><span class="s2">"933431721358889954"</span><span class="p">,</span><span class="nl">"status"</span><span class="p">:</span><span class="s2">"Active"</span><span class="p">,</span><span class="nl">"username"</span><span class="p">:</span><span class="s2">"astrid.ludwig@example.com"</span><span class="p">,</span><span class="nl">"email"</span><span class="p">:</span><span class="s2">"astrid.ludwig@example.com"</span><span class="p">,</span><span class="nl">"firstName"</span><span class="p">:</span><span class="s2">"Astrid"</span><span class="p">,</span><span class="nl">"lastName"</span><span class="p">:</span><span class="s2">"Ludwig"</span><span class="p">,</span><span class="nl">"quotaInBytes"</span><span class="p">:</span><span class="mi">-1</span><span class="p">,</span><span class="nl">"orgId"</span><span class="p">:</span><span class="mi">4203</span><span class="p">,</span><span class="nl">"orgUid"</span><span class="p">:</span><span class="s2">"933427843360873352"</span><span class="p">,</span><span class="nl">"orgName"</span><span class="p">:</span><span class="s2">"OktaOrg"</span><span class="p">,</span><span class="nl">"userExtRef"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nl">"notes"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nl">"active"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"blocked"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nl">"emailPromo"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"invited"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nl">"orgType"</span><span class="p">:</span><span class="s2">"ENTERPRISE"</span><span class="p">,</span><span class="nl">"usernameIsAnEmail"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"creationDate"</span><span class="p">:</span><span class="s2">"2019-12-23T15:51:01.871Z"</span><span class="p">,</span><span class="nl">"modificationDate"</span><span class="p">:</span><span class="s2">"2019-12-23T15:51:02.057Z"</span><span class="p">,</span><span class="nl">"passwordReset"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nl">"localAuthenticationOnly"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nl">"licenses"</span><span class="p">:[</span><span class="s2">"admin.securityTools"</span><span class="p">]}]}}</span><span class="w">
-</span></code></pre></div>
       </div>
     </div>
   </body>

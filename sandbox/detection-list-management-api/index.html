@@ -366,20 +366,6 @@
                         </li>
                     </ul>
                   </li>
-                  <li>
-                    <a href="#detection-list-management-api-structure-and-syntax" class="toc-h2 toc-link" data-title="Detection list management API structure and syntax">Detection list management API structure and syntax</a>
-                    <ul class="toc-list-h3">
-                        <li>
-                            <a href="#summary" class="toc-h3 toc-link" data-title="Summary">Summary</a>
-                        </li>
-                        <li>
-                            <a href="#authentication" class="toc-h3 toc-link" data-title="Authentication">Authentication</a>
-                        </li>
-                        <li>
-                            <a href="#get-a-tenant-id" class="toc-h3 toc-link" data-title="Get a tenant ID">Get a tenant ID</a>
-                        </li>
-                    </ul>
-                  </li>
               </ul>
           </li>
       </ul>
@@ -387,324 +373,392 @@
     <div class="page-wrapper">
       <div class="content">
         <h1 id='detection-list-management-api'>Detection List Management API</h1><h2 id='overview'>Overview</h2>
-<p>You can manually manage users in the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Departing_Employees_reference">Departing Employees list</a> and <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference">High Risk Employees list</a> from the Code42 console. To automate the process of managing users in these detection lists, you can write scripts that use the <a href="https://ecm-default.prod.ffs.us2.code42.com/svc/swagger/index.html?urls.primaryName=v2">Detection List Management APIs</a>. This article provides an introduction to the APIs.</p>
+<p>You can manually manage users in the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference">High Risk Employees list</a> and <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Departing_Employees_reference">Departing Employees list</a> from the Code42 console. To automate the process of managing users in these detection lists, you can write scripts that use the <a href="/sandbox/api/#tag/High-Risk-Employee">High Risk Employee APIs</a> and <a href="/sandbox/api/#tag/Departing-Employee">Departing Employee APIs</a>. This article provides an introduction to the APIs.</p>
 <h2 id='considerations'>Considerations</h2>
 <ul>
-<li>This article describes <a href="https://ecm-default.prod.ffs.us2.code42.com/svc/swagger/index.html?urls.primaryName=v2">Version 2</a>, the latest version of the detection list management APIs. Version 1 is deprecated. To access complete documentation of the API for your Code42 cloud instance, see <a href="#Summary">Summary</a> below.</li>
-<li>The tasks in this article require use of the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Introduction_to_the_Code42_API">Code42 API</a>.
-
-<ul>
-<li>If you are not familiar with using Code42 APIs, review <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Code42_API_syntax_and_usage">Code42 API syntax and usage</a>.</li>
-<li>For assistance with using the Code42 API, contact your Customer Success Manager (CSM) to engage the Code42 Professional Services team. Or, <a href="https://success.code42.com/home">post your question to the Code42 community</a> to get advice from fellow Code42 administrators.</li>
-</ul></li>
-<li>To perform tasks in this article, you must: 
+<li>The tasks in this article require use of the Code42 API. For assistance with using the Code42 API, contact your Customer Success Manager (CSM) to engage the Code42 Professional Services team. Or, <a href="https://success.code42.com/home">post your question to the Code42 community</a> to get advice from fellow Code42 administrators.</li>
+<li>The examples in this article use <a href="https://curl.se/">curl</a>. For other tools that you can use, see <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Tools_for_interacting_with_the_Code42_API">Tools for interacting with the Code42 API</a>.</li>
+<li>To perform tasks in this article, you must:
 
 <ul>
 <li>Have the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin">Customer Cloud Admin</a> role.</li>
-<li>Obtain an <a href="#authentication">authentication token</a> and a <a href="#get-a-tenant-id">tenant ID</a>.</li>
-<li><a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> for each user you want to manage in a detection list.</li>
+<li>Know the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Obtain an <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a> and a <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li><a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile</a> for each user you want to manage in a detection list.</li>
 </ul></li>
+<li>You can also use the Code42 command-line interface (CLI) to work with the High Risk Employees list or the Departing Employees list. For more information, see the <a href="https://clidocs.code42.com/en/latest/userguides/detectionlists.html">Code42 CLI documentation</a>.</li>
 </ul>
-<h2 id='manage-users'>Manage users</h2>
-<p>Use the <code>api/v2/user/</code> resource to manage users in the detection lists. For the commands available in the <code>/user/</code> resource, see the <a href="#summary">API summary</a> section below. The following sections demonstrate how to perform some basic tasks with this API resource.</p>
-<h3 id='create-a-detection-list-profile-for-a-user'>Create a detection list profile for a user</h3>
-<p>Before you can manage a Code42 user with the detection management list APIs, you must create a detection list profile for the user. This profile is for an existing Code42 user and contains the details needed to manage that user on the Departing Employees and High Risk Employees lists. It includes information about the user specifically for use in detection lists, such as notes, risk attributes, and cloud user names. When you add the user to any detection list, the profile accompanies them.</p>
+<h2 id='manage-users'>Manage users</h2><h3 id='create-a-detection-list-profile-for-a-user'>Create a detection list profile for a user</h3>
+<p>Before you can manage a Code42 user with the detection management list APIs, you must create a detection list profile for the user with the <a href="/sandbox/api/#operation/UserControllerV2_Create">/v1/detection-lists/user/create</a> API. This profile is for an existing Code42 user and contains the details needed to manage that user on the High Risk Employees and Departing Employees lists. It includes information about the user specifically for use in detection lists, such as notes, risk attributes, and cloud user names. When you add the user to any detection list, the profile accompanies them.</p>
 
-<p>When you create a detection list profile for a user, a user ID is generated. You must submit this user ID whenever you run any subsequent APIs to manage the user in a detection list. </p>
+<p>When you create a detection list profile for a user, a user ID is generated. You must submit this user ID whenever you run any subsequent APIs to manage the user in a detection list.</p>
 
 <p>Keep in mind that a detection list profile is created automatically when you add Code42 users to detection lists using the Code42 console. You only have to create a detection list profile for a user if one has not been created yet.</p>
 
-<aside class="success">
+<p><strong>Note:</strong> Before attempting to create a detection list profile for a user, <a href="#get-the-detection-list-profile-for-a-user">check to see if a profile already exists</a> by running the <a href="/sandbox/api/#operation/UserControllerV2_GetByUsername">/v1/detection-lists/user/getbyusername</a> API or <a href="/sandbox/api/#operation/UserControllerV2_GetByUserId">/v1/detection-lists/user/getbyid</a> API. If a profile already exists, attempting to create a profile for the user results in an error.</p>
 
-**Check if a detection list profile already exists**
-
-Before attempting to create a detection list profile for a user, [check to see if a profile already exists](#get-the-detection-list-profile-for-a-user ) by running the `api/v2/user/getbyusername`  API or `api/v2/user/getbyid`  API. If a profile already exists, attempting to create a profile for the user results in an error.
-</aside>
-
-<p>To create a detection list profile, use the <code>api/v2/user/create</code>  API command as shown in the following example.</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;requestURL&gt;/create <span class="se">\</span>
+<p>To create a detection list profile, use the <a href="/sandbox/api/#operation/UserControllerV2_Create">/v1/detection-lists/user/create</a> API command as shown in the following example.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;requestURL&gt;/v1/detection-lists/user/create <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{"tenantId": "&lt;SampleTenant&gt;", "userName": "&lt;Code42Username&gt;", "notes": "This is an example user note.", "riskFactors": ["FLIGHT_RISK", "HIGH_IMPACT_EMPLOYEE"], "cloudUsernames": ["&lt;UsernameInCloudService&gt;"]}'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example, 
-<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/user/</code> 
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-a-tenant-id">Get a tenant ID</a> section.
-* Replace <Code42Username> with the Code42 username. The username is assigned when the <a href="https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually">user is added to Code42</a>.
-* Replace <UsernameInCloudService> with the username of the user in a cloud service (such as Google Drive) if the username is different than the Code42 username. </p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;Code42Username&gt;</code> with the Code42 username. The username is assigned when the <a href="https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually">user is added to Code42</a>.</li>
+<li>Replace <code>&lt;UsernameInCloudService&gt;</code> with the username of the user in a cloud service (such as Google Drive) if the username is different than the Code42 username.</li>
+</ul>
 
 <p>An excerpt of an example successful response:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"USER_V2"</span><span class="p">,</span><span class="nl">"tenantId"</span><span class="p">:</span><span class="s2">"1233456"</span><span class="p">,</span><span class="nl">"userId"</span><span class="p">:</span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="nl">"userName"</span><span class="p">:</span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="nl">"displayName"</span><span class="p">:</span><span class="s2">"John Doe"</span><span class="p">,</span><span class="nl">"notes"</span><span class="p">:</span><span class="s2">"This is an example user note."</span><span class="p">,</span><span class="nl">"cloudUsernames"</span><span class="p">:[</span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="s2">"john.doe@example.com"</span><span class="p">],</span><span class="nl">"riskFactors"</span><span class="p">:[</span><span class="s2">"FLIGHT_RISK"</span><span class="p">,</span><span class="s2">"HIGH_IMPACT_EMPLOYEE"</span><span class="p">]}</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USER_V2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1233456"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an example user note."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cloudUsernames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"john.doe@example.com"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"riskFactors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"FLIGHT_RISK"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"HIGH_IMPACT_EMPLOYEE"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='get-the-detection-list-profile-for-a-user'>Get the detection list profile for a user</h3>
-<p>If you need to get a user&#39;s detection list profile to find information about the user, use the <code>api/v2/user/getbyusername</code>  API or the  <code>api/v2/user/getbyid</code> API. </p>
+<p>If you need to get a user&#39;s detection list profile to find information about the user, use the <a href="/sandbox/api/#operation/UserControllerV2_GetByUsername">/v1/detection-lists/user/getbyusername</a> API or <a href="/sandbox/api/#operation/UserControllerV2_GetByUserId">/v1/detection-lists/user/getbyid</a> API.</p>
 
-<p>For example, if you don&#39;t know a user&#39;s ID as assigned in the profile, you can find it by running the <code>api/v2/user/getbyusername</code> API command as shown in the following example.</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;requestURL&gt;/getbyusername <span class="se">\</span>
+<p>For example, if you don&#39;t know a user&#39;s ID as assigned in the profile, you can find it by running the <a href="/sandbox/api/#operation/UserControllerV2_GetByUsername">/v1/detection-lists/user/getbyusername</a> API command as shown in the following example.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;requestURL&gt;/v1/detection-lists/user/getbyusername <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "username": "&lt;Code42Username&gt;"}'</span>
 </code></pre></div>
-<p>In the preceding example:
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example, 
-<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/user/</code> 
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-a-tenant-id">Get a tenant ID</a> section.
-* Replace <Code42Username> with the Code42 username of the user. The username is assigned when the <a href="https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually">user is added to Code42</a>.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;Code42Username&gt;</code> with the Code42 username of the user. The username is assigned when the <a href="https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually">user is added to Code42</a>.</li>
+</ul>
 
 <p>A successful response returns the user ID and other information:</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"USER_V2"</span><span class="p">,</span><span class="nl">"tenantId"</span><span class="p">:</span><span class="s2">"123456"</span><span class="p">,</span><span class="nl">"userId"</span><span class="p">:</span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="nl">"userName"</span><span class="p">:</span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="nl">"displayName"</span><span class="p">:</span><span class="s2">"John Doe"</span><span class="p">,</span><span class="nl">"notes"</span><span class="p">:</span><span class="s2">"This is an example user note."</span><span class="p">,</span><span class="nl">"cloudUsernames"</span><span class="p">:[</span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="s2">"john.doe@example.com"</span><span class="p">],</span><span class="nl">"riskFactors"</span><span class="p">:[</span><span class="s2">"FLIGHT_RISK"</span><span class="p">,</span><span class="s2">"HIGH_IMPACT_EMPLOYEE"</span><span class="p">]}</span><span class="w">
 </span></code></pre></div><h2 id='some-available-actions'>Some available actions</h2>
-<p>Following are some of the actions you can perform using the <a href="https://ecm-default.prod.ffs.us2.code42.com/svc/swagger/index.html?urls.primaryName=v2">Detection List Management APIs</a>. For a complete list of actions you can perform with the APIs, see the <a href="#summary">API summary</a> section below.</p>
+<p>Following are some of the actions you can perform using the <a href="/sandbox/api/#tag/High-Risk-Employee">High Risk Employee APIs</a> and <a href="/sandbox/api/#tag/Departing-Employee">Departing Employee APIs</a>.</p>
 <h3 id='add-a-user-to-a-detection-list'>Add a user to a detection list</h3>
-<p>You can add a user to the Departing Employees list using the <code>api/v2/departingemployee/add</code>  API, or add a user to the High Risk Employees list using the <code>api/v2/highriskemployee/add</code>  API. </p>
+<p>You can add a user to the High Risk Employees list using the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_AddEmployee">/v1/detection-lists/highriskemployee/add</a> API or add a user to the Departing Employees list using the <a href="/sandbox/api/#operation/DepartingEmployeeControllerV2_AddEmployee">/v1/detection-lists/departingemployee/add</a> API.</p>
 
-<aside class="success">
-
-**Bulk add users to a detection list** 
-
-To leverage these APIs to add multiple users at once, see the [Code42 command-line interface](https://clidocs.code42.com/en/latest/userguides/detectionlists.html?highlight=departing%20employee#add-users-to-the-departing-employees-list). 
-</aside>
-<h4 id='add-a-departing-employee'>Add a departing employee</h4>
-<p>The following example demonstrates how to add a user to the Departing Employees list using the <code>api/v2/departingemployee/add</code>  API. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/add <span class="se">\</span>
+<p><strong>Note:</strong>  To add multiple users at once, see the <a href="https://clidocs.code42.com/en/latest/userguides/detectionlists.html?highlight=departing%20employee#add-users-to-the-departing-employees-list">Code42 command-line interface</a>.</p>
+<h4 id='add-a-high-risk-employee'>Add a high risk employee</h4>
+<p>The following example demonstrates how to add a user to the High Risk Employees list using the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_AddEmployee">/v1/detection-lists/highriskemployee/add</a> API.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/highriskemployee/add <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
-<span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "userId": "&lt;ID&gt;", "departureDate": "2020-04-07" }'</span>
-</code></pre></div>
-<p>In the preceding example: 
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example, 
-<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/departingemployee</code> 
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-a-tenant-id">Get a tenant ID</a> section.
-* Replace <ID> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you can <a href="#get-the-detection-list-profile-for-a-user">look it up using the Code42 username</a>.</p>
-
-<p>An excerpt of an example successful response:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"DEPARTING_EMPLOYEE_V2"</span><span class="p">,</span><span class="nl">"tenantId"</span><span class="p">:</span><span class="mi">123456</span><span class="s2">","</span><span class="err">userId</span><span class="s2">":"</span><span class="mi">123456789424242</span><span class="s2">","</span><span class="err">userName</span><span class="s2">":"</span><span class="err">john.doe@example.com</span><span class="s2">","</span><span class="err">displayName</span><span class="s2">":"</span><span class="err">John</span><span class="w"> </span><span class="err">Doe</span><span class="s2">","</span><span class="err">notes</span><span class="s2">":"</span><span class="err">This</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">an</span><span class="w"> </span><span class="err">example</span><span class="w"> </span><span class="err">of</span><span class="w"> </span><span class="err">a</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">note.</span><span class="s2">","</span><span class="err">createdAt</span><span class="s2">":"</span><span class="mi">2020-03-31</span><span class="err">T</span><span class="mi">19</span><span class="err">:</span><span class="mi">22</span><span class="err">:</span><span class="mf">18.5651922</span><span class="err">Z</span><span class="s2">","</span><span class="err">status</span><span class="s2">":"</span><span class="err">OPEN</span><span class="s2">","</span><span class="err">cloudUsernames</span><span class="s2">":["</span><span class="err">john.doe@gmail.com</span><span class="s2">","</span><span class="err">john.doe@example.com</span><span class="s2">"],"</span><span class="err">departureDate</span><span class="s2">":"</span><span class="mi">2020-04-07</span><span class="s2">"}
-</span></code></pre></div><h4 id='add-a-high-risk-employee'>Add a high risk employee</h4>
-<p>The following example demonstrates how to add a user to the High Risk Employees list using the <code>api/v2/highriskemployee/add</code>  API. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/add <span class="se">\</span>
-<span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "userId": "&lt;ID&gt;" }'</span>
 </code></pre></div>
-<p>In the preceding example: 
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example, 
-<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee</code> 
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-a-tenant-id">Get a tenant ID</a> section.
-* Replace <ID> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you can [look it up using the Code42 username]#get-the-detection-list-profile-for-a-user).</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you can <a href="#get-the-detection-list-profile-for-a-user">look it up using the Code42 username</a>.</li>
+</ul>
 
 <p>An excerpt of an example successful response:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"HIGH_RISK_EMPLOYEE_V2"</span><span class="p">,</span><span class="nl">"tenantId"</span><span class="p">:</span><span class="s2">"123456"</span><span class="p">,</span><span class="nl">"userId"</span><span class="p">:</span><span class="s2">"123456789424242,"</span><span class="err">userName</span><span class="s2">":"</span><span class="err">john.doe@example.com</span><span class="s2">","</span><span class="err">displayName</span><span class="s2">":"</span><span class="err">John</span><span class="w"> </span><span class="err">Doe</span><span class="s2">","</span><span class="err">notes</span><span class="s2">":"</span><span class="err">This</span><span class="w"> </span><span class="err">is</span><span class="w"> </span><span class="err">an</span><span class="w"> </span><span class="err">example</span><span class="w"> </span><span class="err">user</span><span class="w"> </span><span class="err">note.</span><span class="s2">","</span><span class="err">createdAt</span><span class="s2">":"</span><span class="mi">2020-03-31</span><span class="err">T</span><span class="mi">19</span><span class="err">:</span><span class="mi">35</span><span class="err">:</span><span class="mf">49.4400509</span><span class="err">Z</span><span class="s2">","</span><span class="err">status</span><span class="s2">":"</span><span class="err">OPEN</span><span class="s2">","</span><span class="err">cloudUsernames</span><span class="s2">":["</span><span class="err">john.doe@gmail.com</span><span class="s2">","</span><span class="err">john.doe@example.com</span><span class="s2">"],"</span><span class="err">riskFactors</span><span class="s2">":["</span><span class="err">FLIGHT_RISK</span><span class="s2">","</span><span class="err">HIGH_IMPACT_EMPLOYEE</span><span class="s2">"]}
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH_RISK_EMPLOYEE_V2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an example user note."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-31T19:35:49.4400509Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cloudUsernames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"john.doe@example.com"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"riskFactors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"FLIGHT_RISK"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"HIGH_IMPACT_EMPLOYEE"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h4 id='add-a-departing-employee'>Add a departing employee</h4>
+<p>The following example demonstrates how to add a user to the Departing Employees list using the <a href="/sandbox/api/#operation/DepartingEmployeeControllerV2_AddEmployee">/v1/detection-lists/departingemployee/add</a> API.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/departingemployee/add <span class="se">\</span>
+<span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "userId": "&lt;ID&gt;", "departureDate": "&lt;Date&gt;" }'</span>
+</code></pre></div>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you can <a href="#get-the-detection-list-profile-for-a-user">look it up using the Code42 username</a>.</li>
+<li>Replace <code>&lt;Date&gt;</code> with the user&#39;s departure date in year-month-day format, for example &quot;2020-04-07&quot;.</li>
+</ul>
+
+<p>An excerpt of an example successful response:</p>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEPARTING_EMPLOYEE_V2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an example of a user note."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-31T19:22:18.5651922Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cloudUsernames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"john.doe@example.com"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"departureDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-04-07"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='obtain-a-listing-of-all-users-in-a-detection-list'>Obtain a listing of all users in a detection list</h3>
-<p>You can obtain a list of all users in the Departing Employees list using the <code>api/v2/departingemployee/search</code>  API, or obtain a list of all users in the High Risk Employees list using the <code>api/v2/highriskemployee/search</code>  API. </p>
-<h4 id='obtain-a-list-of-departing-employees'>Obtain a list of departing employees</h4>
-<p>Obtain a list of departing employees in Code42 by running the <code>api/v2/departingemployee/</code> search  API. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/search  <span class="se">\</span>
+<p>You can obtain a list of all users in the  High Risk Employees list using the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_Search">/v1/detection-lists/highriskemployee/search</a> API , or obtain a list of all users in the Departing Employees list using the <a href="/sandbox/api/#operation/DepartingEmployeeControllerV2_Search">/v1/detection-lists/departingemployee/search</a> API.</p>
+<h4 id='obtain-a-list-of-high-risk-employees'>Obtain a list of high risk employees</h4>
+<p>Obtain a list of high risk employees in Code42 by running the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_Search">/v1/detection-lists/highriskemployee/search</a> API.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/highriskemployee/search  <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "filterType": "OPEN", "pgSize": "20", "pgNum": "1", "srtKey": "DISPLAY_NAME", "srtDirection": "ASC" }'</span>
 </code></pre></div>
-<p>In the preceding example: 
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example, 
-<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/departingemployee</code> 
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-a-tenant-id">Get a tenant ID</a> section.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+</ul>
 
 <p>An excerpt of an example successful response:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"DEPARTING_EMPLOYEE_SEARCH_RESPONSE_V2"</span><span class="p">,</span><span class="nl">"items"</span><span class="p">:[{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"DEPARTING_EMPLOYEE_V2"</span><span class="p">,</span><span class="nl">"tenantId"</span><span class="p">:</span><span class="s2">"123456"</span><span class="p">,</span><span class="nl">"userId"</span><span class="p">:</span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="nl">"userName"</span><span class="p">:</span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="nl">"displayName"</span><span class="p">:</span><span class="s2">"John Doe"</span><span class="p">,</span><span class="nl">"notes"</span><span class="p">:</span><span class="s2">"This is an example user note."</span><span class="p">,</span><span class="nl">"createdAt"</span><span class="p">:</span><span class="s2">"2020-03-31T19:22:18.5651920Z"</span><span class="p">,</span><span class="nl">"status"</span><span class="p">:</span><span class="s2">"OPEN"</span><span class="p">,</span><span class="nl">"cloudUsernames"</span><span class="p">:[</span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="s2">"john.doe@example.com"</span><span class="p">],</span><span class="nl">"departureDate"</span><span class="p">:</span><span class="s2">"2020-04-07"</span><span class="p">}],</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nl">"rollups"</span><span class="p">:[{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="nl">"filterType"</span><span class="p">:</span><span class="s2">"OPEN"</span><span class="p">,</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">1</span><span class="p">},{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="nl">"filterType"</span><span class="p">:</span><span class="s2">"LEAVING_TODAY"</span><span class="p">,</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">0</span><span class="p">},{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="nl">"filterType"</span><span class="p">:</span><span class="s2">"EXFILTRATION_24_HOURS"</span><span class="p">,</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">0</span><span class="p">},{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="nl">"filterType"</span><span class="p">:</span><span class="s2">"EXFILTRATION_30_DAYS"</span><span class="p">,</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">0</span><span class="p">}],</span><span class="nl">"filterType"</span><span class="p">:</span><span class="s2">"OPEN"</span><span class="p">,</span><span class="nl">"pgSize"</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span><span class="nl">"pgNum"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nl">"srtKey"</span><span class="p">:</span><span class="s2">"DISPLAY_NAME"</span><span class="p">,</span><span class="nl">"srtDirection"</span><span class="p">:</span><span class="s2">"ASC"</span><span class="p">}</span><span class="w">
-</span></code></pre></div><h4 id='obtain-a-list-of-high-risk-employees'>Obtain a list of high risk employees</h4>
-<p>Obtain a list of high risk employees in Code42 by running the <code>api/v2/highriskemployee/</code> search  API. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/search  <span class="se">\</span>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH_RISK_SEARCH_RESPONSE_V2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH_RISK_EMPLOYEE_V2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an example note."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-31T19:35:49.4400500Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cloudUsernames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"john.doe@example.com"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"riskFactors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"FLIGHT_RISK"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"HIGH_IMPACT_EMPLOYEE"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH_RISK_EMPLOYEE_V2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"987654321424242"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"jane.smith@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jane Smith"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an example note."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-31T19:45:30.3092900Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cloudUsernames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"jane.smith@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"jane.smith@example.com"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"managerUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jack.Shep"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"managerUsername"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jack.Shep@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"managerDisplayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Jack Shep"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"title"</span><span class="p">:</span><span class="w"> </span><span class="s2">"People Person"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"division"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Acme"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"department"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Human Resources"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"employmentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Full Time"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"The Island"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"country"</span><span class="p">:</span><span class="w"> </span><span class="s2">"US"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"riskFactors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"FLIGHT_RISK"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"HIGH_IMPACT_EMPLOYEE"</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"rollups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH_RISK_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH_RISK_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EXFILTRATION_24_HOURS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH_RISK_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EXFILTRATION_30_DAYS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pgSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pgNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"srtKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DISPLAY_NAME"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"srtDirection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ASC"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div><h4 id='obtain-a-list-of-departing-employees'>Obtain a list of departing employees</h4>
+<p>Obtain a list of departing employees in Code42 by running the <a href="/sandbox/api/#operation/DepartingEmployeeControllerV2_Search">/v1/detection-lists/departingemployee/search</a> API.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/departingemployee/search  <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "filterType": "OPEN", "pgSize": "20", "pgNum": "1", "srtKey": "DISPLAY_NAME", "srtDirection": "ASC" }'</span>
 </code></pre></div>
-<p>In the preceding example: 
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example, 
-<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee</code> 
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-a-tenant-id">Get a tenant ID</a> section.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+</ul>
 
 <p>An excerpt of an example successful response:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"HIGH_RISK_SEARCH_RESPONSE_V2"</span><span class="p">,</span><span class="nl">"items"</span><span class="p">:[{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"HIGH_RISK_EMPLOYEE_V2"</span><span class="p">,</span><span class="nl">"tenantId"</span><span class="p">:</span><span class="s2">"123456"</span><span class="p">,</span><span class="nl">"userId"</span><span class="p">:</span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="nl">"userName"</span><span class="p">:</span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="nl">"displayName"</span><span class="p">:</span><span class="s2">"John Doe"</span><span class="p">,</span><span class="nl">"notes"</span><span class="p">:</span><span class="s2">"This is an example note."</span><span class="p">,</span><span class="nl">"createdAt"</span><span class="p">:</span><span class="s2">"2020-03-31T19:35:49.4400500Z"</span><span class="p">,</span><span class="nl">"status"</span><span class="p">:</span><span class="s2">"OPEN"</span><span class="p">,</span><span class="nl">"cloudUsernames"</span><span class="p">:[</span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="s2">"john.doe@example.com"</span><span class="p">],</span><span class="nl">"riskFactors"</span><span class="p">:[</span><span class="s2">"FLIGHT_RISK"</span><span class="p">,</span><span class="s2">"HIGH_IMPACT_EMPLOYEE"</span><span class="p">]},{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"HIGH_RISK_EMPLOYEE_V2"</span><span class="p">,</span><span class="nl">"tenantId"</span><span class="p">:</span><span class="s2">"123456"</span><span class="p">,</span><span class="nl">"userId"</span><span class="p">:</span><span class="s2">"987654321424242"</span><span class="p">,</span><span class="nl">"userName"</span><span class="p">:</span><span class="s2">"jane.smith@example.com"</span><span class="p">,</span><span class="nl">"displayName"</span><span class="p">:</span><span class="s2">"Jane Smith"</span><span class="p">,</span><span class="nl">"notes"</span><span class="p">:</span><span class="s2">"This is an example note."</span><span class="p">,</span><span class="nl">"createdAt"</span><span class="p">:</span><span class="s2">"2020-03-31T19:45:30.3092900Z"</span><span class="p">,</span><span class="nl">"status"</span><span class="p">:</span><span class="s2">"OPEN"</span><span class="p">,</span><span class="nl">"cloudUsernames"</span><span class="p">:[</span><span class="s2">"jane.smith@gmail.com"</span><span class="p">,</span><span class="s2">"jane.smith@example.com"</span><span class="p">],</span><span class="nl">"managerUid"</span><span class="p">:</span><span class="s2">"Jack.Shep"</span><span class="p">,</span><span class="nl">"managerUsername"</span><span class="p">:</span><span class="s2">"Jack.Shep@example.com"</span><span class="p">,</span><span class="nl">"managerDisplayName"</span><span class="p">:</span><span class="s2">"Jack Shep"</span><span class="p">,</span><span class="nl">"title"</span><span class="p">:</span><span class="s2">"People Person"</span><span class="p">,</span><span class="nl">"division"</span><span class="p">:</span><span class="s2">"Acme"</span><span class="p">,</span><span class="nl">"department"</span><span class="p">:</span><span class="s2">"Human Resources"</span><span class="p">,</span><span class="nl">"employmentType"</span><span class="p">:</span><span class="s2">"Full Time"</span><span class="p">,</span><span class="nl">"city"</span><span class="p">:</span><span class="s2">"The Island"</span><span class="p">,</span><span class="nl">"state"</span><span class="p">:</span><span class="s2">"MN"</span><span class="p">,</span><span class="nl">"country"</span><span class="p">:</span><span class="s2">"US"</span><span class="p">,</span><span class="nl">"riskFactors"</span><span class="p">:[</span><span class="s2">"FLIGHT_RISK"</span><span class="p">,</span><span class="s2">"HIGH_IMPACT_EMPLOYEE"</span><span class="p">]}],</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">2</span><span class="p">,</span><span class="nl">"rollups"</span><span class="p">:[{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"HIGH_RISK_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="nl">"filterType"</span><span class="p">:</span><span class="s2">"OPEN"</span><span class="p">,</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">2</span><span class="p">},{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"HIGH_RISK_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="nl">"filterType"</span><span class="p">:</span><span class="s2">"EXFILTRATION_24_HOURS"</span><span class="p">,</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">0</span><span class="p">},{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"HIGH_RISK_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="nl">"filterType"</span><span class="p">:</span><span class="s2">"EXFILTRATION_30_DAYS"</span><span class="p">,</span><span class="nl">"totalCount"</span><span class="p">:</span><span class="mi">0</span><span class="p">}],</span><span class="nl">"filterType"</span><span class="p">:</span><span class="s2">"OPEN"</span><span class="p">,</span><span class="nl">"pgSize"</span><span class="p">:</span><span class="mi">20</span><span class="p">,</span><span class="nl">"pgNum"</span><span class="p">:</span><span class="mi">1</span><span class="p">,</span><span class="nl">"srtKey"</span><span class="p">:</span><span class="s2">"DISPLAY_NAME"</span><span class="p">,</span><span class="nl">"srtDirection"</span><span class="p">:</span><span class="s2">"ASC"</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEPARTING_EMPLOYEE_SEARCH_RESPONSE_V2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"items"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEPARTING_EMPLOYEE_V2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an example user note."</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-31T19:22:18.5651920Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cloudUsernames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"john.doe@example.com"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"departureDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-04-07"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"rollups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LEAVING_TODAY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EXFILTRATION_24_HOURS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EXFILTRATION_30_DAYS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pgSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">20</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"pgNum"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"srtKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DISPLAY_NAME"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"srtDirection"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ASC"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='view-details-of-a-user-in-a-detection-list'>View details of a user in a detection list</h3>
-<p>You can view details of a user in the Departing Employees list using the <code>api/v2/departingemployee/get</code>  API, or view details of a user in the High Risk Employees list using the <code>api/v2/highriskemployee/get</code>  API. </p>
+<p>You can view details of a user in the High Risk Employees list using the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_GetEmployee">/v1/detection-lists/highriskemployee/get</a> API, or view details of a user in the Departing Employees list using the <a href="/sandbox/api/#operation/DepartingEmployeeControllerV2_GetEmployee">/v1/detection-lists/departingemployee/get</a> API.</p>
 
-<p>The commands to view the details of a departing or high risk employee are similar. The following example shows how to view the details of a high risk employee using the <code>api/v2/highriskemployee/get</code>  API. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/get <span class="se">\</span>
+<p>The commands to view the details of high risk or departing employee are similar. The following example shows how to view the details of a high risk employee using the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_GetEmployee">/v1/detection-lists/highriskemployee/get</a> API.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/highriskemployee/get <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "userId": "&lt;ID&gt;" }'</span>
 </code></pre></div>
-<p>In the preceding example: 
-* Replace <RequestURL> with the request URL of your Code42 cloud instance, for example, 
-<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee</code> 
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-a-tenant-id">Get a tenant ID</a> section.
-* Replace <ID> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you <a href="#get-the-detection-list-profile-for-a-user">can look it up using the Code42 username</a>.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you <a href="#get-the-detection-list-profile-for-a-user">can look it up using the Code42 username</a>.</li>
+</ul>
 
 <p>An excerpt of an example successful response:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"type$"</span><span class="p">:</span><span class="s2">"HIGH_RISK_EMPLOYEE_V2"</span><span class="p">,</span><span class="nl">"tenantId"</span><span class="p">:</span><span class="s2">"123456"</span><span class="p">,</span><span class="nl">"userId"</span><span class="p">:</span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="nl">"userName"</span><span class="p">:</span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="nl">"displayName"</span><span class="p">:</span><span class="s2">"John Doe"</span><span class="p">,</span><span class="nl">"notes"</span><span class="p">:</span><span class="s2">"This is an example note."</span><span class="p">,</span><span class="nl">"createdAt"</span><span class="p">:</span><span class="s2">"2020-03-31T19:35:49.4400500Z"</span><span class="p">,</span><span class="nl">"status"</span><span class="p">:</span><span class="s2">"OPEN"</span><span class="p">,</span><span class="nl">"cloudUsernames"</span><span class="p">:[</span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="s2">"john.doe@example.com"</span><span class="p">],</span><span class="nl">"riskFactors"</span><span class="p">:[</span><span class="s2">"FLIGHT_RISK"</span><span class="p">,</span><span class="s2">"HIGH_IMPACT_EMPLOYEE"</span><span class="p">]</span><span class="w">
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"type$"</span><span class="p">:</span><span class="w"> </span><span class="s2">"HIGH_RISK_EMPLOYEE_V2"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"tenantId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"123456789424242"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"userName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"john.doe@example.com"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"displayName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"John Doe"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"This is an example note."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-31T19:35:49.4400500Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OPEN"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cloudUsernames"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"john.doe@gmail.com"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"john.doe@example.com"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"riskFactors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"FLIGHT_RISK"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"HIGH_IMPACT_EMPLOYEE"</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='enable-or-disable-alerts-for-all-users-in-a-detection-list'>Enable or disable alerts for all users in a detection list</h3>
-<p>You can enable or disable alerts for all users in a detection list using the <code>api/v2/departingemployee/setalertstate</code>  API or the <code>api/v2/highriskemployee/setalertstate</code>  API. </p>
+<p>You can enable or disable alerts for all users in a detection list using the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_SetAlertState">/v1/detection-lists/highriskemployee/setalertstate</a> API or the <a href="/sandbox/api/#operation/DepartingEmployeeControllerV2_SetAlertState">/v1/detection-lists/departingemployee/setalertstate</a> API.</p>
 
-<p>The commands to enable or disable alerts for all departing or high risk employees are similar. The following example shows how to enable alerts for all high risk employees using the <code>api/v2/highriskemployee/setalertstate</code>  API. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/setalertstate <span class="se">\</span>
+<p>The commands to enable or disable alerts for all high risk or departing employees are similar. The following example shows how to enable alerts for all high risk employees using the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_SetAlertState">/v1/detection-lists/highriskemployee/setalertstate</a> API.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/highriskemployee/setalertstate <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "alertsEnabled": true }'</span>
 </code></pre></div>
-<p>In the preceding example: 
-* Replace <RequestURL> with the <a href="#summary">request URL</a> of your Code42 cloud instance, for example, 
-<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee</code> 
-* Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-a-tenant-id">Get a tenant ID</a> section.</p>
+<p>In the preceding example:</p>
+
+<ul>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+</ul>
 
 <p>To disable alerts, run the command with the alertsEnabled value set to false.</p>
 
-<p>To verify that the alerts setting is changed as desired, select Alert Settings in the Departing Employees list or High Risk Employees list.</p>
+<p>To verify that the alerts setting is changed as desired, select <strong>Alert Settings</strong> in the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference">High Risk Employees list</a> or <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Departing_Employees_reference">Departing Employees list</a> in the Code42 console.</p>
 <h3 id='remove-a-user-from-a-detection-list'>Remove a user from a detection list</h3>
-<p>You can remove a user from the Departing Employees list using the <code>api/v2/departingemployee/remove</code>  API, or remove a user from the High Risk Employees list using the <code>api/v2/highriskemployee/remove</code>  API. </p>
+<p>You can remove a user from the High Risk Employees list using the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_RemoveUser">/v1/detection-lists/highriskemployee/remove</a> API, or remove a user froom the Departing Employees list using the <a href="/sandbox/api/#operation/DepartingEmployeeControllerV2_RemoveUser">/v1/detection-lists/departingemployee/remove</a> API.</p>
 
-<aside class="success">
+<p><strong>Note:</strong> To remove multiple users at once, see <a href="https://clidocs.code42.com/en/latest/commands/departingemployee.html?highlight=remove#departing-employee-bulk-remove">the Code42 command-line interface</a>.</p>
 
-**Bulk remove users from a detection list** 
-To leverage these APIs to remove multiple users at once, see [the Code42 command-line interface](https://clidocs.code42.com/en/latest/commands/departingemployee.html?highlight=remove#departing-employee-bulk-remove). 
-</aside>
-
-<p>The commands to remove a user from the Departing Employees or High Risk Employees lists are similar. The following example shows how to remove a user from the High Risk Employees list using the <code>api/v2/highriskemployee/remove</code>  API. </p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/remove <span class="se">\</span>
+<p>The commands to remove a user from the High Risk Employees or Departing Employees lists are similar. The following example shows how to remove a user from the High Risk Employees list using the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_RemoveUser">/v1/detection-lists/highriskemployee/remove</a> API.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/highriskemployee/remove <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
-<span class="nt">-H</span> <span class="s2">"authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="se">\</span>
+<span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{ "tenantId": "&lt;SampleTenant&gt;", "userId": "&lt;ID&gt;" }'</span>
 </code></pre></div>
-<p>In the preceding example: 
-* Replace <RequestURL> with the request URL of your Code42 cloud instance, for example, 
-<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/highriskemployee</code> 
-Replace <AuthToken> with the authentication token you obtained in the <a href="#authentication">Authentication</a> section.
-* Replace <SampleTenant> with the tenant ID you obtained in the <a href="#get-a-tenant-id">Get a tenant ID</a> section.
-* Replace <ID> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you can <a href="#get-the-detection-list-profile-for-a-user">look it up using the Code42 username</a>.</p>
-
-<p>To verify that the user is removed, generate a listing of all users in the detection list as shown <a href="#obtain-a-listing-of-all-users-in-a-detection-list">above</a>. </p>
-<h2 id='detection-list-management-api-structure-and-syntax'>Detection list management API structure and syntax</h2><h3 id='summary'>Summary</h3>
-<p><strong>Request URL</strong></p>
+<p>In the preceding example:</p>
 
 <ul>
-<li><p>United States:</p>
-
-<ul>
-<li>If you sign in to the Code42 console at <a href="https://www.crashplan.com/console">https://www.crashplan.com/console</a>, use:
-<code>https://ecm-default.prod.ffs.us2.code42.com/svc/api/v2/&lt;resource&gt;</code> </li>
-<li>If you sign in to the Code42 console at <a href="https://console.us.code42.com/console">https://console.us.code42.com/console</a>, use: 
-<code>https://ecm-east.us.code42.com/svc/api/v2/&lt;resource&gt;</code> </li>
-<li>If you sign in to the Code42 console for the Code42 federal environment at <a href="https://console.gov.code42.com/console">https://console.gov.code42.com/console</a>, use: 
-<code>https://ecm-default.gov.code42.com/svc/api/v2/&lt;resource&gt;</code> </li>
-</ul></li>
-<li><p>Ireland: If you sign in to the Code42 console at <a href="https://console.ie.code42.com/console">https://console.ie.code42.com/console</a>, use: 
-<code>https://ecm-default.ie.code42.com/svc/api/v2/&lt;resource&gt;</code> </p></li>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you can <a href="#get-the-detection-list-profile-for-a-user">look it up using the Code42 username</a>.</li>
 </ul>
 
-<p><strong>Resources</strong></p>
+<p>To verify that the user is removed, generate a listing of all users in the detection list as shown in <a href="#obtain-a-listing-of-all-users-in-a-detection-list">Obtain a listing of all users in a detection list</a>.</p>
 
-<ul>
-<li><p><strong>User API:</strong> <code>/user/</code></p>
-
-<ul>
-<li><code>addcloudusernames</code>: Add cloud user names to a user</li>
-<li><code>addriskfactors</code>: Add a list of risk factors to a user</li>
-<li><code>create</code>: Create a user ID</li>
-<li><code>getbyid</code>: Get a user by user ID</li>
-<li><code>getbyusername</code>: Get a user by Code42 username</li>
-<li><code>refresh</code>: Refresh SCIM attributes for a user</li>
-<li><code>removecloudusernames</code>: Remove cloud user names from a user</li>
-<li><code>removeriskfactors</code>: Remove risk factors from a user</li>
-<li><code>updatenotes</code>: Update notes for a user</li>
-</ul></li>
-<li><p><strong>Departing employee:</strong> <code>/departingemployee/</code> </p>
-
-<ul>
-<li><code>add</code>: A​​​​​dd a departing employee</li>
-<li><code>get</code>: View the details of a specific departing employee</li>
-<li><code>remove</code>: Remove a departing employee</li>
-<li><code>search</code>: Obtain a list of departing employees</li>
-<li><code>setalertstate</code>: Enable alerts for all departing employees</li>
-<li><code>update</code>: Update a departing employee&#39;s details</li>
-</ul></li>
-<li><p><strong>High risk employee:</strong> <code>/highriskemployee/</code> </p>
-
-<ul>
-<li><code>add</code>: A​​​​​dd a high risk employee</li>
-<li><code>get</code>: View the details of a specified high risk employee</li>
-<li><code>remove</code>: Remove a high risk employee</li>
-<li><code>search</code>: Obtain a list of high risk employees</li>
-<li><code>setalertstate</code>: Enable alerts for all high risk employees</li>
-</ul></li>
-</ul>
-
-<p><strong>Authentication method:</strong> Include a token in the request header (see the <a href="#authentication">Authentication</a> section below)</p>
-
-<p><strong>Complete API documentation</strong>
-* United States:
-    * <a href="https://ecm-default.prod.ffs.us2.code42.com/svc/swagger/index.html">https://ecm-default.prod.ffs.us2.code42.com/svc/swagger/index.html</a>, or 
-    * <a href="https://ecm-east.us.code42.com/svc/swagger/index.html">https://ecm-east.us.code42.com/svc/swagger/index.html</a>
-    * <a href="https://ecm-default.gov.code42.com/svc/swagger/index.html">https://ecm-default.gov.code42.com/svc/swagger/index.html</a> (Code42 federal environment only)
-* Ireland: <a href="https://ecm-default.ie.code42.com/svc/swagger/index.html">https://ecm-default.ie.code42.com/svc/swagger/index.html</a></p>
-
-<p>For more information about Code42 API syntax, see <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Code42_API_syntax_and_usage">Code42 API syntax and usage</a>.</p>
-<h3 id='authentication'>Authentication</h3>
-<p>This API resource requires an <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Code42_API_authentication_methods#Use_token_authentication">authentication token</a> in the header of all requests. To obtain an authentication token, use your Code42 administrator credentials to submit a <code>GET</code> request to:</p>
-
-<p><strong>United States:</strong> 
-* If you sign in to the Code42 console at <a href="https://www.crashplan.com/console">https://www.crashplan.com/console</a>, use: 
-<code>https://www.crashplan.com/c42api/v3/auth/jwt?useBody=true</code>
-* If you sign in to the Code42 console at <a href="https://console.us.code42.com/console">https://console.us.code42.com/console</a>, use: 
-<code>https://console.us.code42.com/c42api/v3/auth/jwt?useBody=true</code>
-* If you sign in to the Code42 console for the Code42 federal environment at <a href="https://console.gov.code42.com/console">https://console.gov.code42.com/console</a>, use:
-<code>https://console.gov.code42.com/c42api/v3/auth/jwt?useBody=true</code>
-* Ireland: If you sign in to the Code42 console at <a href="https://console.ie.code42.com/console">https://console.ie.code42.com/console</a>, use: 
-<code>https://console.ie.code42.com/c42api/v3/auth/jwt?useBody=true</code></p>
-
-<p>For example:</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> GET <span class="nt">-u</span> <span class="s2">"username"</span> <span class="nt">-H</span> <span class="s2">"Accept: application/json"</span> <span class="s2">"https://www.crashplan.com/c42api/v3/auth/jwt?useBody=true"</span>
-</code></pre></div>
-<p>If your organization uses <a href="https://support.code42.com/Administrator/Cloud/Configuring/Two-factor_authentication_for_local_users">two-factor authentication for local users</a>, you must also include a <code>totp-auth</code> header value containing the Time-based One-Time Password (TOTP) supplied by the Google Authenticator mobile app. The example below includes a TOTP value of 424242.</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> GET <span class="nt">-u</span> <span class="s2">"username"</span> <span class="nt">-H</span> <span class="s2">"totp-auth: 424242"</span> <span class="s2">"Accept: application/json"</span> <span class="s2">"https://www.crashplan.com/c42api/v3/auth/jwt?useBody=true"</span>
-</code></pre></div>
-<p>A successful request returns an authentication token. For example:</p>
-<div class="highlight"><pre class="highlight shell"><code><span class="o">{</span><span class="s2">"v3_user_token"</span>: <span class="s2">"eyJjdHkiO_bxYJOOn28y...5HGtGHgJzHVCE8zfy1qRBf_rhchA"</span><span class="o">}</span>
-</code></pre></div>
-<p><strong>Token considerations</strong>
-* Use this authentication token in your requests.
-* Authentication tokens expire after 30 minutes.
-* You must have credentials for a Code42 user with the Customer Cloud Admin role.
-* The authentication example above only applies to users who authenticate locally with Code42. Single sign-on (SSO) users must also complete SAML authentication with their SSO provider. If you need assistance with this process, contact your SSO provider.</p>
-<h3 id='get-a-tenant-id'>Get a tenant ID</h3>
-<p>The APIs require that you provide the unique ID of your organization (or tenant) in the Code42 cloud. To obtain the tenant ID, use your Code42 administrator credentials to submit a <code>GET</code> request to:</p>
-
-<ul>
-<li><p>United States: </p>
-
-<ul>
-<li>If you sign in to the Code42 console at <a href="https://www.crashplan.com/console">https://www.crashplan.com/console</a>, use: 
-<code>https://www.crashplan.com/c42api/v3/customer/my</code></li>
-<li>If you sign in to the Code42 console at <a href="https://console.us.code42.com/console">https://console.us.code42.com/console</a>, use: 
-<code>https://console.us.code42.com/c42api/v3/customer/my</code> </li>
-<li>If you sign in to the Code42 console for the Code42 federal environment at <a href="https://console.gov.code42.com/console">https://console.gov.code42.com/console</a>, use: 
-<code>https://console.gov.code42.com/c42api/v3/customer/my</code> </li>
-</ul></li>
-<li><p>Ireland: If you sign in to the Code42 console at <a href="https://console.ie.code42.com">https://console.ie.code42.com</a> console, use: 
-<code>https://console.ie.code42.com/c42api/v3/customer/my</code></p></li>
-</ul>
-
-<p>In the following example, replace <AuthToken> with the authentication token you obtained and replace console.us.code42.com with the URL of your Code42 cloud instance:</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-vvv</span> <span class="nt">-X</span> GET <span class="nt">-H</span> <span class="s2">"Authorization: v3_user_token &lt;AuthToken&gt;"</span> <span class="s1">'https://console.us.code42.com/c42api/v3/customer/my'</span>
-</code></pre></div>
-<p>A successful response returns the tenantUid:</p>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="nl">"data"</span><span class="p">:{</span><span class="nl">"name"</span><span class="p">:</span><span class="s2">"My Org"</span><span class="p">,</span><span class="nl">"registrationKey"</span><span class="p">:</span><span class="s2">"4s42ukut7pwpwr4c"</span><span class="p">,</span><span class="nl">"deploymentModel"</span><span class="p">:</span><span class="s2">"PUBLIC"</span><span class="p">,</span><span class="nl">"maintenanceMode"</span><span class="p">:</span><span class="kc">false</span><span class="p">,</span><span class="nl">"tenantUid"</span><span class="p">:</span><span class="s2">"42b42dfe-4242-4242-428a-8a1dfd352f2f"</span><span class="p">,</span><span class="nl">"masterServicesAgreement"</span><span class="p">:{</span><span class="nl">"accepted"</span><span class="p">:</span><span class="kc">true</span><span class="p">,</span><span class="nl">"acceptanceRequired"</span><span class="p">:</span><span class="kc">false</span><span class="p">}},</span><span class="nl">"error"</span><span class="p">:</span><span class="kc">null</span><span class="p">,</span><span class="nl">"warnings"</span><span class="p">:</span><span class="kc">null</span><span class="p">}</span><span class="w">
-</span></code></pre></div>
       </div>
     </div>
   </body>
