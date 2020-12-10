@@ -88,7 +88,19 @@ To create a detection list profile, use the [/v1/detection-lists/user/create](/s
 curl -X POST <RequestURL>/v1/detection-lists/user/create \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>" \
--d '{"tenantId": "<SampleTenant>", "userName": "<Code42Username>", "notes": "<UserNotes>", "riskFactors": ["<Risk1>", "<Risk2>", "<Risk3>"], "cloudUsernames": ["<UsernameInCloudService>"]}'
+-d '{
+    "tenantId": "<SampleTenant>",
+    "userName": "<Code42Username>",
+    "notes": "<UserNotes>",
+    "riskFactors": [
+        "<Risk1>",
+        "<Risk2>",
+        "<Risk3>"
+    ],
+    "cloudUsernames": [
+        "<UsernameInCloudService>"
+    ]
+}'
 ```
 
 In the preceding example:
@@ -133,7 +145,15 @@ Use the [/v1/detection-lists/user/addriskfactors](/sandbox/api/#operation/UserCo
 curl -X POST <RequestURL>/v1/detection-lists/user/addriskfactors \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>" \
--d '{"tenantId": "<SampleTenant>", "userId": "<UserUid>", "riskFactors": ["<Risk1>", "<Risk2>", "<Risk3>"] }'
+-d '{
+    "tenantId": "<SampleTenant>",
+    "userId": "<UserUid>",
+    "riskFactors": [
+        "<Risk1>",
+        "<Risk2>",
+        "<Risk3>"
+    ]
+}'
 ```
 
 In the preceding example:
@@ -212,7 +232,19 @@ curl -X POST <RequestURL>/v1/alert-rules/add-users \
 -H "accept: application/json" \
 -H "Authorization: Bearer <AuthToken>" \
 -H "Content-Type: application/json" \
--d '{ "tenantId": "<SampleTenant>", "ruleId": "<SampleRuleId>", "userList": [ { "userIdFromAuthority": "<SampleUserUID>", "userAliasList": [ "<SampleAlias1>", "<SampleAlias2>" ] } ]}'
+-d '{
+    "tenantId": "<SampleTenant>",
+    "ruleId": "<SampleRuleId>",
+    "userList": [
+        {
+            "userIdFromAuthority": "<SampleUserUID>",
+            "userAliasList": [
+                "<SampleAlias1>",
+                "<SampleAlias2>"
+            ]
+        }
+    ]
+}}'
 ```
 
 In the preceding example:
@@ -239,7 +271,26 @@ curl -X POST <RequestURL>/v1/alerts/query-alerts \
 -H "accept: text/plain" \
 -H "Authorization: Bearer <AuthToken>" \
 -H "Content-Type: application/json" \
--d '{ "tenantId": "<SampleTenant>", "groups": [ { "filters": [ { "term": "Actor", "operator": "Is", "value": "<ActorUsername>" } ], "filterClause": "AND" } ], "groupClause": "OR", "pgSize": "20", "pgNum": "0", "srtKey": "CreatedAt", "srtDirection": "DESC" }'
+-d '{
+    "tenantId": "<SampleTenant>",
+    "groups": [
+        {
+            "filters": [
+                {
+                    "term": "Actor",
+                    "operator": "Is",
+                    "value": "<ActorUsername>"
+                }
+            ],
+            "filterClause": "AND"
+        }
+    ],
+    "groupClause": "OR",
+    "pgSize": "20",
+    "pgNum": "0",
+    "srtKey": "CreatedAt",
+    "srtDirection": "DESC"
+}'
 ```
 
 In the preceding example:
