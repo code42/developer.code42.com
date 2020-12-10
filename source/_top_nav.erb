@@ -1,23 +1,31 @@
 <nav class="top-nav">
     <div class="nav-logo">
-        <%= image_tag "logo.png", class: 'logo' %>
-        <span>|</span>
-        <span>developers</span>
+        <a href="/sandbox">
+            <%= image_tag "logo_developers.svg", class: 'logo' %>
+        </a>
     </div>
     <div class="nav-menu">
         <div class="nav-item">
-            <a href="/sandbox">Docs</a>
-        </div>
-        <div class="nav-item">
-            <a href="#">APIs & SDKs</a>
+            <a href="#">Use Cases</a>
             <ul class="drop-menu">
-                <li><a href="/sandbox/api">API Reference</a></li>
-                <li><a href="https://py42docs.code42.com">Python SDK</a></li>
-                <li><a href="https://clidocs.code42.com">Command Line Interface</a></li>
+                <li><a href="/sandbox/track-hre-file-activity/">High Risk Employee</a></li>
             </ul>
         </div>
         <div class="nav-item">
-            <a href="https://support.code42.com">Support</a>
+            <a href="#">Guides</a>
+            <ul class="drop-menu">
+                <li><a href="/sandbox/detection-list-management-api/">Detection List Mgmt</a></li>
+                <li><a href="/sandbox/forensic-search-api/">Forensic Search</a></li>
+                <li><a href="/sandbox/security-alerts-api/">Security Alerts</a></li>
+            </ul>
+        </div>
+        <div class="nav-item">
+            <a href="#">APIs & SDK</a>
+            <ul class="drop-menu">
+                <li><a href="/sandbox/api">API Reference</a></li>
+                <li><a href="https://py42docs.code42.com" target="_blank">Py42</a></li>
+                <li><a href="https://clidocs.code42.com" target="_blank">CLI</a></li>
+            </ul>
         </div>
     </ul>
 </nav>

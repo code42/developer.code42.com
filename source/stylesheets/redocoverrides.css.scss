@@ -23,6 +23,10 @@ h2 { color: #333333 !important;}
 #redoc-container .api-content {
     margin-top: $top-nav-height;
 }
+
+#redoc-container .menu-content {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
 #redoc-container .menu-content ul li {
     font-size: 0.875rem !important;
     font-weight: 400;

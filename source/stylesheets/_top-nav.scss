@@ -16,7 +16,7 @@
 
 .nav-menu {
     display: flex;
-    padding-right: 3%;
+    padding-right: $top-nav-padding;
 }
 
 .nav-item {
@@ -42,12 +42,7 @@
     align-items: center;
     color: #ffffff;
     font-size: 22px;
-    img {
-        height: 65px;
-    }
-    span:last-child {
-        margin-left: 20px;
-    }
+    padding-left: $top-nav-padding;
 }
 
 .drop-menu {
