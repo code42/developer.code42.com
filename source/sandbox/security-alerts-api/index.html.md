@@ -1,5 +1,5 @@
 ---
-title: Security alerts API
+title: Security Alerts API
 
 category: detect-and-respond
 
