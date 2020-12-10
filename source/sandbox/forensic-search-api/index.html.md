@@ -3,6 +3,9 @@ title: Forensic Search API
 
 category: detect-and-respond
 
+toc_footers:
+  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+
 search: true
 
 code_clipboard: true
@@ -12,111 +15,35 @@ code_clipboard: true
 
 ## Overview
 
-This article explains how to use the Code42 API with Forensic Search. While the Code42 console contains [a flexible and powerful web interface](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Forensic_Search_reference_guide) to perform searches and view results, the Code42 API provides additional capabilities for performing more complicated or customized searches.
+This article explains how to use the Code42 API with Forensic Search. While the Code42 console contains a flexible and powerful web interface for [Forensic Search](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Forensic_Search_reference_guide) to perform searches and view results, the [File Events](/sandbox/api/#tag/File-Events) API provides additional capabilities for performing more complicated or customized searches.
 
-The examples in this article use [curl](https://curl.se/), but the concepts apply to [any tool you choose for interacting with the Code42 API](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Tools_for_interacting_with_the_Code42_API).
+Following are the [File Events](/sandbox/api/#tag/File-Events) API resources:
 
-## Forensic Search API structure and syntax 
+* [/v1/file-events](/sandbox/api/#operation/searchEventsUsingPOST): Search file activity and receive results in JSON format
+* [/v1/file-events/export](/sandbox/api/#operation/exportUsingPOST): Search file activity receive results in CSV format
+* [/v1/file-events/grouping](/sandbox/api/#operation/groupingUsingPOST): Group file activity results by a particular value and receive a count of unique events in each group
 
-### Summary 
+## Considerations
 
-**Request URL** 
+* The tasks in this article require use of the Code42 API. For assistance with using the Code42 API, contact your Customer Success Manager (CSM) to engage the Code42 Professional Services team. Or, [post your question to the Code42 community](https://success.code42.com/home) to get advice from fellow Code42 administrators.
+* The examples in this article use [curl](https://curl.se/). For other tools that you can use, see [Tools for interacting with the Code42 API](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Tools_for_interacting_with_the_Code42_API). 
+* To perform tasks in this article, you must: 
+    * Have the [Customer Cloud Admin](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin) or [Security Center User](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Security_Center_User) role.
+    * Know the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+    * Obtain an [authentication token](/sandbox/intro-to-developer-portal/#authentication) and a [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
 
-* United States:
-
-    * If you sign in to the Code42 console at [https://console.us.code42.com/console](https://console.us.code42.com/console), use: 
-`https://forensicsearch-east.us.code42.com/forensic-search/queryservice/api/v1/`
-    * If you sign in to the Code42 console at [https://www.crashplan.com/console](https://www.crashplan.com/console), use:
-`https://forensicsearch-default.prod.ffs.us2.code42.com/forensic-search/queryservice/api/v1/`
-    * If you sign in to the Code42 console for the Code42 federal environment at [https://console.gov.code42.com/console](https://console.gov.code42.com/console), use: 
-`https://forensicsearch-default.gov.code42.com/forensic-search/queryservice/api/v1/`
-
-* Ireland: `https://forensicsearch-default.ie.code42.com/forensic-search/queryservice/api/v1/`
-
-**Resource names:**
-
-* `fileevent`: To search file activity and receive results in JSON format
-* `fileevent/export`: To search file activity receive results in CSV format
-* `fileevent/grouping`: To group file activity results by a particular value and receive a count of unique events in each group
-
-**Authentication method:** In the authorization request header, specify a scheme of `v3_user_token` and include the token as the credentials. See the [Authentication](#authentication) section below for steps to obtain the token.
-
-**Complete API documentation**
-
-* United States:
-
-    * [https://forensicsearch-east.us.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller](https://forensicsearch-east.us.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller), or
-
-    * [https://forensicsearch-default.prod.ffs.us2.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller/](https://forensicsearch-default.prod.ffs.us2.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller/)
-
-    * [https://forensicsearch-default.gov.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller](https://forensicsearch-default.gov.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller) (Code42 federal environment only)
-
-* Ireland: [https://forensicsearch-default.ie.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller](https://forensicsearch-default.ie.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller)
-
-<aside class="notice">
-
-**API limits**
-
-* **Request rate:** To ensure optimal performance throughout your Code42 environment, Code42 limits API requests to 120 per minute. Requests that exceed this limit are blocked and do not return results.
-
-* **Result set:**
-   * `fileevent` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `fileevent` query with a `pgSize` of 10,000 cannot display `pgNum` 2). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details: from the **Complete API documentation** links above, see the **Model** tab in the **SearchRequest** and **FileEventResponse** sections.)
-   * `fileevent/export` queries are limited to 200,000 events. 
-   * `fileevent/grouping` queries are limited to 1,000 groups.
-
-</aside>
-
-### Authentication
-
-Authentication tokens are required in the header of all requests. To obtain an authentication token, use your Code42 administrator credentials to submit a `GET` request to:
-
-* United States: 
-    * If you sign in to the Code42 console at [https://console.us.code42.com/console](https://console.us.code42.com/console), use: 
-`https://console.us.code42.com/c42api/v3/auth/jwt?useBody=true`
-    * If you sign in to the Code42 console at [https://www.crashplan.com/console](https://www.crashplan.com/console), use: 
-`https://www.crashplan.com/c42api/v3/auth/jwt?useBody=true`
-    * If you sign in to the Code42 console for the Code42 federal environment at [https://console.gov.code42.com/console](https://console.gov.code42.com/console), use: 
-`https://console.gov.code42.com/c42api/v3/auth/jwt?useBody=true`
-
-* Ireland: `https://console.ie.code42.com/c42api/v3/auth/jwt?useBody=true`
-
-For example:
-
-```bash
-curl -X GET -u "username" -H "Accept: application/json" "https://console.us.code42.com/c42api/v3/auth/jwt?useBody=true"
-```
-
-If your organization uses [two-factor authentication for local users](https://support.code42.com/Administrator/Cloud/Configuring/Two-factor_authentication_for_local_users), you must also include a `totp-auth` header value containing the Time-based One-Time Password (TOTP) supplied by the Google Authenticator mobile app. The example below includes a TOTP value of 424242.
-
-```bash
-curl -X GET -u "username" -H "totp-auth: 424242" "Accept: application/json" "https://console.us.code42.com/c42api/v3/auth/jwt?useBody=true"
-```
-
-A successful request returns an authentication token. For example:
-
-```json
-{
-    "v3_user_token": "eyJjdHkiOiJKV1QiLCJlbmMiOiJBMTI4R0NNIiwiZXhwIjoiMjAxOC0wNC0zMFQyMTo0MDoyNy4xMDZaIiwiYWxnIjoiUlNBLU9BRVAtMjU2In0.0H-4bl43zA3cIE5D3o_8vZzJIUgtJt64mZbimNa2TNha761RgVBFaTfttMODXF1ntLUTHl-rD0JuHEAMrIxjpnaODictPizrDVeTA1PgkPrsKot9jp6D7uTEC1Y56qHS1qjP6WHQBpv6ADBfrAfePX3NnwkA5a1I8pB88kSWc1MXZ4uMt-rFcNtlLLPVfwtEXHyNG_bxYJOOn28y2ysJGSBD_Xx1-uK4zKvjWwXfVQG581TntFPy0LamJfJ7IM4wOIG-QrKeV796fJAaHBxNfOe4UWC8WeNcDEvgNZvOPchWTHY4l66OaOjHNeEkoKkxvc35j4V_QpYxe6GXRYK4NA.TJXe9M6goiZbw-tr.y0lUTHHkHU5tRS7bWI8jntMLcxv0HajXTXquV62IG4400i7wi0YSX-6vpsXVgivzztxnPaukgUsLavhZ8-wCiMdEkut4GfijTlDAM_tfmJyZG6Cn5GKIJgSCENrR1JTxvC6dhTvHc41p6T3jXqBWikoJwD9z9Ec3u-OhM3gotQZUfCq0rR8T043RZSN9-0TpxhpPUEUAS6rkAI07QP08l_nUqdQTsNF0Tafe1yfPTYJabkslHhYMlLRYuXwhWr_39h5BY89ud0cW_OyUtjzz83m9iGxv6sba9VBIb2Y95ipXLu6Ie-5wz8zivfjizX6ZQatp5Ep4UZxzsMdqD9j0BFXkXQZuITJLtKfmUX-FZYR8utNrbwtt8u2tvNUK8Ix4Fwa3bWPxlkwrhOdz70M-mxluxpR6EKSrf8xwHagMcahzVPcW5NVL2khr4MwMUKyRV69dAdGiaTKh2rd52znA0aE3OCtelnBrBn4rls0KX71_qZEAdPaLyyqZ4VaurWUfl35zSi2LW_a3-TebgIebHZxC-MxvFEH4DQq6gJDdoX92_YEYEn4tO_dhUTlD0CZ9HhT39XFrO9MBe4DoDzG-Iql_A-nhmCyOrRmQvUlR72XpHVFQQx3X6tqdPxFocgDh5z03-kLB4SjznQSlzJNbzl_knXTBGopoFLn3WHvjX8q327Vmwx1hjrQnO8Eg5rJMoXTJCMEEOkMyjkbFeEzEhTf2jcvvAlnNnxdtjb1Zo05RWwMsPwwHAgGr-0mm-ungNjIGW0MyMTZtK0StP1uRqfI1Q6ghqnGZxEZN_0fvsVlsz4u9A1eBYRE0xzg8p-0g62nAQ8GftpYaUoymgqbL2WCL15r38emLklXSruztosGU4Dtusg4JHEhYPxO4ieqeBu6FLX9fPSA_y3zmd_AEjW40-_6zC3quPYJwytaEIwVH6phtfa2phsOLLw-U-b2QY09-d27YirIjgNRZ7rO4GF3iX8hW3LfFIWj0WKA5HGtGHg.JzHVCE8zfy1qRBf__rhchA"
-}
-```
-
-**Token considerations** 
-
-* Use this authentication token in your search requests (see examples below).
-* Authentication tokens expire after one hour.
-* You must have credentials for a Code42 user with either the [Customer Cloud Admin](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin) or [Security Center User](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Security_Center_User) role.
-* The example above only applies to users who authenticate locally with Code42. Single sign-on (SSO) users must also complete SAML authentication with their SSO provider. If you need assistance with this process, contact your SSO provider.
-* The URL to obtain the authentication token is different than the URL used to query file event data.
-
+## Forensic Search API structure and syntax
 
 ### Groups and filters 
 
-Forensic Search API queries are organized by **groups of filters**. This structure facilitates complicated requests with-application-files-in-unexpected-locations) in the next section searches for files matching any one of 11 different file extensions that also exist in any one of nine different locations. Search queries are limited to a total of 1,024 criteria per request.
+Forensic Search API queries are organized by groups of filters. This structure facilitates complicated requests with multiple `AND` or `OR` conditions. For example, use case 1 in the [Sample use cases](#sample-use-cases) section searches for files matching any one of 11 different file extensions that also exist in any one of nine different locations. Search queries are limited to a total of 1,024 criteria per request.
 
 For example, the JSON below uses two groups of filters:
 
-* The first group uses a `filterClause` value of `OR`, which returns results if **any** of the four MD5 values are found (db349b97c37d22f5ea1d1841e3c89eb4 or 84c82835a5d21bbcf75a61706d8ab549 or f351e1fcca0c4ea05fc44d15a17f8b36 or 7bf2b57f2a205768755c07f238fb32cc).
-* The second group uses a `filterClause` value of `AND`, which returns results only if **all** criteria in the filter are met (in this example, on or after 2018-02-01 **and** on or before 2018-02-07).
+* The first group uses a `filterClause` value of `OR`, which returns results if any of the four MD5 values are found (db349b97c37d22f5ea1d1841e3c89eb4 or 84c82835a5d21bbcf75a61706d8ab549 or f351e1fcca0c4ea05fc44d15a17f8b36 or 7bf2b57f2a205768755c07f238fb32cc).
+
+* The second group uses a `filterClause` value of `AND`, which returns results only if all criteria in the filter are met (in this example, on or after 2018-02-01 **and** on or before 2018-02-07).
+
 * Finally, to link these two groups together, the `groupClause` value of `AND` returns results only if both the first group and second group criteria are met. 
 
 
@@ -174,12 +101,14 @@ For example, the JSON below uses two groups of filters:
 
 ### Sample request 
 
-This simple example demonstrates a search for all files on all devices with the file extension .docx that exist anywhere **except** the file path `C:/Users`. For more complicated examples with multiple groups and additional filters, see the [sample use cases](#sample-use-cases) in the next section. Use this simple example as a starting point for your own searches and replace the content of the `-d` section with your specific search criteria.
+This simple example demonstrates a search for all files on all devices with the file extension .docx that exist anywhere except the file path `C:/Users`. For more complicated examples with multiple groups and additional filters, see the [sample use cases](#sample-use-cases) in the next section. 
+
+Use this simple example as a starting point for your own searches:
 
 ```bash
-curl -X POST  https://forensicsearch-east.us.code42.com/forensic-search/queryservice/api/v1/fileevent \
+curl -X POST <RequestURL>/v1/file-events \
 -H 'content-type: application/json' \
--H "authorization: v3_user_token <authentication token goes here (without the angle brackets)>" \
+-H "authorization: Bearer <AuthToken>" \
 -d '{
     "groups": [{
         "filters": [{
@@ -200,18 +129,26 @@ curl -X POST  https://forensicsearch-east.us.code42.com/forensic-search/queryser
     "pgSize": 100
 }'
 ```
-<aside class="success">
 
-**Format results as CSV**
+In the preceding example:
 
-To receive results in CSV format instead of JSON, use the `fileevent/export` resource instead of `fileevent`. 
-For example: 
-`https://forensicsearch-east.us.code42.com/forensic-search/queryservice/api/v1/fileevent/export`
-</aside>
+* Replace <RequestURL> with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+* Replace <AuthToken> with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
+* Replace the content of the `-d` section with your specific search criteria.
+
+**Note:** To receive results in CSV format instead of JSON, use the [/v1/file-events/export](/sandbox/api/#operation/exportUsingPOST) resource instead of [/v1/file-events](/sandbox/api/#operation/searchEventsUsingPOST). 
+
+### API limits
+
+* Request rate: To ensure optimal performance throughout your Code42 environment, Code42 limits API requests to 120 per minute. Requests that exceed this limit are blocked and do not return results.
+* Result set:
+   * `file-events` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `file-events` query with a `pgSize` of 10,000 cannot display `pgNum` 2). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details, see the [/v1/file-events API documentation](/sandbox/api/#operation/searchEventsUsingPOST).)
+   * `file-events/export` queries are limited to 200,000 events. 
+   * `file-events/grouping` queries are limited to 1,000 groups
 
 ## Sample Use Cases 
 
-### Use case 1: Search for application files in unexpected locations 
+### Use case 1: Search for application files in unexpected locations
 
 The sample JSON below shows how to search for files with any of these extensions (.action, .app, .bat, .bin, .cmd, .com, .command, .cpl, .exe, .msc, .osx) that exist outside these locations:
 
@@ -437,17 +374,11 @@ Modify this sample to fit your environment and then include it in a request (as 
 }
 ```
 
-### Use case 2: Search for files on a device within a specific date range based on MD5 values 
+### Use case 2: Search for files on a device within a specific date range based on MD5 values
 
 The sample JSON below shows how to search for files files matching any of four MD5 values that existed on devices between February 1 and 7, 2018. 
 
-<aside class="notice">
-
-**The Code42 API also supports SHA256 searches**
-
-To search for SHA256 hash values instead of MD5, replace `md5Checksum` with `sha256Checksum` in the sample JSON below.
-
-</aside>
+**Note:** To search for SHA256 hash values instead of MD5, replace `md5Checksum` with `sha256Checksum` in the sample JSON below.
 
 #### Sample JSON search query for MD5 values between two dates 
 
@@ -566,13 +497,13 @@ Modify this sample to fit your environment and then include it in a request (as 
 } 
 ```
 
-### Use case 3: See all cloud sync destinations for a user 
+### Use case 3: See all cloud sync destinations for a user
 
-The sample JSON below shows how to use the `fileevent/grouping` resource to find an approximate count of **Synced to cloud service** file events for a specific user for each cloud service. This sample groups by the `syncDestination` value, but you can choose any `groupingTerm` listed in the [Code42 API documentation viewer](https://forensicsearch-east.us.code42.com/forensic-search/queryservice/swagger-ui.html#/file-event-controller/groupingUsingPOST) in your requests.
+The sample JSON below shows how to use the [/v1/file-events/grouping](/sandbox/api/#operation/groupingUsingPOST) resource to find an approximate count of **Synced to cloud service** file events for a specific user for each cloud service. This sample groups by the `syncDestination` value, but you can choose any `groupingTerm` listed in the [/v1/file-events/grouping](/sandbox/api/#operation/groupingUsingPOST) API documentation in your requests.
 
 #### Sample JSON search query for cloud service file event counts 
 
-Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above). For grouping queries, you must use the `fileevent/grouping` resource.
+Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above). For grouping queries, you must use the [/v1/file-events/grouping](/sandbox/api/#operation/groupingUsingPOST) resource.
 
 ```bash
 {
@@ -607,16 +538,9 @@ Modify this sample to fit your environment and then include it in a request (as 
 }
 ```
 
-<aside class="notice">
-
 **Missing or unknown values**
 
 Some file events may not capture all metadata. Reasons for omitted metadata can include:
+
 * The file did not exist on disk long enough for Code42 to capture all the metadata.
-* Several values, including `deviceUserName` and `userUid`, are captured and reported from the Code42 cloud instead of directly from the user device. If those values haven't been reported yet, they may be blank or may display as UNKNOWN or NAME_NOT_AVAILABLE. In those cases, you can use the `deviceUid` to get details via the [Computer API resource](https://console.us.code42.com/apidocviewer/#Computer-get).
-
-</aside>
-
-## External resources 
-
-Curl: [Command line tool and library reference](https://curl.se/)
+* Several values, including `deviceUserName` and `userUid`, are captured and reported from the Code42 cloud instead of directly from the user device. If those values haven't been reported yet, they may be blank or may display as `UNKNOWN` or `NAME_NOT_AVAILABLE`. 
