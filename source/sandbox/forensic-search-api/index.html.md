@@ -42,9 +42,9 @@ Forensic Search API queries are organized by groups of filters. This structure f
 
 For example, the JSON below uses two groups of filters:
 
-* The first group uses a `filterClause` value of `OR`, which returns results if any of the four MD5 values are found (db349b97c37d22f5ea1d1841e3c89eb4 or 84c82835a5d21bbcf75a61706d8ab549 or f351e1fcca0c4ea05fc44d15a17f8b36 or 7bf2b57f2a205768755c07f238fb32cc).
+* The first group uses a `filterClause` value of `OR`, which returns results if any of the four MD5 values are found (`db349b97c37d22f5ea1d1841e3c89eb4` or `84c82835a5d21bbcf75a61706d8ab549` or `f351e1fcca0c4ea05fc44d15a17f8b36` or `7bf2b57f2a205768755c07f238fb32cc`).
 
-* The second group uses a `filterClause` value of `AND`, which returns results only if all criteria in the filter are met (in this example, on or after 2018-02-01 **and** on or before 2018-02-07).
+* The second group uses a `filterClause` value of `AND`, which returns results only if all criteria in the filter are met (in this example, `on or after 2018-02-01` **and** `on or before 2018-02-07`).
 
 * Finally, to link these two groups together, the `groupClause` value of `AND` returns results only if both the first group and second group criteria are met. 
 
@@ -103,9 +103,13 @@ For example, the JSON below uses two groups of filters:
 
 ### Sample request 
 
-This simple example demonstrates a search for all files on all devices with the file extension .docx that exist anywhere except the file path `C:/Users`. For more complicated examples with multiple groups and additional filters, see the [sample use cases](#sample-use-cases) in the next section. 
+This simple example demonstrates a search for all files on all devices with the file extension `.docx` that exist anywhere except the file path `C:/Users`. For more complicated examples with multiple groups and additional filters, see the [sample use cases](#sample-use-cases) in the next section. 
 
-Use this simple example as a starting point for your own searches:
+Use the following as a starting point for your own searches:
+
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
+* Replace the content of the `-d` section with your specific search criteria.
 
 ```bash
 curl -X POST <RequestURL>/v1/file-events \
@@ -132,19 +136,13 @@ curl -X POST <RequestURL>/v1/file-events \
 }'
 ```
 
-In the preceding example:
-
-* Replace <RequestURL> with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace <AuthToken> with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
-* Replace the content of the `-d` section with your specific search criteria.
-
 **Note:** To receive results in CSV format instead of JSON, use the [/v1/file-events/export](/sandbox/api/#operation/exportUsingPOST) resource instead of [/v1/file-events](/sandbox/api/#operation/searchEventsUsingPOST). 
 
 ### API limits
 
 * Request rate: To ensure optimal performance throughout your Code42 environment, Code42 limits API requests to 120 per minute. Requests that exceed this limit are blocked and do not return results.
 * Result set:
-   * `file-events` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `file-events` query with a `pgSize` of 10,000 cannot display `pgNum` 2). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details, see the [/v1/file-events API documentation](/sandbox/api/#operation/searchEventsUsingPOST).)
+   * `file-events` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `file-events` query with `pgSize=10000` cannot display `pgNum=2`). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details, see the [/v1/file-events API documentation](/sandbox/api/#operation/searchEventsUsingPOST).)
    * `file-events/export` queries are limited to 200,000 events. 
    * `file-events/grouping` queries are limited to 1,000 groups
 
@@ -154,21 +152,21 @@ In the preceding example:
 
 The sample JSON below shows how to search for files with any of these extensions (.action, .app, .bat, .bin, .cmd, .com, .command, .cpl, .exe, .msc, .osx) that exist outside these locations:
 
-* C:\Program Files
-* /Applications
-* /Library
-* /User/*/Applications
-* /User/*/Library
-* /usr/bin
-* /usr/local/bin
-* /sbin
-* /bin
+* `C:\Program Files`
+* `/Applications`
+* `/Library`
+* `/User/*/Applications`
+* `/User/*/Library`
+* `/usr/bin`
+* `/usr/local/bin`
+* `/sbin`
+* `/bin`
 
 #### Sample JSON search query for application files in specific locations 
 
 Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above).
 
-```bash
+```json
 {
   "groups": [
     {
@@ -236,7 +234,7 @@ Modify this sample to fit your environment and then include it in a request (as 
         {
           "operator": "IS_NOT",
           "term": "filePath",
-          "value": "C:\Program Files*"
+          "value": "C:\\Program Files*"
         },
         {
           "operator": "IS_NOT",
@@ -386,7 +384,7 @@ The sample JSON below shows how to search for files files matching any of four M
 
 Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above).
 
-```bash
+```json
 {
   "groups": [
     {
@@ -458,7 +456,7 @@ Modify this sample to fit your environment and then include it in a request (as 
             "modifyTimestamp": "2018-02-04T15:13:28.783Z",
             "deviceUserName": "clyde@example.com",
             "osHostName": "CO-SAMPLE-01",
-            "domainName": 192.0.2.0,
+            "domainName": "192.0.2.0",
             "publicIpAddress": "192.0.2.0",
             "privateIpAddresses": [
                 "2001:db8:49a3:7d3:1309:8a2e:370:7342",
@@ -483,7 +481,7 @@ Modify this sample to fit your environment and then include it in a request (as 
             "modifyTimestamp": "2018-02-02T23:47:04.336Z",
             "deviceUserName": "paige@example.com",
             "osHostName": "CO-SAMPLE-02",
-            "domainName": 192.0.4.0,
+            "domainName": "192.0.4.0",
             "publicIpAddress": "192.0.4.0",
             "privateIpAddresses": [
                 "2001:db8:49a3:7d3:1309:8a2e:370:7342",
@@ -507,7 +505,7 @@ The sample JSON below shows how to use the [/v1/file-events/grouping](/sandbox/a
 
 Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above). For grouping queries, you must use the [/v1/file-events/grouping](/sandbox/api/#operation/groupingUsingPOST) resource.
 
-```bash
+```json
 {
     "groupingTerm": "syncDestination",
     "groups": [
@@ -522,10 +520,11 @@ Modify this sample to fit your environment and then include it in a request (as 
         }
     ]
 }
+```
 
-#### Sample results of cloud service file event counts 
+#### Sample results of cloud service file event counts
 
-```json
+```json    
 {
   "groups": [
     {
