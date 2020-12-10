@@ -93,13 +93,13 @@ curl -X POST <RequestURL>/v1/detection-lists/user/create \
 
 In the preceding example:
 
-* Replace <RequestURL> with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
-* Replace <AuthToken> with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
-* Replace <SampleTenant> with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace <Code42Username> with the Code42 username. The username is assigned when the [user is added to Code42](https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually).
-* Replace <UserNotes> with an explanation of why the user is considered high risk.
-* Replace <Risk1>, <Risk2>, etc. with the [risk factors](https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors) associated with the user. You can also [add risk factors later with the API](#add-risk-factors-to-the-user).
-* Replace <UsernameInCloudService> with the username of the user in a cloud service (such as Google Drive) if the username is different than the Code42 username. 
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
+* Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<Code42Username>` with the Code42 username. The username is assigned when the [user is added to Code42](https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually).
+* Replace `<UserNotes>` with an explanation of why the user is considered high risk.
+* Replace `<Risk1>`, `<Risk2>`, etc. with the [risk factors](https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors) associated with the user. You can also [add risk factors later with the API](#add-risk-factors-to-the-user).
+* Replace `<UsernameInCloudService>` with the username of the user in a cloud service (such as Google Drive) if the username is different than the Code42 username. 
 
 #### Add the user to the High Risk Employees list
 
@@ -114,10 +114,10 @@ curl -X POST <RequestURL>/v1/detection-lists/highriskemployee/add \
 
 In the preceding example: 
 
-* Replace <RequestURL> with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
-* Replace <AuthToken> with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
-* Replace <SampleTenant> with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace <ID> with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section. 
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
+* Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<ID>` with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section. 
 
 **Note:** To add multiple users at once, you can use the Code42 command-line interface to [bulk add users to the High Risk Employees list](https://clidocs.code42.com/en/latest/commands/highriskemployee.html?highlight=%22bulk%20add%20users%20to%20the%20high%20risk%20employees%22#high-risk-employee-bulk-add).    
 
@@ -138,12 +138,12 @@ curl -X POST <RequestURL>/v1/detection-lists/user/addriskfactors \
 
 In the preceding example:
 
-* Replace <RequestURL> with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
-* Replace <AuthToken> with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
-* Replace <SampleTenant> with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace <UserUid> with [the user's userUID in Code42](/sandbox/intro-to-developer-portal/#get-useruid). 
-* Replace <UserNotes> with an explanation of why the user is considered high risk. 
-* Replace <Risk1>, <Risk2>, etc. with the [risk factors](https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors) associated with the user. Valid values are:
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
+* Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<UserUid>` with [the user's userUID in Code42](/sandbox/intro-to-developer-portal/#get-useruid). 
+* Replace `<UserNotes>` with an explanation of why the user is considered high risk. 
+* Replace `<Risk1>`, `<Risk2>`, etc. with the [risk factors](https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors) associated with the user. Valid values are:
     * CONTRACT_EMPLOYEE
     * ELEVATED_ACCESS_PRIVILEGES
     * FLIGHT_RISK
@@ -165,10 +165,10 @@ curl -X POST <RequestURL>/v1/detection-lists/highriskemployee/get \
 
 In the preceding example: 
 
-* Replace <RequestURL> with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace <AuthToken> with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
-* Replace <SampleTenant> with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace <ID> with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section. 
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<ID>` with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section. 
 
 An excerpt of an example successful response:
 
@@ -217,12 +217,12 @@ curl -X POST <RequestURL>/v1/alert-rules/add-users \
 
 In the preceding example:
 
-* Replace <RequestURL> with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace <AuthToken> with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
-* Replace <SampleTenant> with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace <SampleRuleID> with the ID of the alert rule from which you want to remove users.
-* Replace <SampleUserID> with a value that uniquely identifies the user you want to add. As a best practice, use [the user's userUID in Code42](/sandbox/intro-to-developer-portal/#get-useruid) for this value. 
-* The `userAliasList` parameter identifies the list of email addresses or cloud aliases to associate with that <SampleUserID>. Replace <SampleAlias1> and <SampleAlias2> with the email addresses or cloud aliases you want to add to the rule's inclusion or exclusion list for that user ID.
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove users.
+* Replace `<SampleUserID>` with a value that uniquely identifies the user you want to add. As a best practice, use [the user's userUID in Code42](/sandbox/intro-to-developer-portal/#get-useruid) for this value. 
+* The `userAliasList` parameter identifies the list of email addresses or cloud aliases to associate with that `<SampleUserID>`. Replace `<SampleAlias1>` and `<SampleAlias2>` with the email addresses or cloud aliases you want to add to the rule's inclusion or exclusion list for that user ID.
     * If you want to enter only one email address or cloud alias, use this construction: `"userAliasList": [ "<SampleAlias1>" ]`
     * If you want to enter multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.
 
@@ -244,10 +244,10 @@ curl -X POST <RequestURL>/v1/alerts/query-alerts \
 
 In the preceding example:
 
-* Replace <RequestURL> with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace <AuthToken> with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
-* Replace <SampleTenant> with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace <ActorUsername> with the Code42 username of the user. 
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<ActorUsername>` with the Code42 username of the user. 
 
 A successful response returns basic information about the alert notifications that match your search criteria, including the alert IDs of those notifications (look for the `"id":"value"` entry):
 
@@ -290,10 +290,10 @@ curl -X POST <RequestURL>/v1/detection-lists/highriskemployee/remove \
 
 In the preceding example: 
 
-* Replace <RequestURL> with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
-* Replace <AuthToken> with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
-* Replace <SampleTenant> with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace <ID> with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section. 
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
+* Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<ID>` with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section. 
 
 To verify that the user is removed, obtain a listing of all users in the detection list by running the [/v1/detection-lists/highriskemployee/search](/sandbox/api/#operation/HighRiskEmployeeControllerV2_Search) API command.
 
