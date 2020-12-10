@@ -164,13 +164,14 @@ In the preceding example:
 * Replace `<UserUid>` with [the user's userUID in Code42](/sandbox/intro-to-developer-portal/#get-useruid). 
 * Replace `<UserNotes>` with an explanation of why the user is considered high risk. 
 * Replace `<Risk1>`, `<Risk2>`, etc. with the [risk factors](https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors) associated with the user. Valid values are:
-    * CONTRACT_EMPLOYEE
-    * ELEVATED_ACCESS_PRIVILEGES
-    * FLIGHT_RISK
-    * HIGH_IMPACT_EMPLOYEE
-    * PERFORMANCE_CONCERNS
-    * POOR_SECURITY_PRACTICES
-    * SUSPICIOUS_SYSTEM_ACTIVITY
+    * `CONTRACT_EMPLOYEE`
+    * `ELEVATED_ACCESS_PRIVILEGES`
+    * `FLIGHT_RISK`
+    * `HIGH_IMPACT_EMPLOYEE`
+    * `PERFORMANCE_CONCERNS`
+    * `POOR_SECURITY_PRACTICES`
+    * `SUSPICIOUS_SYSTEM_ACTIVITY`
+
 
 #### View risk factors in the user's details
 
