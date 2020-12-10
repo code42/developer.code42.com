@@ -63,7 +63,7 @@ An excerpt of an example successful response:
 
 ### Get the detection list profile for a user
 
-If you need to get a user's detection list profile to find information about the user, use the [/v1/detection-lists/user/getbyusername](/sandbox/api/#operation/UserControllerV2_GetByUsername) API or [/v1/detection-lists/user/getbyid](/sandbox/api/#operation/UserControllerV2_GetByUserId)  API. 
+If you need to get a user's detection list profile to find information about the user, use the [/v1/detection-lists/user/getbyusername](/sandbox/api/#operation/UserControllerV2_GetByUsername) API or [/v1/detection-lists/user/getbyid](/sandbox/api/#operation/UserControllerV2_GetByUserId) API. 
 
 For example, if you don't know a user's ID as assigned in the profile, you can find it by running the [/v1/detection-lists/user/getbyusername](/sandbox/api/#operation/UserControllerV2_GetByUsername) API command as shown in the following example.
 
@@ -224,7 +224,7 @@ An excerpt of an example successful response:
 
 ### Enable or disable alerts for all users in a detection list 
 
-You can enable or disable alerts for all users in a detection list using the [/v1/detection-lists/highriskemployee/setalertstate](/sandbox/api/#operation/HighRiskEmployeeControllerV2_SetAlertState) API or the [/v1/detection-lists/departingemployee/setalertstate](/sandbox/api/#operation/DepartingEmployeeControllerV2_SetAlertState)  API. 
+You can enable or disable alerts for all users in a detection list using the [/v1/detection-lists/highriskemployee/setalertstate](/sandbox/api/#operation/HighRiskEmployeeControllerV2_SetAlertState) API or the [/v1/detection-lists/departingemployee/setalertstate](/sandbox/api/#operation/DepartingEmployeeControllerV2_SetAlertState) API. 
 
 The commands to enable or disable alerts for all high risk or departing employees are similar. The following example shows how to enable alerts for all high risk employees using the [/v1/detection-lists/highriskemployee/setalertstate](/sandbox/api/#operation/HighRiskEmployeeControllerV2_SetAlertState) API. 
 
