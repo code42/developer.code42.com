@@ -51,19 +51,26 @@ A successful response returns basic information about the alert notifications th
 
 ```json
 {
-  "type$": "ALERT_SUMMARY",
-  "tenantId": "123456",
-  "type": "FED_ENDPOINT_EXFILTRATION",
-  "name": "Departing employee endpoint exfiltration system rule",
-  "description": "System rule for departing employee endpoint exfiltration.",
-  "actor": "burt.morales@example.com",
-  "target": "N/A",
-  "severity": "HIGH",
-  "ruleId": "123456789424242",
-  "ruleSource": "Departing Employee",
-  "id": "987654321424242",
-  "createdAt": "2020-04-03T15:21:44.6139300Z",
-  "state": "OPEN"
+  "type$": "ALERT_QUERY_RESPONSE",
+  "alerts": [
+    {
+      "type$": "ALERT_SUMMARY",
+      "tenantId": "123456",
+      "type": "FED_ENDPOINT_EXFILTRATION",
+      "name": "Departing employee endpoint exfiltration system rule",
+      "description": "System rule for departing employee endpoint exfiltration.",
+      "actor": "burt.morales@example.com",
+      "target": "N/A",
+      "severity": "HIGH",
+      "ruleId": "123456789424242",
+      "ruleSource": "Departing Employee",
+      "id": "987654321424242",
+      "createdAt": "2020-04-03T15:21:44.6139300Z",
+      "state": "OPEN"
+    }
+  ],
+  "totalCount": 1,
+  "problems": []
 }
 ```
 
