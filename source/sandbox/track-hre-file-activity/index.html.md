@@ -20,7 +20,7 @@ The Code42 APIs offer a way to automatically manage High Risk Employees from the
 4. Search for alerts the users triggered.
 5. Remove users from the High Risk Employees list when tracking is no longer desired.
 
-This article describes in detail the Code42 APIs needed to follow users through the entire High Risk Employees lifecycle. 
+This article describes in detail the Code42 APIs needed to follow users through the entire High Risk Employees lifecycle.
 
 For more information about these APIs, see the following articles:
 
@@ -30,13 +30,13 @@ For more information about these APIs, see the following articles:
 ## Considerations
 
 * The tasks in this article require use of the Code42 API. For assistance with using the Code42 API, contact your Customer Success Manager (CSM) to engage the Code42 Professional Services team. Or, [post your question to the Code42 community](https://success.code42.com/home) to get advice from fellow Code42 administrators.
-* The examples in this article use [curl](https://curl.se/). For other tools that you can use, see [Tools for interacting with the Code42 API](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Tools_for_interacting_with_the_Code42_API). 
-* To perform tasks in this article, you must: 
+* The examples in this article use [curl](https://curl.se/). For other tools that you can use, see [Tools for interacting with the Code42 API](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Tools_for_interacting_with_the_Code42_API).
+* To perform tasks in this article, you must:
     * Know the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
     * Obtain an [authentication token](/sandbox/intro-to-developer-portal/#authentication) and a [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
     * [Create a detection list profile](#create-a-detection-list-profile) for each user you want to manage in a detection list.
-* This functionality is available only if your [product plan](https://support.code42.com/Terms_and_conditions/Code42_customer_support_resources/Code42_product_plans) includes [Risk Detection lenses](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Secure_data_throughout_employee_tenure). Contact your Customer Success Manager (CSM) for assistance with licensing, or to upgrade to the Incydr Advanced product plan for a free trial​​​. If you don't know who your CSM is, email [csmsupport@code42.com](mailto:csmsupport@code42.com). 
-* To add users to the High Risk Employees list, you must have [roles that provide the necessary permissions](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Role_assignment_use_cases#Use_case_1:_Add_users_to_detection_lists).  
+* This functionality is available only if your [product plan](https://support.code42.com/Terms_and_conditions/Code42_customer_support_resources/Code42_product_plans) includes [Risk Detection lenses](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Secure_data_throughout_employee_tenure). Contact your Customer Success Manager (CSM) for assistance with licensing, or to upgrade to the Incydr Advanced product plan for a free trial​​​. If you don't know who your CSM is, email [csmsupport@code42.com](mailto:csmsupport@code42.com).
+* To add users to the High Risk Employees list, you must have [roles that provide the necessary permissions](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Role_assignment_use_cases#Use_case_1:_Add_users_to_detection_lists).
 * You can also use the Code42 command-line interface (CLI) to work with the High Risk Employees list or the Departing Employees list. For more information, see the [Code42 CLI documentation](https://clidocs.code42.com/en/latest/userguides/detectionlists.html).
 
 ## Before you begin
@@ -51,7 +51,7 @@ Adding users to the High Risk Employees list automatically provides economies of
 
 **What are the kinds of alerts you want to receive?**
 
-The primary reason to add users to the High Risk Employees list is to receive alerts when those users perform actions that are considered high risk. Before you start adding users, determine the kinds of actions that you want to receive alerts about and then [create alerts](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/How_to_create_a_security_alert) that will be triggered by those actions. Creating the right kinds of alerts provides the best monitoring possible of your High Risk Employees file activity. 
+The primary reason to add users to the High Risk Employees list is to receive alerts when those users perform actions that are considered high risk. Before you start adding users, determine the kinds of actions that you want to receive alerts about and then [create alerts](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/How_to_create_a_security_alert) that will be triggered by those actions. Creating the right kinds of alerts provides the best monitoring possible of your High Risk Employees file activity.
 
 **What are "risk factors" and why might you assign them to people?**
 
@@ -65,14 +65,17 @@ When determining risk factors to assign to employees, consider where else to loo
 
 Before attempting to write scripts using the Code42 API examples in this article, gather the following inputs:
 
-* **Authentication token** <br>
+* **Authentication token**
+
 [Authentication tokens](/sandbox/intro-to-developer-portal/#authentication) are required to run the APIs. The tokens must be generated by a Code42 administrator with the proper [role assignments to add users to the High Risk Employees list](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Role_assignment_use_cases#Use_case_1:_Add_users_to_detection_lists).
 
-* **Tenant ID** <br>
+* **Tenant ID**
+
 Your company's entity in the Code42 cloud is known as a "tenant". To obtain your [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id), use your Code42 administrator credentials to submit a request to the [customer API](/sandbox/api/#tag/Customer).
 
-* **Code42 usernames for the people you want to add to the High Risk Employees list** <br>
-The names of employees you want to add to the High Risk Employees list may come from a number of sources, such as an HR system or a directory service. While you can integrate with such systems using the Code42 API, remember that you need the Code42 username of these employees to be able to add them to the High Risk Employees list. The Code42 username is assigned when the [user is added to Code42](https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually). You can obtain usernames via [CSV export](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Users_reference#CSV_export) or the [user API](/sandbox/api/#operation/UserControllerV2_GetByUsername). 
+* **Code42 usernames for the people you want to add to the High Risk Employees list**
+
+The names of employees you want to add to the High Risk Employees list may come from a number of sources, such as an HR system or a directory service. While you can integrate with such systems using the Code42 API, remember that you need the Code42 username of these employees to be able to add them to the High Risk Employees list. The Code42 username is assigned when the [user is added to Code42](https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually). You can obtain usernames via [CSV export](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Users_reference#CSV_export) or the [user API](/sandbox/api/#operation/UserControllerV2_GetByUsername).
 
 ## Steps
 
@@ -105,13 +108,13 @@ curl -X POST <RequestURL>/v1/detection-lists/user/create \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
 * Replace `<Code42Username>` with the Code42 username. The username is assigned when the [user is added to Code42](https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually).
 * Replace `<UserNotes>` with an explanation of why the user is considered high risk.
 * Replace `<Risk1>`, `<Risk2>`, etc. with the [risk factors](https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors) associated with the user. You can also [add risk factors later with the API](#add-risk-factors-to-the-user).
-* Replace `<UsernameInCloudService>` with the username of the user in a cloud service (such as Google Drive) if the username is different than the Code42 username. 
+* Replace `<UsernameInCloudService>` with the username of the user in a cloud service (such as Google Drive) if the username is different than the Code42 username.
 
 #### Add the user to the High Risk Employees list
 
@@ -124,14 +127,14 @@ curl -X POST <RequestURL>/v1/detection-lists/highriskemployee/add \
 -d '{ "tenantId": "<SampleTenant>", "userId": "<ID>" }'
 ```
 
-In the preceding example: 
+In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace `<ID>` with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section. 
+* Replace `<ID>` with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section.
 
-**Note:** To add multiple users at once, you can use the Code42 command-line interface to [bulk add users to the High Risk Employees list](https://clidocs.code42.com/en/latest/commands/highriskemployee.html?highlight=%22bulk%20add%20users%20to%20the%20high%20risk%20employees%22#high-risk-employee-bulk-add).    
+**Note:** To add multiple users at once, you can use the Code42 command-line interface to [bulk add users to the High Risk Employees list](https://clidocs.code42.com/en/latest/commands/highriskemployee.html?highlight=%22bulk%20add%20users%20to%20the%20high%20risk%20employees%22#high-risk-employee-bulk-add).
 
 ### Add risk factors
 
@@ -158,11 +161,11 @@ curl -X POST <RequestURL>/v1/detection-lists/user/addriskfactors \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace `<UserUid>` with [the user's userUID in Code42](/sandbox/intro-to-developer-portal/#get-useruid). 
-* Replace `<UserNotes>` with an explanation of why the user is considered high risk. 
+* Replace `<UserUid>` with [the user's userUID in Code42](/sandbox/intro-to-developer-portal/#get-useruid).
+* Replace `<UserNotes>` with an explanation of why the user is considered high risk.
 * Replace `<Risk1>`, `<Risk2>`, etc. with the [risk factors](https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors) associated with the user. Valid values are:
     * `CONTRACT_EMPLOYEE`
     * `ELEVATED_ACCESS_PRIVILEGES`
@@ -171,7 +174,6 @@ In the preceding example:
     * `PERFORMANCE_CONCERNS`
     * `POOR_SECURITY_PRACTICES`
     * `SUSPICIOUS_SYSTEM_ACTIVITY`
-
 
 #### View risk factors in the user's details
 
@@ -184,12 +186,12 @@ curl -X POST <RequestURL>/v1/detection-lists/highriskemployee/get \
 -d '{ "tenantId": "<SampleTenant>", "userId": "<ID>" }'
 ```
 
-In the preceding example: 
+In the preceding example:
 
 * Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace `<ID>` with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section. 
+* Replace `<ID>` with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section.
 
 An excerpt of an example successful response:
 
@@ -224,7 +226,7 @@ When the user is added to the High Risk Employees list they are automatically ad
 
 #### Add the user to other alert rules
 
-You can use the API to add the user to other existing [alert rules](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Manage_Rules) that monitor user file activity. 
+You can use the API to add the user to other existing [alert rules](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Manage_Rules) that monitor user file activity.
 
 To use the API to add the user to an alert rule, use the following [/v1/alert-rules/add-users](/sandbox/api/#operation/Rules_AddUsersToRule) API command.
 
@@ -254,7 +256,7 @@ In the preceding example:
 * Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
 * Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove users.
-* Replace `<SampleUserID>` with a value that uniquely identifies the user you want to add. As a best practice, use [the user's userUID in Code42](/sandbox/intro-to-developer-portal/#get-useruid) for this value. 
+* Replace `<SampleUserID>` with a value that uniquely identifies the user you want to add. As a best practice, use [the user's userUID in Code42](/sandbox/intro-to-developer-portal/#get-useruid) for this value.
 * The `userAliasList` parameter identifies the list of email addresses or cloud aliases to associate with that `<SampleUserID>`. Replace `<SampleAlias1>` and `<SampleAlias2>` with the email addresses or cloud aliases you want to add to the rule's inclusion or exclusion list for that user ID.
     * If you want to enter only one email address or cloud alias, use this construction: `"userAliasList": [ "<SampleAlias1>" ]`
     * If you want to enter multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.
@@ -299,7 +301,7 @@ In the preceding example:
 * Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace `<ActorUsername>` with the Code42 username of the user. 
+* Replace `<ActorUsername>` with the Code42 username of the user.
 
 A successful response returns basic information about the alert notifications that match your search criteria, including the alert IDs of those notifications (look for the `"id":"value"` entry):
 
@@ -327,7 +329,7 @@ You can further filter alerts by adding more filter types. For example, you coul
 
 #### Search the user's file activity
 
-In addition to using alerts to identify file activity, you can use the [Forensic Search API](/sandbox/forensic-search-api/#forensic-search-api) to search for the user's file activity. 
+In addition to using alerts to identify file activity, you can use the [Forensic Search API](/sandbox/forensic-search-api/#forensic-search-api) to search for the user's file activity.
 
 ### Remove the user from the High Risk Employees list
 
@@ -340,13 +342,13 @@ curl -X POST <RequestURL>/v1/detection-lists/highriskemployee/remove \
 -d '{ "tenantId": "<SampleTenant>", "userId": "<ID>" }'
 ```
 
-In the preceding example: 
+In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance. 
+* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
-* Replace `<ID>` with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section. 
+* Replace `<ID>` with the user ID generated in the [Create a detection list profile](#create-a-detection-list-profile) section.
 
 To verify that the user is removed, obtain a listing of all users in the detection list by running the [/v1/detection-lists/highriskemployee/search](/sandbox/api/#operation/HighRiskEmployeeControllerV2_Search) API command.
 
-**Note:** To remove multiple users at once, you can use the Code42 command-line interface to [bulk remove users from the High Risk Employees list](https://clidocs.code42.com/en/latest/commands/highriskemployee.html?highlight=bulk%20remove#high-risk-employee-bulk-remove). 
+**Note:** To remove multiple users at once, you can use the Code42 command-line interface to [bulk remove users from the High Risk Employees list](https://clidocs.code42.com/en/latest/commands/highriskemployee.html?highlight=bulk%20remove#high-risk-employee-bulk-remove).
