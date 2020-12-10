@@ -388,7 +388,7 @@
 <li>For assistance with using the Code42 API, contact your Customer Success Manager (CSM) to engage the Code42 Professional Services team. Or, <a href="https://success.code42.com/">post your question to the Code42 community</a> to get advice from fellow Code42 administrators.</li>
 </ul></li>
 <li><p>The examples in this article use the command line tool curl to interact with the Code42 API. For a list of tools that can be used to interact with the API, see <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Tools_for_interacting_with_the_Code42_API">Tools for interacting with the Code42 API</a>.</p></li>
-<li><p>To perform tasks in this article, you must: </p>
+<li><p>To perform tasks in this article, you must:</p>
 
 <ul>
 <li>Have the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin">Customer Cloud Admin</a> or <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Security_Center_User">Security Center User</a> role.</li>
@@ -404,7 +404,7 @@
 <ul>
 <li><p>The first group uses a <code>filterClause</code> value of <code>OR</code>, which returns results if any of the four MD5 values are found (<code>db349b97c37d22f5ea1d1841e3c89eb4</code> or <code>84c82835a5d21bbcf75a61706d8ab549</code> or <code>f351e1fcca0c4ea05fc44d15a17f8b36</code> or <code>7bf2b57f2a205768755c07f238fb32cc</code>).</p></li>
 <li><p>The second group uses a <code>filterClause</code> value of <code>AND</code>, which returns results only if all criteria in the filter are met (in this example, <code>on or after 2018-02-01</code> <strong>and</strong> <code>on or before 2018-02-07</code>).</p></li>
-<li><p>Finally, to link these two groups together, the <code>groupClause</code> value of <code>AND</code> returns results only if both the first group and second group criteria are met. </p></li>
+<li><p>Finally, to link these two groups together, the <code>groupClause</code> value of <code>AND</code> returns results only if both the first group and second group criteria are met.</p></li>
 </ul>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -456,7 +456,7 @@
   </span><span class="nl">"srtKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eventTimestamp"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='sample-request'>Sample request</h3>
-<p>This simple example demonstrates a search for all files on all devices with the file extension <code>.docx</code> that exist anywhere except the file path <code>C:/Users</code>. For more complicated examples with multiple groups and additional filters, see the <a href="#sample-use-cases">sample use cases</a> in the next section. </p>
+<p>This simple example demonstrates a search for all files on all devices with the file extension <code>.docx</code> that exist anywhere except the file path <code>C:/Users</code>. For more complicated examples with multiple groups and additional filters, see the <a href="#sample-use-cases">sample use cases</a> in the next section.</p>
 
 <p>Use the following as a starting point for your own searches:</p>
 
@@ -471,9 +471,9 @@
 <span class="nt">-d</span> <span class="s1">'{
     "groups": [{
         "filters": [{
-            "operator": "IS", 
-            "term": "fileName", 
-            "value": "*.docx"       
+            "operator": "IS",
+            "term": "fileName",
+            "value": "*.docx"
         },
         {
             "operator": "IS_NOT",
@@ -482,13 +482,13 @@
         }
     ],
     "filterClause": "AND"
-    }], 
+    }],
     "groupClause": "AND",
-    "pgNum": 1, 
+    "pgNum": 1,
     "pgSize": 100
 }'</span>
 </code></pre></div>
-<p><strong>Note:</strong> To receive results in CSV format instead of JSON, use the <a href="/sandbox/api/#operation/exportUsingPOST">/v1/file-events/export</a> resource instead of <a href="/sandbox/api/#operation/searchEventsUsingPOST">/v1/file-events</a>. </p>
+<p><strong>Note:</strong> To receive results in CSV format instead of JSON, use the <a href="/sandbox/api/#operation/exportUsingPOST">/v1/file-events/export</a> resource instead of <a href="/sandbox/api/#operation/searchEventsUsingPOST">/v1/file-events</a>.</p>
 <h3 id='api-limits'>API limits</h3>
 <ul>
 <li>Request rate: To ensure optimal performance throughout your Code42 environment, Code42 limits API requests to 120 per minute. Requests that exceed this limit are blocked and do not return results.</li>
@@ -496,7 +496,7 @@
 
 <ul>
 <li><code>file-events</code> results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a <code>file-events</code> query with <code>pgSize=10000</code> cannot display <code>pgNum=2</code>). To obtain more than 10,000 results, use the <code>pgToken</code> and <code>nextPgToken</code> request fields to submit multiple requests. (For <code>pgToken</code> implementation details, see the <a href="/sandbox/api/#operation/searchEventsUsingPOST">/v1/file-events API documentation</a>.)</li>
-<li><code>file-events/export</code> queries are limited to 200,000 events. </li>
+<li><code>file-events/export</code> queries are limited to 200,000 events.</li>
 <li><code>file-events/grouping</code> queries are limited to 1,000 groups</li>
 </ul></li>
 </ul>
@@ -636,88 +636,88 @@
   </span><span class="nl">"srtKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eventTimestamp"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h4 id='sample-results-of-application-files-in-specific-locations'>Sample results of application files in specific locations</h4><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fileEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843318595055164516_6"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-10T23:57:33.682Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/$GetCurrent/SafeOS/"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SetupComplete.cmd"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">307</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Administrators"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0582b19fa3b500db28f976ed33efa487"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:42.041Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:42.120Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde@example.com"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-1"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="mf">192.0</span><span class="err">.</span><span class="mf">2.0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"127.0.0.1"</span><span class="w">
-            </span><span class="p">],</span><span class="w">
-            </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424242"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843318595055164516_7"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-10T23:57:33.682Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/$GetCurrent/SafeOS/"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"preoobe.cmd"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">74</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Administrators"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2f9537b7f7cb5b559ed6ec3694832fe6"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:41.936Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:42.041Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paige@example.com"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-2"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="mf">192.0</span><span class="err">.</span><span class="mf">2.0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"127.0.0.1"</span><span class="w">
-            </span><span class="p">],</span><span class="w">
-            </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424243"</span><span class="w">
-        </span><span class="p">},</span><span class="w">       
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843419521787010148_344"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-11T16:40:11.090Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/Windows/en-US/"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bootfix.bin"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TrustedInstaller"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eb145d5f87ddf43c8bd6f27e97db8bf2"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-29T14:41:10.345Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-29T14:41:10.346Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde@example.com"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-3"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="mf">192.0</span><span class="err">.</span><span class="mf">4.0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"127.0.0.1"</span><span class="w">
-            </span><span class="p">],</span><span class="w">
-            </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424242"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"problems"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+  </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fileEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843318595055164516_6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-10T23:57:33.682Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/$GetCurrent/SafeOS/"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SetupComplete.cmd"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">307</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Administrators"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0582b19fa3b500db28f976ed33efa487"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:42.041Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:42.120Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"127.0.0.1"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424242"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843318595055164516_7"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-10T23:57:33.682Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/$GetCurrent/SafeOS/"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"preoobe.cmd"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">74</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Administrators"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2f9537b7f7cb5b559ed6ec3694832fe6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:41.936Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T18:10:42.041Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paige@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"127.0.0.1"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424243"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843419521787010148_344"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-04-11T16:40:11.090Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/Windows/en-US/"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bootfix.bin"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">1024</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TrustedInstaller"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eb145d5f87ddf43c8bd6f27e97db8bf2"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-29T14:41:10.345Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2017-09-29T14:41:10.346Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-3"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"127.0.0.1"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424242"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"problems"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='use-case-2-search-for-files-on-a-device-within-a-specific-date-range-based-on-md5-values'>Use case 2: Search for files on a device within a specific date range based on MD5 values</h3>
-<p>The sample JSON below shows how to search for files files matching any of four MD5 values that existed on devices between February 1 and 7, 2018. </p>
+<p>The sample JSON below shows how to search for files files matching any of four MD5 values that existed on devices between February 1 and 7, 2018.</p>
 
 <p><strong>Note:</strong> To search for SHA256 hash values instead of MD5, replace <code>md5Checksum</code> with <code>sha256Checksum</code> in the sample JSON below.</p>
 <h4 id='sample-json-search-query-for-md5-values-between-two-dates'>Sample JSON search query for MD5 values between two dates</h4>
@@ -772,78 +772,78 @@
   </span><span class="nl">"srtKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"eventTimestamp"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h4 id='sample-results-of-file-events-matching-the-md5-values-and-date-range'>Sample results of file events matching the MD5 values and date range</h4><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"fileEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843279264407737861_1"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-04T18:40:37.790Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/Windows/"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mssecsvc.exe"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">282</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"db349b97c37d22f5ea1d1841e3c89eb4"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-03T15:43:29.388Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-04T15:13:28.783Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde@example.com"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-01"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"127.0.0.1"</span><span class="w">
-            </span><span class="p">],</span><span class="w">
-            </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"425916091791253442"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424242"</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843317905847131236_1"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MODIFIED"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-02T23:50:42.294Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/Users/Paige/Downloads/"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tasksche.exe"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">282</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paige"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"84c82835a5d21bbcf75a61706d8ab549"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-01T15:43:29.388Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-02T23:47:04.336Z"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paige@example.com"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-02"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
-                </span><span class="s2">"127.0.0.1"</span><span class="w">
-            </span><span class="p">],</span><span class="w">
-            </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424243"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-    </span><span class="p">],</span><span class="w">
-    </span><span class="nl">"problems"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
-</span><span class="p">}</span><span class="w"> 
+  </span><span class="nl">"totalCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fileEvents"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843279264407737861_1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CREATED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-04T18:40:37.790Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/Windows/"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mssecsvc.exe"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">282</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"db349b97c37d22f5ea1d1841e3c89eb4"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-03T15:43:29.388Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-04T15:13:28.783Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-01"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.2.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"127.0.0.1"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"425916091791253442"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424242"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"eventId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843317905847131236_1"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MODIFIED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"eventTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-02T23:50:42.294Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"filePath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"C:/Users/Paige/Downloads/"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tasksche.exe"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"FILE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileSize"</span><span class="p">:</span><span class="w"> </span><span class="mi">282</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fileOwner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paige"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"md5Checksum"</span><span class="p">:</span><span class="w"> </span><span class="s2">"84c82835a5d21bbcf75a61706d8ab549"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-01T15:43:29.388Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifyTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-02-02T23:47:04.336Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"deviceUserName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"paige@example.com"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"osHostName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CO-SAMPLE-02"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"domainName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"publicIpAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"privateIpAddresses"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"2001:db8:49a3:7d3:1309:8a2e:370:7342"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"192.0.4.0"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"0:0:0:0:0:0:0:1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"127.0.0.1"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"deviceUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"423278037859030542"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"userUid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"424242424242424243"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"problems"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='use-case-3-see-all-cloud-sync-destinations-for-a-user'>Use case 3: See all cloud sync destinations for a user</h3>
 <p>The sample JSON below shows how to use the <a href="/sandbox/api/#operation/groupingUsingPOST">/v1/file-events/grouping</a> resource to find an approximate count of <strong>Synced to cloud service</strong> file events for a specific user for each cloud service. This sample groups by the <code>syncDestination</code> value, but you can choose any <code>groupingTerm</code> listed in the <a href="/sandbox/api/#operation/groupingUsingPOST">/v1/file-events/grouping</a> API documentation in your requests.</p>
 <h4 id='sample-json-search-query-for-cloud-service-file-event-counts'>Sample JSON search query for cloud service file event counts</h4>
 <p>Modify this sample to fit your environment and then include it in a request (as shown in the <a href="#sample-request">Sample request</a> section above). For grouping queries, you must use the <a href="/sandbox/api/#operation/groupingUsingPOST">/v1/file-events/grouping</a> resource.</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"groupingTerm"</span><span class="p">:</span><span class="w"> </span><span class="s2">"syncDestination"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+  </span><span class="nl">"groupingTerm"</span><span class="p">:</span><span class="w"> </span><span class="s2">"syncDestination"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-                </span><span class="p">{</span><span class="w">
-                    </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IS"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"term"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deviceUserName"</span><span class="p">,</span><span class="w">
-                    </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde@example.com"</span><span class="w">
-                </span><span class="p">}</span><span class="w">
-            </span><span class="p">]</span><span class="w">
+          </span><span class="nl">"operator"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IS"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"term"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deviceUserName"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"value"</span><span class="p">:</span><span class="w"> </span><span class="s2">"clyde@example.com"</span><span class="w">
         </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h4 id='sample-results-of-cloud-service-file-event-counts'>Sample results of cloud service file event counts</h4><div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -864,7 +864,7 @@
 
 <ul>
 <li>The file did not exist on disk long enough for Code42 to capture all the metadata.</li>
-<li>Several values, including <code>deviceUserName</code> and <code>userUid</code>, are captured and reported from the Code42 cloud instead of directly from the user device. If those values haven&#39;t been reported yet, they may be blank or may display as <code>UNKNOWN</code> or <code>NAME_NOT_AVAILABLE</code>. </li>
+<li>Several values, including <code>deviceUserName</code> and <code>userUid</code>, are captured and reported from the Code42 cloud instead of directly from the user device. If those values haven&#39;t been reported yet, they may be blank or may display as <code>UNKNOWN</code> or <code>NAME_NOT_AVAILABLE</code>.</li>
 </ul>
 
       </div>
