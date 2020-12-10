@@ -1085,11 +1085,13 @@
         "deprecated": false
       }
     },
-    "/v1/auth/basic": {
+    "/v1/auth": {
       "get": {
         "tags": [
           "Auth"
         ],
+        "summary": "Get an authentication token",
+        "description": "Most APIs require a Bearer token to be submitted in order to determine the calling user's identity and permissions. Call this endpoint with your user's basic authentication credentials to retrieve its Bearer token.",
         "responses": {
           "200": {
             "description": "Success",
@@ -1105,6 +1107,8 @@
         "tags": [
           "Customer"
         ],
+        "summary": "Get customer account information",
+        "description": "Some APIs require a tenant ID to be submitted to retrieve or edit Code42 data. Call this endpoint to retrieve the tenant ID to use for those APIs.",
         "responses": {
           "200": {
             "description": "Success",
@@ -1120,25 +1124,30 @@
         "tags": [
           "User"
         ],
+        "summary": "Get a list of users",
         "parameters": [
           {
             "in": "query",
             "name": "active",
+            "description": "When true, return only active users. When false, return only inactive users. Defaults to returning both.",
             "type": "boolean"
           },
           {
             "in": "query",
             "name": "blocked",
+            "description": "When true, return only blocked users. When false, return only unblocked users. Defaults to returning both.",
             "type": "boolean"
           },
           {
             "in": "query",
             "name": "username",
+            "description": "The username of a user to search for.",
             "type": "string"
           },
           {
             "in": "query",
             "name": "page",
+            "description": "The page number of the result set to return.",
             "type": "integer",
             "format": "int32",
             "default": 1
@@ -1146,6 +1155,7 @@
           {
             "in": "query",
             "name": "pageSize",
+            "description": "The maximum number of users to return in the response.",
             "type": "integer",
             "format": "int32",
             "default": 500
@@ -1166,10 +1176,12 @@
         "tags": [
           "User"
         ],
+        "summary": "Get a user",
         "parameters": [
           {
             "in": "path",
             "name": "userId",
+            "description": "The unique Code42 userId of the user to return.",
             "required": true,
             "type": "string"
           }
@@ -4602,10 +4614,8 @@
     "JwtResponse-core": {
       "type": "object",
       "properties": {
-        "v3UserToken": {
-          "type": "string"
-        },
         "bearerToken": {
+          "description": "A token representing a Code42 user's identity and permission set.",
           "type": "string",
           "readOnly": true
         }
@@ -4615,15 +4625,15 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "The customer's name.",
           "type": "string"
         },
         "registrationKey": {
+          "description": "The customer's Code42 registration key.",
           "type": "string"
         },
         "tenantId": {
-          "type": "string"
-        },
-        "tenantUid": {
+          "description": "The customer's unique ID identifying it within Code42.",
           "type": "string"
         }
       }
@@ -4631,48 +4641,58 @@
     "UserPreserveResponse-core": {
       "type": "object",
       "properties": {
-        "userUid": {
-          "type": "string"
-        },
-        "userId": {
+        "legacyUserId": {
+          "description": "The user ID to use for older console-based APIs that require a user Id.\r\nIf your endpoint domain starts with \"console\" instead of \"api\", use this Id for endpoints that require a userId.",
           "type": "string",
           "readOnly": true
         },
-        "username": {
+        "userId": {
+          "description": "A globally unique ID for this user.",
           "type": "string"
         },
-        "email": {
+        "username": {
+          "description": "The name the user uses to log in to Code42.",
           "type": "string"
         },
         "firstName": {
+          "description": "The first (given) name of the user.",
           "type": "string"
         },
         "lastName": {
+          "description": "The last (family) name of the user.",
           "type": "string"
         },
-        "orgUid": {
-          "type": "string"
-        },
-        "orgId": {
+        "legacyOrgId": {
+          "description": "The org ID to use for older console-based APIs that require an org Id.\r\nIf your endpoint domain starts with \"console\" instead of \"api\", use this Id for endpoints that require an orgId.",
           "type": "string",
           "readOnly": true
         },
+        "orgId": {
+          "description": "The globally unique ID of the Code42 organization this user belongs to.",
+          "type": "string"
+        },
         "orgName": {
+          "description": "The name of the Code42 organization this user belongs to.",
           "type": "string"
         },
         "notes": {
+          "description": "Descriptive information about the user.",
           "type": "string"
         },
         "active": {
+          "description": "Whether or not the user is enabled.",
           "type": "boolean"
         },
         "blocked": {
+          "description": "Whether or not logins and restores are disabled for the user.",
           "type": "boolean"
         },
         "creationDate": {
+          "description": "The date and time the user was created.",
           "type": "string"
         },
         "modificationDate": {
+          "description": "The date and time the user was last modified.",
           "type": "string"
         }
       }
@@ -4695,48 +4715,58 @@
     "UserResponse-core": {
       "type": "object",
       "properties": {
-        "userUid": {
-          "type": "string"
-        },
-        "userId": {
+        "legacyUserId": {
+          "description": "The user ID to use for older console-based APIs that require a user Id.\r\nIf your endpoint domain starts with \"console\" instead of \"api\", use this Id for endpoints that require a userId.",
           "type": "string",
           "readOnly": true
         },
-        "username": {
+        "userId": {
+          "description": "A globally unique ID for this user.",
           "type": "string"
         },
-        "email": {
+        "username": {
+          "description": "The name the user uses to log in to Code42.",
           "type": "string"
         },
         "firstName": {
+          "description": "The first (given) name of the user.",
           "type": "string"
         },
         "lastName": {
+          "description": "The last (family) name of the user.",
           "type": "string"
         },
-        "orgUid": {
-          "type": "string"
-        },
-        "orgId": {
+        "legacyOrgId": {
+          "description": "The org ID to use for older console-based APIs that require an org Id.\r\nIf your endpoint domain starts with \"console\" instead of \"api\", use this Id for endpoints that require an orgId.",
           "type": "string",
           "readOnly": true
         },
+        "orgId": {
+          "description": "The globally unique ID of the Code42 organization this user belongs to.",
+          "type": "string"
+        },
         "orgName": {
+          "description": "The name of the Code42 organization this user belongs to.",
           "type": "string"
         },
         "notes": {
+          "description": "Descriptive information about the user.",
           "type": "string"
         },
         "active": {
+          "description": "Whether or not the user is enabled.",
           "type": "boolean"
         },
         "blocked": {
+          "description": "Whether or not logins and restores are disabled for the user.",
           "type": "boolean"
         },
         "creationDate": {
+          "description": "The date and time the user was created.",
           "type": "string"
         },
         "modificationDate": {
+          "description": "The date and time the user was last modified.",
           "type": "string"
         }
       }
