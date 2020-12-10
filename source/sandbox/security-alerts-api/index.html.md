@@ -299,7 +299,8 @@ In the preceding example:
 * Replace `<SampleUserID>` with the value that is associated with the email addresses or cloud aliases that you want to remove.
 * The userAliasList parameter identifies the email addresses or cloud aliases associated with that `<SampleUserID>` that should be removed from the list. Replace `<SampleAlias1>` and `<SampleAlias2>` with the email addresses or cloud aliases you want to remove from the rule's inclusion or exclusion list for that user ID.
   * If you want to remove only one email address or cloud alias, use this construction: `"userAliasList": [ "<SampleAlias1>" ]`
-  * If you want to remove multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.
+  
+* If you want to remove multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.
   * If there are multiple email addresses or cloud aliases associated with that user ID but you want to remove only one or two, specify only the values to remove.
 
 ### Remove all users from an alert rule
