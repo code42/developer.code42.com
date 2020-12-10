@@ -57,7 +57,22 @@ In the preceding example:
 An excerpt of an example successful response:
 
 ````json
-{"type$":"USER_V2","tenantId":"1233456","userId":"123456789424242","userName":"john.doe@example.com","displayName":"John Doe","notes":"This is an example user note.","cloudUsernames":["john.doe@gmail.com","john.doe@example.com"],"riskFactors":["FLIGHT_RISK","HIGH_IMPACT_EMPLOYEE"]}
+{
+  "type$": "USER_V2",
+  "tenantId": "1233456",
+  "userId": "123456789424242",
+  "userName": "john.doe@example.com",
+  "displayName": "John Doe",
+  "notes": "This is an example user note.",
+  "cloudUsernames": [
+    "john.doe@gmail.com",
+    "john.doe@example.com"
+  ],
+  "riskFactors": [
+    "FLIGHT_RISK",
+    "HIGH_IMPACT_EMPLOYEE"
+  ]
+}
 ````
 
 ### Get the detection list profile for a user
@@ -117,7 +132,24 @@ In the preceding example:
 An excerpt of an example successful response:
 
 ```json
-{"type$":"HIGH_RISK_EMPLOYEE_V2","tenantId":"123456","userId":"123456789424242,"userName":"john.doe@example.com","displayName":"John Doe","notes":"This is an example user note.","createdAt":"2020-03-31T19:35:49.4400509Z","status":"OPEN","cloudUsernames":["john.doe@gmail.com","john.doe@example.com"],"riskFactors":["FLIGHT_RISK","HIGH_IMPACT_EMPLOYEE"]}
+{
+  "type$": "HIGH_RISK_EMPLOYEE_V2",
+  "tenantId": "123456",
+  "userId": "123456789424242",
+  "userName": "john.doe@example.com",
+  "displayName": "John Doe",
+  "notes": "This is an example user note.",
+  "createdAt": "2020-03-31T19:35:49.4400509Z",
+  "status": "OPEN",
+  "cloudUsernames": [
+    "john.doe@gmail.com",
+    "john.doe@example.com"
+  ],
+  "riskFactors": [
+    "FLIGHT_RISK",
+    "HIGH_IMPACT_EMPLOYEE"
+  ]
+}
 ```
 
 #### Add a departing employee
@@ -142,7 +174,21 @@ In the preceding example:
 An excerpt of an example successful response:
 
 ```json
-{"type$":"DEPARTING_EMPLOYEE_V2","tenantId":123456","userId":"123456789424242","userName":"john.doe@example.com","displayName":"John Doe","notes":"This is an example of a user note.","createdAt":"2020-03-31T19:22:18.5651922Z","status":"OPEN","cloudUsernames":["john.doe@gmail.com","john.doe@example.com"],"departureDate":"2020-04-07"}
+{
+  "type$": "DEPARTING_EMPLOYEE_V2",
+  "tenantId": "123456",
+  "userId": "123456789424242",
+  "userName": "john.doe@example.com",
+  "displayName": "John Doe",
+  "notes": "This is an example of a user note.",
+  "createdAt": "2020-03-31T19:22:18.5651922Z",
+  "status": "OPEN",
+  "cloudUsernames": [
+    "john.doe@gmail.com",
+    "john.doe@example.com"
+  ],
+  "departureDate": "2020-04-07"
+}
 ```
 
 ### Obtain a listing of all users in a detection list
@@ -169,7 +215,80 @@ In the preceding example:
 An excerpt of an example successful response:
 
 ```json
-{"type$":"HIGH_RISK_SEARCH_RESPONSE_V2","items":[{"type$":"HIGH_RISK_EMPLOYEE_V2","tenantId":"123456","userId":"123456789424242","userName":"john.doe@example.com","displayName":"John Doe","notes":"This is an example note.","createdAt":"2020-03-31T19:35:49.4400500Z","status":"OPEN","cloudUsernames":["john.doe@gmail.com","john.doe@example.com"],"riskFactors":["FLIGHT_RISK","HIGH_IMPACT_EMPLOYEE"]},{"type$":"HIGH_RISK_EMPLOYEE_V2","tenantId":"123456","userId":"987654321424242","userName":"jane.smith@example.com","displayName":"Jane Smith","notes":"This is an example note.","createdAt":"2020-03-31T19:45:30.3092900Z","status":"OPEN","cloudUsernames":["jane.smith@gmail.com","jane.smith@example.com"],"managerUid":"Jack.Shep","managerUsername":"Jack.Shep@example.com","managerDisplayName":"Jack Shep","title":"People Person","division":"Acme","department":"Human Resources","employmentType":"Full Time","city":"The Island","state":"MN","country":"US","riskFactors":["FLIGHT_RISK","HIGH_IMPACT_EMPLOYEE"]}],"totalCount":2,"rollups":[{"type$":"HIGH_RISK_FILTER_ROLLUP_V2","filterType":"OPEN","totalCount":2},{"type$":"HIGH_RISK_FILTER_ROLLUP_V2","filterType":"EXFILTRATION_24_HOURS","totalCount":0},{"type$":"HIGH_RISK_FILTER_ROLLUP_V2","filterType":"EXFILTRATION_30_DAYS","totalCount":0}],"filterType":"OPEN","pgSize":20,"pgNum":1,"srtKey":"DISPLAY_NAME","srtDirection":"ASC"
+{
+  "type$": "HIGH_RISK_SEARCH_RESPONSE_V2",
+  "items": [
+    {
+      "type$": "HIGH_RISK_EMPLOYEE_V2",
+      "tenantId": "123456",
+      "userId": "123456789424242",
+      "userName": "john.doe@example.com",
+      "displayName": "John Doe",
+      "notes": "This is an example note.",
+      "createdAt": "2020-03-31T19:35:49.4400500Z",
+      "status": "OPEN",
+      "cloudUsernames": [
+        "john.doe@gmail.com",
+        "john.doe@example.com"
+      ],
+      "riskFactors": [
+        "FLIGHT_RISK",
+        "HIGH_IMPACT_EMPLOYEE"
+      ]
+    },
+    {
+      "type$": "HIGH_RISK_EMPLOYEE_V2",
+      "tenantId": "123456",
+      "userId": "987654321424242",
+      "userName": "jane.smith@example.com",
+      "displayName": "Jane Smith",
+      "notes": "This is an example note.",
+      "createdAt": "2020-03-31T19:45:30.3092900Z",
+      "status": "OPEN",
+      "cloudUsernames": [
+        "jane.smith@gmail.com",
+        "jane.smith@example.com"
+      ],
+      "managerUid": "Jack.Shep",
+      "managerUsername": "Jack.Shep@example.com",
+      "managerDisplayName": "Jack Shep",
+      "title": "People Person",
+      "division": "Acme",
+      "department": "Human Resources",
+      "employmentType": "Full Time",
+      "city": "The Island",
+      "state": "MN",
+      "country": "US",
+      "riskFactors": [
+        "FLIGHT_RISK",
+        "HIGH_IMPACT_EMPLOYEE"
+      ]
+    }
+  ],
+  "totalCount": 2,
+  "rollups": [
+    {
+      "type$": "HIGH_RISK_FILTER_ROLLUP_V2",
+      "filterType": "OPEN",
+      "totalCount": 2
+    },
+    {
+      "type$": "HIGH_RISK_FILTER_ROLLUP_V2",
+      "filterType": "EXFILTRATION_24_HOURS",
+      "totalCount": 0
+    },
+    {
+      "type$": "HIGH_RISK_FILTER_ROLLUP_V2",
+      "filterType": "EXFILTRATION_30_DAYS",
+      "totalCount": 0
+    }
+  ],
+  "filterType": "OPEN",
+  "pgSize": 20,
+  "pgNum": 1,
+  "srtKey": "DISPLAY_NAME",
+  "srtDirection": "ASC"
+}
 ```
 
 #### Obtain a list of departing employees
@@ -192,7 +311,54 @@ In the preceding example:
 An excerpt of an example successful response:
 
 ```json
-{"type$":"DEPARTING_EMPLOYEE_SEARCH_RESPONSE_V2","items":[{"type$":"DEPARTING_EMPLOYEE_V2","tenantId":"123456","userId":"123456789424242","userName":"john.doe@example.com","displayName":"John Doe","notes":"This is an example user note.","createdAt":"2020-03-31T19:22:18.5651920Z","status":"OPEN","cloudUsernames":["john.doe@gmail.com","john.doe@example.com"],"departureDate":"2020-04-07"}],"totalCount":1,"rollups":[{"type$":"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2","filterType":"OPEN","totalCount":1},{"type$":"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2","filterType":"LEAVING_TODAY","totalCount":0},{"type$":"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2","filterType":"EXFILTRATION_24_HOURS","totalCount":0},{"type$":"DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2","filterType":"EXFILTRATION_30_DAYS","totalCount":0}],"filterType":"OPEN","pgSize":20,"pgNum":1,"srtKey":"DISPLAY_NAME","srtDirection":"ASC"}
+{
+  "type$": "DEPARTING_EMPLOYEE_SEARCH_RESPONSE_V2",
+  "items": [
+    {
+      "type$": "DEPARTING_EMPLOYEE_V2",
+      "tenantId": "123456",
+      "userId": "123456789424242",
+      "userName": "john.doe@example.com",
+      "displayName": "John Doe",
+      "notes": "This is an example user note.",
+      "createdAt": "2020-03-31T19:22:18.5651920Z",
+      "status": "OPEN",
+      "cloudUsernames": [
+        "john.doe@gmail.com",
+        "john.doe@example.com"
+      ],
+      "departureDate": "2020-04-07"
+    }
+  ],
+  "totalCount": 1,
+  "rollups": [
+    {
+      "type$": "DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2",
+      "filterType": "OPEN",
+      "totalCount": 1
+    },
+    {
+      "type$": "DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2",
+      "filterType": "LEAVING_TODAY",
+      "totalCount": 0
+    },
+    {
+      "type$": "DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2",
+      "filterType": "EXFILTRATION_24_HOURS",
+      "totalCount": 0
+    },
+    {
+      "type$": "DEPARTING_EMPLOYEE_FILTER_ROLLUP_V2",
+      "filterType": "EXFILTRATION_30_DAYS",
+      "totalCount": 0
+    }
+  ],
+  "filterType": "OPEN",
+  "pgSize": 20,
+  "pgNum": 1,
+  "srtKey": "DISPLAY_NAME",
+  "srtDirection": "ASC"
+}
 ```
 
 ### View details of a user in a detection list
@@ -218,7 +384,24 @@ In the preceding example:
 An excerpt of an example successful response:
 
 ```json
-{"type$":"HIGH_RISK_EMPLOYEE_V2","tenantId":"123456","userId":"123456789424242","userName":"john.doe@example.com","displayName":"John Doe","notes":"This is an example note.","createdAt":"2020-03-31T19:35:49.4400500Z","status":"OPEN","cloudUsernames":["john.doe@gmail.com","john.doe@example.com"],"riskFactors":["FLIGHT_RISK","HIGH_IMPACT_EMPLOYEE"]
+{
+  "type$": "HIGH_RISK_EMPLOYEE_V2",
+  "tenantId": "123456",
+  "userId": "123456789424242",
+  "userName": "john.doe@example.com",
+  "displayName": "John Doe",
+  "notes": "This is an example note.",
+  "createdAt": "2020-03-31T19:35:49.4400500Z",
+  "status": "OPEN",
+  "cloudUsernames": [
+    "john.doe@gmail.com",
+    "john.doe@example.com"
+  ],
+  "riskFactors": [
+    "FLIGHT_RISK",
+    "HIGH_IMPACT_EMPLOYEE"
+  ]
+}
 ```
 
 ### Enable or disable alerts for all users in a detection list

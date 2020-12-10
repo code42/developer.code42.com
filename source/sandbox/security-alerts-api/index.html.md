@@ -50,7 +50,21 @@ In the preceding example:
 A successful response returns basic information about the alert notifications that match your search criteria, including the alert IDs of those notifications (look for the `"id":"value"` entry):
 
 ```json
-{"type$":"ALERT_SUMMARY","tenantId":"123456","type":"FED_ENDPOINT_EXFILTRATION","name":"Departing employee endpoint exfiltration system rule","description":"System rule for departing employee endpoint exfiltration.","actor":"burt.morales@example.com","target":"N/A","severity":"HIGH","ruleId":"123456789424242","ruleSource":"Departing Employee","id":"987654321424242","createdAt":"2020-04-03T15:21:44.6139300Z","state":"OPEN"}],"totalCount":1,"problems":[]}
+{
+  "type$": "ALERT_SUMMARY",
+  "tenantId": "123456",
+  "type": "FED_ENDPOINT_EXFILTRATION",
+  "name": "Departing employee endpoint exfiltration system rule",
+  "description": "System rule for departing employee endpoint exfiltration.",
+  "actor": "burt.morales@example.com",
+  "target": "N/A",
+  "severity": "HIGH",
+  "ruleId": "123456789424242",
+  "ruleSource": "Departing Employee",
+  "id": "987654321424242",
+  "createdAt": "2020-04-03T15:21:44.6139300Z",
+  "state": "OPEN"
+}
 ```
 
 ### Search for multiple alert notifications by alert IDs
@@ -74,7 +88,35 @@ In the preceding example:
 A successful response returns full details about the alert notifications, including a list of files involved in the activity.
 
 ```bash
-{"type$":"ALERT_DETAILS_RESPONSE","alerts":[{"type$":"ALERT_DETAILS","tenantId":"123456","type":"FED_ENDPOINT_EXFILTRATION","name":"Departing employee endpoint exfiltration system rule","description":"System rule for departing employee endpoint exfiltration.","actor":"burt.morales@example.com","target":"N/A","severity":"HIGH","ruleId":"123456789424242","ruleSource":"Departing Employee","id":"987654321424242","createdAt":"2020-04-08T13:50:25.3644410Z","state":"OPEN","observations":[{"type$":"OBSERVATION","id":"112233445566","observedAt":"2020-04-08T13:40:00.0000000Z","type":"FedEndpointExfiltration","data":"{\"type$\":\"OBSERVED_ENDPOINT_ACTIVITY\",\"id\":\"665544332211\",\"sources\":[\"Endpoint\"],\"exposureTypes\":[\"ApplicationRead\",\"CloudStorage\"],\"firstActivityAt\":\"2020-04-08T13:40:00.0000000Z\",\"lastActivityAt\":\"2020-04-08T13:45:00.0000000Z\",\"fileCount\":2,\"totalFileSize\":311096,\"fileCategories\":[{\"type$\":\"OBSERVED_FILE_CATEGORY\",\"category\":\"Image\",\"fileCount\":2,\"totalFileSize\":311096,\"isSignificant\":false}],\"files\":[{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"998877665544\",\"path\":\"C:/Users/burt.morales/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"},{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"334455667788\",\"path\":\"C:/Users/burt.morales/Dropbox/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"}],\"syncToServices\":[\"Dropbox\"],\"sendingIpAddresses\":[\"192.0.2.0\"]}"}]}]}
+{
+  "type$": "ALERT_DETAILS_RESPONSE",
+  "alerts": [
+    {
+      "type$": "ALERT_DETAILS",
+      "tenantId": "123456",
+      "type": "FED_ENDPOINT_EXFILTRATION",
+      "name": "Departing employee endpoint exfiltration system rule",
+      "description": "System rule for departing employee endpoint exfiltration.",
+      "actor": "burt.morales@example.com",
+      "target": "N/A",
+      "severity": "HIGH",
+      "ruleId": "123456789424242",
+      "ruleSource": "Departing Employee",
+      "id": "987654321424242",
+      "createdAt": "2020-04-08T13:50:25.3644410Z",
+      "state": "OPEN",
+      "observations": [
+        {
+          "type$": "OBSERVATION",
+          "id": "112233445566",
+          "observedAt": "2020-04-08T13:40:00.0000000Z",
+          "type": "FedEndpointExfiltration",
+          "data": "{\"type$\":\"OBSERVED_ENDPOINT_ACTIVITY\",\"id\":\"665544332211\",\"sources\":[\"Endpoint\"],\"exposureTypes\":[\"ApplicationRead\",\"CloudStorage\"],\"firstActivityAt\":\"2020-04-08T13:40:00.0000000Z\",\"lastActivityAt\":\"2020-04-08T13:45:00.0000000Z\",\"fileCount\":2,\"totalFileSize\":311096,\"fileCategories\":[{\"type$\":\"OBSERVED_FILE_CATEGORY\",\"category\":\"Image\",\"fileCount\":2,\"totalFileSize\":311096,\"isSignificant\":false}],\"files\":[{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"998877665544\",\"path\":\"C:/Users/burt.morales/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"},{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"334455667788\",\"path\":\"C:/Users/burt.morales/Dropbox/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"}],\"syncToServices\":[\"Dropbox\"],\"sendingIpAddresses\":[\"192.0.2.0\"]}"
+        }
+      ]
+    }
+  ]
+}
 ```
 
 ### Search for a single notification by alert ID
@@ -98,7 +140,30 @@ In the preceding example:
 A successful response returns full details about the alert notification with all file activity aggregated into a single Observation value.
 
 ```json
-{"type$":"ALERT_DETAILS_IN_AGGREGATE_RESPONSE","alert":{"type$":"ALERT_DETAILS_AGGREGATE","tenantId":"123456","type":"FED_ENDPOINT_EXFILTRATION","name":"Departing employee endpoint exfiltration system rule","description":"System rule for departing employee endpoint exfiltration.","actor":"burt.morales@c42se.com","target":"N/A","severity":"HIGH","ruleId":"1234567894242","ruleSource":"Departing Employee","id":"9876543214242","createdAt":"2020-04-08T13:50:25.3644410Z","state":"OPEN","observation":{"type$":"OBSERVATION_AGGREGATE","observedAt":"2020-04-08T13:40:00.0000000Z","type":"FedEndpointExfiltration","data":"{\"type$\":\"OBSERVED_ENDPOINT_ACTIVITY\",\"id\":\"112233445566\",\"sources\":[\"Endpoint\"],\"exposureTypes\":[\"ApplicationRead\",\"CloudStorage\"],\"firstActivityAt\":\"2020-04-08T13:40:00.0000000Z\",\"lastActivityAt\":\"2020-04-08T13:45:00.0000000Z\",\"fileCount\":2,\"totalFileSize\":311096,\"fileCategories\":[{\"type$\":\"OBSERVED_FILE_CATEGORY\",\"category\":\"Image\",\"fileCount\":2,\"totalFileSize\":311096,\"isSignificant\":false}],\"files\":[{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"998877665544\",\"path\":\"C:/Users/burt.morales/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"},{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"334455667788\",\"path\":\"C:/Users/burt.morales/Dropbox/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"}],\"syncToServices\":[\"Dropbox\"],\"sendingIpAddresses\":[\"192.0.2.0\"],\"isRemoteActivity\":false}"}}}
+{
+  "type$": "ALERT_DETAILS_IN_AGGREGATE_RESPONSE",
+  "alert": {
+    "type$": "ALERT_DETAILS_AGGREGATE",
+    "tenantId": "123456",
+    "type": "FED_ENDPOINT_EXFILTRATION",
+    "name": "Departing employee endpoint exfiltration system rule",
+    "description": "System rule for departing employee endpoint exfiltration.",
+    "actor": "burt.morales@c42se.com",
+    "target": "N/A",
+    "severity": "HIGH",
+    "ruleId": "1234567894242",
+    "ruleSource": "Departing Employee",
+    "id": "9876543214242",
+    "createdAt": "2020-04-08T13:50:25.3644410Z",
+    "state": "OPEN",
+    "observation": {
+      "type$": "OBSERVATION_AGGREGATE",
+      "observedAt": "2020-04-08T13:40:00.0000000Z",
+      "type": "FedEndpointExfiltration",
+      "data": "{\"type$\":\"OBSERVED_ENDPOINT_ACTIVITY\",\"id\":\"112233445566\",\"sources\":[\"Endpoint\"],\"exposureTypes\":[\"ApplicationRead\",\"CloudStorage\"],\"firstActivityAt\":\"2020-04-08T13:40:00.0000000Z\",\"lastActivityAt\":\"2020-04-08T13:45:00.0000000Z\",\"fileCount\":2,\"totalFileSize\":311096,\"fileCategories\":[{\"type$\":\"OBSERVED_FILE_CATEGORY\",\"category\":\"Image\",\"fileCount\":2,\"totalFileSize\":311096,\"isSignificant\":false}],\"files\":[{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"998877665544\",\"path\":\"C:/Users/burt.morales/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"},{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"334455667788\",\"path\":\"C:/Users/burt.morales/Dropbox/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"}],\"syncToServices\":[\"Dropbox\"],\"sendingIpAddresses\":[\"192.0.2.0\"],\"isRemoteActivity\":false}"
+    }
+  }
+}
 ```
 
 ### Add a note to an alert notification
@@ -188,7 +253,30 @@ In the preceding example:
 A successful response returns basic information about the alert notifications that match your search criteria, including the rule IDs of those notifications (look for the "observerRuleId":"value" entry):
 
 ```json
-{"type$":"RULE_METADATA_SEARCH_RESPONSE","ruleMetadata":[{"type$":"RULE_METADATA","modifiedBy":"Code42","modifiedAt":"2020-06-04T21:07:03.5417950Z","name":"Exposure on an endpoint","description":"This default rule alerts you when departing employees move data from an endpoint.","severity":"HIGH","isSystem":true,"isEnabled":false,"ruleSource":"Departing Employee","tenantId":"123456","observerRuleId":"1234567894242","type":"FED_ENDPOINT_EXFILTRATION","id":"9876543214242","createdBy":"Code42","createdAt":"2020-01-10T12:16:40.7765970Z"}],"totalCount":8,"problems":[]}
+{
+  "type$": "RULE_METADATA_SEARCH_RESPONSE",
+  "ruleMetadata": [
+    {
+      "type$": "RULE_METADATA",
+      "modifiedBy": "Code42",
+      "modifiedAt": "2020-06-04T21:07:03.5417950Z",
+      "name": "Exposure on an endpoint",
+      "description": "This default rule alerts you when departing employees move data from an endpoint.",
+      "severity": "HIGH",
+      "isSystem": true,
+      "isEnabled": false,
+      "ruleSource": "Departing Employee",
+      "tenantId": "123456",
+      "observerRuleId": "1234567894242",
+      "type": "FED_ENDPOINT_EXFILTRATION",
+      "id": "9876543214242",
+      "createdBy": "Code42",
+      "createdAt": "2020-01-10T12:16:40.7765970Z"
+    }
+  ],
+  "totalCount": 8,
+  "problems": []
+}
 ```
 
 ### View an alert rule's user list
@@ -213,13 +301,40 @@ In the preceding example:
 A successful response lists the email addresses and cloud aliases of the users in the alert rule's inclusion or exclusion list, grouped by the user ID value (identified by the "userIdFromAuthority" label) associated with that information. The "usersToAlertOn" label identifies whether the rule applies only to the specified users in an inclusion list (`SPECIFIED_USERS`), to all users except the specified users in an exclusion list (`ALL_USERS_NOT_SPECIFIED`), or to all users (`ALL_USERS`).
 
 ```json
-{"type$":"USERS_IN_RULE_RESPONSE","users":[{"type$":"USER_BAG","userIdFromAuthority":"947210378478595410","userAliasList":["SCassidy","SeanCassidy","sean.cassidy@example.com"]}],"usersToAlertOn":"SPECIFIED_USERS"}
+{
+  "type$": "USERS_IN_RULE_RESPONSE",
+  "users": [
+    {
+      "type$": "USER_BAG",
+      "userIdFromAuthority": "947210378478595410",
+      "userAliasList": [
+        "SCassidy",
+        "SeanCassidy",
+        "sean.cassidy@example.com"
+      ]
+    }
+  ],
+  "usersToAlertOn": "SPECIFIED_USERS"
+}
 ```
 
 If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference)), the results note that the "userIdFromAuthority" value is null. To work with an alert rule's inclusion or exclusion list if the user ID value is null, use the [Alerts screens in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Review_Alerts) to manually add and remove users. Alternately, you can use the [/v1/alert-rules/remove-all-users](/sandbox/api/#operation/Rules_RemoveAllUsersFromRule) API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the [/v1/alert-rules/add-users](/sandbox/api/#operation/Rules_AddUsersToRule) using the [users' userUID in Code42](/sandbox/intro-to-developer-portal/#get-useruid).
 
 ```json
-{"type$":"USERS_IN_RULE_RESPONSE","users":[{"type$":"USER_BAG","userIdFromAuthority":"Null UserIdFromAuthority.  These usernames must be edited in the web app.","userAliasList":["burt.morales@example.com","astrid.ludwig@example.com"]}],"usersToAlertOn":"SPECIFIED_USERS"}
+{
+  "type$": "USERS_IN_RULE_RESPONSE",
+  "users": [
+    {
+      "type$": "USER_BAG",
+      "userIdFromAuthority": "Null UserIdFromAuthority.  These usernames must be edited in the web app.",
+      "userAliasList": [
+        "burt.morales@example.com",
+        "astrid.ludwig@example.com"
+      ]
+    }
+  ],
+  "usersToAlertOn": "SPECIFIED_USERS"
+}
 ```
 
 ### Add users to an alert rule
