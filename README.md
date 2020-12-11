@@ -17,13 +17,13 @@ Note that slate is unsupported on Windows.
 To build, execute:
 
 ```bash
-./build.sh
+make
 ```
 
 Once built, the site can be run locally using `middleman`, which is included when installing.
 
 ```bash
-bundle exec middleman server
+make server
 ```
 
 Then, open your browser to `localhost:4567` to explore the site. Once the server is started, you can edit files and simply refresh the page to see your changes!

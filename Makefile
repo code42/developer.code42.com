@@ -24,7 +24,10 @@ definitions::
 unify::
 	$(BUILD_SCRIPTS)/make_unified_open_api_doc.sh $(DOCS_SRC) $(DOCS_OUT) $(API_DOCS)
 
-server::
-	bundle exec middleman build
+html::
+	bundle exec middleman html
 
-.PHONY:: all clean locations download definitions unify server
+server::
+	bundle exec middleman server
+
+.PHONY:: all clean locations download definitions unify html server
