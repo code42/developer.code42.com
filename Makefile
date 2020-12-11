@@ -27,4 +27,4 @@ unify::
 server::
 	bundle exec middleman build
 
-.PHONY:: all clean locations download definitions unify prod
+.PHONY:: all clean locations download definitions unify server
