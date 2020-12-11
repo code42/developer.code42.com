@@ -25,7 +25,7 @@ unify::
 	$(BUILD_SCRIPTS)/make_unified_open_api_doc.sh $(DOCS_SRC) $(DOCS_OUT) $(API_DOCS)
 
 html::
-	bundle exec middleman html
+	bundle exec middleman build
 
 server::
 	bundle exec middleman server
