@@ -7,7 +7,9 @@ API_DOCS = $(SANDBOX)/api
 DOCS_SERVER = "https://default-api.core-int.cloud.code42.com"
 BUILD_SCRIPTS = build-scripts
 
-all:: clean locations download definitions unify
+all:: html clean locations download definitions unify
+
+run:: all serve
 
 clean::
 	$(BUILD_SCRIPTS)/clean.sh $(DOCS_SRC) $(SANDBOX) $(DOCS) $(DOCS_OUT)
@@ -24,7 +26,10 @@ definitions::
 unify::
 	$(BUILD_SCRIPTS)/make_unified_open_api_doc.sh $(DOCS_SRC) $(DOCS_OUT) $(API_DOCS)
 
-server::
+html::
 	bundle exec middleman build
 
-.PHONY:: all clean locations download definitions unify server
+serve::
+	bundle exec middleman serve
+
+.PHONY:: all clean locations download definitions unify html serve
