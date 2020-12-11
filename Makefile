@@ -24,4 +24,7 @@ definitions::
 unify::
 	$(BUILD_SCRIPTS)/make_unified_open_api_doc.sh $(DOCS_SRC) $(DOCS_OUT) $(API_DOCS)
 
+server::
+	bundle exec middleman build
+
 .PHONY:: all clean locations download definitions unify prod
