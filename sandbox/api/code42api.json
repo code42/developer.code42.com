@@ -1205,9 +1205,9 @@
     "/v1/detection-lists/departingemployee/get": {
       "post": {
         "tags": [
-          "Departing Employee"
+          "Detection Lists"
         ],
-        "summary": "Gets a departing employee.",
+        "summary": "Get a departing employee",
         "operationId": "DepartingEmployeeControllerV2_GetEmployee",
         "parameters": [
           {
@@ -1238,9 +1238,9 @@
     "/v1/detection-lists/departingemployee/search": {
       "post": {
         "tags": [
-          "Departing Employee"
+          "Detection Lists"
         ],
-        "summary": "Search for departing employees.",
+        "summary": "Search for departing employees",
         "operationId": "DepartingEmployeeControllerV2_Search",
         "parameters": [
           {
@@ -1271,9 +1271,9 @@
     "/v1/detection-lists/departingemployee/add": {
       "post": {
         "tags": [
-          "Departing Employee"
+          "Detection Lists"
         ],
-        "summary": "Adds a departing employee.",
+        "summary": "Add a departing employee",
         "operationId": "DepartingEmployeeControllerV2_AddEmployee",
         "parameters": [
           {
@@ -1304,9 +1304,9 @@
     "/v1/detection-lists/departingemployee/update": {
       "post": {
         "tags": [
-          "Departing Employee"
+          "Detection Lists"
         ],
-        "summary": "Updates a departing employee's departure date.",
+        "summary": "Update an employee's departure date",
         "operationId": "DepartingEmployeeControllerV2_UpdateDepartureDate",
         "parameters": [
           {
@@ -1337,9 +1337,9 @@
     "/v1/detection-lists/departingemployee/setalertstate": {
       "post": {
         "tags": [
-          "Departing Employee"
+          "Detection Lists"
         ],
-        "summary": "Sets alert state for all departing employees.",
+        "summary": "Set alert state for departing employees",
         "operationId": "DepartingEmployeeControllerV2_SetAlertState",
         "parameters": [
           {
@@ -1370,9 +1370,9 @@
     "/v1/detection-lists/departingemployee/remove": {
       "post": {
         "tags": [
-          "Departing Employee"
+          "Detection Lists"
         ],
-        "summary": "Removes a departing employee.",
+        "summary": "Remove a departing employee",
         "operationId": "DepartingEmployeeControllerV2_RemoveUser",
         "parameters": [
           {
@@ -1403,9 +1403,9 @@
     "/v1/detection-lists/highriskemployee/add": {
       "post": {
         "tags": [
-          "High Risk Employee"
+          "Detection Lists"
         ],
-        "summary": "Adds a high risk employee.",
+        "summary": "Add a high risk employee",
         "operationId": "HighRiskEmployeeControllerV2_AddEmployee",
         "parameters": [
           {
@@ -1436,9 +1436,9 @@
     "/v1/detection-lists/highriskemployee/get": {
       "post": {
         "tags": [
-          "High Risk Employee"
+          "Detection Lists"
         ],
-        "summary": "Gets a high risk employee.",
+        "summary": "Get a high risk employee",
         "operationId": "HighRiskEmployeeControllerV2_GetEmployee",
         "parameters": [
           {
@@ -1469,9 +1469,9 @@
     "/v1/detection-lists/highriskemployee/search": {
       "post": {
         "tags": [
-          "High Risk Employee"
+          "Detection Lists"
         ],
-        "summary": "Search for high risk employees.",
+        "summary": "Search for high risk employees",
         "operationId": "HighRiskEmployeeControllerV2_Search",
         "parameters": [
           {
@@ -1502,9 +1502,9 @@
     "/v1/detection-lists/highriskemployee/setalertstate": {
       "post": {
         "tags": [
-          "High Risk Employee"
+          "Detection Lists"
         ],
-        "summary": "Sets alert state for all high risk employees.",
+        "summary": "Set alert state for high risk employees",
         "operationId": "HighRiskEmployeeControllerV2_SetAlertState",
         "parameters": [
           {
@@ -1535,9 +1535,9 @@
     "/v1/detection-lists/highriskemployee/remove": {
       "post": {
         "tags": [
-          "High Risk Employee"
+          "Detection Lists"
         ],
-        "summary": "Removes a high risk employee.",
+        "summary": "Remove a high risk employee",
         "operationId": "HighRiskEmployeeControllerV2_RemoveUser",
         "parameters": [
           {
@@ -1568,9 +1568,9 @@
     "/v1/detection-lists/user/create": {
       "post": {
         "tags": [
-          "User"
+          "Detection Lists"
         ],
-        "summary": "Creates a user.",
+        "summary": "Create a detection lists profile",
         "operationId": "UserControllerV2_Create",
         "parameters": [
           {
@@ -1601,9 +1601,9 @@
     "/v1/detection-lists/user/getbyusername": {
       "post": {
         "tags": [
-          "User"
+          "Detection Lists"
         ],
-        "summary": "Get a user by username.",
+        "summary": "Get a user by username",
         "operationId": "UserControllerV2_GetByUsername",
         "parameters": [
           {
@@ -1634,9 +1634,9 @@
     "/v1/detection-lists/user/getbyid": {
       "post": {
         "tags": [
-          "User"
+          "Detection Lists"
         ],
-        "summary": "Get a user by id.",
+        "summary": "Get a user by id",
         "operationId": "UserControllerV2_GetByUserId",
         "parameters": [
           {
@@ -1667,9 +1667,9 @@
     "/v1/detection-lists/user/addriskfactors": {
       "post": {
         "tags": [
-          "User"
+          "Detection Lists"
         ],
-        "summary": "Add risk factors to a user.",
+        "summary": "Add risk factors to a user",
         "operationId": "UserControllerV2_AddRiskFactors",
         "parameters": [
           {
@@ -1700,9 +1700,9 @@
     "/v1/detection-lists/user/removeriskfactors": {
       "post": {
         "tags": [
-          "User"
+          "Detection Lists"
         ],
-        "summary": "Remove risk factors from a user.",
+        "summary": "Remove risk factors from a user",
         "operationId": "UserControllerV2_RemoveRiskFactors",
         "parameters": [
           {
@@ -1733,9 +1733,9 @@
     "/v1/detection-lists/user/addcloudusernames": {
       "post": {
         "tags": [
-          "User"
+          "Detection Lists"
         ],
-        "summary": "Add cloud usernames to a user.",
+        "summary": "Add cloud usernames to a user",
         "operationId": "UserControllerV2_AddCloudUsernames",
         "parameters": [
           {
@@ -1766,9 +1766,9 @@
     "/v1/detection-lists/user/removecloudusernames": {
       "post": {
         "tags": [
-          "User"
+          "Detection Lists"
         ],
-        "summary": "Remove cloud usernames from a user.",
+        "summary": "Remove cloud usernames from a user",
         "operationId": "UserControllerV2_RemoveCloudUsernames",
         "parameters": [
           {
@@ -1799,9 +1799,9 @@
     "/v1/detection-lists/user/updatenotes": {
       "post": {
         "tags": [
-          "User"
+          "Detection Lists"
         ],
-        "summary": "Update notes for a user.",
+        "summary": "Update notes for a user",
         "operationId": "UserControllerV2_UpdateNotes",
         "parameters": [
           {
@@ -1832,9 +1832,9 @@
     "/v1/detection-lists/user/refresh": {
       "post": {
         "tags": [
-          "User"
+          "Detection Lists"
         ],
-        "summary": "Refresh SCIM attributes for a user.",
+        "summary": "Refresh SCIM attributes for a user",
         "operationId": "UserControllerV2_RefreshUser",
         "parameters": [
           {
