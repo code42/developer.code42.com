@@ -27,7 +27,7 @@ Following are the request URLs for the APIs shown in the [Code42 API Documentati
 
 * United States:
 
-  * If you sign in to the Code42 console at [https://www.crashplan.com/console](https://www.crashplan.com/console), use `https://api.us2.code42.com/<resource>`.
+  * If you sign in to the Code42 console at [https://www.crashplan.com/console](https://www.crashplan.com/console), use `https://api.prod.ffs.us2.code42.com/<resource>`.
 
   * If you sign in to the Code42 console at [https://console.us.code42.com/console](https://console.us.code42.com/console), use `https://api.us.code42.com/<resource>`.
 
