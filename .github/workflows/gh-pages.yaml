@@ -37,7 +37,7 @@ jobs:
             bundle install --jobs 4 --retry 3
 
       - name: Build
-        run: bash ./build.sh prod
+        run: make BUILD="build"
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
