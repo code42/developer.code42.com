@@ -4,7 +4,7 @@ DOCS = $(DOCS_SRC)/docs
 DOCS_OUT = $(DOCS_SRC)/out
 SANDBOX = $(BUILD)
 API_DOCS = $(SANDBOX)/api
-DOCS_SERVER = "https://default-api.core-int.cloud.code42.com"
+DOCS_SERVER = "https://api.us.code42.com"
 BUILD_SCRIPTS = build-scripts
 
 all:: html clean locations download definitions unify
