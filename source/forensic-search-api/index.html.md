@@ -12,13 +12,13 @@ code_clipboard: true
 
 ## Overview
 
-This article explains how to use the Code42 API with Forensic Search. While the Code42 console contains a flexible and powerful web interface for [Forensic Search](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Forensic_Search_reference_guide) to perform searches and view results, the [File Events](/sandbox/api/#tag/File-Events) API provides additional capabilities for performing more complicated or customized searches.
+This article explains how to use the Code42 API with Forensic Search. While the Code42 console contains a flexible and powerful web interface for [Forensic Search](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Forensic_Search_reference_guide) to perform searches and view results, the [File Events](/api/#tag/File-Events) API provides additional capabilities for performing more complicated or customized searches.
 
-Following are the [File Events](/sandbox/api/#tag/File-Events) API resources:
+Following are the [File Events](/api/#tag/File-Events) API resources:
 
-* [/v1/file-events](/sandbox/api/#operation/searchEventsUsingPOST): Search file activity and receive results in JSON format
-* [/v1/file-events/export](/sandbox/api/#operation/exportUsingPOST): Search file activity receive results in CSV format
-* [/v1/file-events/grouping](/sandbox/api/#operation/groupingUsingPOST): Group file activity results by a particular value and receive a count of unique events in each group
+* [/v1/file-events](/api/#operation/searchEventsUsingPOST): Search file activity and receive results in JSON format
+* [/v1/file-events/export](/api/#operation/exportUsingPOST): Search file activity receive results in CSV format
+* [/v1/file-events/grouping](/api/#operation/groupingUsingPOST): Group file activity results by a particular value and receive a count of unique events in each group
 
 ## Considerations
 
@@ -31,8 +31,8 @@ Following are the [File Events](/sandbox/api/#tag/File-Events) API resources:
 
 * To perform tasks in this article, you must:
     * Have the [Customer Cloud Admin](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin) or [Security Center User](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Security_Center_User) role.
-    * Know the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-    * Obtain an [authentication token](/sandbox/intro-to-developer-portal/#authentication) and a [tenant ID](/sandbox/intro-to-developer-portal/#get-a-tenant-id).
+    * Know the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+    * Obtain an [authentication token](/intro-to-developer-portal/#authentication) and a [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
 
 ## Forensic Search API structure and syntax
 
@@ -106,8 +106,8 @@ This simple example demonstrates a search for all files on all devices with the 
 
 Use the following as a starting point for your own searches:
 
-* Replace `<RequestURL>` with the [request URL](/sandbox/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/sandbox/intro-to-developer-portal/#authentication).
+* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
 * Replace the content of the `-d` section with your specific search criteria.
 
 ```bash
@@ -135,13 +135,13 @@ curl -X POST <RequestURL>/v1/file-events \
 }'
 ```
 
-**Note:** To receive results in CSV format instead of JSON, use the [/v1/file-events/export](/sandbox/api/#operation/exportUsingPOST) resource instead of [/v1/file-events](/sandbox/api/#operation/searchEventsUsingPOST).
+**Note:** To receive results in CSV format instead of JSON, use the [/v1/file-events/export](/api/#operation/exportUsingPOST) resource instead of [/v1/file-events](/api/#operation/searchEventsUsingPOST).
 
 ### API limits
 
 * Request rate: To ensure optimal performance throughout your Code42 environment, Code42 limits API requests to 120 per minute. Requests that exceed this limit are blocked and do not return results.
 * Result set:
-  * `file-events` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `file-events` query with `pgSize=10000` cannot display `pgNum=2`). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details, see the [/v1/file-events API documentation](/sandbox/api/#operation/searchEventsUsingPOST).)
+  * `file-events` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `file-events` query with `pgSize=10000` cannot display `pgNum=2`). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details, see the [/v1/file-events API documentation](/api/#operation/searchEventsUsingPOST).)
   * `file-events/export` queries are limited to 200,000 events.
   * `file-events/grouping` queries are limited to 1,000 groups
 
@@ -498,11 +498,11 @@ Modify this sample to fit your environment and then include it in a request (as 
 
 ### Use case 3: See all cloud sync destinations for a user
 
-The sample JSON below shows how to use the [/v1/file-events/grouping](/sandbox/api/#operation/groupingUsingPOST) resource to find an approximate count of **Synced to cloud service** file events for a specific user for each cloud service. This sample groups by the `syncDestination` value, but you can choose any `groupingTerm` listed in the [/v1/file-events/grouping](/sandbox/api/#operation/groupingUsingPOST) API documentation in your requests.
+The sample JSON below shows how to use the [/v1/file-events/grouping](/api/#operation/groupingUsingPOST) resource to find an approximate count of **Synced to cloud service** file events for a specific user for each cloud service. This sample groups by the `syncDestination` value, but you can choose any `groupingTerm` listed in the [/v1/file-events/grouping](/api/#operation/groupingUsingPOST) API documentation in your requests.
 
 #### Sample JSON search query for cloud service file event counts
 
-Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above). For grouping queries, you must use the [/v1/file-events/grouping](/sandbox/api/#operation/groupingUsingPOST) resource.
+Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above). For grouping queries, you must use the [/v1/file-events/grouping](/api/#operation/groupingUsingPOST) resource.
 
 ```json
 {

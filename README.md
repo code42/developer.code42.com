@@ -1,7 +1,5 @@
 # Code42 Developer Portal
 
-*NOTE: This site / repo is a work in progress. The APIs documented by this project are likely to not work and / or change in the future. Do not use or depend on them until this project has officially launched.*
-
 To build the site locally, you will need the following:
 
 * [Ruby](https://www.ruby-lang.org/en/) >= 2.3

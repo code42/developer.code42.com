@@ -19,7 +19,7 @@ The `title` will be:
 - displayed in the title bar of the browser while viewing the article
 - The link text used on the landing page (which lists all articles).
 
-`category` indicates the heading under which the article will appear on the landing page. This must be one of `get-started`, `detect-and-respond`, `splunk`, `use-cases`, or `other`. If you wish to create a new category, you must first edit the [landing page](source/sandbox/index.html.md.erb) to define it.
+`category` indicates the heading under which the article will appear on the landing page. This must be one of `get-started`, `detect-and-respond`, `splunk`, `use-cases`, or `other`. If you wish to create a new category, you must first edit the [landing page](source/index.html.md.erb) to define it.
 
 ```
 ---
