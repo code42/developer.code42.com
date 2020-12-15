@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="../../images/favicon-430ccdd6.ico" rel="icon" type="image/ico" />
+    <link href="../images/favicon-430ccdd6.ico" rel="icon" type="image/ico" />
     <title>Forensic Search API</title>
     <style media="screen">
       .highlight table td { padding: 5px; }
@@ -279,48 +279,48 @@
   color: #859900;
 }
     </style>
-    <link href="../../stylesheets/screen-7d631313.css" rel="stylesheet" media="screen" />
-    <link href="../../stylesheets/print-951aa15b.css" rel="stylesheet" media="print" />
+    <link href="../stylesheets/screen-7d631313.css" rel="stylesheet" media="screen" />
+    <link href="../stylesheets/print-951aa15b.css" rel="stylesheet" media="print" />
     <link rel="stylesheet" href="https://use.typekit.net/sxu2uqu.css">
-      <script src="../../javascripts/all-0c8f7524.js"></script>
+      <script src="../javascripts/all-0c8f7524.js"></script>
 
     <script>
       $(function() { setupCodeCopy(); });
     </script>
   </head>
 
-  <body class="sandbox sandbox_forensic-search-api sandbox_forensic-search-api_index" data-languages="[]">
+  <body class="forensic-search-api forensic-search-api_index" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="../../images/navbar.png" alt="" />
+        <img src="../images/navbar.png" alt="" />
       </span>
     </a>
     <nav class="top-nav">
     <div class="nav-logo">
-        <a href="/sandbox">
-            <img src="../../images/logo_developers-eb7c289e.svg" class="logo" alt="" />
+        <a href="/">
+            <img src="../images/logo_developers-eb7c289e.svg" class="logo" alt="" />
         </a>
     </div>
     <div class="nav-menu">
         <div class="nav-item">
             <a href="#">Use Cases</a>
             <ul class="drop-menu">
-                <li><a href="/sandbox/track-hre-file-activity/">High Risk Employee</a></li>
+                <li><a href="/track-hre-file-activity/">High Risk Employee</a></li>
             </ul>
         </div>
         <div class="nav-item">
             <a href="#">Guides</a>
             <ul class="drop-menu">
-                <li><a href="/sandbox/detection-list-management-api/">Detection List Mgmt</a></li>
-                <li><a href="/sandbox/forensic-search-api/">Forensic Search</a></li>
-                <li><a href="/sandbox/security-alerts-api/">Security Alerts</a></li>
+                <li><a href="/detection-list-management-api/">Detection List Mgmt</a></li>
+                <li><a href="/forensic-search-api/">Forensic Search</a></li>
+                <li><a href="/security-alerts-api/">Security Alerts</a></li>
             </ul>
         </div>
         <div class="nav-item">
             <a href="#">APIs & SDK</a>
             <ul class="drop-menu">
-                <li><a href="/sandbox/api">API Reference</a></li>
+                <li><a href="/api">API Reference</a></li>
                 <li><a href="https://py42docs.code42.com" target="_blank">Py42</a></li>
                 <li><a href="https://clidocs.code42.com" target="_blank">CLI</a></li>
             </ul>
@@ -378,14 +378,14 @@
     <div class="page-wrapper">
       <div class="content">
         <h1 id='forensic-search-api'>Forensic Search API</h1><h2 id='overview'>Overview</h2>
-<p>This article explains how to use the Code42 API with Forensic Search. While the Code42 console contains a flexible and powerful web interface for <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Forensic_Search_reference_guide">Forensic Search</a> to perform searches and view results, the <a href="/sandbox/api/#tag/File-Events">File Events</a> API provides additional capabilities for performing more complicated or customized searches.</p>
+<p>This article explains how to use the Code42 API with Forensic Search. While the Code42 console contains a flexible and powerful web interface for <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Forensic_Search_reference_guide">Forensic Search</a> to perform searches and view results, the <a href="/api/#tag/File-Events">File Events</a> API provides additional capabilities for performing more complicated or customized searches.</p>
 
-<p>Following are the <a href="/sandbox/api/#tag/File-Events">File Events</a> API resources:</p>
+<p>Following are the <a href="/api/#tag/File-Events">File Events</a> API resources:</p>
 
 <ul>
-<li><a href="/sandbox/api/#operation/searchEventsUsingPOST">/v1/file-events</a>: Search file activity and receive results in JSON format</li>
-<li><a href="/sandbox/api/#operation/exportUsingPOST">/v1/file-events/export</a>: Search file activity receive results in CSV format</li>
-<li><a href="/sandbox/api/#operation/groupingUsingPOST">/v1/file-events/grouping</a>: Group file activity results by a particular value and receive a count of unique events in each group</li>
+<li><a href="/api/#operation/searchEventsUsingPOST">/v1/file-events</a>: Search file activity and receive results in JSON format</li>
+<li><a href="/api/#operation/exportUsingPOST">/v1/file-events/export</a>: Search file activity receive results in CSV format</li>
+<li><a href="/api/#operation/groupingUsingPOST">/v1/file-events/grouping</a>: Group file activity results by a particular value and receive a count of unique events in each group</li>
 </ul>
 <h2 id='considerations'>Considerations</h2>
 <ul>
@@ -400,8 +400,8 @@
 
 <ul>
 <li>Have the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin">Customer Cloud Admin</a> or <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Security_Center_User">Security Center User</a> role.</li>
-<li>Know the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
-<li>Obtain an <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a> and a <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Know the <a href="/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Obtain an <a href="/intro-to-developer-portal/#authentication">authentication token</a> and a <a href="/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
 </ul></li>
 </ul>
 <h2 id='forensic-search-api-structure-and-syntax'>Forensic Search API structure and syntax</h2><h3 id='groups-and-filters'>Groups and filters</h3>
@@ -469,8 +469,8 @@
 <p>Use the following as a starting point for your own searches:</p>
 
 <ul>
-<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
-<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/intro-to-developer-portal/#authentication">authentication token</a>.</li>
 <li>Replace the content of the <code>-d</code> section with your specific search criteria.</li>
 </ul>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/file-events <span class="se">\</span>
@@ -496,14 +496,14 @@
     "pgSize": 100
 }'</span>
 </code></pre></div>
-<p><strong>Note:</strong> To receive results in CSV format instead of JSON, use the <a href="/sandbox/api/#operation/exportUsingPOST">/v1/file-events/export</a> resource instead of <a href="/sandbox/api/#operation/searchEventsUsingPOST">/v1/file-events</a>.</p>
+<p><strong>Note:</strong> To receive results in CSV format instead of JSON, use the <a href="/api/#operation/exportUsingPOST">/v1/file-events/export</a> resource instead of <a href="/api/#operation/searchEventsUsingPOST">/v1/file-events</a>.</p>
 <h3 id='api-limits'>API limits</h3>
 <ul>
 <li>Request rate: To ensure optimal performance throughout your Code42 environment, Code42 limits API requests to 120 per minute. Requests that exceed this limit are blocked and do not return results.</li>
 <li>Result set:
 
 <ul>
-<li><code>file-events</code> results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a <code>file-events</code> query with <code>pgSize=10000</code> cannot display <code>pgNum=2</code>). To obtain more than 10,000 results, use the <code>pgToken</code> and <code>nextPgToken</code> request fields to submit multiple requests. (For <code>pgToken</code> implementation details, see the <a href="/sandbox/api/#operation/searchEventsUsingPOST">/v1/file-events API documentation</a>.)</li>
+<li><code>file-events</code> results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a <code>file-events</code> query with <code>pgSize=10000</code> cannot display <code>pgNum=2</code>). To obtain more than 10,000 results, use the <code>pgToken</code> and <code>nextPgToken</code> request fields to submit multiple requests. (For <code>pgToken</code> implementation details, see the <a href="/api/#operation/searchEventsUsingPOST">/v1/file-events API documentation</a>.)</li>
 <li><code>file-events/export</code> queries are limited to 200,000 events.</li>
 <li><code>file-events/grouping</code> queries are limited to 1,000 groups</li>
 </ul></li>
@@ -836,9 +836,9 @@
   </span><span class="nl">"problems"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='use-case-3-see-all-cloud-sync-destinations-for-a-user'>Use case 3: See all cloud sync destinations for a user</h3>
-<p>The sample JSON below shows how to use the <a href="/sandbox/api/#operation/groupingUsingPOST">/v1/file-events/grouping</a> resource to find an approximate count of <strong>Synced to cloud service</strong> file events for a specific user for each cloud service. This sample groups by the <code>syncDestination</code> value, but you can choose any <code>groupingTerm</code> listed in the <a href="/sandbox/api/#operation/groupingUsingPOST">/v1/file-events/grouping</a> API documentation in your requests.</p>
+<p>The sample JSON below shows how to use the <a href="/api/#operation/groupingUsingPOST">/v1/file-events/grouping</a> resource to find an approximate count of <strong>Synced to cloud service</strong> file events for a specific user for each cloud service. This sample groups by the <code>syncDestination</code> value, but you can choose any <code>groupingTerm</code> listed in the <a href="/api/#operation/groupingUsingPOST">/v1/file-events/grouping</a> API documentation in your requests.</p>
 <h4 id='sample-json-search-query-for-cloud-service-file-event-counts'>Sample JSON search query for cloud service file event counts</h4>
-<p>Modify this sample to fit your environment and then include it in a request (as shown in the <a href="#sample-request">Sample request</a> section above). For grouping queries, you must use the <a href="/sandbox/api/#operation/groupingUsingPOST">/v1/file-events/grouping</a> resource.</p>
+<p>Modify this sample to fit your environment and then include it in a request (as shown in the <a href="#sample-request">Sample request</a> section above). For grouping queries, you must use the <a href="/api/#operation/groupingUsingPOST">/v1/file-events/grouping</a> resource.</p>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"groupingTerm"</span><span class="p">:</span><span class="w"> </span><span class="s2">"syncDestination"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"groups"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
@@ -880,7 +880,7 @@
     <footer>
       © 2020 Code42 Software, Inc. All Rights Reserved.
       <a href="https://www.code42.com/terms-of-use/" target="_blank">Terms of use</a>
-      <a href="https://www.code42.com/terms-of-use/" target="_blank">Privacy statement</a>
+      <a href="https://www.code42.com/privacy/" target="_blank">Privacy statement</a>
     </footer>
   </body>
 </html>

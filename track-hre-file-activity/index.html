@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href="../../images/favicon-430ccdd6.ico" rel="icon" type="image/ico" />
+    <link href="../images/favicon-430ccdd6.ico" rel="icon" type="image/ico" />
     <title>Track file activity of a high risk employee</title>
     <style media="screen">
       .highlight table td { padding: 5px; }
@@ -279,48 +279,48 @@
   color: #859900;
 }
     </style>
-    <link href="../../stylesheets/screen-7d631313.css" rel="stylesheet" media="screen" />
-    <link href="../../stylesheets/print-951aa15b.css" rel="stylesheet" media="print" />
+    <link href="../stylesheets/screen-7d631313.css" rel="stylesheet" media="screen" />
+    <link href="../stylesheets/print-951aa15b.css" rel="stylesheet" media="print" />
     <link rel="stylesheet" href="https://use.typekit.net/sxu2uqu.css">
-      <script src="../../javascripts/all-0c8f7524.js"></script>
+      <script src="../javascripts/all-0c8f7524.js"></script>
 
     <script>
       $(function() { setupCodeCopy(); });
     </script>
   </head>
 
-  <body class="sandbox sandbox_track-hre-file-activity sandbox_track-hre-file-activity_index" data-languages="[]">
+  <body class="track-hre-file-activity track-hre-file-activity_index" data-languages="[]">
     <a href="#" id="nav-button">
       <span>
         NAV
-        <img src="../../images/navbar.png" alt="" />
+        <img src="../images/navbar.png" alt="" />
       </span>
     </a>
     <nav class="top-nav">
     <div class="nav-logo">
-        <a href="/sandbox">
-            <img src="../../images/logo_developers-eb7c289e.svg" class="logo" alt="" />
+        <a href="/">
+            <img src="../images/logo_developers-eb7c289e.svg" class="logo" alt="" />
         </a>
     </div>
     <div class="nav-menu">
         <div class="nav-item">
             <a href="#">Use Cases</a>
             <ul class="drop-menu">
-                <li><a href="/sandbox/track-hre-file-activity/">High Risk Employee</a></li>
+                <li><a href="/track-hre-file-activity/">High Risk Employee</a></li>
             </ul>
         </div>
         <div class="nav-item">
             <a href="#">Guides</a>
             <ul class="drop-menu">
-                <li><a href="/sandbox/detection-list-management-api/">Detection List Mgmt</a></li>
-                <li><a href="/sandbox/forensic-search-api/">Forensic Search</a></li>
-                <li><a href="/sandbox/security-alerts-api/">Security Alerts</a></li>
+                <li><a href="/detection-list-management-api/">Detection List Mgmt</a></li>
+                <li><a href="/forensic-search-api/">Forensic Search</a></li>
+                <li><a href="/security-alerts-api/">Security Alerts</a></li>
             </ul>
         </div>
         <div class="nav-item">
             <a href="#">APIs & SDK</a>
             <ul class="drop-menu">
-                <li><a href="/sandbox/api">API Reference</a></li>
+                <li><a href="/api">API Reference</a></li>
                 <li><a href="https://py42docs.code42.com" target="_blank">Py42</a></li>
                 <li><a href="https://clidocs.code42.com" target="_blank">CLI</a></li>
             </ul>
@@ -396,8 +396,8 @@
 <p>For more information about these APIs, see the following articles:</p>
 
 <ul>
-<li><a href="/sandbox/detection-list-management-api/#detection-list-management-api">Detection list management API</a></li>
-<li><a href="/sandbox/security-alerts-api/#security-alerts-api">Security alerts API</a></li>
+<li><a href="/detection-list-management-api/#detection-list-management-api">Detection list management API</a></li>
+<li><a href="/security-alerts-api/#security-alerts-api">Security alerts API</a></li>
 </ul>
 <h2 id='considerations'>Considerations</h2>
 <ul>
@@ -406,8 +406,8 @@
 <li>To perform tasks in this article, you must:
 
 <ul>
-<li>Know the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
-<li>Obtain an <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a> and a <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Know the <a href="/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Obtain an <a href="/intro-to-developer-portal/#authentication">authentication token</a> and a <a href="/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
 <li><a href="#create-a-detection-list-profile">Create a detection list profile</a> for each user you want to manage in a detection list.</li>
 </ul></li>
 <li>This functionality is available only if your <a href="https://support.code42.com/Terms_and_conditions/Code42_customer_support_resources/Code42_product_plans">product plan</a> includes <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Secure_data_throughout_employee_tenure">Risk Detection lenses</a>. Contact your Customer Success Manager (CSM) for assistance with licensing, or to upgrade to the Incydr Advanced product plan for a free trial​​​. If you don&#39;t know who your CSM is, email <a href="mailto:csmsupport@code42.com">csmsupport@code42.com</a>.</li>
@@ -439,23 +439,23 @@
 <li><strong>Authentication token</strong></li>
 </ul>
 
-<p><a href="/sandbox/intro-to-developer-portal/#authentication">Authentication tokens</a> are required to run the APIs. The tokens must be generated by a Code42 administrator with the proper <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Role_assignment_use_cases#Use_case_1:_Add_users_to_detection_lists">role assignments to add users to the High Risk Employees list</a>.</p>
+<p><a href="/intro-to-developer-portal/#authentication">Authentication tokens</a> are required to run the APIs. The tokens must be generated by a Code42 administrator with the proper <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Role_assignment_use_cases#Use_case_1:_Add_users_to_detection_lists">role assignments to add users to the High Risk Employees list</a>.</p>
 
 <ul>
 <li><strong>Tenant ID</strong></li>
 </ul>
 
-<p>Your company&#39;s entity in the Code42 cloud is known as a &quot;tenant&quot;. To obtain your <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>, use your Code42 administrator credentials to submit a request to the <a href="/sandbox/api/#tag/Customer">customer API</a>.</p>
+<p>Your company&#39;s entity in the Code42 cloud is known as a &quot;tenant&quot;. To obtain your <a href="/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>, use your Code42 administrator credentials to submit a request to the <a href="/api/#tag/Customer">customer API</a>.</p>
 
 <ul>
 <li><strong>Code42 usernames for the people you want to add to the High Risk Employees list</strong></li>
 </ul>
 
-<p>The names of employees you want to add to the High Risk Employees list may come from a number of sources, such as an HR system or a directory service. While you can integrate with such systems using the Code42 API, remember that you need the Code42 username of these employees to be able to add them to the High Risk Employees list. The Code42 username is assigned when the <a href="https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually">user is added to Code42</a>. You can obtain usernames via <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Users_reference#CSV_export">CSV export</a> or the <a href="/sandbox/api/#operation/UserControllerV2_GetByUsername">user API</a>.</p>
+<p>The names of employees you want to add to the High Risk Employees list may come from a number of sources, such as an HR system or a directory service. While you can integrate with such systems using the Code42 API, remember that you need the Code42 username of these employees to be able to add them to the High Risk Employees list. The Code42 username is assigned when the <a href="https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually">user is added to Code42</a>. You can obtain usernames via <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Users_reference#CSV_export">CSV export</a> or the <a href="/api/#operation/UserControllerV2_GetByUsername">user API</a>.</p>
 <h2 id='steps'>Steps</h2><h3 id='add-the-user-to-the-high-risk-employees-list'>Add the user to the High Risk Employees list</h3><h4 id='create-a-detection-list-profile'>Create a detection list profile</h4>
 <p>Before you can add the user to the High Risk Employees list using the Code42 API, you must create a detection list profile for the user. This profile will contain all the user&#39;s information, including their risk factors and notes about why they are considered high risk.</p>
 
-<p>To create a detection list profile, use the <a href="/sandbox/api/#operation/UserControllerV2_Create">/v1/detection-lists/user/create</a>  API command as shown in the following example.</p>
+<p>To create a detection list profile, use the <a href="/api/#operation/UserControllerV2_Create">/v1/detection-lists/user/create</a>  API command as shown in the following example.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/user/create <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
@@ -476,16 +476,16 @@
 <p>In the preceding example:</p>
 
 <ul>
-<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
-<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
-<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
 <li>Replace <code>&lt;Code42Username&gt;</code> with the Code42 username. The username is assigned when the <a href="https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually">user is added to Code42</a>.</li>
 <li>Replace <code>&lt;UserNotes&gt;</code> with an explanation of why the user is considered high risk.</li>
 <li>Replace <code>&lt;Risk1&gt;</code>, <code>&lt;Risk2&gt;</code>, etc. with the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors">risk factors</a> associated with the user. You can also <a href="#add-risk-factors-to-the-user">add risk factors later with the API</a>.</li>
 <li>Replace <code>&lt;UsernameInCloudService&gt;</code> with the username of the user in a cloud service (such as Google Drive) if the username is different than the Code42 username.</li>
 </ul>
 <h4 id='add-the-user-to-the-high-risk-employees-list-2'>Add the user to the High Risk Employees list</h4>
-<p>To add the user to the High Risk Employees list, use the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_AddEmployee">/v1/detection-lists/highriskemployee/add</a> API command.</p>
+<p>To add the user to the High Risk Employees list, use the <a href="/api/#operation/HighRiskEmployeeControllerV2_AddEmployee">/v1/detection-lists/highriskemployee/add</a> API command.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/highriskemployee/add <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
@@ -494,17 +494,17 @@
 <p>In the preceding example:</p>
 
 <ul>
-<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
-<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
-<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
 <li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile">Create a detection list profile</a> section.</li>
 </ul>
 
 <p><strong>Note:</strong> To add multiple users at once, you can use the Code42 command-line interface to <a href="https://clidocs.code42.com/en/latest/commands/highriskemployee.html?highlight=%22bulk%20add%20users%20to%20the%20high%20risk%20employees%22#high-risk-employee-bulk-add">bulk add users to the High Risk Employees list</a>.</p>
 <h3 id='add-risk-factors'>Add risk factors</h3><h4 id='add-risk-factors-to-the-user'>Add risk factors to the user</h4>
-<p>To add risk factors to the user, use the <a href="/sandbox/api/#operation/UserControllerV2_AddRiskFactors">/v1/detection-lists/user/addriskfactors</a>  API resource. (To remove risk factors from the user, use the <a href="/sandbox/api/#operation/UserControllerV2_RemoveRiskFactors">/v1/detection-lists/user/removeriskfactors</a> API resource.)</p>
+<p>To add risk factors to the user, use the <a href="/api/#operation/UserControllerV2_AddRiskFactors">/v1/detection-lists/user/addriskfactors</a>  API resource. (To remove risk factors from the user, use the <a href="/api/#operation/UserControllerV2_RemoveRiskFactors">/v1/detection-lists/user/removeriskfactors</a> API resource.)</p>
 
-<p>Use the <a href="/sandbox/api/#operation/UserControllerV2_AddRiskFactors">/v1/detection-lists/user/addriskfactors</a> API command as shown in the following example.</p>
+<p>Use the <a href="/api/#operation/UserControllerV2_AddRiskFactors">/v1/detection-lists/user/addriskfactors</a> API command as shown in the following example.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/user/addriskfactors <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
@@ -521,10 +521,10 @@
 <p>In the preceding example:</p>
 
 <ul>
-<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
-<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
-<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
-<li>Replace <code>&lt;UserUid&gt;</code> with <a href="/sandbox/intro-to-developer-portal/#get-useruid">the user&#39;s userUID in Code42</a>.</li>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;UserUid&gt;</code> with <a href="/intro-to-developer-portal/#get-useruid">the user&#39;s userUID in Code42</a>.</li>
 <li>Replace <code>&lt;UserNotes&gt;</code> with an explanation of why the user is considered high risk.</li>
 <li>Replace <code>&lt;Risk1&gt;</code>, <code>&lt;Risk2&gt;</code>, etc. with the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors">risk factors</a> associated with the user. Valid values are:
 
@@ -539,7 +539,7 @@
 </ul></li>
 </ul>
 <h4 id='view-risk-factors-in-the-user-39-s-details'>View risk factors in the user&#39;s details</h4>
-<p>To view details of the user in the High Risk Employees list, including their risk factors, use the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_GetEmployee">/v1/detection-lists/highriskemployee/get</a> API command as shown in the following example.</p>
+<p>To view details of the user in the High Risk Employees list, including their risk factors, use the <a href="/api/#operation/HighRiskEmployeeControllerV2_GetEmployee">/v1/detection-lists/highriskemployee/get</a> API command as shown in the following example.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/highriskemployee/get <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
@@ -548,9 +548,9 @@
 <p>In the preceding example:</p>
 
 <ul>
-<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
-<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
-<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
 <li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile">Create a detection list profile</a> section.</li>
 </ul>
 
@@ -580,7 +580,7 @@
 <h4 id='add-the-user-to-other-alert-rules'>Add the user to other alert rules</h4>
 <p>You can use the API to add the user to other existing <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Manage_Rules">alert rules</a> that monitor user file activity.</p>
 
-<p>To use the API to add the user to an alert rule, use the following <a href="/sandbox/api/#operation/Rules_AddUsersToRule">/v1/alert-rules/add-users</a> API command.</p>
+<p>To use the API to add the user to an alert rule, use the following <a href="/api/#operation/Rules_AddUsersToRule">/v1/alert-rules/add-users</a> API command.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/alert-rules/add-users <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: application/json"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
@@ -602,11 +602,11 @@
 <p>In the preceding example:</p>
 
 <ul>
-<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
-<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
-<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
 <li>Replace <code>&lt;SampleRuleID&gt;</code> with the ID of the alert rule from which you want to remove users.</li>
-<li>Replace <code>&lt;SampleUserID&gt;</code> with a value that uniquely identifies the user you want to add. As a best practice, use <a href="/sandbox/intro-to-developer-portal/#get-useruid">the user&#39;s userUID in Code42</a> for this value.</li>
+<li>Replace <code>&lt;SampleUserID&gt;</code> with a value that uniquely identifies the user you want to add. As a best practice, use <a href="/intro-to-developer-portal/#get-useruid">the user&#39;s userUID in Code42</a> for this value.</li>
 <li>The <code>userAliasList</code> parameter identifies the list of email addresses or cloud aliases to associate with that <code>&lt;SampleUserID&gt;</code>. Replace <code>&lt;SampleAlias1&gt;</code> and <code>&lt;SampleAlias2&gt;</code> with the email addresses or cloud aliases you want to add to the rule&#39;s inclusion or exclusion list for that user ID.
 
 <ul>
@@ -617,7 +617,7 @@
 
 <p>The aliases that you enter here become the values that are added to the rule&#39;s inclusion or exclusion list and used to trigger or filter alert notifications.</p>
 <h3 id='search-for-alert-activity'>Search for alert activity</h3><h4 id='search-for-alerts-triggered-by-the-user'>Search for alerts triggered by the user</h4>
-<p>To find alerts triggered by the user, search for alerts with the Actor filter using the <a href="/sandbox/api/#operation/Alerts_QueryAlert">/v1/alerts/query-alerts</a> API command as shown in the following example:</p>
+<p>To find alerts triggered by the user, search for alerts with the Actor filter using the <a href="/api/#operation/Alerts_QueryAlert">/v1/alerts/query-alerts</a> API command as shown in the following example:</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/alerts/query-alerts <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: text/plain"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
@@ -646,9 +646,9 @@
 <p>In the preceding example:</p>
 
 <ul>
-<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
-<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
-<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
 <li>Replace <code>&lt;ActorUsername&gt;</code> with the Code42 username of the user.</li>
 </ul>
 
@@ -671,9 +671,9 @@
 </span></code></pre></div><h4 id='filter-alerts'>Filter alerts</h4>
 <p>You can further filter alerts by adding more filter types. For example, you could use the <code>Severity</code> filter to find only those alerts that were high severity, or the <code>RuleName</code> filter to find only alerts from a particular rule.</p>
 <h4 id='search-the-user-39-s-file-activity'>Search the user&#39;s file activity</h4>
-<p>In addition to using alerts to identify file activity, you can use the <a href="/sandbox/forensic-search-api/#forensic-search-api">Forensic Search API</a> to search for the user&#39;s file activity.</p>
+<p>In addition to using alerts to identify file activity, you can use the <a href="/forensic-search-api/#forensic-search-api">Forensic Search API</a> to search for the user&#39;s file activity.</p>
 <h3 id='remove-the-user-from-the-high-risk-employees-list'>Remove the user from the High Risk Employees list</h3>
-<p>You can remove the user from the High Risk Employees list using the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_RemoveUser">/v1/detection-lists/highriskemployee/remove</a> API.  Using this API removes the user from the High Risk Employees list and system alerts, but it does not remove risk factors associated with the user.</p>
+<p>You can remove the user from the High Risk Employees list using the <a href="/api/#operation/HighRiskEmployeeControllerV2_RemoveUser">/v1/detection-lists/highriskemployee/remove</a> API.  Using this API removes the user from the High Risk Employees list and system alerts, but it does not remove risk factors associated with the user.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;RequestURL&gt;/v1/detection-lists/highriskemployee/remove <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
@@ -682,13 +682,13 @@
 <p>In the preceding example:</p>
 
 <ul>
-<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
-<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#authentication">authentication token</a>.</li>
-<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/sandbox/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
+<li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/intro-to-developer-portal/#request-urls">request URL</a> of your Code42 cloud instance.</li>
+<li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/intro-to-developer-portal/#authentication">authentication token</a>.</li>
+<li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/intro-to-developer-portal/#get-a-tenant-id">tenant ID</a>.</li>
 <li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile">Create a detection list profile</a> section.</li>
 </ul>
 
-<p>To verify that the user is removed, obtain a listing of all users in the detection list by running the <a href="/sandbox/api/#operation/HighRiskEmployeeControllerV2_Search">/v1/detection-lists/highriskemployee/search</a> API command.</p>
+<p>To verify that the user is removed, obtain a listing of all users in the detection list by running the <a href="/api/#operation/HighRiskEmployeeControllerV2_Search">/v1/detection-lists/highriskemployee/search</a> API command.</p>
 
 <p><strong>Note:</strong> To remove multiple users at once, you can use the Code42 command-line interface to <a href="https://clidocs.code42.com/en/latest/commands/highriskemployee.html?highlight=bulk%20remove#high-risk-employee-bulk-remove">bulk remove users from the High Risk Employees list</a>.</p>
 
@@ -697,7 +697,7 @@
     <footer>
       © 2020 Code42 Software, Inc. All Rights Reserved.
       <a href="https://www.code42.com/terms-of-use/" target="_blank">Terms of use</a>
-      <a href="https://www.code42.com/terms-of-use/" target="_blank">Privacy statement</a>
+      <a href="https://www.code42.com/privacy/" target="_blank">Privacy statement</a>
     </footer>
   </body>
 </html>
