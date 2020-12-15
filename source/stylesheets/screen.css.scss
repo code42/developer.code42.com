@@ -656,7 +656,8 @@ footer {
   display: flex;
   padding: $footer-padding;
   justify-content: flex-end;
+  font-size: 14px;
   a {
-    margin-left: 5px;
+    margin-left: $footer-link-margin;
   }
 }
