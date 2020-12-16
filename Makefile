@@ -2,8 +2,7 @@ BUILD = source
 DOCS_SRC = docs-src
 DOCS = $(DOCS_SRC)/docs
 DOCS_OUT = $(DOCS_SRC)/out
-SANDBOX = $(BUILD)
-API_DOCS = $(SANDBOX)/api
+API_DOCS = $(BUILD)/api
 DOCS_SERVER = "https://api.us.code42.com"
 BUILD_SCRIPTS = build-scripts
 
@@ -12,7 +11,7 @@ all:: html clean locations download definitions unify
 run:: all serve
 
 clean::
-	$(BUILD_SCRIPTS)/clean.sh $(DOCS_SRC) $(SANDBOX) $(DOCS) $(DOCS_OUT)
+	$(BUILD_SCRIPTS)/clean.sh $(DOCS_SRC) $(BUILD) $(DOCS) $(DOCS_OUT)
 
 locations::
 	$(BUILD_SCRIPTS)/get_open_api_file_locations.sh $(DOCS_SERVER) $(DOCS_SRC)

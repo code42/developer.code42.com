@@ -7,12 +7,12 @@ To create a new article, follow these steps:
 1. Add a file anywhere under the `source` directory of this repo.
    * The file should be named in the format of `<something>.html.md`
 
-   * You may also create a new directory as long as it is under `source`. 
+   * You may also create a new directory as long as it is under `source`.
 
-   *  The folder/file path will be the url used to access the article. For example, if you created `source/subdir/another-subdir/my-article.html.md`, the url to access it would be `developer.code42.com/subdir/another-subdir/my-article.html`.
+   * The folder/file path will be the url used to access the article. For example, if you created `source/subdir/another-subdir/my-article.html.md`, the url to access it would be `developer.code42.com/subdir/another-subdir/my-article.html`.
 
    * If the file is named `index.html.md`, then the final segment of its URL is not needed. For example, `source/subdir/another-subdir/index.html.md` would be accessed at `developer.code42.com/subdir/another-subdir`. This is the preferred method for creating a new page because the url will not end in `.html` this way.
-  
+
 2. Paste a configuration block at the top of your new file (all options except `title` and `category` should be the same as shown below).
 
 The `title` will be:
@@ -35,9 +35,7 @@ code_clipboard: true
 
 3. Write your article using the markdown syntax outlined below.
 
-4. Open a PR! 
-
-   
+4. Open a PR!
 
 ## Markdown Reference
 
@@ -73,19 +71,19 @@ Make sure the lines above and below your paragraph are empty.
 For code, surround the snippet with three backticks at the top and bottom, and the name of the language/syntax after the first three ticks:
 
 ```
-	```bash
-	curl https://example.com
-	```
+  ```bash
+  curl https://example.com
+  ```
 
-    ```json
-        { example: "some value"}
-    ```
+  ```json
+    { example: "some value"}
+  ```
 
-	```python
+  ```python
     import foo
     # This is some Python code!
     bar = "baz"
-	```
+  ```
 ```
 
 Will render:
@@ -105,7 +103,6 @@ bar = "baz"
 ```
 
 For the full list of supported languages, see [rouge](https://github.com/jneen/rouge/wiki/List-of-supported-languages-and-lexers).
-
 
 ### Tables
 
@@ -173,27 +170,27 @@ Will render:
 
 #### Nested Lists
 
-You can do sub-lists in Markdown by indenting the bullets (or numbers) by 4 spaces: 
+You can do sub-lists in Markdown by indenting the bullets (or numbers) by 4 spaces:
+
 ```markdown
 * First
-    1. 1
-    2. 2
+  1. 1
+  2. 2
 * Second
-    * a
-    * b
-    * c
+  * a
+  * b
+  * c
 ```
 
 Will render:
 
 * First
-    1. 1
-    2. 2
+  1. 1
+  2. 2
 * Second
-    * a
-    * b
-    * c
-
+  * a
+  * b
+  * c
 
 ### Links
 
