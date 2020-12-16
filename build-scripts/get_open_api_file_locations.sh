@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 main () {
   local docs_server="${1:?Missing param docs_server at index 1.}"
