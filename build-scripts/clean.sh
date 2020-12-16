@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -euo pipefail
 
 main() {
   local docs_src="${1:?Missing parameter docs_src at index 1.}"
