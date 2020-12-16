@@ -590,40 +590,35 @@
             "in": "query",
             "description": "User UID of an assignee of a case on which to filter.",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           },
           {
             "name": "createdAt",
             "in": "query",
             "description": "Filter cases created between the supplied start and end times. Must use ISO time interval, for example: 2020-08-31T11:00:00Z/2020-09-01T15:30:00Z",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           },
           {
             "name": "isAssigned",
             "in": "query",
             "description": "Filter cases with an assignee (true) or without (false)",
             "required": false,
-            "type": "boolean",
-            "allowEmptyValue": false
+            "type": "boolean"
           },
           {
             "name": "lastModifiedBy",
             "in": "query",
             "description": "User UID of the user who most recently modified the case.",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           },
           {
             "name": "name",
             "in": "query",
             "description": "Name of a case on which to filter; will include partial matches",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           },
           {
             "name": "pgNum",
@@ -632,8 +627,7 @@
             "required": false,
             "type": "integer",
             "default": 1,
-            "format": "int32",
-            "allowEmptyValue": false
+            "format": "int32"
           },
           {
             "name": "pgSize",
@@ -642,8 +636,7 @@
             "required": false,
             "type": "integer",
             "default": 2147483647,
-            "format": "int32",
-            "allowEmptyValue": false
+            "format": "int32"
           },
           {
             "name": "srtDir",
@@ -660,7 +653,6 @@
             },
             "collectionFormat": "multi",
             "default": "asc",
-            "allowEmptyValue": false,
             "enum": [
               "asc",
               "desc"
@@ -675,26 +667,25 @@
             "items": {
               "type": "string",
               "enum": [
+                "assigneeUsername",
+                "createdAt",
                 "name",
                 "number",
-                "createdAt",
-                "updatedAt",
                 "status",
-                "assigneeUsername",
-                "subjectUsername"
+                "subjectUsername",
+                "updatedAt"
               ]
             },
             "collectionFormat": "multi",
             "default": "number",
-            "allowEmptyValue": false,
             "enum": [
+              "assigneeUsername",
+              "createdAt",
               "name",
               "number",
-              "createdAt",
-              "updatedAt",
               "status",
-              "assigneeUsername",
-              "subjectUsername"
+              "subjectUsername",
+              "updatedAt"
             ]
           },
           {
@@ -706,15 +697,14 @@
             "items": {
               "type": "string",
               "enum": [
-                "OPEN",
-                "CLOSED"
+                "CLOSED",
+                "OPEN"
               ]
             },
             "collectionFormat": "multi",
-            "allowEmptyValue": false,
             "enum": [
-              "OPEN",
-              "CLOSED"
+              "CLOSED",
+              "OPEN"
             ]
           },
           {
@@ -722,27 +712,24 @@
             "in": "query",
             "description": "User UID of a subject of a case on which to filter.",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           },
           {
             "name": "updatedAt",
             "in": "query",
             "description": "Filter cases last updated between the supplied start and end times. Must use ISO time interval, for example: 2020-08-31T11:00:00Z/2020-09-01T15:30:00Z",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/MultiCaseResponse-cases"
+              "$ref": "#/definitions/CaseResponse-cases"
             }
           }
-        },
-        "deprecated": false
+        }
       },
       "post": {
         "tags": [
@@ -765,17 +752,13 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/SingleCaseResponse-cases"
+              "$ref": "#/definitions/CaseResponse-cases"
             }
           },
           "400": {
-            "description": "Failure",
-            "schema": {
-              "$ref": "#/definitions/CaseProblemResponse-cases"
-            }
+            "description": "Failure"
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/cases/{caseNumber}": {
@@ -799,14 +782,13 @@
           "200": {
             "description": "Case exists",
             "schema": {
-              "$ref": "#/definitions/SingleCaseResponse-cases"
+              "type": "object"
             }
           },
           "404": {
             "description": "Case not found"
           }
-        },
-        "deprecated": false
+        }
       },
       "put": {
         "tags": [
@@ -837,20 +819,16 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/SingleCaseResponse-cases"
+              "type": "object"
             }
           },
           "400": {
-            "description": "Failure",
-            "schema": {
-              "$ref": "#/definitions/CaseProblemResponse-cases"
-            }
+            "description": "Failure"
           },
           "404": {
             "description": "Not found"
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/cases/{caseNumber}/export": {
@@ -884,8 +862,7 @@
               "$ref": "#/definitions/StreamingResponseBody-cases"
             }
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/cases/{caseNumber}/fileevent": {
@@ -909,14 +886,13 @@
           "200": {
             "description": "Case exists",
             "schema": {
-              "$ref": "#/definitions/MultipleEventsResponse-cases"
+              "type": "object"
             }
           },
           "404": {
             "description": "Case not found"
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/cases/{caseNumber}/fileevent/export": {
@@ -943,8 +919,7 @@
               "$ref": "#/definitions/StreamingResponseBody-cases"
             }
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/cases/{caseNumber}/fileevent/{eventId}": {
@@ -975,14 +950,13 @@
           "200": {
             "description": "Case with event exists",
             "schema": {
-              "$ref": "#/definitions/EventResponse-cases"
+              "type": "object"
             }
           },
           "404": {
             "description": "Case or event not found"
           }
-        },
-        "deprecated": false
+        }
       },
       "post": {
         "tags": [
@@ -1015,31 +989,18 @@
             }
           },
           "204": {
-            "description": "Success",
-            "schema": {
-              "type": "object"
-            }
+            "description": "Success"
           },
           "400": {
-            "description": "Case or event do not exist or the case already has the event",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
+            "description": "Case or event do not exist or the case already has the event"
           },
           "403": {
-            "description": "Forbidden by events",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
+            "description": "Forbidden by events"
           },
           "502": {
-            "description": "Failure to reach events",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
+            "description": "Failure to reach events"
           }
-        },
-        "deprecated": false
+        }
       },
       "delete": {
         "tags": [
@@ -1072,22 +1033,15 @@
             }
           },
           "204": {
-            "description": "Success",
-            "schema": {
-              "type": "object"
-            }
+            "description": "Success"
           },
           "400": {
-            "description": "Case does not exist or the case has been closed",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
+            "description": "Case does not exist or the case has been closed"
           },
           "404": {
             "description": "Case or event not found"
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/auth": {
@@ -4308,34 +4262,9 @@
         }
       ]
     },
-    "CaseProblemResponse-cases": {
+    "CaseResponse-cases": {
       "type": "object",
-      "required": [
-        "problem"
-      ],
-      "properties": {
-        "description": {
-          "type": "string"
-        },
-        "problem": {
-          "type": "string",
-          "enum": [
-            "NAME_EMPTY",
-            "NAME_EXISTS",
-            "NAME_TOO_LONG",
-            "NO_EDITS_ONCE_CLOSED",
-            "DESCRIPTION_TOO_LONG",
-            "FINDINGS_TOO_LONG",
-            "INVALID_PAGE_NUMBER",
-            "INVALID_PAGE_SIZE",
-            "INVALID_TIME_INTERVAL",
-            "INVALID_USER",
-            "USER_VALIDATION_UNAVAILABLE",
-            "USER_VALIDATION_FORBIDDEN"
-          ]
-        }
-      },
-      "title": "CaseProblemResponse"
+      "title": "CaseResponse"
     },
     "CreateCaseRequest-cases": {
       "type": "object",
@@ -4362,221 +4291,6 @@
         }
       },
       "title": "CreateCaseRequest"
-    },
-    "EventProblemResponse-cases": {
-      "type": "object",
-      "required": [
-        "problem"
-      ],
-      "properties": {
-        "problem": {
-          "type": "string"
-        }
-      },
-      "title": "EventProblemResponse"
-    },
-    "EventResponse-cases": {
-      "type": "object",
-      "properties": {
-        "eventId": {
-          "type": "string",
-          "description": "The unique identifier for the event"
-        },
-        "eventTimestamp": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Date and time that the Code42 service on the device detected an event; based on the device’s system clock and reported in Coordinated Universal Time (UTC)"
-        },
-        "exposure": {
-          "type": "array",
-          "description": "Lists indicators that the data may be exposed",
-          "items": {
-            "type": "string"
-          }
-        },
-        "fileName": {
-          "type": "string",
-          "description": "The name of the file, including the file extension"
-        },
-        "filePath": {
-          "type": "string",
-          "description": "The file location on the user's device; a path forward or backslash should be included at the end of the filepath. Possibly null if the file event occurred on a cloud provider."
-        }
-      },
-      "title": "EventResponse"
-    },
-    "MultiCaseResponse-cases": {
-      "type": "object",
-      "required": [
-        "cases",
-        "totalCount"
-      ],
-      "properties": {
-        "cases": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/SingleSlimCaseResponse-cases"
-          }
-        },
-        "totalCount": {
-          "type": "integer",
-          "format": "int64"
-        }
-      },
-      "title": "MultiCaseResponse"
-    },
-    "MultipleEventsResponse-cases": {
-      "type": "object",
-      "required": [
-        "events"
-      ],
-      "properties": {
-        "events": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/EventResponse-cases"
-          }
-        }
-      },
-      "title": "MultipleEventsResponse"
-    },
-    "SingleCaseResponse-cases": {
-      "type": "object",
-      "properties": {
-        "assignee": {
-          "type": "string",
-          "description": "The user UID of the administrator assigned to investigate the case."
-        },
-        "assigneeUsername": {
-          "type": "string",
-          "description": "The username of the administrator assigned to investigate the case."
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time at which the case was created."
-        },
-        "createdByUserUid": {
-          "type": "string",
-          "description": "User UID of the user who created the case."
-        },
-        "createdByUsername": {
-          "type": "string",
-          "description": "Username of the user who created the case."
-        },
-        "description": {
-          "type": "string",
-          "description": "Brief description providing context for a case."
-        },
-        "findings": {
-          "type": "string",
-          "description": "Markdown formatted text summarizing the findings for a case."
-        },
-        "lastModifiedByUserUid": {
-          "type": "string",
-          "description": "User UID of the user who last modified the case."
-        },
-        "lastModifiedByUsername": {
-          "type": "string",
-          "description": "Username of the user who last modified the case."
-        },
-        "name": {
-          "type": "string",
-          "description": "The unique name given to the case."
-        },
-        "number": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Unique numeric identifier for the case."
-        },
-        "status": {
-          "type": "string",
-          "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.",
-          "enum": [
-            "OPEN",
-            "CLOSED"
-          ]
-        },
-        "subject": {
-          "type": "string",
-          "description": "The user UID of the subject being investigated in this case."
-        },
-        "subjectUsername": {
-          "type": "string",
-          "description": "The username of the subject being investigated in this case."
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time at which the case was last updated."
-        }
-      },
-      "title": "SingleCaseResponse"
-    },
-    "SingleSlimCaseResponse-cases": {
-      "type": "object",
-      "properties": {
-        "assignee": {
-          "type": "string",
-          "description": "The user UID of the administrator assigned to investigate the case."
-        },
-        "assigneeUsername": {
-          "type": "string",
-          "description": "The username of the administrator assigned to investigate the case."
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time at which the case was created."
-        },
-        "createdByUserUid": {
-          "type": "string",
-          "description": "User UID of the user who created the case."
-        },
-        "createdByUsername": {
-          "type": "string",
-          "description": "Username of the user who created the case."
-        },
-        "lastModifiedByUserUid": {
-          "type": "string",
-          "description": "User UID of the user who last modified the case."
-        },
-        "lastModifiedByUsername": {
-          "type": "string",
-          "description": "Username of the user who last modified the case."
-        },
-        "name": {
-          "type": "string",
-          "description": "The unique name given to the case."
-        },
-        "number": {
-          "type": "integer",
-          "format": "int64",
-          "description": "Unique numeric identifier for the case."
-        },
-        "status": {
-          "type": "string",
-          "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.",
-          "enum": [
-            "OPEN",
-            "CLOSED"
-          ]
-        },
-        "subject": {
-          "type": "string",
-          "description": "The user UID of the subject being investigated in this case."
-        },
-        "subjectUsername": {
-          "type": "string",
-          "description": "The username of the subject being investigated in this case."
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Time at which the case was last updated."
-        }
-      },
-      "title": "SingleSlimCaseResponse"
     },
     "StreamingResponseBody-cases": {
       "type": "object",
@@ -4605,8 +4319,8 @@
           "type": "string",
           "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.",
           "enum": [
-            "OPEN",
-            "CLOSED"
+            "CLOSED",
+            "OPEN"
           ]
         },
         "subject": {
