@@ -6,7 +6,7 @@ API_DOCS = $(BUILD)/api
 DOCS_SERVER = "https://api.us.code42.com"
 BUILD_SCRIPTS = build-scripts
 
-all:: html clean locations download definitions unify
+all:: clean html locations download definitions unify
 
 run:: all serve
 
