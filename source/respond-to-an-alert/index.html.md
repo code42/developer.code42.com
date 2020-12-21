@@ -92,24 +92,24 @@ curl -X POST "<RequestURL>/v1/alerts/query-alerts" \
 -H "Authorization: Bearer <AuthToken>" \
 -H "Content-Type: application/json" \
 -d '{
-    "tenantId": "<SampleTenant>",
-    "groups": [
+  "tenantId": "<SampleTenant>",
+  "groups": [
+    {
+      "filters": [
         {
-            "filters": [
-                {
-                    "term": "<FilterType>",
-                    "operator": "<OperatorValue>",
-                    "value": "<Criteria>"
-                }
-            ],
-            "filterClause": "AND"
+          "term": "<FilterType>",
+          "operator": "<OperatorValue>",
+          "value": "<Criteria>"
         }
-    ],
-    "groupClause": "OR",
-    "pgSize": "20",
-    "pgNum": "0",
-    "srtKey": "CreatedAt",
-    "srtDirection": "DESC"
+      ],
+      "filterClause": "AND"
+    }
+  ],
+  "groupClause": "OR",
+  "pgSize": "20",
+  "pgNum": "0",
+  "srtKey": "CreatedAt",
+  "srtDirection": "DESC"
 }'
 ```
 
@@ -124,21 +124,21 @@ A successful response returns basic information about the alert notifications th
 
 ```json
 {
-    "type$": "ALERT_SUMMARY",
-    "tenantId": "123456",
-    "type": "FED_ENDPOINT_EXFILTRATION",
-    "name": "Departing employee endpoint exfiltration system rule",
-    "description": "System rule for departing employee endpoint exfiltration.",
-    "actor": "burt.morales@example.com",
-    "target": "N/A",
-    "severity": "HIGH",
-    "ruleId": "123456789424242",
-    "ruleSource": "Departing Employee",
-    "id": "987654321424242",
-    "createdAt": "2020-04-03T15:21:44.6139300Z",
-    "state": "OPEN",
-    "totalCount": 1,
-    "problems": []
+  "type$": "ALERT_SUMMARY",
+  "tenantId": "123456",
+  "type": "FED_ENDPOINT_EXFILTRATION",
+  "name": "Departing employee endpoint exfiltration system rule",
+  "description": "System rule for departing employee endpoint exfiltration.",
+  "actor": "burt.morales@example.com",
+  "target": "N/A",
+  "severity": "HIGH",
+  "ruleId": "123456789424242",
+  "ruleSource": "Departing Employee",
+  "id": "987654321424242",
+  "createdAt": "2020-04-03T15:21:44.6139300Z",
+  "state": "OPEN",
+  "totalCount": 1,
+  "problems": []
 }
 ```
 
@@ -166,33 +166,33 @@ A successful response returns full details about the alert notification, includi
 
 ```json
 {
-    "type$": "ALERT_DETAILS_RESPONSE",
-    "alerts": [
+  "type$": "ALERT_DETAILS_RESPONSE",
+  "alerts": [
+    {
+      "type$": "ALERT_DETAILS",
+      "tenantId": "123456",
+      "type": "FED_ENDPOINT_EXFILTRATION",
+      "name": "Departing employee endpoint exfiltration system rule",
+      "description": "System rule for departing employee endpoint exfiltration.",
+      "actor": "burt.morales@example.com",
+      "target": "N/A",
+      "severity": "HIGH",
+      "ruleId": "123456789424242",
+      "ruleSource": "Departing Employee",
+      "id": "987654321424242",
+      "createdAt": "2020-04-08T13:50:25.3644410Z",
+      "state": "OPEN",
+      "observations": [
         {
-            "type$": "ALERT_DETAILS",
-            "tenantId": "123456",
-            "type": "FED_ENDPOINT_EXFILTRATION",
-            "name": "Departing employee endpoint exfiltration system rule",
-            "description": "System rule for departing employee endpoint exfiltration.",
-            "actor": "burt.morales@example.com",
-            "target": "N/A",
-            "severity": "HIGH",
-            "ruleId": "123456789424242",
-            "ruleSource": "Departing Employee",
-            "id": "987654321424242",
-            "createdAt": "2020-04-08T13:50:25.3644410Z",
-            "state": "OPEN",
-            "observations": [
-                {
-                    "type$": "OBSERVATION",
-                    "id": "112233445566",
-                    "observedAt": "2020-04-08T13:40:00.0000000Z",
-                    "type": "FedEndpointExfiltration",
-                    "data": "{\"type$\":\"OBSERVED_ENDPOINT_ACTIVITY\",\"id\":\"665544332211\",\"sources\":[\"Endpoint\"],\"exposureTypes\":[\"ApplicationRead\",\"CloudStorage\"],\"firstActivityAt\":\"2020-04-08T13:40:00.0000000Z\",\"lastActivityAt\":\"2020-04-08T13:45:00.0000000Z\",\"fileCount\":2,\"totalFileSize\":311096,\"fileCategories\":[{\"type$\":\"OBSERVED_FILE_CATEGORY\",\"category\":\"Image\",\"fileCount\":2,\"totalFileSize\":311096,\"isSignificant\":false}],\"files\":[{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"998877665544\",\"path\":\"C:/Users/burt.morales/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"},],\"syncToServices\":[\"Dropbox\"],\"sendingIpAddresses\":[\"192.0.2.0\"]}"
-                }
-            ]
+          "type$": "OBSERVATION",
+          "id": "112233445566",
+          "observedAt": "2020-04-08T13:40:00.0000000Z",
+          "type": "FedEndpointExfiltration",
+          "data": "{\"type$\":\"OBSERVED_ENDPOINT_ACTIVITY\",\"id\":\"665544332211\",\"sources\":[\"Endpoint\"],\"exposureTypes\":[\"ApplicationRead\",\"CloudStorage\"],\"firstActivityAt\":\"2020-04-08T13:40:00.0000000Z\",\"lastActivityAt\":\"2020-04-08T13:45:00.0000000Z\",\"fileCount\":2,\"totalFileSize\":311096,\"fileCategories\":[{\"type$\":\"OBSERVED_FILE_CATEGORY\",\"category\":\"Image\",\"fileCount\":2,\"totalFileSize\":311096,\"isSignificant\":false}],\"files\":[{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"998877665544\",\"path\":\"C:/Users/burt.morales/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"},],\"syncToServices\":[\"Dropbox\"],\"sendingIpAddresses\":[\"192.0.2.0\"]}"
         }
-    ]
+      ]
+    }
+  ]
 }
 ```
 
@@ -206,23 +206,26 @@ curl -X POST  <RequestURL>/v1/file-events \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>" \
 -d '{
-    "groups": [{
-        "filters": [{
-            "operator": "IS",
-            "term": "fileName",
-            "value": "*.docx"
+  "groups": [
+    {
+      "filters": [
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.docx"
         },
         {
-            "operator": "IS",
-            "term": "filePath",
-            "value": "C:/Users*"
+          "operator": "IS",
+          "term": "filePath",
+          "value": "C:/Users*"
         }
-    ],
-    "filterClause": "AND"
-    }],
-    "groupClause": "AND",
-    "pgNum": 1,
-    "pgSize": 100
+      ],
+      "filterClause": "AND"
+    }
+  ],
+  "groupClause": "AND",
+  "pgNum": 1,
+  "pgSize": 100
 }'
 ```
 
@@ -236,11 +239,11 @@ curl -X POST <RequestURL>/v1/cases \
 -H 'content-type: application/json' \
 -H 'authorization: Bearer <AuthToken>' \
 -d '{
-    "name": "Sample case name",
-    "description": "Sample description",
-    "findings": "Sample findings",
-    "subject":  <UserUID>,
-    "assignee": null
+  "name": "Sample case name",
+  "description": "Sample description",
+  "findings": "Sample findings",
+  "subject": "<UserUID>",
+  "assignee": null
 }'
 ```
 
@@ -254,21 +257,21 @@ Following is an example response showing the case number.
 
 ```json
 {
-    "number": 1,
-    "name": "Sample case name",
-    "createdAt": "2020-10-27T15:16:05.369203Z",
-    "updatedAt": "2020-10-27T15:16:05.369203Z",
-    "description": "Sample description",
-    "findings": "Sample findings",
-    "subject": null,
-    "subjectUsername": null,
-    "status": "OPEN",
-    "assignee": null,
-    "assigneeUsername": null,
-    "createdByUserUid": "806154242834341101",
-    "createdByUsername": "user@example.com",
-    "lastModifiedByUserUid": "806154242834341101",
-    "lastModifiedByUsername": "user@example.com"
+  "number": 1,
+  "name": "Sample case name",
+  "createdAt": "2020-10-27T15:16:05.369203Z",
+  "updatedAt": "2020-10-27T15:16:05.369203Z",
+  "description": "Sample description",
+  "findings": "Sample findings",
+  "subject": null,
+  "subjectUsername": null,
+  "status": "OPEN",
+  "assignee": null,
+  "assigneeUsername": null,
+  "createdByUserUid": "806154242834341101",
+  "createdByUsername": "user@example.com",
+  "lastModifiedByUserUid": "806154242834341101",
+  "lastModifiedByUsername": "user@example.com"
 }
 ```
 
