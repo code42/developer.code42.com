@@ -247,9 +247,9 @@ Following is an example response showing the case number.
     "assignee": null,
     "assigneeUsername": null,
     "createdByUserUid": "806154242834341101",
-    "createdByUsername": "05c28ad3-7eca-4d99-8bb7-a5d0424206c8",
+    "createdByUsername": "user@example.com",
     "lastModifiedByUserUid": "806154242834341101",
-    "lastModifiedByUsername": "05c28ad3-7eca-4d99-8bb7-a5d0424206c8"
+    "lastModifiedByUsername": "user@example.com"
 }
 ```
 
