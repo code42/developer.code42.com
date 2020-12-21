@@ -82,6 +82,7 @@ The names of employees you want to add to alert rules may come from a number of 
 ## Steps 
 
 ### Search for significant alerts 
+
 Alerts are an excellent way to get notifications about suspicious file activity. However, sometimes it can be difficult to separate the truly important ones from the rest.
 To find alerts that are worthy of further investigation, use the [/v1/alerts/query-alerts](/api/#operation/Alerts_QueryAlert) API command to search for alert notifications by alert filter criteria. By using filters you can uncover only the alerts that you want to follow up on.
 
