@@ -91,7 +91,26 @@ curl -X POST "<RequestURL>/v1/alerts/query-alerts" \
 -H "accept: text/plain" \
 -H "Authorization: Bearer <AuthToken>" \
 -H "Content-Type: application/json" \
--d '{ "tenantId": "<SampleTenant>", "groups": [ { "filters": [ { "term": "<FilterType>", "operator": "<OperatorValue>", "value": "<Criteria>" } ], "filterClause": "AND" } ], "groupClause": "OR", "pgSize": "20", "pgNum": "0", "srtKey": "CreatedAt", "srtDirection": "DESC" }'
+-d '{
+    "tenantId": "<SampleTenant>",
+    "groups": [
+        {
+            "filters": [
+                {
+                    "term": "<FilterType>",
+                    "operator": "<OperatorValue>",
+                    "value": "<Criteria>"
+                }
+            ],
+            "filterClause": "AND"
+        }
+    ],
+    "groupClause": "OR",
+    "pgSize": "20",
+    "pgNum": "0",
+    "srtKey": "CreatedAt",
+    "srtDirection": "DESC"
+}'
 ```
 
 In the preceding example:
