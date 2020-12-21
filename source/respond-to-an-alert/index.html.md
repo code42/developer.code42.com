@@ -95,10 +95,10 @@ curl -X POST "<RequestURL>/v1/alerts/query-alerts" \
 
 In the preceding example:
 
-* Replace <RequestURL> with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace <AuthToken> with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace <SampleTenant> with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
-* For the [filter syntax](/security-alerts-api/#filter-syntax-for-the-query-alerts-api-command), replace <FilterType> with the filter, <OperatorValue> with the operator option, and <Criteria> with the search term to use in the search. 
+* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* For the [filter syntax](/security-alerts-api/#filter-syntax-for-the-query-alerts-api-command), replace `<FilterType>` with the filter, `<OperatorValue>` with the operator option, and `<Criteria>` with the search term to use in the search. 
 
 A successful response returns basic information about the alert notifications that match your search criteria, including the alert IDs of notifications returned by the query (look for the "id" entry):
 
@@ -138,9 +138,9 @@ curl -X POST "<RequestURL>/v1/alerts/query-details" \
 
 In the preceding example:
 
-* Replace <RequestURL> with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace <AuthToken> with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace <SampleAlertID> with the ID of an alert notification listed in the response in the "[Search for significant alerts](#search-for-significant-alerts)" section above. 
+* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
+* Replace `<SampleAlertID>` with the ID of an alert notification listed in the response in the "[Search for significant alerts](#search-for-significant-alerts)" section above. 
 
 A successful response returns full details about the alert notification, including event IDs (look for "eventid") and a list of files involved in the event (look for "files" followed by "name").
 
@@ -226,9 +226,9 @@ curl -X POST <RequestURL>/v1/cases \
 
 In the preceding example:
 
-* Replace <RequestURL> with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace <AuthToken> with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace <UserUID> with the [user UID](/intro-to-developer-portal/#useruids) of the person who is being investigated.
+* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
+* Replace `<UserUID>` with the [user UID](/intro-to-developer-portal/#useruids) of the person who is being investigated.
 
 Following is an example response showing the case number.
 
@@ -254,7 +254,7 @@ Following is an example response showing the case number.
 
 ### Add file events to the case 
 
-To populate the new case with information about the alert, add file events from the alert to the case using the [/v1/cases/<CaseNumber>/fileevent/<EventID>](/api/#operation/addEventToCaseUsingPOST) API command. Repeat this action for all the file events from the alert.
+To populate the new case with information about the alert, add file events from the alert to the case using the [/v1/cases/\<CaseNumber\>/fileevent/\<EventID\>](/api/#operation/addEventToCaseUsingPOST) API command. Repeat this action for all the file events from the alert.
 
 ```bash
 curl -X POST '<RequestURL>/v1/cases/<CaseNumber>/fileevent/<EventID>' \
@@ -264,7 +264,7 @@ curl -X POST '<RequestURL>/v1/cases/<CaseNumber>/fileevent/<EventID>' \
 
 In the preceding example:
 
-* Replace <RequestURL> with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace <CaseNumber> with the case number shown in the response in the "[View filter alerts](#view-filter-alerts)" section above.
-* Replace <EventID> with an event ID shown in the response in the "[View alert details](#view-alert-details)" section above.
-* Replace <AuthToken> with the [authentication token](/intro-to-developer-portal/#authentication).
+* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
+* Replace `<CaseNumber>` with the case number shown in the response in the "[View filter alerts](#view-filter-alerts)" section above.
+* Replace `<EventID>` with an event ID shown in the response in the "[View alert details](#view-alert-details)" section above.
+* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
