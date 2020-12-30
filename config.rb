@@ -41,6 +41,7 @@ set :relative_links, true
 
 # Build Configuration
 configure :build do
+  set :ga_analytics_id, ENV['ga_analytics_id']
   # We do want to hash woff and woff2 as there's a bug where woff2 will use
   # woff asset hash which breaks things. Trying to use a combination of ignore and
   # rewrite_ignore does not work as it conflicts weirdly with relative_assets. Disabling
