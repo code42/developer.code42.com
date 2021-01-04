@@ -35,6 +35,9 @@ activate :autoprefixer do |config|
   config.inline   = true
 end
 
+# Don't pull in .md file(s) we want to stay raw
+ignore "api/getting_started.md"
+
 # Github pages require relative links
 activate :relative_assets
 set :relative_links, true
@@ -52,6 +55,11 @@ configure :build do
   activate :minify_css
   activate :minify_javascript
   # activate :gzip
+end
+
+# Copy raw .md file(s) to build dir
+after_build do |builder|
+  FileUtils.cp_r './source/api/getting_started.md', './build/api'
 end
 
 # Deploy Configuration
