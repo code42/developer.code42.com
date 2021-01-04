@@ -8,7 +8,7 @@
 * API resources themselves only work for you under these conditions:
   * You have a [product plan](https://support.code42.com/Terms_and_conditions/Code42_customer_support_resources/Code42_product_plans) that includes access to the Code42 API.
   * Your credentials rely on local authentication. SSO or authentication through any third-party provider will not work.
-  * Your [role provides permission](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Manage_user_roles) to access the data necessary to a given API resource. If your API calls fail because you do not have permission to use them, you will see reply messages like these: "HTTP 401 Unauthorized", "HTTP 401 Could not authenticate user", "Your Code42 product plan does not permit use of the Code42 API".
+  * Your [role provides permission](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Manage_user_roles) to access the data necessary to a given API resource. If your API calls fail because you do not have permission to use them, you will see reply messages like these: `HTTP 401 Unauthorized`, `HTTP 401 Could not authenticate user`, `Your Code42 product plan does not permit use of the Code42 API`.
   * The examples in the articles here use curl.
 
 ---
