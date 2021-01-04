@@ -32,7 +32,7 @@ Combine the [request URL](#request-urls) with the resource to get the full URL f
 For example, the [Auth API documentation](/api/#tag/Auth) shows the resource as `/v1/auth/`. To run the Auth API, combine the request URL with the resource in the API call:
 
 ```bash
-curl -X GET -u "username" -H "Accept: application/json" "https://api.us.code42.com/v1/auth/"
+curl -X GET -u "username" -H "Accept: application/json" https://api.us.code42.com/v1/auth/
 ```
 
 ## Authentication
@@ -42,13 +42,13 @@ Most API calls require an [authentication token](https://support.code42.com/Admi
 In the following example, replace `<Code42Username>` with a Code42 administrator username, and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance:
 
 ```bash
-curl -X GET -u "<Code42Username>" -H "Accept: application/json" "https://<RequestURL>/v1/auth/"
+curl -X GET -u "<Code42Username>" -H "Accept: application/json" <RequestURL>/v1/auth/
 ```
 
 If your organization uses [two-factor authentication for local users](https://support.code42.com/Administrator/Cloud/Configuring/Two-factor_authentication_for_local_users), you must also include a `totp-auth` header value containing the Time-based One-Time Password (TOTP) supplied by the Google Authenticator mobile app. The example below includes a TOTP value of 424242.
 
 ```bash
-curl -X GET -u "<Code42Username>" -H "totp-auth: 424242" "Accept: application/json" "https://<RequestURL>/v1/auth/"
+curl -X GET -u "<Code42Username>" -H "totp-auth: 424242" -H "Accept: application/json" <RequestURL>/v1/auth/
 ```
 
 A successful request returns an authentication token. For example:
@@ -69,7 +69,7 @@ Some APIs require that you provide the unique ID of your organization (or tenant
 In the following example, replace `<AuthToken>` with the [authentication token](#authentication) and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance:
 
 ```bash
-curl -X GET -H "Authorization: Bearer <AuthToken>" 'https://<RequestURL>/v1/customer'
+curl -X GET -H "Authorization: Bearer <AuthToken>" <RequestURL>/v1/customer
 ```
 
 A successful response returns the tenantUid:
@@ -106,7 +106,7 @@ You can also submit a `GET` request to the `/v1/User` API to get a userUID (see 
 In the following example, replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance, replace `<Code42Username>` with the Code42 username of the user whose userUID value you want to view, and replace `<AuthToken>` with the [authentication token](#authentication):
 
 ```bash
-curl -X GET 'https://<RequestURL>/v1/users?username=<Code42Username>' -H 'Authorization: Bearer <AuthToken>'
+curl -X GET -H "Authorization: Bearer <AuthToken>" <RequestURL>/v1/users?username=<Code42Username>
 ```
 
 A successful response lists information about that user, including the `userUID`.
