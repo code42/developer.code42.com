@@ -20,8 +20,8 @@ You review alert notifications and manage alert rules using the [Alerts menu of 
 * The examples in this article use [curl](https://curl.se/). For other tools that you can use, see [Tools for interacting with the Code42 API](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Tools_for_interacting_with_the_Code42_API).
 * To perform tasks in this article, you must:
   * Have the [Customer Cloud Admin](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin) or [Security Center User](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Security_Center_User) role.
-  * Know the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-  * Obtain an [authentication token](/intro-to-developer-portal/#authentication) and a [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+  * Know the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+  * Obtain an [authentication token](/api/#section/Getting-started/Authentication) and a [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * You can also use the Code42 command-line interface (CLI) to work with alert notifications and rules. For more information, see the [Code42 CLI documentation](https://clidocs.code42.com/en/latest/commands/alerts.html).
 
 ## Manage alert notifications
@@ -42,9 +42,9 @@ curl -X POST "<RequestURL>/v1/alerts/query-alerts" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<FilterType>` with the filter, `<OperatorValue>` with the operator option, and `<Criteria>` with the search term to use in the search. See [Filter syntax for the query-alerts API command](#filter-syntax-for-the-query-alerts-API-command) below for details.
 
 A successful response returns basic information about the alert notifications that match your search criteria, including the alert IDs of those notifications (look for the `"id":"value"` entry):
@@ -88,8 +88,8 @@ curl -X POST "<RequestURL>/v1/alerts/query-details" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
 * Replace `<SampleAlertID1>` and `<SampleAlertID2>` with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.
 
 A successful response returns full details about the alert notifications, including a list of files involved in the activity.
@@ -140,8 +140,8 @@ curl -X POST "<RequestURL>/v1/alerts/query-details-aggregate" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
 * Replace `<SampleAlertID>` with the alert ID.
 
 A successful response returns full details about the alert notification with all file activity aggregated into a single Observation value.
@@ -187,9 +187,9 @@ curl -X POST "<RequestURL>/v1/alerts/add-note" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<SampleAlertID>` with the alert ID.
 
 ### Dismiss alert notifications
@@ -206,9 +206,9 @@ curl -X POST "<RequestURL>/v1/alerts/update-state" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<SampleAlertID1>` and `<SampleAlertID2>` with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.
 * Be aware that any note you enter overwrites any existing note attached to the alert. If you want to dismiss the alert without adding a note (or want to preserve existing notes), delete the "note" term and sample text from the command.
 
@@ -226,9 +226,9 @@ curl -X POST "<RequestURL>/v1/alerts/update-state" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<SampleAlertID1>` and `<SampleAlertID2>` with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.
 * Be aware that any note you enter overwrites any existing note attached to the alert. If you want to reopen the alert without adding a note (or want to preserve existing notes), delete the "note" term and sample text from the command.
 
@@ -252,9 +252,9 @@ curl -X POST "<RequestURL>/v1/alerts/rules/query-rule-metadata" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<FilterType>` with the filter, `<OperatorValue>` with the operator option, and `<Criteria>` with the search term to use in the search. See [Filter syntax for the rules/query-rule-metadata API command](#filter-syntax-for-the-rules/query-rule-metadata-API-command) below for details.
 
 A successful response returns basic information about the alert notifications that match your search criteria, including the rule IDs of those notifications (look for the "observerRuleId":"value" entry):
@@ -288,7 +288,7 @@ A successful response returns basic information about the alert notifications th
 
 ### View an alert rule's user list
 
-Use the [/v1/alert-rules/query-users](/api/#operation/Rules_QueryUsersOnRule) API command to view a list of users that are either included in or excluded from a specific alert rule. The output from this command groups the user email addresses and cloud aliases in the rule's inclusion or exclusion list by the user ID associated with those details (which is generally the [userUID value in Code42](/intro-to-developer-portal/#get-useruid)). You can then use this user ID to remove specific email addresses and cloud aliases from a rule's inclusion or exclusion list as needed.
+Use the [/v1/alert-rules/query-users](/api/#operation/Rules_QueryUsersOnRule) API command to view a list of users that are either included in or excluded from a specific alert rule. The output from this command groups the user email addresses and cloud aliases in the rule's inclusion or exclusion list by the user ID associated with those details (which is generally the [userUID value in Code42](/api/#section/Getting-started/Get-userUIDs)). You can then use this user ID to remove specific email addresses and cloud aliases from a rule's inclusion or exclusion list as needed.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alert-rules/query-users" \
@@ -300,9 +300,9 @@ curl -X POST "<RequestURL>/v1/alert-rules/query-users" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<SampleRuleID>` with the ID of the alert rule for which you want to view users.
 
 A successful response lists the email addresses and cloud aliases of the users in the alert rule's inclusion or exclusion list, grouped by the user ID value (identified by the "userIdFromAuthority" label) associated with that information. The "usersToAlertOn" label identifies whether the rule applies only to the specified users in an inclusion list (`SPECIFIED_USERS`), to all users except the specified users in an exclusion list (`ALL_USERS_NOT_SPECIFIED`), or to all users (`ALL_USERS`).
@@ -325,7 +325,7 @@ A successful response lists the email addresses and cloud aliases of the users i
 }
 ```
 
-If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference)), the results note that the "userIdFromAuthority" value is null. To work with an alert rule's inclusion or exclusion list if the user ID value is null, use the [Alerts screens in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Review_Alerts) to manually add and remove users. Alternately, you can use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) using the [users' userUID in Code42](/intro-to-developer-portal/#get-useruid).
+If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference)), the results note that the "userIdFromAuthority" value is null. To work with an alert rule's inclusion or exclusion list if the user ID value is null, use the [Alerts screens in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Review_Alerts) to manually add and remove users. Alternately, you can use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) using the [users' userUID in Code42](/api/#section/Getting-started/Get-userUIDs).
 
 ```json
 {
@@ -360,11 +360,11 @@ curl -X POST "<RequestURL>/v1/alert-rules/add-users" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove users.
-* Replace `<SampleUserID>` with a value that uniquely identifies the user you want to add. As a best practice, use [the user's userUID in Code42](/intro-to-developer-portal/#get-useruid) for this value.
+* Replace `<SampleUserID>` with a value that uniquely identifies the user you want to add. As a best practice, use [the user's userUID in Code42](/api/#section/Getting-started/Get-userUIDs) for this value.
 * The `userAliasList` parameter identifies the list of email addresses or cloud aliases to associate with that `<SampleUserID>`. Replace `<SampleAlias1>` and `<SampleAlias2>` with the email addresses or cloud aliases you want to add to the rule's inclusion or exclusion list for that user ID.
   * If you want to enter only one email address or cloud alias, use this construction: `"userAliasList": [ "<SampleAlias1>" ]`
   * If you want to enter multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.
@@ -387,11 +387,11 @@ curl -X POST "<RequestURL>/v1/alert-rules/remove-users" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove users.
-* Replace `<SampleUserUID>` with the value that uniquely identifies the alias list of the user you want to remove (such as the [user's userUID in Code42](/intro-to-developer-portal/#get-useruid)).
+* Replace `<SampleUserUID>` with the value that uniquely identifies the alias list of the user you want to remove (such as the [user's userUID in Code42](/api/#section/Getting-started/Get-userUIDs)).
 
 **Note:** The [/v1/alert-rules/remove-users](/api/#operation/Rules_RemoveUsersFromRule) API command uses the `<SampleUserUID>` value to identify the user alias list to remove from the rule. This value may not always be supplied when users are added to rules, such as when users are added via the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference). Therefore, results from using [/v1/alert-rules/remove-users](/api/#operation/Rules_RemoveUsersFromRule) may not be what you expect: if no `<SampleUserUID>` value exists, the corresponding alias list cannot be identified and no users are removed. To resolve this issue using the API, use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) API command to remove all users from a rule's inclusion or exclusion list, then use the [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) API command to add user aliases that are associated with a `<SampleUserUID>` value.
 
@@ -402,7 +402,7 @@ Before removing user information from an alert rule's inclusion or exclusion lis
 **Note:** If there are no user IDs associated with the user information in an alert rule's inclusion or exclusion list, you cannot remove specific email addresses or cloud aliases from that list with this API command. Instead, you can use one of these methods to work with a rule's user information:
 
 * Use the [Alerts screen in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference) to manually add and remove users.
-* Use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) and [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) API commands to remove all user information and then re-add the email addresses and cloud aliases (associated with a [Code42 userUID](/intro-to-developer-portal/#get-useruid) value) that you want to keep.
+* Use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) and [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) API commands to remove all user information and then re-add the email addresses and cloud aliases (associated with a [Code42 userUID](/api/#section/Getting-started/Get-userUIDs) value) that you want to keep.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alert-rules/remove-user-aliases" \
@@ -414,9 +414,9 @@ curl -X POST "<RequestURL>/v1/alert-rules/remove-user-aliases" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove users.
 * Replace `<SampleUserID>` with the value that is associated with the email addresses or cloud aliases that you want to remove.
 * The userAliasList parameter identifies the email addresses or cloud aliases associated with that `<SampleUserID>` that should be removed from the list. Replace `<SampleAlias1>` and `<SampleAlias2>` with the email addresses or cloud aliases you want to remove from the rule's inclusion or exclusion list for that user ID.
@@ -439,9 +439,9 @@ curl -X POST "<RequestURL>/v1/alert-rules/remove-all-users" \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove all users.
 
 #### Filter syntax for the query-alerts API command

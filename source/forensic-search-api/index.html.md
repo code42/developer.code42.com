@@ -31,8 +31,8 @@ Following are the [File Events](/api/#tag/File-Events) API resources:
 
 * To perform tasks in this article, you must:
     * Have the [Customer Cloud Admin](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin) or [Security Center User](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Security_Center_User) role.
-    * Know the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-    * Obtain an [authentication token](/intro-to-developer-portal/#authentication) and a [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+    * Know the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+    * Obtain an [authentication token](/api/#section/Getting-started/Authentication) and a [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 
 ## Forensic Search API structure and syntax
 
@@ -106,8 +106,8 @@ This simple example demonstrates a search for all files on all devices with the 
 
 Use the following as a starting point for your own searches:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
 * Replace the content of the `-d` section with your specific search criteria.
 
 ```bash
