@@ -35,6 +35,8 @@ activate :autoprefixer do |config|
   config.inline   = true
 end
 
+ignore "javascripts/redoc.standalone.js"
+
 # Github pages require relative links
 activate :relative_assets
 set :relative_links, true
@@ -52,6 +54,10 @@ configure :build do
   activate :minify_css
   activate :minify_javascript
   # activate :gzip
+end
+
+after_build do |builder|
+    FileUtils.cp_r './source/javascripts/redoc.standalone.js', './build/javascripts'
 end
 
 # Deploy Configuration
