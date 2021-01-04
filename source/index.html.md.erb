@@ -1,5 +1,5 @@
 ---
-title: Home
+title: Home | Code42 Developer Portal
 
 search: true
 
@@ -9,36 +9,62 @@ hide_toc: true
 ---
 
 # Code42 Developer Portal
+Welcome to the Code42 Developer Portal! Here you will find resources to assist you in leveraging the Code42 platform for automation and scripting. Code42 offers a powerful set of tools you can use for everything from performing automated actions to integrating Code42 with your company's security applications. Depending on your use case and technology preferences, choose from the Code42 Command Line Interface (CLI), our Python SDK (py42), or the direct REST API.
 
-Welcome to the Code42 Developer Portal! Here you will find resources to assist you in leveraging
-the Code42 API for automation and scripting. The Code42 APIs are a powerful set of tools you can use
-for everything from performing automated actions to integrating Code42 with your company's security applications.
+For more common use cases like sending events or alerts to a SIEM, automating Departing Employee or High Risk membership from CSV input, or running saved searches on a schedule, the CLI is a quick and easy way to get up and running with minimal coding. For full control over your use case and integrating directly to other tools, our REST API is available for you to have fine-grained control over exactly what data needs to go where. Our Python SDK, py42, sits somewhere in the middle of these two, abstracting away the repetitive tasks of authentication, token refresh, paging, and other calls and allowing you to focus on the logic.
 
-Code42 also offers a [Python SDK](https://py42docs.code42.com) and [Command Line Interface](https://clidocs.code42.com) that you may also find useful for automating tasks.
-Be sure to explore the documentation for these tools in addition to the complete API documentation before deciding what
-tools are right for your use case.
+The CLI and py42 are both open source and hosted on Github, and Code42 API access is included with any licensed subscription of a Code42 product.
 
-<%= partial(:article_category_list, :locals => {
-     :category => "get-started",
-     :heading => "Get started",
-     :description => "Learn about the Code42 API." }) %>
+  | Command Line Interface | Py42 SDK | REST API
+--|------------------------|----------|---------
+Prerequisites | Familiarity with command-line tools | Python proficiency | Familiarity with REST principles
+Development Time | Less | Moderate | Moderate
+Flexibility of Use Cases | Less | Moderate | Most
 
-<%= partial(:article_category_list, :locals => {
-    :category => "detect-and-respond",
-    :heading => "Detect and respond to insider risks",
-    :description => "Integrate the Code42 API with your security team's applications to streamline your company's insider threat response." }) %>
+Be sure to check out our documented end-to-end use cases in the menu to get a better understanding of the technical details.
 
-<%= partial(:article_category_list, :locals => {
-    :category => "splunk",
-    :heading => "Integrate with Splunk",
-    :description => "Integrate the Code42 API with [Splunk](https://www.splunk.com/)." }) %>
+### About Code42 Incydr
+Code42’s Incydr platform helps security teams detect and respond to data risk caused by those inside your organization and is an integral part of an insider risk program. Not only can you define and set alerts on specific types of file movement and sharing activity, but the contextual lookback on a user’s activity provides a clearer picture of data movement. Whether you’re tracking the file movement of departing employees or high risk employees, or you’re surfacing insider risk indicators for all your users, Incydr provides the visibility that other tools simply can’t. 
 
-<%= partial(:article_category_list, :locals => {
-    :category => "use-cases",
-    :heading => "Use cases",
-    :description => "Leverage the Code42 API for specific use cases." }) %>
+## Code42 Command-line Interface
+[Getting Started Guide](https://py42docs.code42.com/en/stable/userguides/gettingstarted.html)<br>
+[Full Documentation](https://clidocs.code42.com)<br>
+[Github Repository](https://github.com/code42/code42cli)
 
-<%= partial(:article_category_list, :locals => {
-    :category => "other",
-    :heading => "Other uses",
-    :description => "Use the Code42 API to perform a variety of tasks." }) %>
+The Code42 command-line interface (CLI) offers a way to interact with your Code42 environment without using the Code42 console or making API calls directly. If you have familiarity with command line tools, Code42, and have Python and PyPI (pip) installed, you can get started quickly and easily with the Code42 CLI. 
+
+### Use Cases
+
+* Integrate with a SIEM
+* Automate managing users on the Departing Employee and High Risk lists
+* Automate legal hold management
+* Extract data from Code42, such as file events or alerts, and optionally send them to a syslog server
+
+Setting the CLI to run as a scheduled task in Windows or added to the crontab in Linux can quickly get automations up and running. We welcome submissions of code as well as ideas to our Github repository to be considered for a future update. 
+
+## Py42, the Code42 Python SDK
+[Getting Started Guide](#)<br>
+[Full Documentation](#)<br>
+[Github Repository](#)
+
+py42 is a Python SDK wrapper around the Code42 API that also provides several utility methods. py42 helps accelerate development of internal applications using the Code42 platform, while avoiding the overhead of session or authentication management, paging, and JSON parsing.
+
+### Use Cases
+
+* User, Device, and Org Management
+* Health Reporting
+* Backup and Restore Setting Management
+* File Search and Download by Hash
+
+## REST API
+[Full API Reference Documentation](/api/)<br>
+[Introduction to the Code42 API](#)
+
+
+The Code42 REST API is available for a wide variety of use cases, from performing automated actions to integrating with existing systems. The Code42 API is accessible through many tools, such as web browsers, scripting tools, and programming languages.
+
+### Use Cases
+
+* Directly having another tool provision or de-provision users
+* Complicated workflow applications where Python isn't available
+* Applications where direct control over options is a necessity
