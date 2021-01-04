@@ -15,8 +15,32 @@ the Code42 API for automation and scripting. The Code42 APIs are a powerful set 
 for everything from performing automated actions to integrating Code42 with your company's security applications.
 
 Code42 also offers a [Python SDK](https://py42docs.code42.com) and [Command Line Interface](https://clidocs.code42.com) that you may also find useful for automating tasks.
-Be sure to explore the documentation for these tools in addition to the complete API documentation before deciding what
-tools are right for your use case.
+
+## Code42 command-line interface (CLI)
+
+The Code42 CLI is the go-to tool for the most common Code42 automation tasks. It is designed to make it easy to quickly
+execute bulk tasks that would be tedious in the Code42 console (for example, adding 1,000 new users to the High Risk Employee
+list or to a Legal Hold matter). It allows you to easily integrate, archive, or simply explore the data available in Code42
+in ways the Code42 console doesn't allow. The CLI is an open-source Python project, installable via pip. Our team is open to
+feedback, feature requests, bug reports, and contributions on our [GitHub page](https://github.com/code42/code42cli).
+
+## py42
+
+If your automation needs are a bit more specific than the CLI can handle, and you're familiar with Python, then py42 is for
+you. Py42 is a user-friendly interface to all things Code42, supplying an API that is more low-level than the CLI, but works
+hard to abstract away the more tedious parts of working with the Code42 API directly. To make your experience automating
+Code42 workflows as hassle-free as possible, py42 provides session and auth-token management, automatic resolution of
+microservice and storage node host addresses, helper methods to handle pagination, and informative custom exceptions. You
+shouldn't have to be a Code42 product expert to be able to get the most out of the data Code42 provides, and py42 makes
+that a reality. Py42 is also open-source, and we’re open to suggestions and feedback on our [GitHub page](https://github.com/code42/py42).
+
+## Code42 API
+
+If automating in Python is not an option, our API can be used directly with whatever tooling or language you have. The
+Developer Portal is the central place for our API reference documentation, providing a single location to get the schema
+for all of our endpoints, regardless of where they live in the cloud. And our API gateway is quickly expanding to encompass
+all of our endpoints as well, so eventually you'll have a single place to interact with all things Code42 API.
+
 
 <%= partial(:article_category_list, :locals => {
      :category => "get-started",
