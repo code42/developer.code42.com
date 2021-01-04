@@ -52,7 +52,13 @@ configure :build do
   # out the following two lines has been known to help
   activate :minify_css
   activate :minify_javascript
+
+  ignore "javascripts/redoc.standalone.js"
   # activate :gzip
+end
+
+after_build do |builder|
+    FileUtils.cp_r './source/javascripts/redoc.standalone.js', './build/javascripts'
 end
 
 # Deploy Configuration
