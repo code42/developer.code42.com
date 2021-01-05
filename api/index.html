@@ -57,6 +57,7 @@
     <script src="../javascripts/redoc.standalone.js"></script>
     <script>
         var opts = {
+            expandResponses: "200",
             hideHostname: true,
             scrollYOffset: 68,
             hideSingleRequestSampleTab: true,
@@ -77,7 +78,13 @@
                 typography: {
                     headings: {
                         fontFamily: "'proxima-nova', sans-serif",
-                        fontWeight: "700"
+                        fontWeight: 700
+                    }
+                },
+                schema: {
+                    arrow: {
+                    size: '1.4em',
+                    color: '#1d8127'
                     }
                 }
             }
