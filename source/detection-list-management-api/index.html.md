@@ -20,8 +20,8 @@ You can manually manage users in the [High Risk Employees list](https://support.
 * The examples in this article use [curl](https://curl.se/). For other tools that you can use, see [Tools for interacting with the Code42 API](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Tools_for_interacting_with_the_Code42_API).
 * To perform tasks in this article, you must:
   * Have the [Customer Cloud Admin](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Roles_reference#Customer_Cloud_Admin) role.
-  * Know the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-  * Obtain an [authentication token](/intro-to-developer-portal/#authentication) and a [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+  * Know the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+  * Obtain an [authentication token](/api/#section/Getting-started/Authentication) and a [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
   * [Create a detection list profile](#create-a-detection-list-profile-for-a-user) for each user you want to manage in a detection list.
 * You can also use the Code42 command-line interface (CLI) to work with the High Risk Employees list or the Departing Employees list. For more information, see the [Code42 CLI documentation](https://clidocs.code42.com/en/latest/userguides/detectionlists.html).
 
@@ -48,9 +48,9 @@ curl -X POST <requestURL>/v1/detection-lists/user/create \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<Code42Username>` with the Code42 username. The username is assigned when the [user is added to Code42](https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually).
 * Replace `<UsernameInCloudService>` with the username of the user in a cloud service (such as Google Drive) if the username is different than the Code42 username.
 
@@ -90,9 +90,9 @@ curl -X POST <requestURL>/v1/detection-lists/user/getbyusername \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<Code42Username>` with the Code42 username of the user. The username is assigned when the [user is added to Code42](https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually).
 
 A successful response returns the user ID and other information:
@@ -124,9 +124,9 @@ curl -X POST <RequestURL>/v1/detection-lists/highriskemployee/add \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<ID>` with the user ID generated in the [Create a detection list profile for a user](#create-a-detection-list-profile-for-a-user) section. If you don't know a user's ID, you can [look it up using the Code42 username](#get-the-detection-list-profile-for-a-user).
 
 An excerpt of an example successful response:
@@ -165,9 +165,9 @@ curl -X POST <RequestURL>/v1/detection-lists/departingemployee/add \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<ID>` with the user ID generated in the [Create a detection list profile for a user](#create-a-detection-list-profile-for-a-user) section. If you don't know a user's ID, you can [look it up using the Code42 username](#get-the-detection-list-profile-for-a-user).
 * Replace `<Date>` with the user's departure date in year-month-day format, for example "2020-04-07".
 
@@ -208,9 +208,9 @@ curl -X POST <RequestURL>/v1/detection-lists/highriskemployee/search  \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 
 An excerpt of an example successful response:
 
@@ -304,9 +304,9 @@ curl -X POST <RequestURL>/v1/detection-lists/departingemployee/search  \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 
 An excerpt of an example successful response:
 
@@ -376,9 +376,9 @@ curl -X POST <RequestURL>/v1/detection-lists/highriskemployee/get \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<ID>` with the user ID generated in the [Create a detection list profile for a user](#create-a-detection-list-profile-for-a-user) section. If you don't know a user's ID, you [can look it up using the Code42 username](#get-the-detection-list-profile-for-a-user).
 
 An excerpt of an example successful response:
@@ -419,9 +419,9 @@ curl -X POST <RequestURL>/v1/detection-lists/highriskemployee/setalertstate \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 
 To disable alerts, run the command with the alertsEnabled value set to false.
 
@@ -444,9 +444,9 @@ curl -X POST <RequestURL>/v1/detection-lists/highriskemployee/remove \
 
 In the preceding example:
 
-* Replace `<RequestURL>` with the [request URL](/intro-to-developer-portal/#request-urls) of your Code42 cloud instance.
-* Replace `<AuthToken>` with the [authentication token](/intro-to-developer-portal/#authentication).
-* Replace `<SampleTenant>` with the [tenant ID](/intro-to-developer-portal/#get-a-tenant-id).
+* Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
+* Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
 * Replace `<ID>` with the user ID generated in the [Create a detection list profile for a user](#create-a-detection-list-profile-for-a-user) section. If you don't know a user's ID, you can [look it up using the Code42 username](#get-the-detection-list-profile-for-a-user).
 
 To verify that the user is removed, generate a listing of all users in the detection list as shown in [Obtain a listing of all users in a detection list](#obtain-a-listing-of-all-users-in-a-detection-list).
