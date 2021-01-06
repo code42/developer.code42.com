@@ -1,0 +1,14 @@
+Detection Lists allow you to place users into categories that make it possible to more closely monitor the file activity and manage the alerts of a particular group of users.
+
+Incydr currently offers two types of detection lists:
+
+- High Risk Employees list: A list of users whose actions or role in the company places them at a higher risk of compromising company data.
+- Departing Employees list: A list of users that the company knows are due to leave the company, either voluntarily (for example, seeking other employment, retirement) or involuntarily (for example, termination).
+
+Before a user can be added to a detection list, you must create a profile for the user with the [Create a detection lists profile](/api/#operation/UserControllerV2_Create) API (resource `/v1/detection-lists/user/create`).
+
+This profile includes information about the user specifically for use in both lists, such as notes about the employee’s departure or why they are high risk, risk factors, and cloud user names.
+
+Users that are in a detection list are also automatically associated with default [alert rules](/api/#tag/Rules) that apply to those lists.
+
+For more information on the detection list APIs, see our [Detection List Management API](/detection-list-management-api/#detection-list-management-api) guide.
