@@ -7,6 +7,56 @@
       "$ref": "./getting_started.rmd"
     }
   },
+  "tags": [
+    {
+      "name": "Rules",
+      "description": {
+        "$ref": "./api-descriptions/rules.rmd"
+      }
+    },
+    {
+      "name": "Alerts",
+      "description": {
+        "$ref": "./api-descriptions/alerts.rmd"
+      }
+    },
+    {
+      "name": "Cases",
+      "description": {
+        "$ref": "./api-descriptions/cases.rmd"
+      }
+    },
+    {
+      "name": "Auth",
+      "description": {
+        "$ref": "./api-descriptions/auth.rmd"
+      }
+    },
+    {
+      "name": "Customer",
+      "description": {
+        "$ref": "./api-descriptions/customer.rmd"
+      }
+    },
+    {
+      "name": "User",
+      "description": {
+        "$ref": "./api-descriptions/user.rmd"
+      }
+    },
+    {
+      "name": "Detection Lists",
+      "description": {
+        "$ref": "./api-descriptions/detection_lists.rmd"
+      }
+    },
+    {
+      "name": "File Events",
+      "description": {
+        "$ref": "./api-descriptions/file_events.rmd"
+      }
+    }
+  ],
   "produces": [
     "application/json"
   ],
@@ -4905,6 +4955,7 @@
             },
             "createdAt": {
               "type": "string",
+              "description": "When this item was created.",
               "format": "date-time"
             },
             "status": {
@@ -4912,13 +4963,13 @@
             },
             "cloudUsernames": {
               "type": "array",
+              "description": "Cloud usernames (aliases) for the user.",
               "example": [
                 "Sample.User1@samplecase.com",
                 "Sample.User1@gmail.com"
               ],
               "items": {
-                "type": "string",
-                "description": "Optional list of cloud usernames (aliases) for the user."
+                "type": "string"
               }
             },
             "managerUid": {
@@ -4989,7 +5040,7 @@
     },
     "ItemStatus-detection-lists": {
       "type": "string",
-      "description": "",
+      "description": "Status of the item.",
       "x-enumNames": [
         "Open",
         "Resolved"
@@ -5060,6 +5111,7 @@
             },
             "rollups": {
               "type": "array",
+              "description": "Departing employee rollup totals.",
               "items": {
                 "$ref": "#/definitions/DepartingEmployeeFilterRollupV2-detection-lists"
               }
@@ -5069,11 +5121,15 @@
             },
             "pgSize": {
               "type": "integer",
-              "format": "int32"
+              "description": "The number of items to return in one request.  Value must be between 0 and 100.",
+              "format": "int32",
+              "example": "20"
             },
             "pgNum": {
               "type": "integer",
-              "format": "int32"
+              "description": "The page number to return.",
+              "format": "int32",
+              "example": "1"
             },
             "srtKey": {
               "$ref": "#/definitions/DepartingEmployeeFilteredSortKeyV2-detection-lists"
@@ -5146,7 +5202,7 @@
     },
     "SortDirectionV2-detection-lists": {
       "type": "string",
-      "description": "Sorting direction",
+      "description": "Sorting direction.",
       "x-enumNames": [
         "Asc",
         "Desc"
@@ -5271,7 +5327,8 @@
           ],
           "properties": {
             "tenantId": {
-              "type": "string"
+              "type": "string",
+              "description": "The tenant for which to toggle alerts."
             },
             "alertsEnabled": {
               "type": "boolean",
@@ -5318,6 +5375,7 @@
           "properties": {
             "riskFactors": {
               "type": "array",
+              "description": "Optional list of risk factors for the user.",
               "items": {
                 "$ref": "#/definitions/RiskFactorV2-detection-lists"
               }
@@ -5431,6 +5489,7 @@
             },
             "rollups": {
               "type": "array",
+              "description": "High risk rollup totals.",
               "items": {
                 "$ref": "#/definitions/HighRiskFilterRollupV2-detection-lists"
               }
@@ -5446,11 +5505,15 @@
             },
             "pgSize": {
               "type": "integer",
-              "format": "int32"
+              "description": "The number of items to return in one request.  Value must be between 0 and 100.",
+              "format": "int32",
+              "example": "20"
             },
             "pgNum": {
               "type": "integer",
-              "format": "int32"
+              "description": "The page number to return.",
+              "format": "int32",
+              "example": "1"
             },
             "srtKey": {
               "$ref": "#/definitions/HighRiskSortKeyV2-detection-lists"
@@ -5581,7 +5644,8 @@
           ],
           "properties": {
             "tenantId": {
-              "type": "string"
+              "type": "string",
+              "description": "The tenant for which to toggle alerts."
             },
             "alertsEnabled": {
               "type": "boolean",
@@ -5653,13 +5717,13 @@
             },
             "cloudUsernames": {
               "type": "array",
+              "description": "Cloud usernames (aliases) for the user.",
               "example": [
                 "Sample.User1@samplecase.com",
                 "Sample.User1@gmail.com"
               ],
               "items": {
-                "type": "string",
-                "description": "Optional list of cloud usernames (aliases) for the user."
+                "type": "string"
               }
             },
             "managerUid": {
