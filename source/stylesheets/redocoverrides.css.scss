@@ -22,6 +22,13 @@ h2 { color: #333333 !important;}
 
 #redoc-container .api-content {
     margin-top: $top-nav-height;
+    a {
+        text-decoration: none;
+        color: #1976d2;
+        &:hover {
+          color: #1565c0;
+        }
+    }
 }
 
 #redoc-container .menu-content {
@@ -42,13 +49,3 @@ h2 { color: #333333 !important;}
         display: none;
     }
 }
-
-// Make "#" link targets appear under the top nav instead of being overlapped by it.
-
-div[data-section-id] {
-    padding: 0 !important;
-    @extend %anchor-offset;
-    &::before {
-        margin-bottom: 15px;
-    }
-};

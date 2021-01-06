@@ -1,0 +1,12 @@
+File events represent the creation, modification, deletion, and movement of files in your organization's working environment (both on endpoints and in supported cloud providers).
+
+When file activity occurs on an endpoint or in the cloud, Incydr records metadata about the event and retains it for 90 days. At any time in that 90-day window you can search for the file activity based on the metadata collected, such as (but not limited to):
+
+- the file name
+- who acted on the file
+- whether the file was shared in a cloud service or email
+- the device the file was stored on
+
+For a description of all information recorded in file event details, see our [support article](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Forensic_Search_reference_guide#File_event_details).
+
+For more information about using the File Events APIs, see our [Forensic Search API](/forensic-search-api/#forensic-search-api) article.
