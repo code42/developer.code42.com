@@ -1948,7 +1948,7 @@
         "tags": [
           "File Events"
         ],
-        "summary": "Search for file events.",
+        "summary": "Search for file events",
         "operationId": "searchEventsUsingPOST",
         "parameters": [
           {
@@ -1963,22 +1963,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Success: List of file events matching the query.",
             "schema": {
               "$ref": "#/definitions/FileEventResponse-file-events"
             }
           },
-          "201": {
-            "description": "Created"
+          "400": {
+            "description": "Bad Request: An invalid query was provided."
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
+          "500": {
+            "description": "Server Error: Search execution failed."
           }
         },
         "deprecated": false
@@ -1989,7 +1983,7 @@
         "tags": [
           "File Events"
         ],
-        "summary": "Search for file events and download the results as a CSV file.",
+        "summary": "Export search results as a CSV file",
         "operationId": "exportUsingPOST",
         "parameters": [
           {
@@ -2004,22 +1998,13 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Success: CSV of file events matching the query.",
             "schema": {
               "$ref": "#/definitions/StreamingResponseBody-file-events"
             }
           },
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
+          "400": {
+            "description": "Bad Request: An invalid query was provided."
           }
         },
         "deprecated": false
@@ -2030,7 +2015,8 @@
         "tags": [
           "File Events"
         ],
-        "summary": "Search file events and provide a group parameter to bucket results into unique values and approximate counts for each value. ",
+        "summary": "Group results by search term",
+        "description": "Search file events, providing a group parameter to bucket results into unique values and approximate counts for each value.",
         "operationId": "groupingUsingPOST",
         "parameters": [
           {
@@ -2045,22 +2031,16 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
+            "description": "Success: List of groups matching the query.",
             "schema": {
               "$ref": "#/definitions/GroupingResponse-file-events"
             }
           },
-          "201": {
-            "description": "Created"
+          "400": {
+            "description": "Bad Request: An invalid query was provided."
           },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
+          "500": {
+            "description": "Server Error: Search execution failed."
           }
         },
         "deprecated": false
@@ -6115,6 +6095,10 @@
       "properties": {
         "columns": {
           "type": "array",
+          "example": [
+            "fileName",
+            "filePath"
+          ],
           "description": "Which columns to include in the output. If none is provided, all available columnswill be output in an unspecified, not-guaranteed order.",
           "items": {
             "type": "string",
@@ -6259,7 +6243,8 @@
         },
         "groupClause": {
           "type": "string",
-          "description": "Grouping clause for any specified groups.  Default is 'AND'",
+          "example": "OR",
+          "description": "Grouping clause for any specified groups.  Default is `AND`.",
           "enum": [
             "AND",
             "OR"
@@ -6267,14 +6252,15 @@
         },
         "groups": {
           "type": "array",
-          "description": "One or more FilterGroups to be combined in a query",
+          "description": "One or more FilterGroups to be combined in a query.",
           "items": {
             "$ref": "#/definitions/FilterGroup-file-events"
           }
         },
         "srtDir": {
           "type": "string",
-          "description": "Sort direction.  Default is 'desc'",
+          "example": "asc",
+          "description": "Sort direction.  Default is `desc`.",
           "enum": [
             "asc",
             "desc"
@@ -6282,7 +6268,7 @@
         },
         "srtKey": {
           "type": "string",
-          "description": "Search term for sorting",
+          "description": "Search term for sorting.",
           "enum": [
             "eventId",
             "eventType",
@@ -6359,11 +6345,13 @@
       "properties": {
         "error": {
           "type": "string",
-          "description": "Error indicating why the field could not be determined"
+          "example": "Hash unavailable. Locked file.",
+          "description": "Error indicating why the field could not be determined."
         },
         "field": {
           "type": "string",
-          "description": "FileEvent field that could not be determined"
+          "example": "md5Checksum",
+          "description": "FileEvent field that could not be determined."
         }
       },
       "title": "FieldError"
@@ -6381,86 +6369,112 @@
       "properties": {
         "actor": {
           "type": "string",
-          "description": "Name of the user reported by the cloud provider for the user who performed this file activity"
+          "example": "casey@example.com",
+          "description": "Name of the user reported by the cloud provider for the user who performed this file activity."
         },
         "cloudDriveId": {
           "type": "string",
-          "description": "Unique identifier reported by the cloud provider for the drive containing the file at the time the event occurred"
+          "example": "RvBpZ48u2m",
+          "description": "Unique identifier reported by the cloud provider for the drive containing the file at the time the event occurred."
         },
         "createTimestamp": {
           "type": "string",
           "format": "date-time",
-          "description": "File creation timestamp as reported by the device's operating system in Coordinated Universal Time (UTC); available for Mac and Windows NTFS devices only"
+          "example": "2020-10-27T15:16:05.369203Z",
+          "description": "File creation timestamp as reported by the device's operating system in Coordinated Universal Time (UTC); available for Mac and Windows NTFS devices only."
         },
         "destinationCategory": {
           "type": "string",
+          "example": "Social Media",
           "description": "General category of where data was sent for a file exposure event. For example: Cloud Storage, Email, Social Media."
         },
         "destinationName": {
           "type": "string",
+          "example": "LinkedIn",
           "description": "Specific target of where data was sent for a file exposure event. For example: Google Drive, Outlook, Slack."
         },
         "detectionSourceAlias": {
           "type": "string",
-          "description": "Name provided by a Code42 Customer Cloud Administrator when a Cloud Connector is initially configured"
+          "example": "R&D OneDrive",
+          "description": "Name provided by a Code42 Customer Cloud Administrator when a Cloud Connector is initially configured."
         },
         "deviceUid": {
           "type": "string",
+          "example": 24681,
           "description": "Unique identifier for the device. Null if the file event occurred on a cloud provider."
         },
         "deviceUserName": {
           "type": "string",
+          "example": "cody@example.com",
           "description": "The Code42 username used to sign in to the Code42 app on the device. Null if the file event occurred on a cloud provider."
         },
         "directoryId": {
           "type": "array",
-          "description": "Unique identifiers of the parent drives that contain the file; searching on directoryId will return events for all of the files contained in the parent drive",
+          "example": [
+            "1234",
+            "56d78"
+          ],
+          "description": "Unique identifiers of the parent drives that contain the file; searching on directoryId will return events for all of the files contained in the parent drive.",
           "items": {
             "type": "string"
           }
         },
         "domainName": {
           "type": "string",
-          "description": "Fully qualified domain name (FQDN) for the user's device at the time the event is recorded.  If the device is unable to resolve the domain name of the host, it reports the IP address of the host"
+          "example": "localhost",
+          "description": "Fully qualified domain name (FQDN) for the user's device at the time the event is recorded.  If the device is unable to resolve the domain name of the host, it reports the IP address of the host."
         },
         "emailDlpPolicyNames": {
           "type": "array",
-          "description": "The name of the DLP policy that matched on the email's file attachment",
+          "example": [
+            "External recipient"
+          ],
+          "description": "The name of the DLP policy that matched on the email's file attachment.",
           "items": {
             "type": "string"
           }
         },
         "emailFrom": {
           "type": "string",
-          "description": "The owner of the inbox for the email that matched on a DLP rule"
+          "example": "ari@example.com",
+          "description": "The owner of the email account that matched on a DLP rule."
         },
         "emailRecipients": {
           "type": "array",
-          "description": "The CC and BCC recipients included on the email that matched on a DLP rule",
+          "example": [
+            "cody@example.com",
+            "theboss@example.com"
+          ],
+          "description": "The CC and BCC recipients included on the email that matched on a DLP rule.",
           "items": {
             "type": "string"
           }
         },
         "emailSender": {
           "type": "string",
-          "description": "The individual who sent the email. This is often, but not always, the owner of the inbox for the email that matched on a DLP rule."
+          "example": "ari@example.com",
+          "description": "The individual who sent the email. This is often, but not always, the owner of the email account that matched on a DLP rule."
         },
         "emailSubject": {
           "type": "string",
-          "description": "The subject of the email that matched on a DLP rule"
+          "example": "Important business documents",
+          "description": "The subject of the email that matched on a DLP rule."
         },
         "eventId": {
           "type": "string",
-          "description": "The unique identifier for the event"
+          "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
+          "description": "The unique identifier for the event."
         },
         "eventTimestamp": {
           "type": "string",
           "format": "date-time",
-          "description": "Date and time that the Code42 service on the device detected an event; based on the device’s system clock and reported in Coordinated Universal Time (UTC)"
+          "example": "2020-10-27T15:16:05.369203Z",
+          "description": "Date and time that the Code42 service on the device detected an event; based on the device’s system clock and reported in Coordinated Universal Time (UTC)."
         },
         "eventType": {
           "type": "string",
-          "description": "Indicates the type of file event observed; only CREATED, MODIFIED, and DELETED are searchable",
+          "example": "MODIFIED",
+          "description": "Indicates the type of file event observed.",
           "enum": [
             "CREATED",
             "MODIFIED",
@@ -6479,21 +6493,31 @@
         },
         "exposure": {
           "type": "array",
-          "description": "Lists indicators that the data may be exposed",
+          "example": [
+            "CloudStorage"
+          ],
+          "description": "Lists indicators that the data may be exposed. Default is `[]`.",
           "items": {
             "type": "string"
           }
         },
         "fieldErrors": {
           "type": "array",
-          "description": "List fields with errors indicating why they could not be determined",
+          "example": [
+            {
+              "field": "md5Checksum",
+              "error": "Hash unavailable. Locked file."
+            }
+          ],
+          "description": "List fields with errors indicating why they could not be determined.",
           "items": {
             "$ref": "#/definitions/FieldError-file-events"
           }
         },
         "fileCategory": {
           "type": "string",
-          "description": "A categorization of the file that is inferred from MIME type",
+          "example": "AUDIO",
+          "description": "A categorization of the file that is inferred from MIME type.",
           "enum": [
             "UNCATEGORIZED",
             "AUDIO",
@@ -6512,36 +6536,44 @@
         },
         "fileCategoryByBytes": {
           "type": "string",
-          "description": "A categorization of the file based on its contents"
+          "example": "IMAGE",
+          "description": "A categorization of the file based on its contents."
         },
         "fileCategoryByExtension": {
           "type": "string",
-          "description": "A categorization of the file based on its extension"
+          "example": "DOCUMENT",
+          "description": "A categorization of the file based on its extension."
         },
         "fileId": {
           "type": "string",
-          "description": "Unique identifier reported by the cloud provider for the file associated with the event"
+          "example": "PUL5zWLRrdudiJZ1OCWw",
+          "description": "Unique identifier reported by the cloud provider for the file associated with the event."
         },
         "fileName": {
           "type": "string",
-          "description": "The name of the file, including the file extension"
+          "example": "ReadMe.md",
+          "description": "The name of the file, including the file extension."
         },
         "fileOwner": {
           "type": "string",
-          "description": "The name of the user who owns the file as reported by the device's file system"
+          "example": "ari.example",
+          "description": "The name of the user who owns the file as reported by the device's file system."
         },
         "filePath": {
           "type": "string",
-          "description": "The file location on the user's device; a path forward or backslash should be included at the end of the filepath. Possibly null if the file event occurred on a cloud provider."
+          "example": "/Users/alix/Documents/",
+          "description": "The file location on the user's device; a forward or backslash must be included at the end of the filepath. Possibly null if the file event occurred on a cloud provider."
         },
         "fileSize": {
           "type": "integer",
           "format": "int64",
-          "description": "Size of the file"
+          "example": 256,
+          "description": "Size of the file in bytes."
         },
         "fileType": {
           "type": "string",
-          "description": "The type of file detected; only FILE types are searchable",
+          "example": "FILE",
+          "description": "The type of file detected; only FILE types are searchable.",
           "enum": [
             "UNKNOWN",
             "FILE",
@@ -6558,73 +6590,89 @@
         "insertionTimestamp": {
           "type": "string",
           "format": "date-time",
-          "description": "Date and time that the event was received for indexing in Forensic Search; timestamp is based on the Code42 server system clock and reported in Coordinated Universal Time (UTC)"
+          "example": "2020-10-27T15:16:05.369203Z",
+          "description": "Date and time that the event was received for indexing by Code42; timestamp is based on the Code42 server system clock and reported in Coordinated Universal Time (UTC)."
         },
         "md5Checksum": {
           "type": "string",
-          "description": "The MD5 hash of the file contents"
+          "example": "a162591e78eb2c816a28907d3ac020f9",
+          "description": "The MD5 hash of the file contents."
         },
         "mimeTypeByBytes": {
           "type": "string",
-          "description": "The MIME type of the file based on its contents"
+          "example": "text/csv",
+          "description": "The MIME type of the file based on its contents."
         },
         "mimeTypeByExtension": {
           "type": "string",
-          "description": "The MIME type of the file based on its extension"
+          "example": "audio/vorbis",
+          "description": "The MIME type of the file based on its extension."
         },
         "mimeTypeMismatch": {
           "type": "boolean",
-          "description": "Indicates whether or not the MIME type of the file based on its contents does not match the MIME type based on its extension and that this mismatch is unexpected"
+          "example": true,
+          "description": "Indicates whether or not the MIME type of the file based on its contents does not match the MIME type based on its extension and that this mismatch is unexpected."
         },
         "modifyTimestamp": {
           "type": "string",
           "format": "date-time",
-          "description": "File modification timestamp as reported by the device's operating system.  This only indicates changes to file contents.  Changes to file permissions, file owner, or other metadata are not reflected in this timestamp.  Date is reported in Coordinated Universal Time (UTC)"
+          "example": "2020-10-27T15:16:05.369203Z",
+          "description": "File modification timestamp as reported by the device's operating system.  This only indicates changes to file contents.  Changes to file permissions, file owner, or other metadata are not reflected in this timestamp.  Date is reported in Coordinated Universal Time (UTC)."
         },
         "operatingSystemUser": {
           "type": "string",
+          "example": "ari.example",
           "description": "The username logged in to the device when the file activity was observed, as reported by the device’s operating system."
         },
         "osHostName": {
           "type": "string",
-          "description": "The name reported by the device's operating system.  This may be different than the device name in the Code42 administration console"
+          "example": "Mari's MacBook",
+          "description": "The name reported by the device's operating system.  This may be different than the device name in the Code42 console."
         },
         "outsideActiveHours": {
           "type": "boolean",
-          "description": "Indicates whether or not this event occurred outside of the user's typical active hours using data modeling from the this user's prior activity"
+          "example": false,
+          "description": "Indicates whether or not this event occurred outside of the user's typical active hours using data modeling from the this user's prior activity."
         },
         "printJobName": {
           "type": "string",
-          "description": "For print events, the name of the print job, as reported by the user's device"
-        },
-        "printedFilesBackupPath": {
-          "type": "string"
+          "example": "printer.exe",
+          "description": "For print events, the name of the print job, as reported by the user's device."
         },
         "printerName": {
           "type": "string",
-          "description": "For print events, the name of the printer the job was sent to"
+          "example": "OfficeJet",
+          "description": "For print events, the name of the printer the job was sent to."
         },
         "privateIpAddresses": {
           "type": "array",
-          "description": "The IP address of the user's device on your internal network, including Network interfaces, Virtual Network Interface controllers (NICs), and Loopback/non-routable addresses",
+          "example": [
+            "127.0.0.1",
+            "127.0.0.2"
+          ],
+          "description": "The IP address of the user's device on your internal network, including Network interfaces, Virtual Network Interface controllers (NICs), and Loopback/non-routable addresses.",
           "items": {
             "type": "string"
           }
         },
         "processName": {
           "type": "string",
-          "description": "For events generated when a file is read in a browser or other app, describes the specific operating system process"
+          "example": "bash",
+          "description": "For events generated when a file is read in a browser or other app, the name of the process that accessed the file, as reported by the device’s operating system."
         },
         "processOwner": {
           "type": "string",
-          "description": "For events generated when a file is read in a browser or other app, describes the operating system owner for the process"
+          "example": "root",
+          "description": "For events generated when a file is read in a browser or other app, the username of the process owner, as reported by the device’s operating system."
         },
         "publicIpAddress": {
           "type": "string",
-          "description": "The external IP address of the user's device"
+          "example": "127.0.0.1",
+          "description": "The external IP address of the user's device."
         },
         "remoteActivity": {
           "type": "string",
+          "example": "UNKNOWN",
           "description": "For endpoint events, compares the IP address of the file event to your defined list of addresses in the Data Preferences section of the Code42 console. If the IP address from the file event does not match, \"remote\" is true. If the IP address does match, \"remote\" is false.",
           "enum": [
             "TRUE",
@@ -6634,23 +6682,31 @@
         },
         "removableMediaBusType": {
           "type": "string",
-          "description": "For events detected on removable media, describes communication system used to transfer data between the host and the removable device"
+          "example": "USB 3.0 Bus",
+          "description": "For events detected on removable media, indicates the communication system used to transfer data between the host and the removable device."
         },
         "removableMediaCapacity": {
           "type": "integer",
           "format": "int64",
-          "description": "For events detected on removable media, describes the capacity of the removable device in bytes"
+          "example": 15631122432,
+          "description": "For events detected on removable media, the capacity of the removable device in bytes."
         },
         "removableMediaMediaName": {
           "type": "string",
+          "example": "Cruzer Blade",
           "description": "For events detected on removable media, the media name of the device, as reported by the vendor/device. This is usually very similar to the productName, but can vary based on the type of device. For example, if the device is a hard drive in a USB enclosure, this may be the combination of the drive model and the enclosure model.\nThis value is not provided by all devices, so it may be null in some cases."
         },
         "removableMediaName": {
           "type": "string",
-          "description": "For events detected on removable media, describes the name of the removable device"
+          "example": "JUMPDRIVE",
+          "description": "For events detected on removable media, the name of the removable device."
         },
         "removableMediaPartitionId": {
           "type": "array",
+          "example": [
+            "disk0s2",
+            "disk0s3"
+          ],
           "description": "For events detected on removable media, a unique identifier assigned to the volume/partition when it was formatted. Windows devices refer to this as the VolumeGuid. On Mac devices, this is the Disk / Partition UUID, which appears when running the Terminal command diskUtil info.",
           "items": {
             "type": "string"
@@ -6658,14 +6714,19 @@
         },
         "removableMediaSerialNumber": {
           "type": "string",
-          "description": "For events detected on removable media, describes the serial number of the removable device"
+          "example": "4C531001550407108465",
+          "description": "For events detected on removable media, the serial number of the removable device."
         },
         "removableMediaVendor": {
           "type": "string",
-          "description": "For events detected on removable media, describes the vendor of the removable device"
+          "example": "SanDisk",
+          "description": "For events detected on removable media, the vendor of the removable device."
         },
         "removableMediaVolumeName": {
           "type": "array",
+          "example": [
+            "MY_FILES"
+          ],
           "description": "For events detected on removable media, the name assigned to the volume when it was formatted, as reported by the device's operating system. This is also frequently called the \"partition\" name.",
           "items": {
             "type": "string"
@@ -6673,10 +6734,12 @@
         },
         "sha256Checksum": {
           "type": "string",
-          "description": "The SHA256 hash of the file contents"
+          "example": "ded96d69c63754472efc4aa86fed68d4e17784b38089851cfa84e699e48b4155",
+          "description": "The SHA256 hash of the file contents."
         },
         "shared": {
           "type": "string",
+          "example": "TRUE",
           "description": "Indicates the shared status as reported by the cloud provider at the time the event occurred. A shared file indicates that one or more users have been granted explicit access to the file. It does not capture whether or not a link to the file has been shared.",
           "enum": [
             "TRUE",
@@ -6684,29 +6747,39 @@
           ]
         },
         "sharedWith": {
-          "type": "array",
-          "description": "A list of users who have been granted explicit rights to the file at the time the event occurred",
-          "items": {
-            "$ref": "#/definitions/SharedWithUser-file-events"
-          }
+          "example": [
+            {
+              "cloudUsername": "alix@example.com"
+            }
+          ],
+          "description": "A list of users who have been granted explicit rights to the file at the time the event occurred.",
+          "$ref": "#/definitions/SharedWithUser-file-events"
         },
         "sharingTypeAdded": {
           "type": "array",
-          "description": "Public sharing types that were added by this event",
+          "example": [
+            "RemovableMedia"
+          ],
+          "description": "Public sharing types that were added by this event.",
           "items": {
             "type": "string"
           }
         },
         "source": {
           "type": "string",
-          "description": "Data source for a file event"
+          "example": "OneDrive",
+          "description": "Data source for a file event."
         },
         "syncDestination": {
           "type": "string",
-          "description": "For events detected within a cloud storage sync destination on a device, describes the cloud storage vendor"
+          "example": "Dropbox",
+          "description": "For events detected within a cloud storage sync destination on a device, the name of the cloud storage vendor."
         },
         "syncDestinationUsername": {
           "type": "array",
+          "example": [
+            "ari@example.com"
+          ],
           "description": "For events detected within a cloud storage sync destination on a device, lists the usernames logged into the cloud storage provider when the file activity was observed.",
           "items": {
             "type": "string"
@@ -6714,23 +6787,30 @@
         },
         "tabUrl": {
           "type": "string",
-          "description": "For events generated when a file is read in a browser or other app, the URL that had activity at the time of the event"
+          "example": "https://example.com",
+          "description": "For events generated when a file is read in a browser or other app, the URL that had activity at the time of the event."
         },
         "trusted": {
           "type": "boolean",
-          "description": "Indicates whether or not the file activity is trusted based on your Data Preferences settings"
+          "example": true,
+          "description": "Indicates whether or not the file activity is trusted based on your Data Preferences settings."
         },
         "url": {
           "type": "string",
-          "description": "URL reported by the cloud provider at the time the event occurred"
+          "example": "https://example.com",
+          "description": "URL reported by the cloud provider at the time the event occurred."
         },
         "userUid": {
           "type": "string",
+          "example": 1138,
           "description": "Unique identifier for the user of the Code42 app on the device. Null if the file event occurred on a cloud provider."
         },
         "windowTitle": {
           "type": "array",
-          "description": "For events generated when a file is read in a browser or other app, the tab or window title(s) that had activity at the time of the event",
+          "example": [
+            "Inbox - cody@example.com"
+          ],
+          "description": "For events generated when a file is read in a browser or other app, the tab or window title(s) that had activity at the time of the event.",
           "items": {
             "type": "string"
           }
@@ -6743,13 +6823,14 @@
       "properties": {
         "fileEvents": {
           "type": "array",
-          "description": "List of file events in the response",
+          "description": "List of file events in the response.",
           "items": {
             "$ref": "#/definitions/FileEvent-file-events"
           }
         },
         "nextPgToken": {
           "type": "string",
+          "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
           "description": "Use as the pgToken value in another request to indicate the starting point for additional page results. nextPgToken is null if there are no more results or if pgToken was not supplied."
         },
         "problems": {
@@ -6762,7 +6843,8 @@
         "totalCount": {
           "type": "integer",
           "format": "int64",
-          "description": "Total number of file events in the response"
+          "example": 42,
+          "description": "Total number of file events in the response."
         }
       },
       "title": "FileEventResponse"
@@ -6773,13 +6855,10 @@
         "filters"
       ],
       "properties": {
-        "display": {
-          "type": "string",
-          "description": "Display information that has no effect on search execution"
-        },
         "filterClause": {
           "type": "string",
-          "description": "Grouping clause for filters.  Default is 'AND'",
+          "example": "AND",
+          "description": "Grouping clause for filters.  Default is `AND`.",
           "enum": [
             "AND",
             "OR"
@@ -6787,7 +6866,7 @@
         },
         "filters": {
           "type": "array",
-          "description": "One or more SearchFilters to be combined in a query",
+          "description": "One or more SearchFilters to be combined in a query.",
           "items": {
             "$ref": "#/definitions/SearchFilter-file-events"
           }
@@ -6801,10 +6880,12 @@
         "docCount": {
           "type": "integer",
           "format": "int64",
+          "example": 3,
           "description": "The approximate count of hits matching this value for your query."
         },
         "value": {
           "type": "string",
+          "example": "readme.md",
           "description": "The value of the term for this group."
         }
       },
@@ -6818,7 +6899,8 @@
       "properties": {
         "groupClause": {
           "type": "string",
-          "description": "Grouping clause for any specified groups.  Default is 'AND'",
+          "example": "AND",
+          "description": "Grouping clause for any specified groups.  Default is `AND`.",
           "enum": [
             "AND",
             "OR"
@@ -6826,6 +6908,7 @@
         },
         "groupingTerm": {
           "type": "string",
+          "example": "eventType",
           "description": "The search term to use to form the groups.",
           "enum": [
             "eventId",
@@ -6897,7 +6980,7 @@
         },
         "groups": {
           "type": "array",
-          "description": "One or more FilterGroups to be combined in a query",
+          "description": "One or more FilterGroups to be combined in a query.",
           "items": {
             "$ref": "#/definitions/FilterGroup-file-events"
           }
@@ -6932,16 +7015,18 @@
       ],
       "properties": {
         "badFilter": {
-          "description": "The search filter that caused this problem",
+          "description": "The search filter that caused this problem.",
           "$ref": "#/definitions/SearchFilter-file-events"
         },
         "description": {
           "type": "string",
-          "description": "Additional description of the problem"
+          "example": "Request timed out.  Refine your filter criteria and try again.",
+          "description": "Additional description of the problem."
         },
         "type": {
           "type": "string",
-          "description": "The type of problem that occured",
+          "example": "SEARCH_FAILED",
+          "description": "The type of problem that occured.",
           "enum": [
             "ILLEGAL_VALUE",
             "ILLEGAL_OPERATOR",
@@ -6970,13 +7055,10 @@
         "value"
       ],
       "properties": {
-        "display": {
-          "type": "string",
-          "description": "Display information that has no effect on search execution"
-        },
         "operator": {
           "type": "string",
-          "description": "The type of match to perform.  Default value is 'IS'",
+          "example": "IS_NOT",
+          "description": "The type of match to perform.  Default value is `IS`.",
           "enum": [
             "IS",
             "IS_NOT",
@@ -6992,7 +7074,8 @@
         },
         "term": {
           "type": "string",
-          "description": "The field to match.  Default value is 'deviceUserName'",
+          "example": "actor",
+          "description": "The field to match.  Default value is `deviceUserName`.",
           "enum": [
             "eventId",
             "eventType",
@@ -7063,7 +7146,8 @@
         },
         "value": {
           "type": "string",
-          "description": "The input for the search"
+          "example": "ari@example.com",
+          "description": "The input for the search."
         }
       },
       "title": "SearchFilter"
@@ -7147,7 +7231,8 @@
         },
         "groupClause": {
           "type": "string",
-          "description": "Grouping clause for any specified groups.  Default is 'AND'",
+          "example": "OR",
+          "description": "Grouping clause for any specified groups.  Default is `AND`.",
           "enum": [
             "AND",
             "OR"
@@ -7155,7 +7240,7 @@
         },
         "groups": {
           "type": "array",
-          "description": "One or more FilterGroups to be combined in a query",
+          "description": "One or more FilterGroups to be combined in a query.",
           "items": {
             "$ref": "#/definitions/FilterGroup-file-events"
           }
@@ -7170,15 +7255,17 @@
           "type": "integer",
           "format": "int32",
           "example": 100,
-          "description": "Max number of results to return for a page.  Default is 100"
+          "description": "Max number of results to return for a page.  Default is 100."
         },
         "pgToken": {
           "type": "string",
+          "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
           "description": "A token used to indicate the starting point for additional page results. Typically, you obtain the pgToken value from the nextPgToken provided in a previous request. A pgToken is the only way to page past 10,000 results. If pgToken is supplied, pgNum is ignored. Provide empty string to retrieve the 'first page of results and null to use the pgNum value.  Default is null."
         },
         "srtDir": {
           "type": "string",
-          "description": "Sort direction.  Default is 'desc'",
+          "example": "asc",
+          "description": "Sort direction.  Default is `desc`.",
           "enum": [
             "asc",
             "desc"
@@ -7186,7 +7273,8 @@
         },
         "srtKey": {
           "type": "string",
-          "description": "Search term for sorting",
+          "example": "eventId",
+          "description": "Search term for sorting.",
           "enum": [
             "eventId",
             "eventType",
@@ -7260,12 +7348,11 @@
     },
     "SharedWithUser-file-events": {
       "type": "object",
-      "required": [
-        "cloudUsername"
-      ],
       "properties": {
         "cloudUsername": {
-          "type": "string"
+          "type": "string",
+          "example": "alix@example.com",
+          "description": "Name of the user reported by the cloud provider with whom the file was shared."
         }
       },
       "title": "SharedWithUser"
