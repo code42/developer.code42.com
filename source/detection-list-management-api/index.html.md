@@ -12,7 +12,7 @@ code_clipboard: true
 
 ## Overview
 
-You can manually manage users in the [High Risk Employees list](https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference) and [Departing Employees list](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Departing_Employees_reference) from the Code42 console. To automate the process of managing users in these detection lists, you can write scripts that use the [High Risk Employee APIs](/api/#tag/High-Risk-Employee) and [Departing Employee APIs](/api/#tag/Departing-Employee). This article provides an introduction to the APIs.
+You can manually manage users in the [High Risk Employees list](https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference) and [Departing Employees list](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Departing_Employees_reference) from the Code42 console. To automate the process of managing users in these detection lists, you can write scripts that use the [High Risk Employee APIs](/api/#operation/HighRiskEmployeeControllerV2_AddEmployee) and [Departing Employee APIs](/api/#operation/DepartingEmployeeControllerV2_AddEmployee). This article provides an introduction to the APIs.
 
 ## Considerations
 
