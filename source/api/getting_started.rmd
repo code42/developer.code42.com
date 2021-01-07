@@ -49,22 +49,13 @@ In the following example, replace `<AuthToken>` with the [authentication token](
 curl -X GET -H "Authorization: Bearer <AuthToken>" <RequestURL>/v1/customer
 ```
 
-A successful response returns the tenantUid:
+A successful response returns the tenantId:
 
 ```json
 {
-  "data": {
-    "name": "My Org",
-    "registrationKey": "4s42ukut7pwpwr4c",
-    "deploymentModel": "PUBLIC",
-    "maintenanceMode": false,
-    "tenantUid": "42b42dfe-4242-4242-428a-8a1dfd352f2f",
-    "masterServicesAgreement": {
-      "accepted": true,
-      "acceptanceRequired": false
-    }
-  },
-  "error": null,
-  "warnings": null
+{
+    "name": "Example customer",
+    "registrationKey": "8u42pwskc42p42hmrj",
+    "tenantId": "c4b5e830-4242-4242-4242-345664cfbb33"
 }
 ```
