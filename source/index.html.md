@@ -57,6 +57,6 @@ The Code42 command-line interface (CLI) offers a way to interact with your Code4
 * [Automate legal hold user management](https://clidocs.code42.com/en/latest/userguides/legalhold.html)
 * [Extract events from Code42, and optionally send them to a syslog server or SIEM](https://clidocs.code42.com/en/latest/userguides/siemexample.html)
 
-Setting the CLI to run as a scheduled task in Windows or added to the crontab in Linux can quickly get automations up and running. We welcome submissions of code as well as ideas to our [GithHub repository](https://github.com/code42/code42cli) to be considered for a future update.
+Setting the CLI to run as a scheduled task in Windows or added to the crontab in Linux can quickly get automations up and running. We welcome submissions of code as well as ideas to our [GitHub repository](https://github.com/code42/code42cli) to be considered for a future update.
 
 For more information, see the full [Code42 CLI documentation](https://clidocs.code42.com).
