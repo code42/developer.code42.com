@@ -31,7 +31,7 @@ You can manually manage users in the [High Risk Employees list](https://support.
 
 Before you can manage a Code42 user with the detection management list APIs, you must create a detection list profile for the user with the [/v1/detection-lists/user/create](/api/#operation/UserControllerV2_Create) API. This profile is for an existing Code42 user and contains the details needed to manage that user on the High Risk Employees and Departing Employees lists. It includes information about the user specifically for use in detection lists, such as notes, risk attributes, and cloud user names. When you add the user to any detection list, the profile accompanies them.
 
-When you create a detection list profile for a user, a user ID is generated. You must submit this user ID whenever you run any subsequent APIs to manage the user in a detection list.
+When you create a detection list profile for a user, the information is associated with the user's ID. You must submit the user's ID whenever you run any subsequent APIs to manage the user in a detection list.
 
 Keep in mind that a detection list profile is created automatically when you add Code42 users to detection lists using the Code42 console. You only have to create a detection list profile for a user if one has not been created yet.
 
@@ -79,7 +79,7 @@ An excerpt of an example successful response:
 
 If you need to get a user's detection list profile to find information about the user, use the [/v1/detection-lists/user/getbyusername](/api/#operation/UserControllerV2_GetByUsername) API or [/v1/detection-lists/user/getbyid](/api/#operation/UserControllerV2_GetByUserId) API.
 
-For example, if you don't know a user's ID as assigned in the profile, you can find it by running the [/v1/detection-lists/user/getbyusername](/api/#operation/UserControllerV2_GetByUsername) API command as shown in the following example.
+For example, if you don't know a user's ID, you can find it by running the [/v1/detection-lists/user/getbyusername](/api/#operation/UserControllerV2_GetByUsername) API command as shown in the following example.
 
 ```bash
 curl -X POST <requestURL>/v1/detection-lists/user/getbyusername \
@@ -127,7 +127,7 @@ In the preceding example:
 * Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
-* Replace `<ID>` with the user ID generated in the [Create a detection list profile for a user](#create-a-detection-list-profile-for-a-user) section. If you don't know a user's ID, you can [look it up using the Code42 username](#get-the-detection-list-profile-for-a-user).
+* Replace `<ID>` with the user's ID.
 
 An excerpt of an example successful response:
 
@@ -168,7 +168,7 @@ In the preceding example:
 * Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
-* Replace `<ID>` with the user ID generated in the [Create a detection list profile for a user](#create-a-detection-list-profile-for-a-user) section. If you don't know a user's ID, you can [look it up using the Code42 username](#get-the-detection-list-profile-for-a-user).
+* Replace `<ID>` with the user's ID.
 * Replace `<Date>` with the user's departure date in year-month-day format, for example "2020-04-07".
 
 An excerpt of an example successful response:
@@ -379,7 +379,7 @@ In the preceding example:
 * Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
-* Replace `<ID>` with the user ID generated in the [Create a detection list profile for a user](#create-a-detection-list-profile-for-a-user) section. If you don't know a user's ID, you [can look it up using the Code42 username](#get-the-detection-list-profile-for-a-user).
+* Replace `<ID>` with the user's ID.
 
 An excerpt of an example successful response:
 
@@ -447,6 +447,6 @@ In the preceding example:
 * Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
-* Replace `<ID>` with the user ID generated in the [Create a detection list profile for a user](#create-a-detection-list-profile-for-a-user) section. If you don't know a user's ID, you can [look it up using the Code42 username](#get-the-detection-list-profile-for-a-user).
+* Replace `<ID>` with the user's ID.
 
 To verify that the user is removed, generate a listing of all users in the detection list as shown in [Obtain a listing of all users in a detection list](#obtain-a-listing-of-all-users-in-a-detection-list).
