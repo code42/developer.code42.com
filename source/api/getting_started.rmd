@@ -15,7 +15,7 @@ The domain used for making API requests can be determined using the domain you u
 
 Most API calls require an [authentication token](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Code42_API_authentication_methods#Use_token_authentication) in the header of the request. To obtain an authentication token, use your Code42 administrator credentials to submit a `GET` request to the `/v1/auth/` API. (For details, see the [Auth API documentation](/api/#tag/Auth).)
 
-In the following example, replace `<Code42Username>` with a Code42 administrator username, and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance:
+In the following example, replace `<Code42Username>` with a Code42 administrator username, and replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance:
 
 ```bash
 curl -X GET -u "<Code42Username>" -H "Accept: application/json" <RequestURL>/v1/auth/
@@ -42,7 +42,7 @@ A successful request returns an authentication token. For example:
 
 Some APIs require that you provide the unique ID of your organization (or tenant) in the Code42 cloud. To obtain the tenant ID, use your Code42 administrator credentials to submit a `GET` request to the [`/v1/customer` API](/api/#tag/Customer).
 
-In the following example, replace `<AuthToken>` with the [authentication token](#authentication) and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance:
+In the following example, replace `<AuthToken>` with the [authentication token](#authentication) and replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance:
 
 ```bash
 curl -X GET -H "Authorization: Bearer <AuthToken>" <RequestURL>/v1/customer
@@ -51,7 +51,6 @@ curl -X GET -H "Authorization: Bearer <AuthToken>" <RequestURL>/v1/customer
 A successful response returns the tenantId:
 
 ```json
-{
 {
     "name": "Example customer",
     "registrationKey": "8u42pwskc42p42hmrj",
