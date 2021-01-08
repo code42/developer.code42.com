@@ -336,29 +336,76 @@
 
     <div class="page-wrapper">
       <div class="content">
-        <h1 id='code42-developer-portal'>Code42 Developer Portal</h1>
-<p>Welcome to the Code42 Developer Portal! Here you will find resources to assist you in leveraging
-the Code42 API for automation and scripting. The Code42 APIs are a powerful set of tools you can use
-for everything from performing automated actions to integrating Code42 with your company&#39;s security applications.</p>
+        <h1 id='code42-developer-portalautomate-and-integrate-with-incydr'>Code42 Developer Portal<br>Automate and integrate with Incydr</h1>
+<p>Welcome to the Code42 Developer Portal! Here you will find resources to assist you in leveraging the Code42 platform for automation and scripting. Code42 offers a powerful set of tools you can use for everything from performing automated actions to integrating with your company&#39;s security applications.</p>
 
-<p>Code42 also offers a <a href="https://py42docs.code42.com">Python SDK</a> and <a href="https://clidocs.code42.com">Command Line Interface</a> that you may also find useful for automating tasks.
-Be sure to explore the documentation for these tools in addition to the complete API documentation before deciding what
-tools are right for your use case.</p>
-<h2 id='detect-and-respond-to-insider-risks'>Detect and respond to insider risks</h2>
-<p>Integrate the Code42 API with your security team&#39;s applications to streamline your company&#39;s insider threat response.</p>
+<p>We offer several different approaches to integrate into Code42 so you can choose the right level of control mixed with your desired simplicity to integrate into our product. Choose the right level of control mixed with your complexity needs.</p>
 
+<table><thead>
+<tr>
+<th>Tool</th>
+<th>Interface</th>
+<th>Primary use</th>
+<th>Flexibility</th>
+<th>Development Time</th>
+</tr>
+</thead><tbody>
+<tr>
+<td><a href="#rest-api">Code42 REST API</a></td>
+<td>language/http client of your choice</td>
+<td>Fully customized solution</td>
+<td>Most</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><a href="#py42">Py42</a></td>
+<td>Python library</td>
+<td>Custom scripting</td>
+<td>Moderate</td>
+<td>Moderate</td>
+</tr>
+<tr>
+<td><a href="#code42-command-line-interface">Code42 CLI</a></td>
+<td>Command Line</td>
+<td>Prebuilt, out-of-the-box scripts</td>
+<td>Least</td>
+<td>Least</td>
+</tr>
+</tbody></table>
+
+<p>Be sure to also check out our guides for common use cases in the top menu.</p>
+<h2 id='rest-api'>REST API</h2>
+<p>The Code42 REST API is available for a wide variety of use cases, from performing automated actions to integrating with existing systems. The Code42 API is accessible through many tools, such as web browsers, scripting tools, and programming languages.</p>
+<h3 id='example-use-cases'>Example Use Cases</h3>
 <ul>
-<li><a href="/security-alerts-api/">Security Alerts API</a></li>
-<li><a href="/forensic-search-api/">Forensic Search API</a></li>
-<li><a href="/detection-list-management-api/">Detection List Management API</a></li>
+<li>Directly having another tool provision or de-provision users</li>
+<li>Complex workflow applications where Python isn&#39;t available</li>
+<li>Applications where direct control over options is a necessity</li>
 </ul>
-<h2 id='use-cases'>Use cases</h2>
-<p>Leverage the Code42 API for specific use cases.</p>
 
+<p>Code42 API access is included with any licensed subscription of a Code42 product. See our <a href="/api/">reference documentation</a> for the complete schema and methods available.</p>
+<h2 id='py42'>Py42</h2>
+<p>py42 is an <a href="https://github.com/code42/py42">open source</a> Python SDK wrapper around the Code42 API that also provides several utility methods. py42 helps accelerate development of internal applications using the Code42 platform, while avoiding the overhead of session or authentication management, paging, and JSON parsing.</p>
+<h3 id='example-use-cases-2'>Example Use Cases</h3>
 <ul>
-<li><a href="/respond-to-an-alert/">Respond to an alert</a></li>
-<li><a href="/track-hre-file-activity/">Track file activity of a high risk employee</a></li>
+<li><a href="https://py42docs.code42.com/en/stable/userguides/searches.html">Search file events</a></li>
+<li>Manage users on the <a href="https://py42docs.code42.com/en/stable/userguides/departingemployee.html">Departing Employee</a> or <a href="https://py42docs.code42.com/en/stable/userguides/highriskemployee.html">High Risk</a> lists</li>
+<li>Manage <a href="https://py42docs.code42.com/en/stable/userguides/devicesettings.html">device</a> or <a href="https://py42docs.code42.com/en/stable/userguides/orgsettings.html">organization</a> settings</li>
 </ul>
+
+<p>For more information, see the full <a href="https://py42docs.code42.com">py42 documentation</a>.</p>
+<h2 id='code42-command-line-interface'>Code42 Command-line Interface</h2>
+<p>The Code42 command-line interface (CLI) offers a way to interact with your Code42 environment without using the Code42 console or making API calls directly. If you have familiarity with command line tools, Code42, and have Python and PyPI (pip) installed, you can get started quickly and easily with the Code42 CLI.</p>
+<h3 id='example-use-cases-3'>Example Use Cases</h3>
+<ul>
+<li><a href="https://clidocs.code42.com/en/latest/userguides/detectionlists.html">Automate managing users on the Departing Employee and High Risk lists</a></li>
+<li><a href="https://clidocs.code42.com/en/latest/userguides/legalhold.html">Automate legal hold user management</a></li>
+<li><a href="https://clidocs.code42.com/en/latest/userguides/siemexample.html">Extract events from Code42, and optionally send them to a syslog server or SIEM</a></li>
+</ul>
+
+<p>Setting the CLI to run as a scheduled task in Windows or added to the crontab in Linux can quickly get automations up and running. We welcome submissions of code as well as ideas to our <a href="https://github.com/code42/code42cli">GitHub repository</a> to be considered for a future update.</p>
+
+<p>For more information, see the full <a href="https://clidocs.code42.com">Code42 CLI documentation</a>.</p>
 
       </div>
     </div>
