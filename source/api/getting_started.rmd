@@ -17,7 +17,7 @@ Most API calls require an [authentication token](https://support.code42.com/Admi
 In the following example, replace `<Code42Username>` with a Code42 administrator username, and replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance:
 
 ```bash
-curl -X GET -u "<Code42Username>" -H "Accept: application/json" <RequestURL>/v1/auth/
+curl -X GET -u "<Code42Username>" -H "Accept: application/json" https://<RequestURL>/v1/auth/
 ```
 
 If your organization uses [two-factor authentication for local users](https://support.code42.com/Administrator/Cloud/Configuring/Two-factor_authentication_for_local_users), you must also include a `totp-auth` header value containing the Time-based One-Time Password (TOTP) supplied by the Google Authenticator mobile app. The example below includes a TOTP value of 424242.
