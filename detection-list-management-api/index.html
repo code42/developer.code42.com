@@ -405,7 +405,7 @@
 <h2 id='manage-users'>Manage users</h2><h3 id='create-a-detection-list-profile-for-a-user'>Create a detection list profile for a user</h3>
 <p>Before you can manage a Code42 user with the detection management list APIs, you must create a detection list profile for the user with the <a href="/api/#operation/UserControllerV2_Create">/v1/detection-lists/user/create</a> API. This profile is for an existing Code42 user and contains the details needed to manage that user on the High Risk Employees and Departing Employees lists. It includes information about the user specifically for use in detection lists, such as notes, risk attributes, and cloud user names. When you add the user to any detection list, the profile accompanies them.</p>
 
-<p>When you create a detection list profile for a user, a user ID is generated. You must submit this user ID whenever you run any subsequent APIs to manage the user in a detection list.</p>
+<p>When you create a detection list profile for a user, the information is associated with the user&#39;s ID. You must submit the user&#39;s ID whenever you run any subsequent APIs to manage the user in a detection list.</p>
 
 <p>Keep in mind that a detection list profile is created automatically when you add Code42 users to detection lists using the Code42 console. You only have to create a detection list profile for a user if one has not been created yet.</p>
 
@@ -447,7 +447,7 @@
 </span></code></pre></div><h3 id='get-the-detection-list-profile-for-a-user'>Get the detection list profile for a user</h3>
 <p>If you need to get a user&#39;s detection list profile to find information about the user, use the <a href="/api/#operation/UserControllerV2_GetByUsername">/v1/detection-lists/user/getbyusername</a> API or <a href="/api/#operation/UserControllerV2_GetByUserId">/v1/detection-lists/user/getbyid</a> API.</p>
 
-<p>For example, if you don&#39;t know a user&#39;s ID as assigned in the profile, you can find it by running the <a href="/api/#operation/UserControllerV2_GetByUsername">/v1/detection-lists/user/getbyusername</a> API command as shown in the following example.</p>
+<p>For example, if you don&#39;t know a user&#39;s ID, you can find it by running the <a href="/api/#operation/UserControllerV2_GetByUsername">/v1/detection-lists/user/getbyusername</a> API command as shown in the following example.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST &lt;requestURL&gt;/v1/detection-lists/user/getbyusername <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
@@ -483,7 +483,7 @@
 <li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/api/#section/Getting-started/Request-URLs">request URL</a> of your Code42 cloud instance.</li>
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
-<li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you can <a href="#get-the-detection-list-profile-for-a-user">look it up using the Code42 username</a>.</li>
+<li>Replace <code>&lt;ID&gt;</code> with the user&#39;s ID.</li>
 </ul>
 
 <p>An excerpt of an example successful response:</p>
@@ -518,7 +518,7 @@
 <li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/api/#section/Getting-started/Request-URLs">request URL</a> of your Code42 cloud instance.</li>
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
-<li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you can <a href="#get-the-detection-list-profile-for-a-user">look it up using the Code42 username</a>.</li>
+<li>Replace <code>&lt;ID&gt;</code> with the user&#39;s ID.</li>
 <li>Replace <code>&lt;Date&gt;</code> with the user&#39;s departure date in year-month-day format, for example &quot;2020-04-07&quot;.</li>
 </ul>
 
@@ -709,7 +709,7 @@
 <li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/api/#section/Getting-started/Request-URLs">request URL</a> of your Code42 cloud instance.</li>
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
-<li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you <a href="#get-the-detection-list-profile-for-a-user">can look it up using the Code42 username</a>.</li>
+<li>Replace <code>&lt;ID&gt;</code> with the user&#39;s ID.</li>
 </ul>
 
 <p>An excerpt of an example successful response:</p>
@@ -768,7 +768,7 @@
 <li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/api/#section/Getting-started/Request-URLs">request URL</a> of your Code42 cloud instance.</li>
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
-<li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile-for-a-user">Create a detection list profile for a user</a> section. If you don&#39;t know a user&#39;s ID, you can <a href="#get-the-detection-list-profile-for-a-user">look it up using the Code42 username</a>.</li>
+<li>Replace <code>&lt;ID&gt;</code> with the user&#39;s ID.</li>
 </ul>
 
 <p>To verify that the user is removed, generate a listing of all users in the detection list as shown in <a href="#obtain-a-listing-of-all-users-in-a-detection-list">Obtain a listing of all users in a detection list</a>.</p>
