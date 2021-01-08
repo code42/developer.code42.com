@@ -23,7 +23,7 @@ curl -X GET -u "<Code42Username>" -H "Accept: application/json" https://<Request
 If your organization uses [two-factor authentication for local users](https://support.code42.com/Administrator/Cloud/Configuring/Two-factor_authentication_for_local_users), you must also include a `totp-auth` header value containing the Time-based One-Time Password (TOTP) supplied by the Google Authenticator mobile app. The example below includes a TOTP value of 424242.
 
 ```bash
-curl -X GET -u "<Code42Username>" -H "totp-auth: 424242" -H "Accept: application/json" <RequestURL>/v1/auth/
+curl -X GET -u "<Code42Username>" -H "totp-auth: 424242" -H "Accept: application/json" https://<RequestURL>/v1/auth/
 ```
 
 A successful request returns an authentication token. For example:
@@ -44,7 +44,7 @@ Some APIs require that you provide the unique ID of your organization (or tenant
 In the following example, replace `<AuthToken>` with the [authentication token](#authentication) and replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance:
 
 ```bash
-curl -X GET -H "Authorization: Bearer <AuthToken>" <RequestURL>/v1/customer
+curl -X GET -H "Authorization: Bearer <AuthToken>" https://<RequestURL>/v1/customer
 ```
 
 A successful response returns the tenantId:
