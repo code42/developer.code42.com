@@ -1109,7 +1109,7 @@
             }
           },
           "400": {
-            "description": "Bad Request: Case or event do not exist or the case already has the event.",
+            "description": "Bad Request: Case or event do not exist, the case already has the event, or the maximum events per case has been reached.",
             "schema": {
               "$ref": "#/definitions/EventProblemResponse-cases"
             }
