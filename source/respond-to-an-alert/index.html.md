@@ -251,7 +251,7 @@ In the preceding example:
 
 * Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
-* Replace `<UserUID>` with the [user UID](/api/#section/Getting-started/Get-userUIDs) of the person who is being investigated.
+* Replace `<UserUID>` with the user UID of the person who is being investigated.
 
 Following is an example response showing the case number.
 
