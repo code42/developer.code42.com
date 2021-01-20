@@ -503,7 +503,7 @@
 <li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/api/#section/Getting-started/Request-URLs">request URL</a> of your Code42 cloud instance.</li>
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
-<li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile">Create a detection list profile</a> section.</li>
+<li>Replace <code>&lt;ID&gt;</code> with the user&#39;s userId in Code42. </li>
 </ul>
 
 <p><strong>Note:</strong> To add multiple users at once, you can use the Code42 command-line interface to <a href="https://clidocs.code42.com/en/latest/commands/highriskemployee.html?highlight=%22bulk%20add%20users%20to%20the%20high%20risk%20employees%22#high-risk-employee-bulk-add">bulk add users to the High Risk Employees list</a>.</p>
@@ -516,7 +516,7 @@
 <span class="nt">-H</span> <span class="s2">"authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
 <span class="nt">-d</span> <span class="s1">'{
     "tenantId": "&lt;SampleTenant&gt;",
-    "userId": "&lt;UserUid&gt;",
+    "userId": "&lt;UserId&gt;",
     "riskFactors": [
         "&lt;Risk1&gt;",
         "&lt;Risk2&gt;",
@@ -530,7 +530,7 @@
 <li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/api/#section/Getting-started/Request-URLs">request URL</a> of your Code42 cloud instance.</li>
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
-<li>Replace <code>&lt;UserUid&gt;</code> with <a href="/api/#section/Getting-started/Get-userUIDs">the user&#39;s userUID in Code42</a>.</li>
+<li>Replace <code>&lt;UserId&gt;</code> with the user&#39;s userId in Code42.</li>
 <li>Replace <code>&lt;UserNotes&gt;</code> with an explanation of why the user is considered high risk.</li>
 <li>Replace <code>&lt;Risk1&gt;</code>, <code>&lt;Risk2&gt;</code>, etc. with the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference#Risk+Factors">risk factors</a> associated with the user. Valid values are:
 
@@ -557,7 +557,7 @@
 <li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/api/#section/Getting-started/Request-URLs">request URL</a> of your Code42 cloud instance.</li>
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
-<li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile">Create a detection list profile</a> section.</li>
+<li>Replace <code>&lt;ID&gt;</code> with the user&#39;s userId in Code42.</li>
 </ul>
 
 <p>An excerpt of an example successful response:</p>
@@ -612,7 +612,7 @@
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
 <li>Replace <code>&lt;SampleRuleID&gt;</code> with the ID of the alert rule from which you want to remove users.</li>
-<li>Replace <code>&lt;SampleUserID&gt;</code> with a value that uniquely identifies the user you want to add. As a best practice, use <a href="/api/#section/Getting-started/Get-userUIDs">the user&#39;s userUID in Code42</a> for this value.</li>
+<li>Replace <code>&lt;SampleUserID&gt;</code> with a value that uniquely identifies the user you want to add. As a best practice, use the user&#39;s userId in Code42 for this value.</li>
 <li>The <code>userAliasList</code> parameter identifies the list of email addresses or cloud aliases to associate with that <code>&lt;SampleUserID&gt;</code>. Replace <code>&lt;SampleAlias1&gt;</code> and <code>&lt;SampleAlias2&gt;</code> with the email addresses or cloud aliases you want to add to the rule&#39;s inclusion or exclusion list for that user ID.
 
 <ul>
@@ -691,7 +691,7 @@
 <li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/api/#section/Getting-started/Request-URLs">request URL</a> of your Code42 cloud instance.</li>
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
-<li>Replace <code>&lt;ID&gt;</code> with the user ID generated in the <a href="#create-a-detection-list-profile">Create a detection list profile</a> section.</li>
+<li>Replace <code>&lt;ID&gt;</code> with the user&#39;s userId in Code42.</li>
 </ul>
 
 <p>To verify that the user is removed, obtain a listing of all users in the detection list by running the <a href="/api/#operation/HighRiskEmployeeControllerV2_Search">/v1/detection-lists/highriskemployee/search</a> API command.</p>
