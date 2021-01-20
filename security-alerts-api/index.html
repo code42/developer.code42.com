@@ -395,6 +395,12 @@
                           </li>
                       </ul>
                     </li>
+                    <li>
+                      <a href="#filter-syntax-for-the-query-alerts-api-command" class="toc-h2 toc-link" data-title="Filter syntax for the query alerts API command">Filter syntax for the query alerts API command</a>
+                    </li>
+                    <li>
+                      <a href="#filter-syntax-for-the-query-rule-metadata-api-command" class="toc-h2 toc-link" data-title="Filter syntax for the query rule metadata API command">Filter syntax for the query rule metadata API command</a>
+                    </li>
                 </ul>
             </li>
         </ul>
@@ -432,7 +438,7 @@
 <li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/api/#section/Getting-started/Request-URLs">request URL</a> of your Code42 cloud instance.</li>
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
-<li>Replace <code>&lt;FilterType&gt;</code> with the filter, <code>&lt;OperatorValue&gt;</code> with the operator option, and <code>&lt;Criteria&gt;</code> with the search term to use in the search. See <a href="#filter-syntax-for-the-query-alerts-API-command">Filter syntax for the query-alerts API command</a> below for details.</li>
+<li>Replace <code>&lt;FilterType&gt;</code> with the filter, <code>&lt;OperatorValue&gt;</code> with the operator option, and <code>&lt;Criteria&gt;</code> with the search term to use in the search. See <a href="#filter-syntax-for-the-query-alerts-api-command">Filter syntax for the query-alerts API command</a> below for details.</li>
 </ul>
 
 <p>A successful response returns basic information about the alert notifications that match your search criteria, including the alert IDs of those notifications (look for the <code>&quot;id&quot;:&quot;value&quot;</code> entry):</p>
@@ -613,7 +619,7 @@
 <li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/api/#section/Getting-started/Request-URLs">request URL</a> of your Code42 cloud instance.</li>
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
-<li>Replace <code>&lt;FilterType&gt;</code> with the filter, <code>&lt;OperatorValue&gt;</code> with the operator option, and <code>&lt;Criteria&gt;</code> with the search term to use in the search. See <a href="#filter-syntax-for-the-rules/query-rule-metadata-API-command">Filter syntax for the rules/query-rule-metadata API command</a> below for details.</li>
+<li>Replace <code>&lt;FilterType&gt;</code> with the filter, <code>&lt;OperatorValue&gt;</code> with the operator option, and <code>&lt;Criteria&gt;</code> with the search term to use in the search. See <a href="#filter-syntax-for-the-query-rule-metadata-api-command">Filter syntax for the query rule metadata API command</a> below for details.</li>
 </ul>
 
 <p>A successful response returns basic information about the alert notifications that match your search criteria, including the rule IDs of those notifications (look for the &quot;observerRuleId&quot;:&quot;value&quot; entry):</p>
@@ -788,7 +794,7 @@
 <li>Replace <code>&lt;SampleTenant&gt;</code> with the <a href="/api/#section/Getting-started/Get-a-tenant-ID">tenant ID</a>.</li>
 <li>Replace <code>&lt;SampleRuleID&gt;</code> with the ID of the alert rule from which you want to remove all users.</li>
 </ul>
-<h4 id='filter-syntax-for-the-query-alerts-api-command'>Filter syntax for the query-alerts API command</h4>
+<h2 id='filter-syntax-for-the-query-alerts-api-command'>Filter syntax for the query alerts API command</h2>
 <p>The <a href="/api/#operation/Alerts_QueryAlert">/v1/alerts/query-alerts</a> API uses these filter types, operators, and criteria values to search for alert notifications.</p>
 
 <table><thead>
@@ -834,7 +840,7 @@
 <td>The ID of a specific alert notification</td>
 </tr>
 </tbody></table>
-<h4 id='filter-syntax-for-the-rules-query-rule-metadata-api-command'>Filter syntax for the rules/query-rule-metadata API command</h4>
+<h2 id='filter-syntax-for-the-query-rule-metadata-api-command'>Filter syntax for the query rule metadata API command</h2>
 <p>The <a href="/api/#operation/Rules_QueryRuleMetadata">/v1/alerts/rules/query-rule-metadata</a> API uses these filter types, operators, and criteria values to search for alert rules.</p>
 
 <table><thead>
