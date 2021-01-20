@@ -5202,7 +5202,8 @@
           "required": [
             "tenantId",
             "pgSize",
-            "pgNum"
+            "pgNum",
+            "filterType"
           ],
           "properties": {
             "tenantId": {
@@ -5570,7 +5571,8 @@
           "required": [
             "tenantId",
             "pgSize",
-            "pgNum"
+            "pgNum",
+            "filterType"
           ],
           "properties": {
             "tenantId": {
