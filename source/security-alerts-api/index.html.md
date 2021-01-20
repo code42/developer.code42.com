@@ -255,7 +255,7 @@ In the preceding example:
 * Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
 * Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
 * Replace `<SampleTenant>` with the [tenant ID](/api/#section/Getting-started/Get-a-tenant-ID).
-* Replace `<FilterType>` with the filter, `<OperatorValue>` with the operator option, and `<Criteria>` with the search term to use in the search. See [Filter syntax for the rules query rule metadata API command](#filter-syntax-for-the-rules-query-rule-metadata-api-command) below for details.
+* Replace `<FilterType>` with the filter, `<OperatorValue>` with the operator option, and `<Criteria>` with the search term to use in the search. See [Filter syntax for the query rule metadata API command](#filter-syntax-for-the-query-rule-metadata-api-command) below for details.
 
 A successful response returns basic information about the alert notifications that match your search criteria, including the rule IDs of those notifications (look for the "observerRuleId":"value" entry):
 
@@ -458,7 +458,7 @@ Description | Is, Is not, Contains, Does not contain | The description of the ru
 AlertState | Is, Is not | Open or Dismissed
 AlertID | Is | The ID of a specific alert notification
 
-## Filter syntax for the rules query rule metadata API command
+## Filter syntax for the query rule metadata API command
 
 The [/v1/alerts/rules/query-rule-metadata](/api/#operation/Rules_QueryRuleMetadata) API uses these filter types, operators, and criteria values to search for alert rules.
 
