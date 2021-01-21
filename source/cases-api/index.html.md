@@ -162,6 +162,8 @@ curl -X POST '<request URL>/v1/cases/<case_number>/fileevent/<eventId>' \
 None (204 on success)
 ```
 
+Note: Each case is limited to 10,000 file events.
+
 ### Return events associated with a case 
 
 **Request**
