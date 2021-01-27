@@ -2,8 +2,10 @@
 
 To build the site locally, you will need the following:
 
-* [Ruby](https://www.ruby-lang.org/en/) >= 2.3
+* [Ruby](https://www.ruby-lang.org/en/) == 2.4.1
 * [homebrew](https://brew.sh/) (if using macOS)
+* [jq](https://stedolan.github.io/jq/)
+* [wget](https://www.gnu.org/software/wget/)
 
 After installing the above, check the links below to finish installing your dependenices:
 
