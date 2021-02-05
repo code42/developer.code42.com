@@ -994,6 +994,26 @@
             "required": false,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "pgNum",
+            "in": "query",
+            "description": "Page number for results, starting at 1.",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "pgSize",
+            "in": "query",
+            "description": "Max number of results to return for a page.",
+            "required": false,
+            "type": "integer",
+            "default": 10000,
+            "format": "int32",
+            "allowEmptyValue": false
           }
         ],
         "responses": {
@@ -1005,6 +1025,59 @@
           },
           "404": {
             "description": "Not Found: Case does not exist."
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Add multiple events to a case",
+        "operationId": "addEventsToCaseUsingPOST",
+        "parameters": [
+          {
+            "name": "caseNumber",
+            "in": "path",
+            "description": "Unique numeric identifier for the case.",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MultiEventRequest-cases"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Events added to the case.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad Request: Too many events in request, case or events do not exist, case is closed, or the maximum events per case has been reached.",
+            "schema": {
+              "$ref": "#/definitions/EventProblemResponse-cases"
+            }
+          },
+          "403": {
+            "description": "Forbidden: Forbidden by events.",
+            "schema": {
+              "$ref": "#/definitions/EventProblemResponse-cases"
+            }
+          },
+          "502": {
+            "description": "Bad Gateway: Failure to reach events.",
+            "schema": {
+              "$ref": "#/definitions/EventProblemResponse-cases"
+            }
           }
         },
         "deprecated": false
@@ -1109,7 +1182,7 @@
             }
           },
           "400": {
-            "description": "Bad Request: Case or event do not exist, the case already has the event, or the maximum events per case has been reached.",
+            "description": "Bad Request: Case or event do not exist, the case already has the event, case is closed, or the maximum events per case has been reached.",
             "schema": {
               "$ref": "#/definitions/EventProblemResponse-cases"
             }
@@ -4498,6 +4571,23 @@
       },
       "title": "MultiCaseResponse"
     },
+    "MultiEventRequest-cases": {
+      "type": "object",
+      "properties": {
+        "events": {
+          "type": "array",
+          "example": [
+            "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
+            "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_164"
+          ],
+          "description": "List of event IDs corresponding to events to be added to the case.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "MultiEventRequest"
+    },
     "MultipleEventsResponse-cases": {
       "type": "object",
       "properties": {
@@ -4507,6 +4597,12 @@
           "items": {
             "$ref": "#/definitions/EventResponse-cases"
           }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int64",
+          "example": 42,
+          "description": "Total number of events associated with the case."
         }
       },
       "title": "MultipleEventsResponse"
