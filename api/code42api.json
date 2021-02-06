@@ -6239,6 +6239,8 @@
               "processName",
               "windowTitle",
               "tabUrl",
+              "tabTitles",
+              "tabUrls",
               "removableMediaVendor",
               "removableMediaName",
               "removableMediaSerialNumber",
@@ -6310,6 +6312,8 @@
             "processName",
             "windowTitle",
             "tabUrl",
+            "tabTitles",
+            "tabUrls",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -6406,6 +6410,8 @@
             "processName",
             "windowTitle",
             "tabUrl",
+            "tabTitles",
+            "tabUrls",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -6886,7 +6892,14 @@
         "tabUrl": {
           "type": "string",
           "example": "https://example.com",
-          "description": "For events generated when a file is read in a browser or other app, the URL that had activity at the time of the event."
+          "description": "For events generated when a file is read in a browser or other app, the URL that had activity at the time of the event. May not contain all URLs if multiple are present. 'tabs' field is recommended for use instead."
+        },
+        "tabs": {
+          "type": "array",
+          "description": "For events generated when a file is read in a browser or other app, the tabs that had activity at the time of the event.",
+          "items": {
+            "$ref": "#/definitions/Tab-file-events"
+          }
         },
         "trusted": {
           "type": "boolean",
@@ -6908,7 +6921,7 @@
           "example": [
             "Inbox - cody@example.com"
           ],
-          "description": "For events generated when a file is read in a browser or other app, the tab or window title(s) that had activity at the time of the event.",
+          "description": "For events generated when a file is read in a browser or other app, the tab or window title(s) that had activity at the time of the event. 'tabs' field is recommended for use instead.",
           "items": {
             "type": "string"
           }
@@ -7047,6 +7060,8 @@
             "processName",
             "windowTitle",
             "tabUrl",
+            "tabTitles",
+            "tabUrls",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -7213,6 +7228,8 @@
             "processName",
             "windowTitle",
             "tabUrl",
+            "tabTitles",
+            "tabUrls",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -7298,6 +7315,8 @@
             "processName",
             "windowTitle",
             "tabUrl",
+            "tabTitles",
+            "tabUrls",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -7412,6 +7431,8 @@
             "processName",
             "windowTitle",
             "tabUrl",
+            "tabTitles",
+            "tabUrls",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -7458,6 +7479,20 @@
     "StreamingResponseBody-file-events": {
       "type": "object",
       "title": "StreamingResponseBody"
+    },
+    "Tab-file-events": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of this browser tab."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL of this browser tab."
+        }
+      },
+      "title": "Tab"
     }
   }
 }
