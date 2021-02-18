@@ -2609,6 +2609,54 @@
         },
         "deprecated": false
       }
+    },
+    "/v1/file-events/saved-searches": {
+      "get": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "Get all saved searches",
+        "operationId": "getSavedSearchesUsingGET",
+        "responses": {
+          "200": {
+            "description": "Success: List of all saved searches for the tenant.",
+            "schema": {
+              "$ref": "#/definitions/SavedSearchResponse-file-events"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/file-events/saved-searches/{id}": {
+      "get": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "Get a single saved search",
+        "operationId": "getSavedSearchByIdUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique identifier for a saved search.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Details of the specified saved search.",
+            "schema": {
+              "$ref": "#/definitions/SavedSearchResponse-file-events"
+            }
+          },
+          "404": {
+            "description": "Not found: Saved search does not exist."
+          }
+        },
+        "deprecated": false
+      }
     }
   },
   "definitions": {
@@ -7679,6 +7727,253 @@
         }
       },
       "title": "QueryProblem"
+    },
+    "SavedSearchDetail-file-events": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "Version of the API used to create the search."
+        },
+        "columns": {
+          "type": "array",
+          "description": "List of columns to be displayed in the web app for the search.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "eventId",
+              "eventType",
+              "eventTimestamp",
+              "insertionTimestamp",
+              "filePath",
+              "fileName",
+              "fileType",
+              "fileCategory",
+              "fileCategoryByBytes",
+              "fileCategoryByExtension",
+              "fileSize",
+              "fileOwner",
+              "md5Checksum",
+              "sha256Checksum",
+              "createTimestamp",
+              "modifyTimestamp",
+              "deviceUserName",
+              "deviceUid",
+              "userUid",
+              "osHostName",
+              "domainName",
+              "publicIpAddress",
+              "privateIpAddresses",
+              "actor",
+              "directoryId",
+              "source",
+              "url",
+              "shared",
+              "sharedWith",
+              "sharingTypeAdded",
+              "cloudDriveId",
+              "detectionSourceAlias",
+              "fileId",
+              "exposure",
+              "processOwner",
+              "processName",
+              "windowTitle",
+              "tabUrl",
+              "tabTitles",
+              "tabUrls",
+              "removableMediaVendor",
+              "removableMediaName",
+              "removableMediaSerialNumber",
+              "removableMediaCapacity",
+              "removableMediaBusType",
+              "removableMediaMediaName",
+              "removableMediaVolumeName",
+              "removableMediaPartitionId",
+              "syncDestination",
+              "syncDestinationUsername",
+              "emailDlpPolicyNames",
+              "emailSubject",
+              "emailSender",
+              "emailFrom",
+              "emailRecipients",
+              "outsideActiveHours",
+              "mimeTypeByBytes",
+              "mimeTypeByExtension",
+              "mimeTypeMismatch",
+              "printJobName",
+              "printerName",
+              "printedFilesBackupPath",
+              "remoteActivity",
+              "trusted",
+              "operatingSystemUser",
+              "destinationCategory",
+              "destinationName"
+            ]
+          }
+        },
+        "createdByUID": {
+          "type": "string",
+          "example": 806150685834341100,
+          "description": "User UID of the user who created the saved search."
+        },
+        "createdByUsername": {
+          "type": "string",
+          "example": "adrian@example.com",
+          "description": "Username of the user who created the saved search."
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-10-27T15:16:05.369203Z",
+          "description": "Time at which the saved search was created."
+        },
+        "groupClause": {
+          "type": "string",
+          "example": "OR",
+          "description": "Grouping clause for any specified groups.",
+          "enum": [
+            "AND",
+            "OR"
+          ]
+        },
+        "groups": {
+          "type": "array",
+          "description": "One or more FilterGroups to be combined in a query.",
+          "items": {
+            "$ref": "#/definitions/FilterGroup-file-events"
+          }
+        },
+        "id": {
+          "type": "string",
+          "example": "cde979fa-d551-4be9-b242-39e75b824089",
+          "description": "Unique identifier for the saved search."
+        },
+        "modifiedByUID": {
+          "type": "string",
+          "example": 421380797518239200,
+          "description": "User UID of the user who last modified the saved search."
+        },
+        "modifiedByUsername": {
+          "type": "string",
+          "example": "ari@example.com",
+          "description": "Username of the user who last modified the saved search."
+        },
+        "modifiedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-10-27T15:20:26.311894Z",
+          "description": "Time at which the saved search was last modified."
+        },
+        "name": {
+          "type": "string",
+          "example": "Example saved search",
+          "description": "Name given to the saved search."
+        },
+        "notes": {
+          "type": "string",
+          "example": "This search returns all events.",
+          "description": "Optional notes about the search."
+        },
+        "srtDir": {
+          "type": "string",
+          "example": "asc",
+          "description": "Sort direction.",
+          "enum": [
+            "asc",
+            "desc"
+          ]
+        },
+        "srtKey": {
+          "type": "string",
+          "example": "eventId",
+          "description": "Search term for sorting.",
+          "enum": [
+            "eventId",
+            "eventType",
+            "eventTimestamp",
+            "insertionTimestamp",
+            "filePath",
+            "fileName",
+            "fileType",
+            "fileCategory",
+            "fileCategoryByBytes",
+            "fileCategoryByExtension",
+            "fileSize",
+            "fileOwner",
+            "md5Checksum",
+            "sha256Checksum",
+            "createTimestamp",
+            "modifyTimestamp",
+            "deviceUserName",
+            "deviceUid",
+            "userUid",
+            "osHostName",
+            "domainName",
+            "publicIpAddress",
+            "privateIpAddresses",
+            "actor",
+            "directoryId",
+            "source",
+            "url",
+            "shared",
+            "sharedWith",
+            "sharingTypeAdded",
+            "cloudDriveId",
+            "detectionSourceAlias",
+            "fileId",
+            "exposure",
+            "processOwner",
+            "processName",
+            "windowTitle",
+            "tabUrl",
+            "tabTitles",
+            "tabUrls",
+            "removableMediaVendor",
+            "removableMediaName",
+            "removableMediaSerialNumber",
+            "removableMediaCapacity",
+            "removableMediaBusType",
+            "removableMediaMediaName",
+            "removableMediaVolumeName",
+            "removableMediaPartitionId",
+            "syncDestination",
+            "syncDestinationUsername",
+            "emailDlpPolicyNames",
+            "emailSubject",
+            "emailSender",
+            "emailFrom",
+            "emailRecipients",
+            "outsideActiveHours",
+            "mimeTypeByBytes",
+            "mimeTypeByExtension",
+            "mimeTypeMismatch",
+            "printJobName",
+            "printerName",
+            "printedFilesBackupPath",
+            "remoteActivity",
+            "trusted",
+            "operatingSystemUser",
+            "destinationCategory",
+            "destinationName"
+          ]
+        }
+      },
+      "title": "SavedSearchDetail"
+    },
+    "SavedSearchResponse-file-events": {
+      "type": "object",
+      "properties": {
+        "searches": {
+          "type": "array",
+          "description": "List of saved searches in the response.",
+          "items": {
+            "$ref": "#/definitions/SavedSearchDetail-file-events"
+          }
+        }
+      },
+      "title": "SavedSearchResponse"
     },
     "SearchFilter-file-events": {
       "type": "object",
