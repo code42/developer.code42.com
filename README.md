@@ -2,7 +2,7 @@
 
 To build the site locally, you will need the following:
 
-* [Ruby](https://www.ruby-lang.org/en/) == 2.4.1
+* [Ruby](https://www.ruby-lang.org/en/)  >= 2.4.1 and < 3.0
 * [homebrew](https://brew.sh/) (if using macOS)
 * [jq](https://stedolan.github.io/jq/)
 * [wget](https://www.gnu.org/software/wget/)
