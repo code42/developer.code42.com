@@ -1770,6 +1770,390 @@
         }
       }
     },
+    "/v1/devices": {
+      "get": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "Get a list of devices",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "active",
+            "description": "When true, return only active devices. When false, return only inactive devices. Defaults to returning both.",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "blocked",
+            "description": "When true, return only blocked devices. When false, return only unblocked devices. Defaults to returning both.",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "sortKey",
+            "description": "Key to sort on. Values: name, osHostname, os, lastConnected",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sortDirection",
+            "description": "Direction of sort. ASC or DESC (case is irrelevant).",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page number of the result set to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "The maximum number of devices to return in the response.",
+            "type": "integer",
+            "format": "int32",
+            "default": 500
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeviceListResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/devices/{deviceId}": {
+      "get": {
+        "tags": [
+          "Device"
+        ],
+        "summary": "Get a device",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "deviceId",
+            "description": "The unique Code42 deviceId of the device to return.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeviceResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/legal-hold/policies": {
+      "get": {
+        "tags": [
+          "LegalHold"
+        ],
+        "summary": "Get a list of policies",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldPolicyListResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/legal-hold/policies/{policyId}": {
+      "get": {
+        "tags": [
+          "LegalHold"
+        ],
+        "summary": "Get a policy",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "policyId",
+            "description": "The unique identifier of the legal hold policy to return.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldPolicyResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/legal-hold/matters": {
+      "get": {
+        "tags": [
+          "LegalHold"
+        ],
+        "summary": "Get a list matters",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "creatorUserId",
+            "description": "Find legal hold matters that were created by the user with this unique identifier.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "active",
+            "description": "When true, return only active matters. When false, return inactive matters. Defaults to returning all matters.",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "name",
+            "description": "Find legal hold matters whose 'name' either equals or partially contains this value.",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page number of the result set to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "The maximum number of legal hold matters to return in the response.",
+            "type": "integer",
+            "format": "int32",
+            "default": 500
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldMatterListResponse-core"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "LegalHold"
+        ],
+        "summary": "Create a matter",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldMatterRequest-core"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldMatterResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/legal-hold/matters/{matterId}": {
+      "get": {
+        "tags": [
+          "LegalHold"
+        ],
+        "summary": "Get a matter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "matterId",
+            "description": "The unique identifier of the legal hold matter to return.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldMatterResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/legal-hold/matters/{matterId}/deactivate": {
+      "post": {
+        "tags": [
+          "LegalHold"
+        ],
+        "summary": "Deactivate a matter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "matterId",
+            "description": "The unique identifier of the legal hold matter to deactivate.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/v1/legal-hold/matters/{matterId}/reactivate": {
+      "post": {
+        "tags": [
+          "LegalHold"
+        ],
+        "summary": "Reactivate a matter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "matterId",
+            "description": "The unique identifier of the legal hold matter to reactivate.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldReactivateMatterResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/legal-hold/matters/{matterId}/custodians": {
+      "get": {
+        "tags": [
+          "LegalHold"
+        ],
+        "summary": "Get a list of matter custodians",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "matterId",
+            "description": "The unique identifier of the matter to list custodians from.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page number of the result set to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "The maximum number of users to return in the response.",
+            "type": "integer",
+            "format": "int32",
+            "default": 500
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldMatterCustodianListResponse-core"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "LegalHold"
+        ],
+        "summary": "Add a user to a matter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "matterId",
+            "description": "The unique identifier of the legal hold matter to add the user to.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The request containing the userID of the user to add to a legal hold matter.",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldAddCustodianRequest-core"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldMembershipResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/legal-hold/custodians/{userId}": {
+      "get": {
+        "tags": [
+          "LegalHold"
+        ],
+        "summary": "Get a list of matters for a user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "The unique identifier of the user to list matters for.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page number of the result set to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "The maximum number of users to return in the response.",
+            "type": "integer",
+            "format": "int32",
+            "default": 500
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldCustodianMatterListResponse-core"
+            }
+          }
+        }
+      }
+    },
     "/v1/users": {
       "get": {
         "tags": [
@@ -1842,6 +2226,71 @@
             "description": "Success",
             "schema": {
               "$ref": "#/definitions/UserResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{userId}/devices": {
+      "get": {
+        "tags": [
+          "User"
+        ],
+        "summary": "Get a list of devices for a particular user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "The unique Code42 userId of the user whose devices should be returned.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "active",
+            "description": "When true, return only active devices. When false, return only inactive devices. Defaults to returning both.",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "blocked",
+            "description": "When true, return only blocked devices. When false, return only unblocked devices. Defaults to returning both.",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "sortKey",
+            "description": "Key to sort on. Values: name, osHostname, os, lastConnected",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "sortDirection",
+            "description": "Direction of sort. ASC or DESC (case is irrelevant).",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "description": "The page number of the result set to return.",
+            "type": "integer",
+            "format": "int32",
+            "default": 1
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "description": "The maximum number of devices to return in the response.",
+            "type": "integer",
+            "format": "int32",
+            "default": 500
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DeviceListResponse-core"
             }
           }
         }
@@ -5398,13 +5847,53 @@
       },
       "title": "UpdateCaseRequest"
     },
-    "JwtResponse-core": {
+    "BaseLegalHoldMatterResponse-core": {
       "type": "object",
       "properties": {
-        "bearerToken": {
-          "description": "A token representing a Code42 user's identity and permission set.",
+        "matterId": {
+          "description": "The unique identifier of the matter.",
           "type": "string",
           "readOnly": true
+        },
+        "name": {
+          "description": "The name of the matter.",
+          "type": "string"
+        }
+      }
+    },
+    "BaseUserResponse-core": {
+      "type": "object",
+      "properties": {
+        "legacyUserId": {
+          "description": "The user ID to use for older console-based APIs that require a user Id.\r\nIf your endpoint domain starts with \"console\" instead of \"api\", use this Id for endpoints that require a userId.",
+          "type": "string",
+          "readOnly": true
+        },
+        "userId": {
+          "description": "A globally unique ID for this user.",
+          "type": "string"
+        },
+        "username": {
+          "description": "The name the user uses to log in to Code42.",
+          "type": "string"
+        }
+      }
+    },
+    "CustodianResponse-core": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "description": "The unique identifier of the Code42 user who is the custodian.",
+          "type": "string",
+          "readOnly": true
+        },
+        "username": {
+          "description": "The Code42 username of the custodian.",
+          "type": "string"
+        },
+        "email": {
+          "description": "The email of the custodian.",
+          "type": "string"
         }
       }
     },
@@ -5422,6 +5911,598 @@
         "tenantId": {
           "description": "The customer's unique ID identifying it within Code42.",
           "type": "string"
+        }
+      }
+    },
+    "DeviceListResponse-core": {
+      "type": "object",
+      "properties": {
+        "totalCount": {
+          "format": "int64",
+          "description": "The total number of devices",
+          "type": "integer"
+        },
+        "devices": {
+          "description": "A list of devices",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DevicePreserveResponse-core"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "DevicePreserveResponse-core": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "description": "A globally unique ID (guid) for this device.",
+          "type": "string",
+          "readOnly": true
+        },
+        "legacyDeviceId": {
+          "description": "The device ID to use for older console-based APIs that require a device Id.",
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "description": "Device name.",
+          "type": "string"
+        },
+        "osHostname": {
+          "description": "Device Hostname according to the device's OS.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Device status. Values: Active, Deactivated, Blocked, Deauthorized (Active/Deactivated followed by optional Blocked and/or Deauthorized)",
+          "type": "string"
+        },
+        "active": {
+          "description": "True means the device will show up on reports, etc.",
+          "type": "boolean"
+        },
+        "blocked": {
+          "description": "True means device continues backing up, but restores and logins are disabled.",
+          "type": "boolean"
+        },
+        "alertState": {
+          "format": "int32",
+          "description": "0=ok, 1=connection warning, 2=connection critical",
+          "type": "integer"
+        },
+        "userId": {
+          "description": "A globally unique ID for this user.",
+          "type": "string"
+        },
+        "legacyUserId": {
+          "description": "The user ID to use for older console-based APIs that require a user Id.\r\nIf your endpoint domain starts with \"console\" instead of \"api\", use this Id for endpoints that require a userId.",
+          "type": "string",
+          "readOnly": true
+        },
+        "orgId": {
+          "description": "A globally unique ID for the Code42 organization of the user owning this device.",
+          "type": "string"
+        },
+        "legacyOrgId": {
+          "description": "The org ID to use for older console-based APIs that require an org Id.\r\nIf your endpoint domain starts with \"console\" instead of \"api\", use this Id for endpoints that require an orgId.",
+          "type": "string",
+          "readOnly": true
+        },
+        "externalReferenceInfo": {
+          "description": "Optional external reference information, such as a serial number, asset tag, employee ID, or help desk issue ID.",
+          "type": "string",
+          "readOnly": true
+        },
+        "notes": {
+          "description": "Optional descriptive information.",
+          "type": "string"
+        },
+        "lastConnected": {
+          "description": "The last day and time this device was connected to the server.",
+          "type": "string"
+        },
+        "osName": {
+          "description": "Operating system name. Values: Windows*, Mac OS X, Linux, Android, iOS, SunOS, etc",
+          "type": "string"
+        },
+        "osVersion": {
+          "description": "Operating system version. Values: 10.5.1, 6.2, etc",
+          "type": "string"
+        },
+        "osArch": {
+          "description": "Hardware architecture. Values: i386, amd64, sparc, x86, etc",
+          "type": "string"
+        },
+        "address": {
+          "description": "Internal IP address and port. Example: 192.168.42.1:4282",
+          "type": "string"
+        },
+        "remoteAddress": {
+          "description": "External IP address and port. Example: 171.22.110.41:13958",
+          "type": "string"
+        },
+        "timeZone": {
+          "description": "Examples: Australia/Canberra, Asia/Calcutta",
+          "type": "string"
+        },
+        "version": {
+          "description": "Device product display version.",
+          "type": "string",
+          "readOnly": true
+        },
+        "build": {
+          "format": "int64",
+          "description": "Device build version long number, will only be applicable to CP4/SP devices.",
+          "type": "integer",
+          "readOnly": true
+        },
+        "creationDate": {
+          "description": "Date and time this device was created.",
+          "type": "string"
+        },
+        "modificationDate": {
+          "description": "Date and time this device was last modified.",
+          "type": "string"
+        },
+        "loginDate": {
+          "description": "Date and time this device was last logged in.",
+          "type": "string"
+        }
+      }
+    },
+    "DeviceResponse-core": {
+      "type": "object",
+      "properties": {
+        "deviceId": {
+          "description": "A globally unique ID (guid) for this device.",
+          "type": "string",
+          "readOnly": true
+        },
+        "legacyDeviceId": {
+          "description": "The device ID to use for older console-based APIs that require a device Id.",
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "description": "Device name.",
+          "type": "string"
+        },
+        "osHostname": {
+          "description": "Device Hostname according to the device's OS.",
+          "type": "string"
+        },
+        "status": {
+          "description": "Device status. Values: Active, Deactivated, Blocked, Deauthorized (Active/Deactivated followed by optional Blocked and/or Deauthorized)",
+          "type": "string"
+        },
+        "active": {
+          "description": "True means the device will show up on reports, etc.",
+          "type": "boolean"
+        },
+        "blocked": {
+          "description": "True means device continues backing up, but restores and logins are disabled.",
+          "type": "boolean"
+        },
+        "alertState": {
+          "format": "int32",
+          "description": "0=ok, 1=connection warning, 2=connection critical",
+          "type": "integer"
+        },
+        "userId": {
+          "description": "A globally unique ID for this user.",
+          "type": "string"
+        },
+        "legacyUserId": {
+          "description": "The user ID to use for older console-based APIs that require a user Id.\r\nIf your endpoint domain starts with \"console\" instead of \"api\", use this Id for endpoints that require a userId.",
+          "type": "string",
+          "readOnly": true
+        },
+        "orgId": {
+          "description": "A globally unique ID for the Code42 organization of the user owning this device.",
+          "type": "string"
+        },
+        "legacyOrgId": {
+          "description": "The org ID to use for older console-based APIs that require an org Id.\r\nIf your endpoint domain starts with \"console\" instead of \"api\", use this Id for endpoints that require an orgId.",
+          "type": "string",
+          "readOnly": true
+        },
+        "externalReferenceInfo": {
+          "description": "Optional external reference information, such as a serial number, asset tag, employee ID, or help desk issue ID.",
+          "type": "string",
+          "readOnly": true
+        },
+        "notes": {
+          "description": "Optional descriptive information.",
+          "type": "string"
+        },
+        "lastConnected": {
+          "description": "The last day and time this device was connected to the server.",
+          "type": "string"
+        },
+        "osName": {
+          "description": "Operating system name. Values: Windows*, Mac OS X, Linux, Android, iOS, SunOS, etc",
+          "type": "string"
+        },
+        "osVersion": {
+          "description": "Operating system version. Values: 10.5.1, 6.2, etc",
+          "type": "string"
+        },
+        "osArch": {
+          "description": "Hardware architecture. Values: i386, amd64, sparc, x86, etc",
+          "type": "string"
+        },
+        "address": {
+          "description": "Internal IP address and port. Example: 192.168.42.1:4282",
+          "type": "string"
+        },
+        "remoteAddress": {
+          "description": "External IP address and port. Example: 171.22.110.41:13958",
+          "type": "string"
+        },
+        "timeZone": {
+          "description": "Examples: Australia/Canberra, Asia/Calcutta",
+          "type": "string"
+        },
+        "version": {
+          "description": "Device product display version.",
+          "type": "string",
+          "readOnly": true
+        },
+        "build": {
+          "format": "int64",
+          "description": "Device build version long number, will only be applicable to CP4/SP devices.",
+          "type": "integer",
+          "readOnly": true
+        },
+        "creationDate": {
+          "description": "Date and time this device was created.",
+          "type": "string"
+        },
+        "modificationDate": {
+          "description": "Date and time this device was last modified.",
+          "type": "string"
+        },
+        "loginDate": {
+          "description": "Date and time this device was last logged in.",
+          "type": "string"
+        }
+      }
+    },
+    "JwtResponse-core": {
+      "type": "object",
+      "properties": {
+        "bearerToken": {
+          "description": "A token representing a Code42 user's identity and permission set.",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "LegalHoldAddCustodianRequest-core": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "description": "The unique identifier of the user to add to the legal hold matter.",
+          "type": "string"
+        }
+      }
+    },
+    "LegalHoldCustodianMatterListResponse-core": {
+      "type": "object",
+      "properties": {
+        "matters": {
+          "description": "A list of Legal Hold matters for a custodian.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LegalHoldCustodianMatterPreserveResponse-core"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "LegalHoldCustodianMatterPreserveResponse-core": {
+      "type": "object",
+      "properties": {
+        "membershipActive": {
+          "description": "Whether the custodian's membership is active.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "membershipCreationDate": {
+          "description": "The data the custodian was added to the matter.",
+          "type": "string",
+          "readOnly": true
+        },
+        "matterId": {
+          "description": "The unique identifier of the matter.",
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "description": "The name of the matter.",
+          "type": "string"
+        }
+      }
+    },
+    "LegalHoldMatterCustodianListResponse-core": {
+      "type": "object",
+      "properties": {
+        "custodians": {
+          "description": "A list of Legal Hold custodians on a matter.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LegalHoldMatterCustodianPreserveResponse-core"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "LegalHoldMatterCustodianPreserveResponse-core": {
+      "type": "object",
+      "properties": {
+        "membershipActive": {
+          "description": "Whether the custodian's membership is active.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "membershipCreationDate": {
+          "description": "The data the custodian was added to the matter.",
+          "type": "string",
+          "readOnly": true
+        },
+        "userId": {
+          "description": "The unique identifier of the Code42 user who is the custodian.",
+          "type": "string",
+          "readOnly": true
+        },
+        "username": {
+          "description": "The Code42 username of the custodian.",
+          "type": "string"
+        },
+        "email": {
+          "description": "The email of the custodian.",
+          "type": "string"
+        }
+      }
+    },
+    "LegalHoldMatterListResponse-core": {
+      "type": "object",
+      "properties": {
+        "matters": {
+          "description": "A list of Legal Hold matters.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LegalHoldMatterPreserveResponse-core"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "LegalHoldMatterPreserveResponse-core": {
+      "type": "object",
+      "properties": {
+        "matterId": {
+          "description": "The unique identifier of the matter.",
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "description": "The name of the matter.",
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the matter.",
+          "type": "string"
+        },
+        "notes": {
+          "description": "Notes about the matter.",
+          "type": "string"
+        },
+        "active": {
+          "description": "Whether the matter is currently active.",
+          "type": "boolean"
+        },
+        "creationDate": {
+          "description": "The date and time the matter was created.",
+          "type": "string"
+        },
+        "lastModifiedDate": {
+          "description": "The date and time the matter was last modified.",
+          "type": "string",
+          "readOnly": true
+        },
+        "creator": {
+          "$ref": "#/definitions/MatterCreatorResponse-core"
+        },
+        "policyId": {
+          "description": "The ID of the policy containing the matter.",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "LegalHoldMatterRequest-core": {
+      "type": "object",
+      "properties": {
+        "policyId": {
+          "description": "The unique identifier of the policy involved in the matter.",
+          "type": "string"
+        },
+        "name": {
+          "description": "The name to give to the matter.",
+          "type": "string"
+        },
+        "description": {
+          "description": "An optional description to give to the matter.",
+          "type": "string"
+        },
+        "notes": {
+          "description": "Optional notes to give to the matter",
+          "type": "string"
+        }
+      }
+    },
+    "LegalHoldMatterResponse-core": {
+      "type": "object",
+      "properties": {
+        "matterId": {
+          "description": "The unique identifier of the matter.",
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "description": "The name of the matter.",
+          "type": "string"
+        },
+        "description": {
+          "description": "The description of the matter.",
+          "type": "string"
+        },
+        "notes": {
+          "description": "Notes about the matter.",
+          "type": "string"
+        },
+        "active": {
+          "description": "Whether the matter is currently active.",
+          "type": "boolean"
+        },
+        "creationDate": {
+          "description": "The date and time the matter was created.",
+          "type": "string"
+        },
+        "lastModifiedDate": {
+          "description": "The date and time the matter was last modified.",
+          "type": "string",
+          "readOnly": true
+        },
+        "creator": {
+          "$ref": "#/definitions/MatterCreatorResponse-core"
+        },
+        "policyId": {
+          "description": "The ID of the policy containing the matter.",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "LegalHoldMembershipResponse-core": {
+      "type": "object",
+      "properties": {
+        "membershipActive": {
+          "description": "Whether the custodian's membership is active.",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "membershipCreationDate": {
+          "description": "The data the custodian was added to the matter.",
+          "type": "string",
+          "readOnly": true
+        },
+        "matter": {
+          "$ref": "#/definitions/BaseLegalHoldMatterResponse-core"
+        },
+        "custodian": {
+          "$ref": "#/definitions/CustodianResponse-core"
+        }
+      }
+    },
+    "LegalHoldPolicyListResponse-core": {
+      "type": "object",
+      "properties": {
+        "policies": {
+          "description": "A list of Legal Hold policies.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/LegalHoldPolicyPreserveResponse-core"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "LegalHoldPolicyPreserveResponse-core": {
+      "type": "object",
+      "properties": {
+        "policyId": {
+          "description": "The unique identifier for a legal hold policy.",
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "description": "The name of the legal hold policy.",
+          "type": "string"
+        },
+        "creatorUser": {
+          "$ref": "#/definitions/BaseUserResponse-core"
+        },
+        "creationDate": {
+          "description": "The date the policy was created.",
+          "type": "string"
+        },
+        "modificationDate": {
+          "description": "The date the policy was last modified.",
+          "type": "string"
+        }
+      }
+    },
+    "LegalHoldPolicyResponse-core": {
+      "type": "object",
+      "properties": {
+        "policyId": {
+          "description": "The unique identifier for a legal hold policy.",
+          "type": "string",
+          "readOnly": true
+        },
+        "name": {
+          "description": "The name of the legal hold policy.",
+          "type": "string"
+        },
+        "creatorUser": {
+          "$ref": "#/definitions/BaseUserResponse-core"
+        },
+        "creationDate": {
+          "description": "The date the policy was created.",
+          "type": "string"
+        },
+        "modificationDate": {
+          "description": "The date the policy was last modified.",
+          "type": "string"
+        }
+      }
+    },
+    "LegalHoldReactivateMatterResponse-core": {
+      "type": "object",
+      "properties": {
+        "membershipsChanged": {
+          "description": "Whether the memberships were changed upon reactivation.\r\nIf true, this means that there were custodians on the matter at the time the matter got deactivated,\r\nand when reactivating, these users were placed back in legal hold.",
+          "type": "boolean"
+        }
+      }
+    },
+    "MatterCreatorResponse-core": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "description": "A globally unique ID for this user.",
+          "type": "string"
+        },
+        "username": {
+          "description": "The name the user uses to log in to Code42.",
+          "type": "string"
+        }
+      }
+    },
+    "UserListResponse-core": {
+      "type": "object",
+      "properties": {
+        "totalCount": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserPreserveResponse-core"
+          }
         }
       }
     },
@@ -5481,21 +6562,6 @@
         "modificationDate": {
           "description": "The date and time the user was last modified.",
           "type": "string"
-        }
-      }
-    },
-    "UserListResponse-core": {
-      "type": "object",
-      "properties": {
-        "totalCount": {
-          "format": "int64",
-          "type": "integer"
-        },
-        "users": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/UserPreserveResponse-core"
-          }
         }
       }
     },
