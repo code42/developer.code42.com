@@ -7917,6 +7917,8 @@
               "tabTitleErrors",
               "tabUrls",
               "tabUrlErrors",
+              "fileClassificationVendors",
+              "fileClassificationValues",
               "removableMediaVendor",
               "removableMediaName",
               "removableMediaSerialNumber",
@@ -7992,6 +7994,8 @@
             "tabTitleErrors",
             "tabUrls",
             "tabUrlErrors",
+            "fileClassificationVendors",
+            "fileClassificationValues",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -8092,6 +8096,8 @@
             "tabTitleErrors",
             "tabUrls",
             "tabUrlErrors",
+            "fileClassificationVendors",
+            "fileClassificationValues",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -8139,6 +8145,22 @@
         }
       },
       "title": "FieldError"
+    },
+    "FileClassification-file-events": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string",
+          "example": "Classified",
+          "description": "The classification value applied to the file."
+        },
+        "vendor": {
+          "type": "string",
+          "example": "MICROSOFT INFORMATION PROTECTION",
+          "description": "The name of the vendor that classified the file."
+        }
+      },
+      "title": "FileClassification"
     },
     "FileEvent-file-events": {
       "type": "object",
@@ -8312,6 +8334,13 @@
           "type": "string",
           "example": "Document",
           "description": "A categorization of the file based on its extension."
+        },
+        "fileClassifications": {
+          "type": "array",
+          "description": "Data provided by an external file classification vendor.",
+          "items": {
+            "$ref": "#/definitions/FileClassification-file-events"
+          }
         },
         "fileId": {
           "type": "string",
@@ -8729,6 +8758,8 @@
             "tabTitleErrors",
             "tabUrls",
             "tabUrlErrors",
+            "fileClassificationVendors",
+            "fileClassificationValues",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -8886,6 +8917,8 @@
               "tabTitleErrors",
               "tabUrls",
               "tabUrlErrors",
+              "fileClassificationVendors",
+              "fileClassificationValues",
               "removableMediaVendor",
               "removableMediaName",
               "removableMediaSerialNumber",
@@ -9035,6 +9068,8 @@
             "tabTitleErrors",
             "tabUrls",
             "tabUrlErrors",
+            "fileClassificationVendors",
+            "fileClassificationValues",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -9150,6 +9185,8 @@
             "tabTitleErrors",
             "tabUrls",
             "tabUrlErrors",
+            "fileClassificationVendors",
+            "fileClassificationValues",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -9239,6 +9276,8 @@
             "tabTitleErrors",
             "tabUrls",
             "tabUrlErrors",
+            "fileClassificationVendors",
+            "fileClassificationValues",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
@@ -9357,6 +9396,8 @@
             "tabTitleErrors",
             "tabUrls",
             "tabUrlErrors",
+            "fileClassificationVendors",
+            "fileClassificationValues",
             "removableMediaVendor",
             "removableMediaName",
             "removableMediaSerialNumber",
