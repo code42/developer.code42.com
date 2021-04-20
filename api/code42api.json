@@ -7948,7 +7948,11 @@
               "trusted",
               "operatingSystemUser",
               "destinationCategory",
-              "destinationName"
+              "destinationName",
+              "riskScore",
+              "riskSeverity",
+              "riskIndicatorNames",
+              "riskIndicatorWeights"
             ]
           }
         },
@@ -8025,7 +8029,11 @@
             "trusted",
             "operatingSystemUser",
             "destinationCategory",
-            "destinationName"
+            "destinationName",
+            "riskScore",
+            "riskSeverity",
+            "riskIndicatorNames",
+            "riskIndicatorWeights"
           ]
         },
         "groupClause": {
@@ -8127,7 +8135,11 @@
             "trusted",
             "operatingSystemUser",
             "destinationCategory",
-            "destinationName"
+            "destinationName",
+            "riskScore",
+            "riskSeverity",
+            "riskIndicatorNames",
+            "riskIndicatorWeights"
           ]
         }
       },
@@ -8533,6 +8545,31 @@
             "type": "string"
           }
         },
+        "riskIndicators": {
+          "type": "array",
+          "description": "List of risk indicators identified for this event. If more than one risk indicator applies to this event, the sum of all indicators determines the total risk score.",
+          "items": {
+            "$ref": "#/definitions/RiskIndicator-file-events"
+          }
+        },
+        "riskScore": {
+          "type": "integer",
+          "format": "int32",
+          "example": 12,
+          "description": "Sum of the weights for each risk indicator. This score is used to determine the overall risk severity of the event."
+        },
+        "riskSeverity": {
+          "type": "string",
+          "example": "CRITICAL",
+          "description": "The general risk assessment of the event, based on the numeric score.",
+          "enum": [
+            "NO_RISK_INDICATED",
+            "LOW",
+            "MODERATE",
+            "HIGH",
+            "CRITICAL"
+          ]
+        },
         "sha256Checksum": {
           "type": "string",
           "example": "ded96d69c63754472efc4aa86fed68d4e17784b38089851cfa84e699e48b4155",
@@ -8789,7 +8826,11 @@
             "trusted",
             "operatingSystemUser",
             "destinationCategory",
-            "destinationName"
+            "destinationName",
+            "riskScore",
+            "riskSeverity",
+            "riskIndicatorNames",
+            "riskIndicatorWeights"
           ]
         },
         "groups": {
@@ -8862,6 +8903,23 @@
         }
       },
       "title": "QueryProblem"
+    },
+    "RiskIndicator-file-events": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Browser upload",
+          "description": "Name of the risk indicator."
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32",
+          "example": 5,
+          "description": "Configured weight of the risk indicator at the time this event was seen."
+        }
+      },
+      "title": "RiskIndicator"
     },
     "SavedSearchDetail-file-events": {
       "type": "object",
@@ -8948,7 +9006,11 @@
               "trusted",
               "operatingSystemUser",
               "destinationCategory",
-              "destinationName"
+              "destinationName",
+              "riskScore",
+              "riskSeverity",
+              "riskIndicatorNames",
+              "riskIndicatorWeights"
             ]
           }
         },
@@ -9099,7 +9161,11 @@
             "trusted",
             "operatingSystemUser",
             "destinationCategory",
-            "destinationName"
+            "destinationName",
+            "riskScore",
+            "riskSeverity",
+            "riskIndicatorNames",
+            "riskIndicatorWeights"
           ]
         }
       },
@@ -9216,7 +9282,11 @@
             "trusted",
             "operatingSystemUser",
             "destinationCategory",
-            "destinationName"
+            "destinationName",
+            "riskScore",
+            "riskSeverity",
+            "riskIndicatorNames",
+            "riskIndicatorWeights"
           ]
         },
         "value": {
@@ -9307,7 +9377,11 @@
             "trusted",
             "operatingSystemUser",
             "destinationCategory",
-            "destinationName"
+            "destinationName",
+            "riskScore",
+            "riskSeverity",
+            "riskIndicatorNames",
+            "riskIndicatorWeights"
           ]
         },
         "groupClause": {
@@ -9427,7 +9501,11 @@
             "trusted",
             "operatingSystemUser",
             "destinationCategory",
-            "destinationName"
+            "destinationName",
+            "riskScore",
+            "riskSeverity",
+            "riskIndicatorNames",
+            "riskIndicatorWeights"
           ]
         }
       },
