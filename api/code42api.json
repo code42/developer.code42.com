@@ -1164,40 +1164,35 @@
             "in": "query",
             "description": "User UID of an assignee of a case on which to filter.",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           },
           {
             "name": "createdAt",
             "in": "query",
             "description": "Filter cases created between the supplied start and end times. Must use ISO time interval, for example: 2020-08-31T11:00:00Z/2020-09-01T15:30:00Z",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           },
           {
             "name": "isAssigned",
             "in": "query",
             "description": "Filter cases with an assignee (true) or without (false)",
             "required": false,
-            "type": "boolean",
-            "allowEmptyValue": false
+            "type": "boolean"
           },
           {
             "name": "lastModifiedBy",
             "in": "query",
             "description": "User UID of the user who most recently modified the case.",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           },
           {
             "name": "name",
             "in": "query",
             "description": "Name of a case on which to filter; will include partial matches",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           },
           {
             "name": "pgNum",
@@ -1206,8 +1201,7 @@
             "required": false,
             "type": "integer",
             "default": 1,
-            "format": "int32",
-            "allowEmptyValue": false
+            "format": "int32"
           },
           {
             "name": "pgSize",
@@ -1216,8 +1210,7 @@
             "required": false,
             "type": "integer",
             "default": 2147483647,
-            "format": "int32",
-            "allowEmptyValue": false
+            "format": "int32"
           },
           {
             "name": "srtDir",
@@ -1234,7 +1227,6 @@
             },
             "collectionFormat": "multi",
             "default": "asc",
-            "allowEmptyValue": false,
             "enum": [
               "asc",
               "desc"
@@ -1249,26 +1241,25 @@
             "items": {
               "type": "string",
               "enum": [
+                "assigneeUsername",
+                "createdAt",
                 "name",
                 "number",
-                "createdAt",
-                "updatedAt",
                 "status",
-                "assigneeUsername",
-                "subjectUsername"
+                "subjectUsername",
+                "updatedAt"
               ]
             },
             "collectionFormat": "multi",
             "default": "number",
-            "allowEmptyValue": false,
             "enum": [
+              "assigneeUsername",
+              "createdAt",
               "name",
               "number",
-              "createdAt",
-              "updatedAt",
               "status",
-              "assigneeUsername",
-              "subjectUsername"
+              "subjectUsername",
+              "updatedAt"
             ]
           },
           {
@@ -1280,15 +1271,14 @@
             "items": {
               "type": "string",
               "enum": [
-                "OPEN",
-                "CLOSED"
+                "CLOSED",
+                "OPEN"
               ]
             },
             "collectionFormat": "multi",
-            "allowEmptyValue": false,
             "enum": [
-              "OPEN",
-              "CLOSED"
+              "CLOSED",
+              "OPEN"
             ]
           },
           {
@@ -1296,33 +1286,27 @@
             "in": "query",
             "description": "User UID of a subject of a case on which to filter.",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           },
           {
             "name": "updatedAt",
             "in": "query",
             "description": "Filter cases last updated between the supplied start and end times. Must use ISO time interval, for example: 2020-08-31T11:00:00Z/2020-09-01T15:30:00Z",
             "required": false,
-            "type": "string",
-            "allowEmptyValue": false
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "Success: Response containing cases matching provided filters.",
             "schema": {
-              "$ref": "#/definitions/MultiCaseResponse-cases"
+              "$ref": "#/definitions/CaseResponse-cases"
             }
           },
           "400": {
-            "description": "Bad Request: An invalid value was provided for a filter.",
-            "schema": {
-              "$ref": "#/definitions/CaseProblemResponse-cases"
-            }
+            "description": "Bad Request: An invalid value was provided for a filter."
           }
-        },
-        "deprecated": false
+        }
       },
       "post": {
         "tags": [
@@ -1345,29 +1329,19 @@
           "200": {
             "description": "Success: Response containing created case.",
             "schema": {
-              "$ref": "#/definitions/SingleCaseResponse-cases"
+              "$ref": "#/definitions/CaseResponse-cases"
             }
           },
           "400": {
-            "description": "Bad Request: An invalid request model was provided.",
-            "schema": {
-              "$ref": "#/definitions/CaseProblemResponse-cases"
-            }
+            "description": "Bad Request: An invalid request model was provided."
           },
           "403": {
-            "description": "Forbidden: Forbidden by user validation.",
-            "schema": {
-              "$ref": "#/definitions/CaseProblemResponse-cases"
-            }
+            "description": "Forbidden: Forbidden by user validation."
           },
           "502": {
-            "description": "Bad Gateway: Unable to reach user validation.",
-            "schema": {
-              "$ref": "#/definitions/CaseProblemResponse-cases"
-            }
+            "description": "Bad Gateway: Unable to reach user validation."
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/cases/{caseNumber}": {
@@ -1382,7 +1356,7 @@
             "name": "caseNumber",
             "in": "path",
             "description": "Unique numeric identifier for the case.",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           }
@@ -1391,14 +1365,13 @@
           "200": {
             "description": "Success: Response containing the matching case.",
             "schema": {
-              "$ref": "#/definitions/SingleCaseResponse-cases"
+              "type": "object"
             }
           },
           "404": {
             "description": "Not Found: Case does not exist."
           }
-        },
-        "deprecated": false
+        }
       },
       "put": {
         "tags": [
@@ -1411,7 +1384,7 @@
             "name": "caseNumber",
             "in": "path",
             "description": "Unique numeric identifier for the case.",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -1429,32 +1402,50 @@
           "200": {
             "description": "Success: Response containing updated case.",
             "schema": {
-              "$ref": "#/definitions/SingleCaseResponse-cases"
+              "type": "object"
             }
           },
           "400": {
-            "description": "Bad Request: An invalid request model was provided.",
-            "schema": {
-              "$ref": "#/definitions/CaseProblemResponse-cases"
-            }
+            "description": "Bad Request: An invalid request model was provided."
           },
           "403": {
-            "description": "Forbidden: Forbidden by user validation.",
-            "schema": {
-              "$ref": "#/definitions/CaseProblemResponse-cases"
-            }
+            "description": "Forbidden: Forbidden by user validation."
           },
           "404": {
             "description": "Not Found: Case does not exist."
           },
           "502": {
-            "description": "Bad Gateway: Unable to reach user validation.",
-            "schema": {
-              "$ref": "#/definitions/CaseProblemResponse-cases"
-            }
+            "description": "Bad Gateway: Unable to reach user validation."
           }
-        },
-        "deprecated": false
+        }
+      },
+      "delete": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Delete a case",
+        "operationId": "deleteCaseUsingDELETE",
+        "parameters": [
+          {
+            "name": "caseNumber",
+            "in": "path",
+            "description": "Unique numeric identifier for the case.",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Case deleted.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found: Case does not exist."
+          }
+        }
       }
     },
     "/v1/cases/{caseNumber}/export": {
@@ -1469,7 +1460,7 @@
             "name": "caseNumber",
             "in": "path",
             "description": "Unique numeric identifier for the case.",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -1479,7 +1470,6 @@
             "description": "Specifies the locale for the PDF export. Defaults to English if no value is supplied.",
             "required": false,
             "type": "string",
-            "allowEmptyValue": false,
             "x-example": "de"
           }
         ],
@@ -1496,8 +1486,7 @@
           "502": {
             "description": "Bad Gateway: Unable to reach CSV definitions."
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/cases/{caseNumber}/fileevent": {
@@ -1512,7 +1501,7 @@
             "name": "caseNumber",
             "in": "path",
             "description": "Unique numeric identifier for the case.",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -1523,8 +1512,7 @@
             "required": false,
             "type": "integer",
             "default": 1,
-            "format": "int32",
-            "allowEmptyValue": false
+            "format": "int32"
           },
           {
             "name": "pgSize",
@@ -1533,22 +1521,20 @@
             "required": false,
             "type": "integer",
             "default": 10000,
-            "format": "int32",
-            "allowEmptyValue": false
+            "format": "int32"
           }
         ],
         "responses": {
           "200": {
             "description": "Success: Response containing abbreviated view of events associated with the case.",
             "schema": {
-              "$ref": "#/definitions/MultipleEventsResponse-cases"
+              "type": "object"
             }
           },
           "404": {
             "description": "Not Found: Case does not exist."
           }
-        },
-        "deprecated": false
+        }
       },
       "post": {
         "tags": [
@@ -1561,7 +1547,7 @@
             "name": "caseNumber",
             "in": "path",
             "description": "Unique numeric identifier for the case.",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -1583,25 +1569,15 @@
             }
           },
           "400": {
-            "description": "Bad Request: Too many events in request, case or events do not exist, case is closed, or the maximum events per case has been reached.",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
+            "description": "Bad Request: Too many events in request, case or events do not exist, case is closed, or the maximum events per case has been reached."
           },
           "403": {
-            "description": "Forbidden: Forbidden by events.",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
+            "description": "Forbidden: Forbidden by events."
           },
           "502": {
-            "description": "Bad Gateway: Failure to reach events.",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
+            "description": "Bad Gateway: Failure to reach events."
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/cases/{caseNumber}/fileevent/export": {
@@ -1616,7 +1592,7 @@
             "name": "caseNumber",
             "in": "path",
             "description": "Unique numeric identifier for the case.",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           }
@@ -1631,8 +1607,7 @@
           "404": {
             "description": "Not Found: Case does not exist."
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/cases/{caseNumber}/fileevent/{eventId}": {
@@ -1647,7 +1622,7 @@
             "name": "caseNumber",
             "in": "path",
             "description": "Unique numeric identifier for the case.",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -1655,7 +1630,7 @@
             "name": "eventId",
             "in": "path",
             "description": "The unique identifier for the event.",
-            "required": false,
+            "required": true,
             "type": "string"
           }
         ],
@@ -1669,8 +1644,7 @@
           "404": {
             "description": "Not Found: Case or event do not exist."
           }
-        },
-        "deprecated": false
+        }
       },
       "post": {
         "tags": [
@@ -1683,7 +1657,7 @@
             "name": "caseNumber",
             "in": "path",
             "description": "Unique numeric identifier for the case.",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -1691,7 +1665,7 @@
             "name": "eventId",
             "in": "path",
             "description": "The unique identifier for the event.",
-            "required": false,
+            "required": true,
             "type": "string"
           }
         ],
@@ -1703,25 +1677,15 @@
             }
           },
           "400": {
-            "description": "Bad Request: Case or event do not exist, the case already has the event, case is closed, or the maximum events per case has been reached.",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
+            "description": "Bad Request: Case or event do not exist, the case already has the event, case is closed, or the maximum events per case has been reached."
           },
           "403": {
-            "description": "Forbidden: Forbidden by events.",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
+            "description": "Forbidden: Forbidden by events."
           },
           "502": {
-            "description": "Bad Gateway: Failure to reach events.",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
+            "description": "Bad Gateway: Failure to reach events."
           }
-        },
-        "deprecated": false
+        }
       },
       "delete": {
         "tags": [
@@ -1734,7 +1698,7 @@
             "name": "caseNumber",
             "in": "path",
             "description": "Unique numeric identifier for the case.",
-            "required": false,
+            "required": true,
             "type": "integer",
             "format": "int64"
           },
@@ -1742,7 +1706,7 @@
             "name": "eventId",
             "in": "path",
             "description": "The unique identifier for the event.",
-            "required": false,
+            "required": true,
             "type": "string"
           }
         ],
@@ -1754,16 +1718,12 @@
             }
           },
           "400": {
-            "description": "Bad Request: Case has been closed.",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
+            "description": "Bad Request: Case has been closed."
           },
           "404": {
             "description": "Not Found: Case or event do not exist."
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/auth": {
@@ -3017,8 +2977,7 @@
           "500": {
             "description": "Server Error: Search execution failed."
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/file-events/export": {
@@ -3049,8 +3008,7 @@
           "400": {
             "description": "Bad Request: An invalid query was provided."
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/file-events/grouping": {
@@ -3085,8 +3043,7 @@
           "500": {
             "description": "Server Error: Search execution failed."
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/file-events/saved-searches": {
@@ -3103,8 +3060,7 @@
               "$ref": "#/definitions/SavedSearchResponse-file-events"
             }
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/file-events/saved-searches/{id}": {
@@ -3119,7 +3075,7 @@
             "name": "id",
             "in": "path",
             "description": "Unique identifier for a saved search.",
-            "required": false,
+            "required": true,
             "type": "string"
           }
         ],
@@ -3133,8 +3089,7 @@
           "404": {
             "description": "Not found: Saved search does not exist."
           }
-        },
-        "deprecated": false
+        }
       }
     }
   },
@@ -4724,13 +4679,15 @@
         "FedEndpointExfiltration",
         "FedCloudSharePermissions",
         "FedFileTypeMismatch",
-        "FedFileNameMatch"
+        "FedFileNameMatch",
+        "FedComposite"
       ],
       "enum": [
         "FED_ENDPOINT_EXFILTRATION",
         "FED_CLOUD_SHARE_PERMISSIONS",
         "FED_FILE_TYPE_MISMATCH",
-        "FED_FILE_NAME_MATCH"
+        "FED_FILE_NAME_MATCH",
+        "FED_COMPOSITE"
       ]
     },
     "SeverityRating-alerts": {
@@ -5503,35 +5460,9 @@
       ],
       "type": "object"
     },
-    "CaseProblemResponse-cases": {
+    "CaseResponse-cases": {
       "type": "object",
-      "properties": {
-        "description": {
-          "type": "string",
-          "example": "subject validation failed",
-          "description": "Additional description of the problem"
-        },
-        "problem": {
-          "type": "string",
-          "example": "INVALID_USER",
-          "description": "The type of problem that occured",
-          "enum": [
-            "NAME_EMPTY",
-            "NAME_EXISTS",
-            "NAME_TOO_LONG",
-            "NO_EDITS_ONCE_CLOSED",
-            "DESCRIPTION_TOO_LONG",
-            "FINDINGS_TOO_LONG",
-            "INVALID_PAGE_NUMBER",
-            "INVALID_PAGE_SIZE",
-            "INVALID_TIME_INTERVAL",
-            "INVALID_USER",
-            "USER_VALIDATION_UNAVAILABLE",
-            "USER_VALIDATION_FORBIDDEN"
-          ]
-        }
-      },
-      "title": "CaseProblemResponse"
+      "title": "CaseResponse"
     },
     "CreateCaseRequest-cases": {
       "type": "object",
@@ -5564,73 +5495,6 @@
       },
       "title": "CreateCaseRequest"
     },
-    "EventProblemResponse-cases": {
-      "type": "object",
-      "properties": {
-        "problem": {
-          "type": "string",
-          "description": "The type of problem that occured."
-        }
-      },
-      "title": "EventProblemResponse"
-    },
-    "EventResponse-cases": {
-      "type": "object",
-      "properties": {
-        "eventId": {
-          "type": "string",
-          "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
-          "description": "The unique identifier for the event."
-        },
-        "eventTimestamp": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2020-12-23T14:24:44.593Z",
-          "description": "Date and time that the Code42 service on the device detected an event; based on the device’s system clock and reported in Coordinated Universal Time (UTC)."
-        },
-        "exposure": {
-          "type": "array",
-          "example": [
-            "OutsideTrustedDomains",
-            "IsPublic"
-          ],
-          "description": "Lists indicators that the data may be exposed.",
-          "items": {
-            "type": "string"
-          }
-        },
-        "fileName": {
-          "type": "string",
-          "example": "example.docx",
-          "description": "The name of the file, including the file extension."
-        },
-        "filePath": {
-          "type": "string",
-          "example": "/Users/casey/Documents/",
-          "description": "The file location on the user's device; a path forward or backslash should be included at the end of the filepath. Possibly null if the file event occurred on a cloud provider."
-        }
-      },
-      "title": "EventResponse"
-    },
-    "MultiCaseResponse-cases": {
-      "type": "object",
-      "properties": {
-        "cases": {
-          "type": "array",
-          "description": "List of cases in the response",
-          "items": {
-            "$ref": "#/definitions/SingleSlimCaseResponse-cases"
-          }
-        },
-        "totalCount": {
-          "type": "integer",
-          "format": "int64",
-          "example": 42,
-          "description": "Total number of cases matching the provided filters"
-        }
-      },
-      "title": "MultiCaseResponse"
-    },
     "MultiEventRequest-cases": {
       "type": "object",
       "properties": {
@@ -5647,191 +5511,6 @@
         }
       },
       "title": "MultiEventRequest"
-    },
-    "MultipleEventsResponse-cases": {
-      "type": "object",
-      "properties": {
-        "events": {
-          "type": "array",
-          "description": "List of events in the response.",
-          "items": {
-            "$ref": "#/definitions/EventResponse-cases"
-          }
-        },
-        "totalCount": {
-          "type": "integer",
-          "format": "int64",
-          "example": 42,
-          "description": "Total number of events associated with the case."
-        }
-      },
-      "title": "MultipleEventsResponse"
-    },
-    "SingleCaseResponse-cases": {
-      "type": "object",
-      "properties": {
-        "assignee": {
-          "type": "string",
-          "example": 273411254592236320,
-          "description": "The user UID of the administrator assigned to investigate the case."
-        },
-        "assigneeUsername": {
-          "type": "string",
-          "example": "admin@example.com",
-          "description": "The username of the administrator assigned to investigate the case."
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2020-10-27T15:16:05.369203Z",
-          "description": "Time at which the case was created."
-        },
-        "createdByUserUid": {
-          "type": "string",
-          "example": 806150685834341100,
-          "description": "User UID of the user who created the case."
-        },
-        "createdByUsername": {
-          "type": "string",
-          "example": "adrian@example.com",
-          "description": "Username of the user who created the case."
-        },
-        "description": {
-          "type": "string",
-          "example": "Sample description",
-          "description": "Brief description providing context for a case."
-        },
-        "findings": {
-          "type": "string",
-          "example": "Sample findings",
-          "description": "Markdown formatted text summarizing the findings for a case."
-        },
-        "lastModifiedByUserUid": {
-          "type": "string",
-          "example": 806150685834341100,
-          "description": "User UID of the user who last modified the case."
-        },
-        "lastModifiedByUsername": {
-          "type": "string",
-          "example": "adrian@example.com",
-          "description": "Username of the user who last modified the case."
-        },
-        "name": {
-          "type": "string",
-          "example": "Sample case name",
-          "description": "The unique name given to the case."
-        },
-        "number": {
-          "type": "integer",
-          "format": "int64",
-          "example": 1,
-          "description": "Unique numeric identifier for the case."
-        },
-        "status": {
-          "type": "string",
-          "example": "OPEN",
-          "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.",
-          "enum": [
-            "OPEN",
-            "CLOSED"
-          ]
-        },
-        "subject": {
-          "type": "string",
-          "example": 421380797518239200,
-          "description": "The user UID of the subject being investigated in this case."
-        },
-        "subjectUsername": {
-          "type": "string",
-          "example": "casey@example.com",
-          "description": "The username of the subject being investigated in this case."
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2020-10-27T15:20:26.311894Z",
-          "description": "Time at which the case was last updated."
-        }
-      },
-      "title": "SingleCaseResponse"
-    },
-    "SingleSlimCaseResponse-cases": {
-      "type": "object",
-      "properties": {
-        "assignee": {
-          "type": "string",
-          "example": 273411254592236320,
-          "description": "The user UID of the administrator assigned to investigate the case."
-        },
-        "assigneeUsername": {
-          "type": "string",
-          "example": "admin@example.com",
-          "description": "The username of the administrator assigned to investigate the case."
-        },
-        "createdAt": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2020-10-27T15:16:05.369203Z",
-          "description": "Time at which the case was created."
-        },
-        "createdByUserUid": {
-          "type": "string",
-          "example": 806150685834341100,
-          "description": "User UID of the user who created the case."
-        },
-        "createdByUsername": {
-          "type": "string",
-          "example": "adrian@example.com",
-          "description": "Username of the user who created the case."
-        },
-        "lastModifiedByUserUid": {
-          "type": "string",
-          "example": 806150685834341100,
-          "description": "User UID of the user who last modified the case."
-        },
-        "lastModifiedByUsername": {
-          "type": "string",
-          "example": "adrian@example.com",
-          "description": "Username of the user who last modified the case."
-        },
-        "name": {
-          "type": "string",
-          "example": "Sample case name",
-          "description": "The unique name given to the case."
-        },
-        "number": {
-          "type": "integer",
-          "format": "int64",
-          "example": 1,
-          "description": "Unique numeric identifier for the case."
-        },
-        "status": {
-          "type": "string",
-          "example": "OPEN",
-          "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.",
-          "enum": [
-            "OPEN",
-            "CLOSED"
-          ]
-        },
-        "subject": {
-          "type": "string",
-          "example": 421380797518239200,
-          "description": "The user UID of the subject being investigated in this case."
-        },
-        "subjectUsername": {
-          "type": "string",
-          "example": "casey@example.com",
-          "description": "The username of the subject being investigated in this case."
-        },
-        "updatedAt": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2020-10-27T15:20:26.311894Z",
-          "description": "Time at which the case was last updated."
-        }
-      },
-      "title": "SingleSlimCaseResponse"
     },
     "StreamingResponseBody-cases": {
       "type": "object",
@@ -5865,8 +5544,8 @@
           "example": "OPEN",
           "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.",
           "enum": [
-            "OPEN",
-            "CLOSED"
+            "CLOSED",
+            "OPEN"
           ]
         },
         "subject": {
@@ -7878,162 +7557,162 @@
           "items": {
             "type": "string",
             "enum": [
+              "actor",
+              "cloudDriveId",
+              "createTimestamp",
+              "destinationCategory",
+              "destinationName",
+              "detectionSourceAlias",
+              "deviceUid",
+              "deviceUserName",
+              "directoryId",
+              "domainName",
+              "emailDlpPolicyNames",
+              "emailFrom",
+              "emailRecipients",
+              "emailSender",
+              "emailSubject",
               "eventId",
-              "eventType",
               "eventTimestamp",
-              "insertionTimestamp",
-              "filePath",
-              "fileName",
-              "fileType",
+              "eventType",
+              "exposure",
               "fileCategory",
               "fileCategoryByBytes",
               "fileCategoryByExtension",
-              "fileSize",
-              "fileOwner",
-              "md5Checksum",
-              "sha256Checksum",
-              "createTimestamp",
-              "modifyTimestamp",
-              "deviceUserName",
-              "deviceUid",
-              "userUid",
-              "osHostName",
-              "domainName",
-              "publicIpAddress",
-              "privateIpAddresses",
-              "actor",
-              "directoryId",
-              "source",
-              "url",
-              "shared",
-              "sharedWith",
-              "sharingTypeAdded",
-              "cloudDriveId",
-              "detectionSourceAlias",
-              "fileId",
-              "exposure",
-              "processOwner",
-              "processName",
-              "windowTitle",
-              "tabUrl",
-              "tabTitles",
-              "tabTitleErrors",
-              "tabUrls",
-              "tabUrlErrors",
-              "fileClassificationVendors",
               "fileClassificationValues",
-              "removableMediaVendor",
-              "removableMediaName",
-              "removableMediaSerialNumber",
-              "removableMediaCapacity",
-              "removableMediaBusType",
-              "removableMediaMediaName",
-              "removableMediaVolumeName",
-              "removableMediaPartitionId",
-              "syncDestination",
-              "syncDestinationUsername",
-              "emailDlpPolicyNames",
-              "emailSubject",
-              "emailSender",
-              "emailFrom",
-              "emailRecipients",
-              "outsideActiveHours",
+              "fileClassificationVendors",
+              "fileId",
+              "fileName",
+              "fileOwner",
+              "filePath",
+              "fileSize",
+              "fileType",
+              "insertionTimestamp",
+              "md5Checksum",
               "mimeTypeByBytes",
               "mimeTypeByExtension",
               "mimeTypeMismatch",
-              "printJobName",
-              "printerName",
-              "printedFilesBackupPath",
-              "remoteActivity",
-              "trusted",
+              "modifyTimestamp",
               "operatingSystemUser",
-              "destinationCategory",
-              "destinationName",
+              "osHostName",
+              "outsideActiveHours",
+              "printJobName",
+              "printedFilesBackupPath",
+              "printerName",
+              "privateIpAddresses",
+              "processName",
+              "processOwner",
+              "publicIpAddress",
+              "remoteActivity",
+              "removableMediaBusType",
+              "removableMediaCapacity",
+              "removableMediaMediaName",
+              "removableMediaName",
+              "removableMediaPartitionId",
+              "removableMediaSerialNumber",
+              "removableMediaVendor",
+              "removableMediaVolumeName",
+              "riskIndicatorNames",
+              "riskIndicatorWeights",
               "riskScore",
               "riskSeverity",
-              "riskIndicatorNames",
-              "riskIndicatorWeights"
+              "sha256Checksum",
+              "shared",
+              "sharedWith",
+              "sharingTypeAdded",
+              "source",
+              "syncDestination",
+              "syncDestinationUsername",
+              "tabTitleErrors",
+              "tabTitles",
+              "tabUrl",
+              "tabUrlErrors",
+              "tabUrls",
+              "trusted",
+              "url",
+              "userUid",
+              "windowTitle"
             ]
           }
         },
         "defaultSortKey": {
           "type": "string",
           "enum": [
+            "actor",
+            "cloudDriveId",
+            "createTimestamp",
+            "destinationCategory",
+            "destinationName",
+            "detectionSourceAlias",
+            "deviceUid",
+            "deviceUserName",
+            "directoryId",
+            "domainName",
+            "emailDlpPolicyNames",
+            "emailFrom",
+            "emailRecipients",
+            "emailSender",
+            "emailSubject",
             "eventId",
-            "eventType",
             "eventTimestamp",
-            "insertionTimestamp",
-            "filePath",
-            "fileName",
-            "fileType",
+            "eventType",
+            "exposure",
             "fileCategory",
             "fileCategoryByBytes",
             "fileCategoryByExtension",
-            "fileSize",
-            "fileOwner",
-            "md5Checksum",
-            "sha256Checksum",
-            "createTimestamp",
-            "modifyTimestamp",
-            "deviceUserName",
-            "deviceUid",
-            "userUid",
-            "osHostName",
-            "domainName",
-            "publicIpAddress",
-            "privateIpAddresses",
-            "actor",
-            "directoryId",
-            "source",
-            "url",
-            "shared",
-            "sharedWith",
-            "sharingTypeAdded",
-            "cloudDriveId",
-            "detectionSourceAlias",
-            "fileId",
-            "exposure",
-            "processOwner",
-            "processName",
-            "windowTitle",
-            "tabUrl",
-            "tabTitles",
-            "tabTitleErrors",
-            "tabUrls",
-            "tabUrlErrors",
-            "fileClassificationVendors",
             "fileClassificationValues",
-            "removableMediaVendor",
-            "removableMediaName",
-            "removableMediaSerialNumber",
-            "removableMediaCapacity",
-            "removableMediaBusType",
-            "removableMediaMediaName",
-            "removableMediaVolumeName",
-            "removableMediaPartitionId",
-            "syncDestination",
-            "syncDestinationUsername",
-            "emailDlpPolicyNames",
-            "emailSubject",
-            "emailSender",
-            "emailFrom",
-            "emailRecipients",
-            "outsideActiveHours",
+            "fileClassificationVendors",
+            "fileId",
+            "fileName",
+            "fileOwner",
+            "filePath",
+            "fileSize",
+            "fileType",
+            "insertionTimestamp",
+            "md5Checksum",
             "mimeTypeByBytes",
             "mimeTypeByExtension",
             "mimeTypeMismatch",
-            "printJobName",
-            "printerName",
-            "printedFilesBackupPath",
-            "remoteActivity",
-            "trusted",
+            "modifyTimestamp",
             "operatingSystemUser",
-            "destinationCategory",
-            "destinationName",
+            "osHostName",
+            "outsideActiveHours",
+            "printJobName",
+            "printedFilesBackupPath",
+            "printerName",
+            "privateIpAddresses",
+            "processName",
+            "processOwner",
+            "publicIpAddress",
+            "remoteActivity",
+            "removableMediaBusType",
+            "removableMediaCapacity",
+            "removableMediaMediaName",
+            "removableMediaName",
+            "removableMediaPartitionId",
+            "removableMediaSerialNumber",
+            "removableMediaVendor",
+            "removableMediaVolumeName",
+            "riskIndicatorNames",
+            "riskIndicatorWeights",
             "riskScore",
             "riskSeverity",
-            "riskIndicatorNames",
-            "riskIndicatorWeights"
+            "sha256Checksum",
+            "shared",
+            "sharedWith",
+            "sharingTypeAdded",
+            "source",
+            "syncDestination",
+            "syncDestinationUsername",
+            "tabTitleErrors",
+            "tabTitles",
+            "tabUrl",
+            "tabUrlErrors",
+            "tabUrls",
+            "trusted",
+            "url",
+            "userUid",
+            "windowTitle"
           ]
         },
         "groupClause": {
@@ -8065,81 +7744,81 @@
           "type": "string",
           "description": "Search term for sorting.",
           "enum": [
+            "actor",
+            "cloudDriveId",
+            "createTimestamp",
+            "destinationCategory",
+            "destinationName",
+            "detectionSourceAlias",
+            "deviceUid",
+            "deviceUserName",
+            "directoryId",
+            "domainName",
+            "emailDlpPolicyNames",
+            "emailFrom",
+            "emailRecipients",
+            "emailSender",
+            "emailSubject",
             "eventId",
-            "eventType",
             "eventTimestamp",
-            "insertionTimestamp",
-            "filePath",
-            "fileName",
-            "fileType",
+            "eventType",
+            "exposure",
             "fileCategory",
             "fileCategoryByBytes",
             "fileCategoryByExtension",
-            "fileSize",
-            "fileOwner",
-            "md5Checksum",
-            "sha256Checksum",
-            "createTimestamp",
-            "modifyTimestamp",
-            "deviceUserName",
-            "deviceUid",
-            "userUid",
-            "osHostName",
-            "domainName",
-            "publicIpAddress",
-            "privateIpAddresses",
-            "actor",
-            "directoryId",
-            "source",
-            "url",
-            "shared",
-            "sharedWith",
-            "sharingTypeAdded",
-            "cloudDriveId",
-            "detectionSourceAlias",
-            "fileId",
-            "exposure",
-            "processOwner",
-            "processName",
-            "windowTitle",
-            "tabUrl",
-            "tabTitles",
-            "tabTitleErrors",
-            "tabUrls",
-            "tabUrlErrors",
-            "fileClassificationVendors",
             "fileClassificationValues",
-            "removableMediaVendor",
-            "removableMediaName",
-            "removableMediaSerialNumber",
-            "removableMediaCapacity",
-            "removableMediaBusType",
-            "removableMediaMediaName",
-            "removableMediaVolumeName",
-            "removableMediaPartitionId",
-            "syncDestination",
-            "syncDestinationUsername",
-            "emailDlpPolicyNames",
-            "emailSubject",
-            "emailSender",
-            "emailFrom",
-            "emailRecipients",
-            "outsideActiveHours",
+            "fileClassificationVendors",
+            "fileId",
+            "fileName",
+            "fileOwner",
+            "filePath",
+            "fileSize",
+            "fileType",
+            "insertionTimestamp",
+            "md5Checksum",
             "mimeTypeByBytes",
             "mimeTypeByExtension",
             "mimeTypeMismatch",
-            "printJobName",
-            "printerName",
-            "printedFilesBackupPath",
-            "remoteActivity",
-            "trusted",
+            "modifyTimestamp",
             "operatingSystemUser",
-            "destinationCategory",
-            "destinationName",
+            "osHostName",
+            "outsideActiveHours",
+            "printJobName",
+            "printedFilesBackupPath",
+            "printerName",
+            "privateIpAddresses",
+            "processName",
+            "processOwner",
+            "publicIpAddress",
+            "remoteActivity",
+            "removableMediaBusType",
+            "removableMediaCapacity",
+            "removableMediaMediaName",
+            "removableMediaName",
+            "removableMediaPartitionId",
+            "removableMediaSerialNumber",
+            "removableMediaVendor",
+            "removableMediaVolumeName",
+            "riskIndicatorNames",
+            "riskIndicatorWeights",
             "riskScore",
             "riskSeverity",
-            "riskIndicatorNames",
-            "riskIndicatorWeights"
+            "sha256Checksum",
+            "shared",
+            "sharedWith",
+            "sharingTypeAdded",
+            "source",
+            "syncDestination",
+            "syncDestinationUsername",
+            "tabTitleErrors",
+            "tabTitles",
+            "tabUrl",
+            "tabUrlErrors",
+            "tabUrls",
+            "trusted",
+            "url",
+            "userUid",
+            "windowTitle"
           ]
         }
       },
@@ -8298,18 +7977,18 @@
           "description": "Indicates the type of file event observed.",
           "enum": [
             "CREATED",
-            "MODIFIED",
             "DELETED",
-            "UNCHANGED",
-            "READ_BY_APP",
-            "UNSUPPORTED",
-            "RULE_MATCH",
-            "RESTORE",
-            "OPEN",
             "DOWNLOADED",
-            "PREVIEWED",
             "EMAILED",
-            "PRINTED"
+            "MODIFIED",
+            "OPEN",
+            "PREVIEWED",
+            "PRINTED",
+            "READ_BY_APP",
+            "RESTORE",
+            "RULE_MATCH",
+            "UNCHANGED",
+            "UNSUPPORTED"
           ]
         },
         "exposure": {
@@ -8388,16 +8067,16 @@
           "example": "FILE",
           "description": "The type of file detected; only FILE types are searchable.",
           "enum": [
-            "UNKNOWN",
-            "FILE",
+            "BLOCK_DEVICE",
+            "BUNDLE",
+            "CHAR_DEVICE",
             "DIR",
-            "WIN_NDS",
+            "FIFO",
+            "FILE",
             "MAC_RSRC",
             "SYMLINK",
-            "FIFO",
-            "BLOCK_DEVICE",
-            "CHAR_DEVICE",
-            "BUNDLE"
+            "UNKNOWN",
+            "WIN_NDS"
           ]
         },
         "insertionTimestamp": {
@@ -8488,8 +8167,8 @@
           "example": "UNKNOWN",
           "description": "For endpoint events, compares the IP address of the file event to your defined list of addresses in the Data Preferences section of the Code42 console. If the IP address from the file event does not match, \"remote\" is true. If the IP address does match, \"remote\" is false.",
           "enum": [
-            "TRUE",
             "FALSE",
+            "TRUE",
             "UNKNOWN"
           ]
         },
@@ -8563,11 +8242,11 @@
           "example": "CRITICAL",
           "description": "The general risk assessment of the event, based on the numeric score.",
           "enum": [
-            "NO_RISK_INDICATED",
+            "CRITICAL",
+            "HIGH",
             "LOW",
             "MODERATE",
-            "HIGH",
-            "CRITICAL"
+            "NO_RISK_INDICATED"
           ]
         },
         "sha256Checksum": {
@@ -8580,8 +8259,8 @@
           "example": "TRUE",
           "description": "Indicates the shared status as reported by the cloud provider at the time the event occurred. A shared file indicates that one or more users have been granted explicit access to the file. It does not capture whether or not a link to the file has been shared.",
           "enum": [
-            "TRUE",
-            "FALSE"
+            "FALSE",
+            "TRUE"
           ]
         },
         "sharedWith": {
@@ -8756,81 +8435,81 @@
           "example": "eventType",
           "description": "The search term to use to form the groups.",
           "enum": [
+            "actor",
+            "cloudDriveId",
+            "createTimestamp",
+            "destinationCategory",
+            "destinationName",
+            "detectionSourceAlias",
+            "deviceUid",
+            "deviceUserName",
+            "directoryId",
+            "domainName",
+            "emailDlpPolicyNames",
+            "emailFrom",
+            "emailRecipients",
+            "emailSender",
+            "emailSubject",
             "eventId",
-            "eventType",
             "eventTimestamp",
-            "insertionTimestamp",
-            "filePath",
-            "fileName",
-            "fileType",
+            "eventType",
+            "exposure",
             "fileCategory",
             "fileCategoryByBytes",
             "fileCategoryByExtension",
-            "fileSize",
-            "fileOwner",
-            "md5Checksum",
-            "sha256Checksum",
-            "createTimestamp",
-            "modifyTimestamp",
-            "deviceUserName",
-            "deviceUid",
-            "userUid",
-            "osHostName",
-            "domainName",
-            "publicIpAddress",
-            "privateIpAddresses",
-            "actor",
-            "directoryId",
-            "source",
-            "url",
-            "shared",
-            "sharedWith",
-            "sharingTypeAdded",
-            "cloudDriveId",
-            "detectionSourceAlias",
-            "fileId",
-            "exposure",
-            "processOwner",
-            "processName",
-            "windowTitle",
-            "tabUrl",
-            "tabTitles",
-            "tabTitleErrors",
-            "tabUrls",
-            "tabUrlErrors",
-            "fileClassificationVendors",
             "fileClassificationValues",
-            "removableMediaVendor",
-            "removableMediaName",
-            "removableMediaSerialNumber",
-            "removableMediaCapacity",
-            "removableMediaBusType",
-            "removableMediaMediaName",
-            "removableMediaVolumeName",
-            "removableMediaPartitionId",
-            "syncDestination",
-            "syncDestinationUsername",
-            "emailDlpPolicyNames",
-            "emailSubject",
-            "emailSender",
-            "emailFrom",
-            "emailRecipients",
-            "outsideActiveHours",
+            "fileClassificationVendors",
+            "fileId",
+            "fileName",
+            "fileOwner",
+            "filePath",
+            "fileSize",
+            "fileType",
+            "insertionTimestamp",
+            "md5Checksum",
             "mimeTypeByBytes",
             "mimeTypeByExtension",
             "mimeTypeMismatch",
-            "printJobName",
-            "printerName",
-            "printedFilesBackupPath",
-            "remoteActivity",
-            "trusted",
+            "modifyTimestamp",
             "operatingSystemUser",
-            "destinationCategory",
-            "destinationName",
+            "osHostName",
+            "outsideActiveHours",
+            "printJobName",
+            "printedFilesBackupPath",
+            "printerName",
+            "privateIpAddresses",
+            "processName",
+            "processOwner",
+            "publicIpAddress",
+            "remoteActivity",
+            "removableMediaBusType",
+            "removableMediaCapacity",
+            "removableMediaMediaName",
+            "removableMediaName",
+            "removableMediaPartitionId",
+            "removableMediaSerialNumber",
+            "removableMediaVendor",
+            "removableMediaVolumeName",
+            "riskIndicatorNames",
+            "riskIndicatorWeights",
             "riskScore",
             "riskSeverity",
-            "riskIndicatorNames",
-            "riskIndicatorWeights"
+            "sha256Checksum",
+            "shared",
+            "sharedWith",
+            "sharingTypeAdded",
+            "source",
+            "syncDestination",
+            "syncDestinationUsername",
+            "tabTitleErrors",
+            "tabTitles",
+            "tabUrl",
+            "tabUrlErrors",
+            "tabUrls",
+            "trusted",
+            "url",
+            "userUid",
+            "windowTitle"
           ]
         },
         "groups": {
@@ -8871,7 +8550,7 @@
       "properties": {
         "badFilter": {
           "description": "The search filter that caused this problem.",
-          "$ref": "#/definitions/SearchFilter-file-events"
+          "$ref": "#/definitions/SearchFilterRes-file-events"
         },
         "description": {
           "type": "string",
@@ -8883,22 +8562,22 @@
           "example": "SEARCH_FAILED",
           "description": "The type of problem that occured.",
           "enum": [
-            "ILLEGAL_VALUE",
+            "ILLEGAL_GROUP",
             "ILLEGAL_OPERATOR",
-            "MUST_BE_EMAIL_ADDRESS",
-            "MAX_LENGTH_EXCEEDED",
-            "INVALID_PAGE_SIZE",
-            "INVALID_PAGE_NUMBER",
-            "INVALID_PAGE_TOKEN",
-            "MISSING_VALUE",
-            "UNEXPECTED_VALUE",
-            "MISSING_GROUPS",
-            "MISSING_FILTERS",
-            "MAX_FILTERS_EXCEEDED",
-            "SEARCH_FAILED",
-            "QUERY_TIMEOUT",
             "ILLEGAL_SORT",
-            "ILLEGAL_GROUP"
+            "ILLEGAL_VALUE",
+            "INVALID_PAGE_NUMBER",
+            "INVALID_PAGE_SIZE",
+            "INVALID_PAGE_TOKEN",
+            "MAX_FILTERS_EXCEEDED",
+            "MAX_LENGTH_EXCEEDED",
+            "MISSING_FILTERS",
+            "MISSING_GROUPS",
+            "MISSING_VALUE",
+            "MUST_BE_EMAIL_ADDRESS",
+            "QUERY_TIMEOUT",
+            "SEARCH_FAILED",
+            "UNEXPECTED_VALUE"
           ]
         }
       },
@@ -8936,81 +8615,81 @@
           "items": {
             "type": "string",
             "enum": [
+              "actor",
+              "cloudDriveId",
+              "createTimestamp",
+              "destinationCategory",
+              "destinationName",
+              "detectionSourceAlias",
+              "deviceUid",
+              "deviceUserName",
+              "directoryId",
+              "domainName",
+              "emailDlpPolicyNames",
+              "emailFrom",
+              "emailRecipients",
+              "emailSender",
+              "emailSubject",
               "eventId",
-              "eventType",
               "eventTimestamp",
-              "insertionTimestamp",
-              "filePath",
-              "fileName",
-              "fileType",
+              "eventType",
+              "exposure",
               "fileCategory",
               "fileCategoryByBytes",
               "fileCategoryByExtension",
-              "fileSize",
-              "fileOwner",
-              "md5Checksum",
-              "sha256Checksum",
-              "createTimestamp",
-              "modifyTimestamp",
-              "deviceUserName",
-              "deviceUid",
-              "userUid",
-              "osHostName",
-              "domainName",
-              "publicIpAddress",
-              "privateIpAddresses",
-              "actor",
-              "directoryId",
-              "source",
-              "url",
-              "shared",
-              "sharedWith",
-              "sharingTypeAdded",
-              "cloudDriveId",
-              "detectionSourceAlias",
-              "fileId",
-              "exposure",
-              "processOwner",
-              "processName",
-              "windowTitle",
-              "tabUrl",
-              "tabTitles",
-              "tabTitleErrors",
-              "tabUrls",
-              "tabUrlErrors",
-              "fileClassificationVendors",
               "fileClassificationValues",
-              "removableMediaVendor",
-              "removableMediaName",
-              "removableMediaSerialNumber",
-              "removableMediaCapacity",
-              "removableMediaBusType",
-              "removableMediaMediaName",
-              "removableMediaVolumeName",
-              "removableMediaPartitionId",
-              "syncDestination",
-              "syncDestinationUsername",
-              "emailDlpPolicyNames",
-              "emailSubject",
-              "emailSender",
-              "emailFrom",
-              "emailRecipients",
-              "outsideActiveHours",
+              "fileClassificationVendors",
+              "fileId",
+              "fileName",
+              "fileOwner",
+              "filePath",
+              "fileSize",
+              "fileType",
+              "insertionTimestamp",
+              "md5Checksum",
               "mimeTypeByBytes",
               "mimeTypeByExtension",
               "mimeTypeMismatch",
-              "printJobName",
-              "printerName",
-              "printedFilesBackupPath",
-              "remoteActivity",
-              "trusted",
+              "modifyTimestamp",
               "operatingSystemUser",
-              "destinationCategory",
-              "destinationName",
+              "osHostName",
+              "outsideActiveHours",
+              "printJobName",
+              "printedFilesBackupPath",
+              "printerName",
+              "privateIpAddresses",
+              "processName",
+              "processOwner",
+              "publicIpAddress",
+              "remoteActivity",
+              "removableMediaBusType",
+              "removableMediaCapacity",
+              "removableMediaMediaName",
+              "removableMediaName",
+              "removableMediaPartitionId",
+              "removableMediaSerialNumber",
+              "removableMediaVendor",
+              "removableMediaVolumeName",
+              "riskIndicatorNames",
+              "riskIndicatorWeights",
               "riskScore",
               "riskSeverity",
-              "riskIndicatorNames",
-              "riskIndicatorWeights"
+              "sha256Checksum",
+              "shared",
+              "sharedWith",
+              "sharingTypeAdded",
+              "source",
+              "syncDestination",
+              "syncDestinationUsername",
+              "tabTitleErrors",
+              "tabTitles",
+              "tabUrl",
+              "tabUrlErrors",
+              "tabUrls",
+              "trusted",
+              "url",
+              "userUid",
+              "windowTitle"
             ]
           }
         },
@@ -9091,81 +8770,81 @@
           "example": "eventId",
           "description": "Search term for sorting.",
           "enum": [
+            "actor",
+            "cloudDriveId",
+            "createTimestamp",
+            "destinationCategory",
+            "destinationName",
+            "detectionSourceAlias",
+            "deviceUid",
+            "deviceUserName",
+            "directoryId",
+            "domainName",
+            "emailDlpPolicyNames",
+            "emailFrom",
+            "emailRecipients",
+            "emailSender",
+            "emailSubject",
             "eventId",
-            "eventType",
             "eventTimestamp",
-            "insertionTimestamp",
-            "filePath",
-            "fileName",
-            "fileType",
+            "eventType",
+            "exposure",
             "fileCategory",
             "fileCategoryByBytes",
             "fileCategoryByExtension",
-            "fileSize",
-            "fileOwner",
-            "md5Checksum",
-            "sha256Checksum",
-            "createTimestamp",
-            "modifyTimestamp",
-            "deviceUserName",
-            "deviceUid",
-            "userUid",
-            "osHostName",
-            "domainName",
-            "publicIpAddress",
-            "privateIpAddresses",
-            "actor",
-            "directoryId",
-            "source",
-            "url",
-            "shared",
-            "sharedWith",
-            "sharingTypeAdded",
-            "cloudDriveId",
-            "detectionSourceAlias",
-            "fileId",
-            "exposure",
-            "processOwner",
-            "processName",
-            "windowTitle",
-            "tabUrl",
-            "tabTitles",
-            "tabTitleErrors",
-            "tabUrls",
-            "tabUrlErrors",
-            "fileClassificationVendors",
             "fileClassificationValues",
-            "removableMediaVendor",
-            "removableMediaName",
-            "removableMediaSerialNumber",
-            "removableMediaCapacity",
-            "removableMediaBusType",
-            "removableMediaMediaName",
-            "removableMediaVolumeName",
-            "removableMediaPartitionId",
-            "syncDestination",
-            "syncDestinationUsername",
-            "emailDlpPolicyNames",
-            "emailSubject",
-            "emailSender",
-            "emailFrom",
-            "emailRecipients",
-            "outsideActiveHours",
+            "fileClassificationVendors",
+            "fileId",
+            "fileName",
+            "fileOwner",
+            "filePath",
+            "fileSize",
+            "fileType",
+            "insertionTimestamp",
+            "md5Checksum",
             "mimeTypeByBytes",
             "mimeTypeByExtension",
             "mimeTypeMismatch",
-            "printJobName",
-            "printerName",
-            "printedFilesBackupPath",
-            "remoteActivity",
-            "trusted",
+            "modifyTimestamp",
             "operatingSystemUser",
-            "destinationCategory",
-            "destinationName",
+            "osHostName",
+            "outsideActiveHours",
+            "printJobName",
+            "printedFilesBackupPath",
+            "printerName",
+            "privateIpAddresses",
+            "processName",
+            "processOwner",
+            "publicIpAddress",
+            "remoteActivity",
+            "removableMediaBusType",
+            "removableMediaCapacity",
+            "removableMediaMediaName",
+            "removableMediaName",
+            "removableMediaPartitionId",
+            "removableMediaSerialNumber",
+            "removableMediaVendor",
+            "removableMediaVolumeName",
+            "riskIndicatorNames",
+            "riskIndicatorWeights",
             "riskScore",
             "riskSeverity",
-            "riskIndicatorNames",
-            "riskIndicatorWeights"
+            "sha256Checksum",
+            "shared",
+            "sharedWith",
+            "sharingTypeAdded",
+            "source",
+            "syncDestination",
+            "syncDestinationUsername",
+            "tabTitleErrors",
+            "tabTitles",
+            "tabUrl",
+            "tabUrlErrors",
+            "tabUrls",
+            "trusted",
+            "url",
+            "userUid",
+            "windowTitle"
           ]
         }
       },
@@ -9195,16 +8874,16 @@
           "example": "IS_NOT",
           "description": "The type of match to perform.  Default value is `IS`.",
           "enum": [
+            "DOES_NOT_EXIST",
+            "EXISTS",
+            "GREATER_THAN",
             "IS",
             "IS_NOT",
-            "ON_OR_BEFORE",
-            "ON_OR_AFTER",
-            "ON",
-            "WITHIN_THE_LAST",
             "LESS_THAN",
-            "GREATER_THAN",
-            "EXISTS",
-            "DOES_NOT_EXIST"
+            "ON",
+            "ON_OR_AFTER",
+            "ON_OR_BEFORE",
+            "WITHIN_THE_LAST"
           ]
         },
         "term": {
@@ -9212,81 +8891,81 @@
           "example": "actor",
           "description": "The field to match.  Default value is `deviceUserName`.",
           "enum": [
+            "actor",
+            "cloudDriveId",
+            "createTimestamp",
+            "destinationCategory",
+            "destinationName",
+            "detectionSourceAlias",
+            "deviceUid",
+            "deviceUserName",
+            "directoryId",
+            "domainName",
+            "emailDlpPolicyNames",
+            "emailFrom",
+            "emailRecipients",
+            "emailSender",
+            "emailSubject",
             "eventId",
-            "eventType",
             "eventTimestamp",
-            "insertionTimestamp",
-            "filePath",
-            "fileName",
-            "fileType",
+            "eventType",
+            "exposure",
             "fileCategory",
             "fileCategoryByBytes",
             "fileCategoryByExtension",
-            "fileSize",
-            "fileOwner",
-            "md5Checksum",
-            "sha256Checksum",
-            "createTimestamp",
-            "modifyTimestamp",
-            "deviceUserName",
-            "deviceUid",
-            "userUid",
-            "osHostName",
-            "domainName",
-            "publicIpAddress",
-            "privateIpAddresses",
-            "actor",
-            "directoryId",
-            "source",
-            "url",
-            "shared",
-            "sharedWith",
-            "sharingTypeAdded",
-            "cloudDriveId",
-            "detectionSourceAlias",
-            "fileId",
-            "exposure",
-            "processOwner",
-            "processName",
-            "windowTitle",
-            "tabUrl",
-            "tabTitles",
-            "tabTitleErrors",
-            "tabUrls",
-            "tabUrlErrors",
-            "fileClassificationVendors",
             "fileClassificationValues",
-            "removableMediaVendor",
-            "removableMediaName",
-            "removableMediaSerialNumber",
-            "removableMediaCapacity",
-            "removableMediaBusType",
-            "removableMediaMediaName",
-            "removableMediaVolumeName",
-            "removableMediaPartitionId",
-            "syncDestination",
-            "syncDestinationUsername",
-            "emailDlpPolicyNames",
-            "emailSubject",
-            "emailSender",
-            "emailFrom",
-            "emailRecipients",
-            "outsideActiveHours",
+            "fileClassificationVendors",
+            "fileId",
+            "fileName",
+            "fileOwner",
+            "filePath",
+            "fileSize",
+            "fileType",
+            "insertionTimestamp",
+            "md5Checksum",
             "mimeTypeByBytes",
             "mimeTypeByExtension",
             "mimeTypeMismatch",
-            "printJobName",
-            "printerName",
-            "printedFilesBackupPath",
-            "remoteActivity",
-            "trusted",
+            "modifyTimestamp",
             "operatingSystemUser",
-            "destinationCategory",
-            "destinationName",
+            "osHostName",
+            "outsideActiveHours",
+            "printJobName",
+            "printedFilesBackupPath",
+            "printerName",
+            "privateIpAddresses",
+            "processName",
+            "processOwner",
+            "publicIpAddress",
+            "remoteActivity",
+            "removableMediaBusType",
+            "removableMediaCapacity",
+            "removableMediaMediaName",
+            "removableMediaName",
+            "removableMediaPartitionId",
+            "removableMediaSerialNumber",
+            "removableMediaVendor",
+            "removableMediaVolumeName",
+            "riskIndicatorNames",
+            "riskIndicatorWeights",
             "riskScore",
             "riskSeverity",
-            "riskIndicatorNames",
-            "riskIndicatorWeights"
+            "sha256Checksum",
+            "shared",
+            "sharedWith",
+            "sharingTypeAdded",
+            "source",
+            "syncDestination",
+            "syncDestinationUsername",
+            "tabTitleErrors",
+            "tabTitles",
+            "tabUrl",
+            "tabUrlErrors",
+            "tabUrls",
+            "trusted",
+            "url",
+            "userUid",
+            "windowTitle"
           ]
         },
         "value": {
@@ -9296,6 +8975,119 @@
         }
       },
       "title": "SearchFilter"
+    },
+    "SearchFilterRes-file-events": {
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "operator": {
+          "type": "string",
+          "example": "IS_NOT",
+          "description": "The type of match to perform.  Default value is `IS`.",
+          "enum": [
+            "DOES_NOT_EXIST",
+            "EXISTS",
+            "GREATER_THAN",
+            "IS",
+            "IS_NOT",
+            "LESS_THAN",
+            "ON",
+            "ON_OR_AFTER",
+            "ON_OR_BEFORE",
+            "WITHIN_THE_LAST"
+          ]
+        },
+        "term": {
+          "type": "string",
+          "example": "actor",
+          "description": "The field to match.  Default value is `deviceUserName`.",
+          "enum": [
+            "actor",
+            "cloudDriveId",
+            "createTimestamp",
+            "destinationCategory",
+            "destinationName",
+            "detectionSourceAlias",
+            "deviceUid",
+            "deviceUserName",
+            "directoryId",
+            "domainName",
+            "emailDlpPolicyNames",
+            "emailFrom",
+            "emailRecipients",
+            "emailSender",
+            "emailSubject",
+            "eventId",
+            "eventTimestamp",
+            "eventType",
+            "exposure",
+            "fileCategory",
+            "fileCategoryByBytes",
+            "fileCategoryByExtension",
+            "fileClassificationValues",
+            "fileClassificationVendors",
+            "fileId",
+            "fileName",
+            "fileOwner",
+            "filePath",
+            "fileSize",
+            "fileType",
+            "insertionTimestamp",
+            "md5Checksum",
+            "mimeTypeByBytes",
+            "mimeTypeByExtension",
+            "mimeTypeMismatch",
+            "modifyTimestamp",
+            "operatingSystemUser",
+            "osHostName",
+            "outsideActiveHours",
+            "printJobName",
+            "printedFilesBackupPath",
+            "printerName",
+            "privateIpAddresses",
+            "processName",
+            "processOwner",
+            "publicIpAddress",
+            "remoteActivity",
+            "removableMediaBusType",
+            "removableMediaCapacity",
+            "removableMediaMediaName",
+            "removableMediaName",
+            "removableMediaPartitionId",
+            "removableMediaSerialNumber",
+            "removableMediaVendor",
+            "removableMediaVolumeName",
+            "riskIndicatorNames",
+            "riskIndicatorWeights",
+            "riskScore",
+            "riskSeverity",
+            "sha256Checksum",
+            "shared",
+            "sharedWith",
+            "sharingTypeAdded",
+            "source",
+            "syncDestination",
+            "syncDestinationUsername",
+            "tabTitleErrors",
+            "tabTitles",
+            "tabUrl",
+            "tabUrlErrors",
+            "tabUrls",
+            "trusted",
+            "url",
+            "userUid",
+            "windowTitle"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "example": "ari@example.com",
+          "description": "The input for the search."
+        }
+      },
+      "title": "SearchFilterRes"
     },
     "SearchRequest-file-events": {
       "type": "object",
@@ -9307,81 +9099,81 @@
         "defaultSortKey": {
           "type": "string",
           "enum": [
+            "actor",
+            "cloudDriveId",
+            "createTimestamp",
+            "destinationCategory",
+            "destinationName",
+            "detectionSourceAlias",
+            "deviceUid",
+            "deviceUserName",
+            "directoryId",
+            "domainName",
+            "emailDlpPolicyNames",
+            "emailFrom",
+            "emailRecipients",
+            "emailSender",
+            "emailSubject",
             "eventId",
-            "eventType",
             "eventTimestamp",
-            "insertionTimestamp",
-            "filePath",
-            "fileName",
-            "fileType",
+            "eventType",
+            "exposure",
             "fileCategory",
             "fileCategoryByBytes",
             "fileCategoryByExtension",
-            "fileSize",
-            "fileOwner",
-            "md5Checksum",
-            "sha256Checksum",
-            "createTimestamp",
-            "modifyTimestamp",
-            "deviceUserName",
-            "deviceUid",
-            "userUid",
-            "osHostName",
-            "domainName",
-            "publicIpAddress",
-            "privateIpAddresses",
-            "actor",
-            "directoryId",
-            "source",
-            "url",
-            "shared",
-            "sharedWith",
-            "sharingTypeAdded",
-            "cloudDriveId",
-            "detectionSourceAlias",
-            "fileId",
-            "exposure",
-            "processOwner",
-            "processName",
-            "windowTitle",
-            "tabUrl",
-            "tabTitles",
-            "tabTitleErrors",
-            "tabUrls",
-            "tabUrlErrors",
-            "fileClassificationVendors",
             "fileClassificationValues",
-            "removableMediaVendor",
-            "removableMediaName",
-            "removableMediaSerialNumber",
-            "removableMediaCapacity",
-            "removableMediaBusType",
-            "removableMediaMediaName",
-            "removableMediaVolumeName",
-            "removableMediaPartitionId",
-            "syncDestination",
-            "syncDestinationUsername",
-            "emailDlpPolicyNames",
-            "emailSubject",
-            "emailSender",
-            "emailFrom",
-            "emailRecipients",
-            "outsideActiveHours",
+            "fileClassificationVendors",
+            "fileId",
+            "fileName",
+            "fileOwner",
+            "filePath",
+            "fileSize",
+            "fileType",
+            "insertionTimestamp",
+            "md5Checksum",
             "mimeTypeByBytes",
             "mimeTypeByExtension",
             "mimeTypeMismatch",
-            "printJobName",
-            "printerName",
-            "printedFilesBackupPath",
-            "remoteActivity",
-            "trusted",
+            "modifyTimestamp",
             "operatingSystemUser",
-            "destinationCategory",
-            "destinationName",
+            "osHostName",
+            "outsideActiveHours",
+            "printJobName",
+            "printedFilesBackupPath",
+            "printerName",
+            "privateIpAddresses",
+            "processName",
+            "processOwner",
+            "publicIpAddress",
+            "remoteActivity",
+            "removableMediaBusType",
+            "removableMediaCapacity",
+            "removableMediaMediaName",
+            "removableMediaName",
+            "removableMediaPartitionId",
+            "removableMediaSerialNumber",
+            "removableMediaVendor",
+            "removableMediaVolumeName",
+            "riskIndicatorNames",
+            "riskIndicatorWeights",
             "riskScore",
             "riskSeverity",
-            "riskIndicatorNames",
-            "riskIndicatorWeights"
+            "sha256Checksum",
+            "shared",
+            "sharedWith",
+            "sharingTypeAdded",
+            "source",
+            "syncDestination",
+            "syncDestinationUsername",
+            "tabTitleErrors",
+            "tabTitles",
+            "tabUrl",
+            "tabUrlErrors",
+            "tabUrls",
+            "trusted",
+            "url",
+            "userUid",
+            "windowTitle"
           ]
         },
         "groupClause": {
@@ -9431,81 +9223,81 @@
           "example": "eventId",
           "description": "Search term for sorting.",
           "enum": [
+            "actor",
+            "cloudDriveId",
+            "createTimestamp",
+            "destinationCategory",
+            "destinationName",
+            "detectionSourceAlias",
+            "deviceUid",
+            "deviceUserName",
+            "directoryId",
+            "domainName",
+            "emailDlpPolicyNames",
+            "emailFrom",
+            "emailRecipients",
+            "emailSender",
+            "emailSubject",
             "eventId",
-            "eventType",
             "eventTimestamp",
-            "insertionTimestamp",
-            "filePath",
-            "fileName",
-            "fileType",
+            "eventType",
+            "exposure",
             "fileCategory",
             "fileCategoryByBytes",
             "fileCategoryByExtension",
-            "fileSize",
-            "fileOwner",
-            "md5Checksum",
-            "sha256Checksum",
-            "createTimestamp",
-            "modifyTimestamp",
-            "deviceUserName",
-            "deviceUid",
-            "userUid",
-            "osHostName",
-            "domainName",
-            "publicIpAddress",
-            "privateIpAddresses",
-            "actor",
-            "directoryId",
-            "source",
-            "url",
-            "shared",
-            "sharedWith",
-            "sharingTypeAdded",
-            "cloudDriveId",
-            "detectionSourceAlias",
-            "fileId",
-            "exposure",
-            "processOwner",
-            "processName",
-            "windowTitle",
-            "tabUrl",
-            "tabTitles",
-            "tabTitleErrors",
-            "tabUrls",
-            "tabUrlErrors",
-            "fileClassificationVendors",
             "fileClassificationValues",
-            "removableMediaVendor",
-            "removableMediaName",
-            "removableMediaSerialNumber",
-            "removableMediaCapacity",
-            "removableMediaBusType",
-            "removableMediaMediaName",
-            "removableMediaVolumeName",
-            "removableMediaPartitionId",
-            "syncDestination",
-            "syncDestinationUsername",
-            "emailDlpPolicyNames",
-            "emailSubject",
-            "emailSender",
-            "emailFrom",
-            "emailRecipients",
-            "outsideActiveHours",
+            "fileClassificationVendors",
+            "fileId",
+            "fileName",
+            "fileOwner",
+            "filePath",
+            "fileSize",
+            "fileType",
+            "insertionTimestamp",
+            "md5Checksum",
             "mimeTypeByBytes",
             "mimeTypeByExtension",
             "mimeTypeMismatch",
-            "printJobName",
-            "printerName",
-            "printedFilesBackupPath",
-            "remoteActivity",
-            "trusted",
+            "modifyTimestamp",
             "operatingSystemUser",
-            "destinationCategory",
-            "destinationName",
+            "osHostName",
+            "outsideActiveHours",
+            "printJobName",
+            "printedFilesBackupPath",
+            "printerName",
+            "privateIpAddresses",
+            "processName",
+            "processOwner",
+            "publicIpAddress",
+            "remoteActivity",
+            "removableMediaBusType",
+            "removableMediaCapacity",
+            "removableMediaMediaName",
+            "removableMediaName",
+            "removableMediaPartitionId",
+            "removableMediaSerialNumber",
+            "removableMediaVendor",
+            "removableMediaVolumeName",
+            "riskIndicatorNames",
+            "riskIndicatorWeights",
             "riskScore",
             "riskSeverity",
-            "riskIndicatorNames",
-            "riskIndicatorWeights"
+            "sha256Checksum",
+            "shared",
+            "sharedWith",
+            "sharingTypeAdded",
+            "source",
+            "syncDestination",
+            "syncDestinationUsername",
+            "tabTitleErrors",
+            "tabTitles",
+            "tabUrl",
+            "tabUrlErrors",
+            "tabUrls",
+            "trusted",
+            "url",
+            "userUid",
+            "windowTitle"
           ]
         }
       },
