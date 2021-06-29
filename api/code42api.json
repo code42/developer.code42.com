@@ -7251,7 +7251,7 @@
             "notes": {
               "type": "string",
               "description": "Optional notes about the user.",
-              "maxLength": 250,
+              "maxLength": 1000,
               "example": "This is an example of notes about Sample User1'."
             },
             "riskFactors": {
@@ -7500,7 +7500,7 @@
             "notes": {
               "type": "string",
               "description": "Optional notes about the user.",
-              "maxLength": 250,
+              "maxLength": 1000,
               "example": "This is an example of notes about Sample User1'."
             }
           }
