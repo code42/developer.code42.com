@@ -775,12 +775,12 @@
                   },
                   "type": "array"
                 },
-                "pagination_range_end_index": {
+                "paginationRangeEndIndex": {
                   "description": "The index of the last result returned, in relation to total results found",
                   "format": "int64",
                   "type": "integer"
                 },
-                "pagination_range_start_index": {
+                "paginationRangeStartIndex": {
                   "description": "The index of the first result returned, in relation to total results found",
                   "format": "int64",
                   "type": "integer"
@@ -788,8 +788,8 @@
               },
               "required": [
                 "events",
-                "pagination_range_start_index",
-                "pagination_range_end_index"
+                "paginationRangeStartIndex",
+                "paginationRangeEndIndex"
               ],
               "type": "object"
             }
@@ -940,13 +940,13 @@
             "description": "Success",
             "schema": {
               "properties": {
-                "download_token": {
+                "downloadToken": {
                   "description": "",
                   "type": "string"
                 }
               },
               "required": [
-                "download_token"
+                "downloadToken"
               ],
               "type": "object"
             }
@@ -983,12 +983,12 @@
                   },
                   "type": "array"
                 },
-                "pagination_range_end_index": {
+                "paginationRangeEndIndex": {
                   "description": "The index of the last result returned, in relation to total results found",
                   "format": "int64",
                   "type": "integer"
                 },
-                "pagination_range_start_index": {
+                "paginationRangeStartIndex": {
                   "description": "The index of the first result returned, in relation to total results found",
                   "format": "int64",
                   "type": "integer"
@@ -996,8 +996,8 @@
               },
               "required": [
                 "events",
-                "pagination_range_start_index",
-                "pagination_range_end_index"
+                "paginationRangeStartIndex",
+                "paginationRangeEndIndex"
               ],
               "type": "object"
             }
@@ -1131,14 +1131,14 @@
             "description": "Success",
             "schema": {
               "properties": {
-                "total_result_count": {
+                "totalResultCount": {
                   "description": "The total number of results found by this search",
                   "format": "int64",
                   "type": "integer"
                 }
               },
               "required": [
-                "total_result_count"
+                "totalResultCount"
               ],
               "type": "object"
             }
