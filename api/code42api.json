@@ -5134,6 +5134,12 @@
             "note": {
               "description": "Most recent note added to the alert.",
               "$ref": "#/definitions/Note-alerts"
+            },
+            "ffsUrl": {
+              "type": "string"
+            },
+            "alertUrl": {
+              "type": "string"
             }
           }
         }
