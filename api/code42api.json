@@ -5136,10 +5136,14 @@
               "$ref": "#/definitions/Note-alerts"
             },
             "ffsUrl": {
-              "type": "string"
+              "type": "string",
+              "description": "URL to forensic search",
+              "example": "ExampleFfsUrl"
             },
             "alertUrl": {
-              "type": "string"
+              "type": "string",
+              "description": "URL to alert details",
+              "example": "ExampleAlertUrl"
             }
           }
         }
