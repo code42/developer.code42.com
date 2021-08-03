@@ -8163,12 +8163,12 @@
         "processName": {
           "type": "string",
           "example": "bash",
-          "description": "For events generated when a file is read in a browser or other app, the name of the process that accessed the file, as reported by the device’s operating system."
+          "description": "The name of the process that accessed the file, as reported by the device’s operating system. Depending on your Code42 product plan, this value may be null for some event types."
         },
         "processOwner": {
           "type": "string",
           "example": "root",
-          "description": "For events generated when a file is read in a browser or other app, the username of the process owner, as reported by the device’s operating system."
+          "description": "The username of the process owner, as reported by the device’s operating system. Depending on your Code42 product plan, this value may be null for some event types."
         },
         "publicIpAddress": {
           "type": "string",
