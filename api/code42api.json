@@ -3571,7 +3571,6 @@
           "type": "object",
           "x-abstract": true,
           "required": [
-            "severity",
             "isEnabled",
             "tenantId"
           ],
@@ -4486,8 +4485,8 @@
       "enum": [
         "OPEN",
         "RESOLVED",
-        "PENDING",
-        "IN_PROGRESS"
+        "IN_PROGRESS",
+        "PENDING"
       ]
     },
     "AddNoteCommand-alerts": {
@@ -4608,7 +4607,6 @@
           "type": "object",
           "required": [
             "type",
-            "severity",
             "tenantId"
           ],
           "properties": {
@@ -4646,8 +4644,13 @@
               "type": "string"
             },
             "severity": {
-              "description": "Indicates severity of the alert.",
+              "description": "Indicates static rule severity of the alert.",
               "$ref": "#/definitions/SeverityRating-alerts"
+            },
+            "riskSeverity": {
+              "description": "Indicates event risk severity of the alert.",
+              "example": "MODERATE",
+              "$ref": "#/definitions/RiskSeverityRating-alerts"
             },
             "notificationInfo": {
               "type": "array",
@@ -4700,9 +4703,29 @@
         "High"
       ],
       "enum": [
-        "HIGH",
+        "LOW",
         "MEDIUM",
-        "LOW"
+        "HIGH"
+      ]
+    },
+    "RiskSeverityRating-alerts": {
+      "type": "integer",
+      "description": "",
+      "x-enumNames": [
+        "Unknown",
+        "NoRiskIndicated",
+        "Low",
+        "Moderate",
+        "High",
+        "Critical"
+      ],
+      "enum": [
+        "UNKNOWN",
+        "NO_RISK_INDICATED",
+        "LOW",
+        "MODERATE",
+        "HIGH",
+        "CRITICAL"
       ]
     },
     "NotificationInfo-alerts": {
@@ -4841,7 +4864,7 @@
             },
             "srtKey": {
               "type": "string",
-              "description": "The alert attribute to sort by.  Value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RuleSource, CreatedAt, Observations, Notes, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId",
+              "description": "The alert attribute to sort by.  Value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId",
               "example": "CreatedAt"
             },
             "srtDirection": {
@@ -4892,7 +4915,7 @@
           "properties": {
             "term": {
               "type": "string",
-              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RuleSource, CreatedAt, Observations, Notes, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, Severity, IsSystem, IsEnabled, RuleSource, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
+              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, Severity, IsSystem, IsEnabled, RuleSource, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
               "example": "Name"
             },
             "operator": {
@@ -5307,7 +5330,6 @@
         {
           "type": "object",
           "required": [
-            "severity",
             "isSystem",
             "isEnabled"
           ],
@@ -5323,7 +5345,7 @@
               "example": "Will generate alerts when files moved to USB."
             },
             "severity": {
-              "description": "The severity of the rule.",
+              "description": "The static severity of the rule (deprecated).",
               "$ref": "#/definitions/SeverityRating-alerts"
             },
             "isSystem": {
@@ -5401,7 +5423,7 @@
             "groupClause": {
               "type": "string",
               "description": "The clause to use when combining group filters.  Must be AND/OR.",
-              "example": "OR"
+              "example": "AND"
             },
             "pgSize": {
               "type": "integer",
@@ -7631,6 +7653,12 @@
               "sharedWith",
               "sharingTypeAdded",
               "source",
+              "sourceCategory",
+              "sourceName",
+              "sourceTabTitleErrors",
+              "sourceTabTitles",
+              "sourceTabUrlErrors",
+              "sourceTabUrls",
               "syncDestination",
               "syncDestinationUsername",
               "tabTitleErrors",
@@ -7713,6 +7741,12 @@
             "sharedWith",
             "sharingTypeAdded",
             "source",
+            "sourceCategory",
+            "sourceName",
+            "sourceTabTitleErrors",
+            "sourceTabTitles",
+            "sourceTabUrlErrors",
+            "sourceTabUrls",
             "syncDestination",
             "syncDestinationUsername",
             "tabTitleErrors",
@@ -7820,6 +7854,12 @@
             "sharedWith",
             "sharingTypeAdded",
             "source",
+            "sourceCategory",
+            "sourceName",
+            "sourceTabTitleErrors",
+            "sourceTabTitles",
+            "sourceTabUrlErrors",
+            "sourceTabUrls",
             "syncDestination",
             "syncDestinationUsername",
             "tabTitleErrors",
@@ -7899,12 +7939,12 @@
         "destinationCategory": {
           "type": "string",
           "example": "Social Media",
-          "description": "General category of where data was sent for a file exposure event. For example: Cloud Storage, Email, Social Media."
+          "description": "General category of where the file was sent. For example: Cloud Storage, Email, Social Media."
         },
         "destinationName": {
           "type": "string",
           "example": "LinkedIn",
-          "description": "Specific target of where data was sent for a file exposure event. For example: Google Drive, Outlook, Slack."
+          "description": "Specific target of where the file was sent. For example: Google Drive, Outlook, Slack."
         },
         "detectionSourceAlias": {
           "type": "string",
@@ -8300,6 +8340,23 @@
           "example": "OneDrive",
           "description": "Data source for a file event."
         },
+        "sourceCategory": {
+          "type": "string",
+          "example": "Social Media",
+          "description": "General category of where the file originated. For example: Cloud Storage, Email, Social Media."
+        },
+        "sourceName": {
+          "type": "string",
+          "example": "Salesforce",
+          "description": "Specific target of where the file originated. For example: Google Drive, Outlook, Slack."
+        },
+        "sourceTabs": {
+          "type": "array",
+          "description": "For events generated when a file is downloaded via a browser or other app, the tabs that had activity at the time of the event.",
+          "items": {
+            "$ref": "#/definitions/Tab-file-events"
+          }
+        },
         "syncDestination": {
           "type": "string",
           "example": "Dropbox",
@@ -8322,7 +8379,7 @@
         },
         "tabs": {
           "type": "array",
-          "description": "For events generated when a file is read in a browser or other app, the tabs that had activity at the time of the event.",
+          "description": "For events generated when a file is uploaded via a browser or other app, the tabs that had activity at the time of the event.",
           "items": {
             "$ref": "#/definitions/Tab-file-events"
           }
@@ -8517,6 +8574,12 @@
             "sharedWith",
             "sharingTypeAdded",
             "source",
+            "sourceCategory",
+            "sourceName",
+            "sourceTabTitleErrors",
+            "sourceTabTitles",
+            "sourceTabUrlErrors",
+            "sourceTabUrls",
             "syncDestination",
             "syncDestinationUsername",
             "tabTitleErrors",
@@ -8697,6 +8760,12 @@
               "sharedWith",
               "sharingTypeAdded",
               "source",
+              "sourceCategory",
+              "sourceName",
+              "sourceTabTitleErrors",
+              "sourceTabTitles",
+              "sourceTabUrlErrors",
+              "sourceTabUrls",
               "syncDestination",
               "syncDestinationUsername",
               "tabTitleErrors",
@@ -8853,6 +8922,12 @@
             "sharedWith",
             "sharingTypeAdded",
             "source",
+            "sourceCategory",
+            "sourceName",
+            "sourceTabTitleErrors",
+            "sourceTabTitles",
+            "sourceTabUrlErrors",
+            "sourceTabUrls",
             "syncDestination",
             "syncDestinationUsername",
             "tabTitleErrors",
@@ -8975,6 +9050,12 @@
             "sharedWith",
             "sharingTypeAdded",
             "source",
+            "sourceCategory",
+            "sourceName",
+            "sourceTabTitleErrors",
+            "sourceTabTitles",
+            "sourceTabUrlErrors",
+            "sourceTabUrls",
             "syncDestination",
             "syncDestinationUsername",
             "tabTitleErrors",
@@ -9089,6 +9170,12 @@
             "sharedWith",
             "sharingTypeAdded",
             "source",
+            "sourceCategory",
+            "sourceName",
+            "sourceTabTitleErrors",
+            "sourceTabTitles",
+            "sourceTabUrlErrors",
+            "sourceTabUrls",
             "syncDestination",
             "syncDestinationUsername",
             "tabTitleErrors",
@@ -9185,6 +9272,12 @@
             "sharedWith",
             "sharingTypeAdded",
             "source",
+            "sourceCategory",
+            "sourceName",
+            "sourceTabTitleErrors",
+            "sourceTabTitles",
+            "sourceTabUrlErrors",
+            "sourceTabUrls",
             "syncDestination",
             "syncDestinationUsername",
             "tabTitleErrors",
@@ -9310,6 +9403,12 @@
             "sharedWith",
             "sharingTypeAdded",
             "source",
+            "sourceCategory",
+            "sourceName",
+            "sourceTabTitleErrors",
+            "sourceTabTitles",
+            "sourceTabUrlErrors",
+            "sourceTabUrls",
             "syncDestination",
             "syncDestinationUsername",
             "tabTitleErrors",
