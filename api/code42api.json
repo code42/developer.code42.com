@@ -3012,42 +3012,6 @@
         "operationId": "searchEventsUsingPOST",
         "parameters": [
           {
-            "name": "authenticated",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "credentials",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "details",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "httpAuthHeader",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "principal",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "tenantId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
             "in": "body",
             "name": "request",
             "description": "request",
@@ -3082,42 +3046,6 @@
         "operationId": "exportUsingPOST",
         "parameters": [
           {
-            "name": "authenticated",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "credentials",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "details",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "httpAuthHeader",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "principal",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "tenantId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
             "in": "body",
             "name": "request",
             "description": "request",
@@ -3149,42 +3077,6 @@
         "description": "Search file events, providing a group parameter to bucket results into unique values and approximate counts for each value.",
         "operationId": "groupingUsingPOST",
         "parameters": [
-          {
-            "name": "authenticated",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "credentials",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "details",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "httpAuthHeader",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "principal",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "tenantId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
           {
             "in": "body",
             "name": "request",
@@ -3218,44 +3110,6 @@
         ],
         "summary": "Get all saved searches",
         "operationId": "getSavedSearchesUsingGET",
-        "parameters": [
-          {
-            "name": "authenticated",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "credentials",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "details",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "httpAuthHeader",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "principal",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "tenantId",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
         "responses": {
           "200": {
             "description": "Success: List of all saved searches for the tenant.",
@@ -3278,42 +3132,6 @@
             "name": "id",
             "in": "path",
             "description": "Unique identifier for a saved search.",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "authenticated",
-            "in": "query",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "name": "credentials",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "details",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "httpAuthHeader",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "name": "principal",
-            "in": "query",
-            "required": false,
-            "type": "object"
-          },
-          {
-            "name": "tenantId",
-            "in": "query",
             "required": false,
             "type": "string"
           }
