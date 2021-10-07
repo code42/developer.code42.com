@@ -3017,7 +3017,7 @@
             "description": "request",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SearchRequest-file-events"
+              "$ref": "#/definitions/SearchRequest«string»-file-events"
             }
           }
         ],
@@ -3051,7 +3051,7 @@
             "description": "request",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ExportRequest-file-events"
+              "$ref": "#/definitions/ExportRequest«string»-file-events"
             }
           }
         ],
@@ -3083,7 +3083,7 @@
             "description": "request",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/GroupingRequest-file-events"
+              "$ref": "#/definitions/GroupingRequest«string»-file-events"
             }
           }
         ],
@@ -3091,7 +3091,7 @@
           "200": {
             "description": "Success: List of groups matching the query.",
             "schema": {
-              "$ref": "#/definitions/GroupingResponse-file-events"
+              "$ref": "#/definitions/GroupingResponse«string»-file-events"
             }
           },
           "400": {
@@ -7918,7 +7918,7 @@
       "format": "date",
       "example": "2019-11-27"
     },
-    "ExportRequest-file-events": {
+    "ExportRequest«string»-file-events": {
       "type": "object",
       "required": [
         "defaultSortKey",
@@ -8132,7 +8132,7 @@
           "type": "array",
           "description": "One or more FilterGroups to be combined in a query.",
           "items": {
-            "$ref": "#/definitions/FilterGroup-file-events"
+            "$ref": "#/definitions/FilterGroup«string»-file-events"
           }
         },
         "srtDir": {
@@ -8239,7 +8239,7 @@
           ]
         }
       },
-      "title": "ExportRequest"
+      "title": "ExportRequest«string»"
     },
     "FieldError-file-events": {
       "type": "object",
@@ -8292,7 +8292,7 @@
           "type": "array",
           "description": "List of problems in the request.  A problem with a search request could be an invalid filter value, an operator that can't be used on a term, etc.",
           "items": {
-            "$ref": "#/definitions/QueryProblem-file-events"
+            "$ref": "#/definitions/QueryProblem«string»-file-events"
           }
         },
         "totalCount": {
@@ -8858,7 +8858,7 @@
       },
       "title": "FileEventV1"
     },
-    "FilterGroup-file-events": {
+    "FilterGroup«string»-file-events": {
       "type": "object",
       "required": [
         "filters"
@@ -8877,11 +8877,11 @@
           "type": "array",
           "description": "One or more SearchFilters to be combined in a query.",
           "items": {
-            "$ref": "#/definitions/SearchFilter-file-events"
+            "$ref": "#/definitions/SearchFilter«string»-file-events"
           }
         }
       },
-      "title": "FilterGroup"
+      "title": "FilterGroup«string»"
     },
     "Group-file-events": {
       "type": "object",
@@ -8900,7 +8900,7 @@
       },
       "title": "Group"
     },
-    "GroupingRequest-file-events": {
+    "GroupingRequest«string»-file-events": {
       "type": "object",
       "required": [
         "groups"
@@ -9014,13 +9014,13 @@
           "type": "array",
           "description": "One or more FilterGroups to be combined in a query.",
           "items": {
-            "$ref": "#/definitions/FilterGroup-file-events"
+            "$ref": "#/definitions/FilterGroup«string»-file-events"
           }
         }
       },
-      "title": "GroupingRequest"
+      "title": "GroupingRequest«string»"
     },
-    "GroupingResponse-file-events": {
+    "GroupingResponse«string»-file-events": {
       "type": "object",
       "properties": {
         "groups": {
@@ -9034,13 +9034,13 @@
           "type": "array",
           "description": "List of problems in the request.  A problem with a search request could be an invalid filter value, an operator that can't be used on a term, etc.",
           "items": {
-            "$ref": "#/definitions/QueryProblem-file-events"
+            "$ref": "#/definitions/QueryProblem«string»-file-events"
           }
         }
       },
-      "title": "GroupingResponse"
+      "title": "GroupingResponse«string»"
     },
-    "QueryProblem-file-events": {
+    "QueryProblem«string»-file-events": {
       "type": "object",
       "required": [
         "type"
@@ -9048,7 +9048,7 @@
       "properties": {
         "badFilter": {
           "description": "The search filter that caused this problem.",
-          "$ref": "#/definitions/SearchFilterRes-file-events"
+          "$ref": "#/definitions/SearchFilter«string»Res-file-events"
         },
         "description": {
           "type": "string",
@@ -9078,7 +9078,7 @@
           ]
         }
       },
-      "title": "QueryProblem"
+      "title": "QueryProblem«string»"
     },
     "RiskIndicator-file-events": {
       "type": "object",
@@ -9232,7 +9232,7 @@
           "type": "array",
           "description": "One or more FilterGroups to be combined in a query.",
           "items": {
-            "$ref": "#/definitions/FilterGroup-file-events"
+            "$ref": "#/definitions/FilterGroup«string»-file-events"
           }
         },
         "id": {
@@ -9386,7 +9386,7 @@
       },
       "title": "SavedSearchResponse"
     },
-    "SearchFilter-file-events": {
+    "SearchFilter«string»-file-events": {
       "type": "object",
       "required": [
         "value"
@@ -9412,7 +9412,7 @@
         "term": {
           "type": "string",
           "example": "actor",
-          "description": "The field to match.  Default value is `deviceUserName`.",
+          "description": "The field to match.",
           "enum": [
             "actor",
             "cloudDriveId",
@@ -9510,9 +9510,9 @@
           "description": "The input for the search."
         }
       },
-      "title": "SearchFilter"
+      "title": "SearchFilter«string»"
     },
-    "SearchFilterRes-file-events": {
+    "SearchFilter«string»Res-file-events": {
       "type": "object",
       "required": [
         "value"
@@ -9538,7 +9538,7 @@
         "term": {
           "type": "string",
           "example": "actor",
-          "description": "The field to match.  Default value is `deviceUserName`.",
+          "description": "The field to match.",
           "enum": [
             "actor",
             "cloudDriveId",
@@ -9636,9 +9636,9 @@
           "description": "The input for the search."
         }
       },
-      "title": "SearchFilterRes"
+      "title": "SearchFilter«string»Res"
     },
-    "SearchRequest-file-events": {
+    "SearchRequest«string»-file-events": {
       "type": "object",
       "required": [
         "defaultSortKey",
@@ -9751,7 +9751,7 @@
           "type": "array",
           "description": "One or more FilterGroups to be combined in a query.",
           "items": {
-            "$ref": "#/definitions/FilterGroup-file-events"
+            "$ref": "#/definitions/FilterGroup«string»-file-events"
           }
         },
         "pgNum": {
@@ -9876,7 +9876,7 @@
           ]
         }
       },
-      "title": "SearchRequest"
+      "title": "SearchRequest«string»"
     },
     "SharedWithUser-file-events": {
       "type": "object",
