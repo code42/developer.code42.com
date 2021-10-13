@@ -3148,6 +3148,248 @@
           }
         }
       }
+    },
+    "/v1/trusted-activities": {
+      "get": {
+        "tags": [
+          "Trusted Activities"
+        ],
+        "summary": "Get trusted activities",
+        "operationId": "getTrustResourcesUsingGET",
+        "parameters": [
+          {
+            "name": "pgNum",
+            "in": "query",
+            "description": "Page number for results, starting at 1.",
+            "required": false,
+            "type": "integer",
+            "default": 1,
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "pgSize",
+            "in": "query",
+            "description": "Max number of results to return for a page.",
+            "required": false,
+            "type": "integer",
+            "default": 100,
+            "format": "int32",
+            "allowEmptyValue": false
+          },
+          {
+            "name": "srtDirection",
+            "in": "query",
+            "description": "The direction on which to sort the response, based on the corresponding key.",
+            "required": false,
+            "type": "string",
+            "default": "asc",
+            "allowEmptyValue": false,
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          },
+          {
+            "name": "srtKey",
+            "in": "query",
+            "description": "The value on which the response will be sorted. Additionally, sorting always happens a second time by `updatedAt`.",
+            "required": false,
+            "type": "string",
+            "default": "type",
+            "allowEmptyValue": false,
+            "enum": [
+              "resourceId",
+              "description",
+              "type",
+              "updatedByUsername",
+              "updatedAt",
+              "value"
+            ]
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "type",
+            "required": false,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [
+          "Trusted Activities"
+        ],
+        "summary": "Create a trusted activity",
+        "operationId": "createTrustResourceUsingPOST",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TrustResourceRequest-trusted-activities"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "On Success",
+            "schema": {
+              "$ref": "#/definitions/TrustedResourceResponse-trusted-activities"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "500": {
+            "description": "Unknown Error Occured",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          }
+        },
+        "deprecated": false
+      }
+    },
+    "/v1/trusted-activities/{id}": {
+      "get": {
+        "tags": [
+          "Trusted Activities"
+        ],
+        "summary": "Get a trusted activity",
+        "operationId": "getTrustResourceUsingGET",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "On Success",
+            "schema": {
+              "$ref": "#/definitions/TrustedResourceResponse-trusted-activities"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Trusted Activities"
+        ],
+        "summary": "Update a trusted activity",
+        "operationId": "editTrustResourceUsingPUT",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TrustResourceRequest-trusted-activities"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "On Success",
+            "schema": {
+              "$ref": "#/definitions/TrustedResourceResponse-trusted-activities"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Trusted Activities"
+        ],
+        "summary": "Delete a trusted activity",
+        "operationId": "deleteTrustResourceUsingDELETE",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "On Success",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "The value to be deleted was not found in db"
+          }
+        },
+        "deprecated": false
+      }
     }
   },
   "definitions": {
@@ -9917,6 +10159,84 @@
         }
       },
       "title": "Tab"
+    },
+    "ErrorResponse-trusted-activities": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "Response code"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message"
+        }
+      },
+      "title": "ErrorResponse"
+    },
+    "TrustResourceRequest-trusted-activities": {
+      "type": "object",
+      "required": [
+        "type",
+        "value"
+      ],
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "title": "TrustResourceRequest"
+    },
+    "TrustedResourceResponse-trusted-activities": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "The description of the trusted resource."
+        },
+        "principalType": {
+          "type": "string",
+          "description": "The type of the principal that last updated the resource.",
+          "enum": [
+            "USER",
+            "APIKEY",
+            "DEVICE",
+            "SERVICE"
+          ]
+        },
+        "resourceId": {
+          "type": "string",
+          "description": "The identifier of the resource."
+        },
+        "type": {
+          "type": "string",
+          "description": "The type of the trusted resource. eg: SLACK, DOMAIN, IP_ADDRESS."
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time at which the resource was last updated at."
+        },
+        "updatedByUserUid": {
+          "type": "string",
+          "description": "The unique identifier of the user that last updated the resource."
+        },
+        "updatedByUsername": {
+          "type": "string",
+          "description": "The username of the user that last updated the resource."
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the trusted resource."
+        }
+      },
+      "title": "TrustedResourceResponse"
     }
   }
 }
