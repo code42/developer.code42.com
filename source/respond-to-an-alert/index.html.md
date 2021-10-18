@@ -287,7 +287,7 @@ curl -X POST '<RequestURL>/v1/cases/<CaseNumber>/fileevent' \
   "<EventID>",
   "<EventID>",
   ...
-]}
+]}'
 ```
 
 In the preceding example:
