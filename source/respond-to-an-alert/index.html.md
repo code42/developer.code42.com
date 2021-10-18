@@ -277,17 +277,22 @@ Following is an example response showing the case number.
 
 ### Add file events to the case
 
-To populate the new case with information about the alert, add file events from the alert to the case using the [/v1/cases/\<CaseNumber\>/fileevent/\<EventID\>](/api/#operation/addEventToCaseUsingPOST) API command. Repeat this action for all the file events from the alert.
+To populate the new case with information about the alert, add file events from the alert to the case using the [/v1/cases/\<CaseNumber\>/fileevent/\<EventID\>](/api/#operation/addEventsToCaseUsingPOST) API command.
 
 ```bash
-curl -X POST '<RequestURL>/v1/cases/<CaseNumber>/fileevent/<EventID>' \
+curl -X POST '<RequestURL>/v1/cases/<CaseNumber>/fileevent' \
 -H 'content-type: application/json' \
 -H 'authorization: Bearer <AuthToken>'
+-d '{"events": [
+  "<EventID>",
+  "<EventID>",
+  ...
+]}
 ```
 
 In the preceding example:
 
 * Replace `<RequestURL>` with the [request URL](/api/#section/Getting-started/Request-URLs) of your Code42 cloud instance.
 * Replace `<CaseNumber>` with the case number shown in the response in the "[View filter alerts](#view-filter-alerts)" section above.
-* Replace `<EventID>` with an event ID shown in the response in the "[View alert details](#view-alert-details)" section above.
+* Replace `<EventID>` values with the event IDs shown in the response in the "[View alert details](#view-alert-details)" section above.
 * Replace `<AuthToken>` with the [authentication token](/api/#section/Getting-started/Authentication).
