@@ -638,17 +638,22 @@ Only the <code>&quot;name&quot;</code> parameter is required. To leave a field b
   </span><span class="nl">"lastModifiedByUsername"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@example.com"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='add-file-events-to-the-case'>Add file events to the case</h3>
-<p>To populate the new case with information about the alert, add file events from the alert to the case using the <a href="/api/#operation/addEventToCaseUsingPOST">/v1/cases/&lt;CaseNumber&gt;/fileevent/&lt;EventID&gt;</a> API command. Repeat this action for all the file events from the alert.</p>
-<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s1">'&lt;RequestURL&gt;/v1/cases/&lt;CaseNumber&gt;/fileevent/&lt;EventID&gt;'</span> <span class="se">\</span>
+<p>To populate the new case with information about the alert, add file events from the alert to the case using the <a href="/api/#operation/addEventsToCaseUsingPOST">/v1/cases/&lt;CaseNumber&gt;/fileevent/&lt;EventID&gt;</a> API command.</p>
+<div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s1">'&lt;RequestURL&gt;/v1/cases/&lt;CaseNumber&gt;/fileevent'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'authorization: Bearer &lt;AuthToken&gt;'</span>
+<span class="nt">-d</span> <span class="s1">'{"events": [
+  "&lt;EventID&gt;",
+  "&lt;EventID&gt;",
+  ...
+]}'</span>
 </code></pre></div>
 <p>In the preceding example:</p>
 
 <ul>
 <li>Replace <code>&lt;RequestURL&gt;</code> with the <a href="/api/#section/Getting-started/Request-URLs">request URL</a> of your Code42 cloud instance.</li>
 <li>Replace <code>&lt;CaseNumber&gt;</code> with the case number shown in the response in the &quot;<a href="#view-filter-alerts">View filter alerts</a>&quot; section above.</li>
-<li>Replace <code>&lt;EventID&gt;</code> with an event ID shown in the response in the &quot;<a href="#view-alert-details">View alert details</a>&quot; section above.</li>
+<li>Replace <code>&lt;EventID&gt;</code> values with the event IDs shown in the response in the &quot;<a href="#view-alert-details">View alert details</a>&quot; section above.</li>
 <li>Replace <code>&lt;AuthToken&gt;</code> with the <a href="/api/#section/Getting-started/Authentication">authentication token</a>.</li>
 </ul>
 
