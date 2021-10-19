@@ -638,7 +638,7 @@ Only the <code>&quot;name&quot;</code> parameter is required. To leave a field b
   </span><span class="nl">"lastModifiedByUsername"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@example.com"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='add-file-events-to-the-case'>Add file events to the case</h3>
-<p>To populate the new case with information about the alert, add file events from the alert to the case using the <a href="/api/#operation/addEventsToCaseUsingPOST">/v1/cases/&lt;CaseNumber&gt;/fileevent/&lt;EventID&gt;</a> API command.</p>
+<p>To populate the new case with information about the alert, add file events from the alert to the case using the <a href="/api/#operation/addEventsToCaseUsingPOST">/v1/cases/&lt;CaseNumber&gt;/fileevent</a> API command.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s1">'&lt;RequestURL&gt;/v1/cases/&lt;CaseNumber&gt;/fileevent'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'content-type: application/json'</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s1">'authorization: Bearer &lt;AuthToken&gt;'</span>
