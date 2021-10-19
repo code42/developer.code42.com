@@ -277,7 +277,7 @@ Following is an example response showing the case number.
 
 ### Add file events to the case
 
-To populate the new case with information about the alert, add file events from the alert to the case using the [/v1/cases/\<CaseNumber\>/fileevent/\<EventID\>](/api/#operation/addEventsToCaseUsingPOST) API command.
+To populate the new case with information about the alert, add file events from the alert to the case using the [/v1/cases/\<CaseNumber\>/fileevent](/api/#operation/addEventsToCaseUsingPOST) API command.
 
 ```bash
 curl -X POST '<RequestURL>/v1/cases/<CaseNumber>/fileevent' \
