@@ -46,9 +46,8 @@ curl -X GET 'https://api.us.code42.com/v1/users?active=true&blocked=false&pageSi
 * Authentication tokens provide the API permissions defined in the API client. 
 
 
-### Deprecation notice: 
+Other authentication methods: While [API clients](#tag/Auth/paths/~1v1~1oauth/post) are the preferred method for authentication, these other authentication methods are still supported:
 
-Only use [API clients](#tag/Auth/paths/~1v1~1oauth/post) for authentication. All previous API authentication methods are deprecated and are obsolete as of September 2022:
 
 **Basic authentication:**
 
@@ -56,19 +55,19 @@ Only use [API clients](#tag/Auth/paths/~1v1~1oauth/post) for authentication. All
 curl -u "<username>:<password>" https://<RequestURL>/<Resource>
 ```
 
-**Basic authentication to obtain an authentication token:**
+**Basic authentication to obtain a User authentication token:**
 
 ```bash
 curl -X GET -u "<username>:<password>" https://<RequestURL>/v1/auth
 ```
 
-**Basic authentication to obtain an authentication token with the auth/jwt method:**
+**Basic authentication to obtain a User authentication token with the auth/jwt method:**
 
 ```bash
 curl -u "<username>:<password>"  https://<RequestURL>/c42api/v3/auth/jwt?useBody=true
 ```
 
-**Basic authentication with second factor (TOTP) token:**
+**Basic authentication to obtain a User authentication token when a second factor (TOTP) token is required:**
 
 ```bash
 curl -X -H "totp-auth: <totp_token" GET -u "<username>:<password>" https://<RequestURL>/v1/auth 
