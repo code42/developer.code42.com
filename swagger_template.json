@@ -6,10 +6,10 @@
       "description": {"$ref": "./getting_started.rmd"}
     },
     "tags": [
-        {"name": "Auth", "description": {"$ref": "./api-descriptions/auth.rmd"}},
         {"name": "Rules", "description": {"$ref": "./api-descriptions/rules.rmd"}},
         {"name": "Alerts", "description": {"$ref": "./api-descriptions/alerts.rmd"}},
         {"name": "Cases", "description": {"$ref": "./api-descriptions/cases.rmd"}},
+        {"name": "Auth", "description": {"$ref": "./api-descriptions/auth.rmd"}},
         {"name": "Customer", "description": {"$ref": "./api-descriptions/customer.rmd"}},
         {"name": "User", "description": {"$ref": "./api-descriptions/user.rmd"}},
         {"name": "Detection Lists", "description": {"$ref": "./api-descriptions/detection_lists.rmd"}},
