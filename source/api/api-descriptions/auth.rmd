@@ -1,3 +1,4 @@
-Bearer authentication tokens must be used in the headers of most API requests to validate that your account has the proper permissions to take its associated action.
-If your organization uses two-factor authentication for local users, you must also include a `totp-auth` header value containing the Time-based One-Time Password (TOTP).
+Bearer authentication tokens must be used in the headers of most API requests to validate that the calling client has the proper permissions to take its associated action.
 
+### Deprecation notice:
+Only use API clients for authentication. All previous API authentication methods are deprecated and are obsolete as of September 2022.
