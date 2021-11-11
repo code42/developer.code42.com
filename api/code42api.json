@@ -537,6 +537,7 @@
           "Alerts"
         ],
         "summary": "Get details about an alert",
+        "description": "This endpoint is deprecated. Please use the 'v3/query-details' endpoint instead for fetching alert details.",
         "operationId": "Alerts_QueryAlertDetails",
         "parameters": [
           {
@@ -561,7 +562,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/alerts/query-details-aggregate": {
@@ -570,6 +572,7 @@
           "Alerts"
         ],
         "summary": "Get aggregated data about a set of alerts",
+        "description": "This endpoint is deprecated. Please use the 'v3/query-details-aggregate' endpoint instead for fetching aggregated alert details.",
         "operationId": "Alerts_QueryAlertDetailsAggregate",
         "parameters": [
           {
@@ -594,7 +597,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/alerts/rules/query-rule-metadata": {
