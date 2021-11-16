@@ -6194,24 +6194,6 @@
         }
       }
     },
-    "BaseUserResponse-core": {
-      "type": "object",
-      "properties": {
-        "legacyUserId": {
-          "description": "The user ID to use for older console-based APIs that require a user Id.\r\nIf your endpoint domain starts with \"console\" instead of \"api\", use this Id for endpoints that require a userId.",
-          "type": "string",
-          "readOnly": true
-        },
-        "userId": {
-          "description": "A globally unique ID for this user.",
-          "type": "string"
-        },
-        "username": {
-          "description": "The name the user uses to log in to Code42.",
-          "type": "string"
-        }
-      }
-    },
     "CustodianResponse-core": {
       "type": "object",
       "properties": {
@@ -6520,6 +6502,19 @@
         }
       }
     },
+    "LegalHoldCreatorUserResponse-core": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "description": "A globally unique ID for this user.",
+          "type": "string"
+        },
+        "username": {
+          "description": "The name the user uses to log in to Code42.",
+          "type": "string"
+        }
+      }
+    },
     "LegalHoldCustodianMatterListResponse-core": {
       "type": "object",
       "properties": {
@@ -6641,16 +6636,17 @@
         },
         "lastModifiedDate": {
           "description": "The date and time the matter was last modified.",
-          "type": "string",
-          "readOnly": true
+          "type": "string"
         },
-        "creator": {
-          "$ref": "#/definitions/MatterCreatorResponse-core"
+        "creatorObject": {
+          "description": "Information about the user who created the matter."
+        },
+        "creatorPrincipal": {
+          "$ref": "#/definitions/PrincipalInfo-core"
         },
         "policyId": {
           "description": "The ID of the policy containing the matter.",
-          "type": "string",
-          "readOnly": true
+          "type": "string"
         }
       }
     },
@@ -6705,16 +6701,17 @@
         },
         "lastModifiedDate": {
           "description": "The date and time the matter was last modified.",
-          "type": "string",
-          "readOnly": true
+          "type": "string"
         },
-        "creator": {
-          "$ref": "#/definitions/MatterCreatorResponse-core"
+        "creatorObject": {
+          "description": "Information about the user who created the matter."
+        },
+        "creatorPrincipal": {
+          "$ref": "#/definitions/PrincipalInfo-core"
         },
         "policyId": {
           "description": "The ID of the policy containing the matter.",
-          "type": "string",
-          "readOnly": true
+          "type": "string"
         }
       }
     },
@@ -6765,7 +6762,10 @@
           "type": "string"
         },
         "creatorUser": {
-          "$ref": "#/definitions/BaseUserResponse-core"
+          "$ref": "#/definitions/LegalHoldCreatorUserResponse-core"
+        },
+        "creatorPrincipal": {
+          "$ref": "#/definitions/PrincipalInfo-core"
         },
         "creationDate": {
           "description": "The date the policy was created.",
@@ -6790,7 +6790,10 @@
           "type": "string"
         },
         "creatorUser": {
-          "$ref": "#/definitions/BaseUserResponse-core"
+          "$ref": "#/definitions/LegalHoldCreatorUserResponse-core"
+        },
+        "creatorPrincipal": {
+          "$ref": "#/definitions/PrincipalInfo-core"
         },
         "creationDate": {
           "description": "The date the policy was created.",
@@ -6808,19 +6811,6 @@
         "membershipsChanged": {
           "description": "Whether the memberships were changed upon reactivation.\r\nIf true, this means that there were custodians on the matter at the time the matter got deactivated,\r\nand when reactivating, these users were placed back in legal hold.",
           "type": "boolean"
-        }
-      }
-    },
-    "MatterCreatorResponse-core": {
-      "type": "object",
-      "properties": {
-        "userId": {
-          "description": "A globally unique ID for this user.",
-          "type": "string"
-        },
-        "username": {
-          "description": "The name the user uses to log in to Code42.",
-          "type": "string"
         }
       }
     },
