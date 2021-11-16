@@ -6642,7 +6642,7 @@
           "description": "Information about the user who created the matter."
         },
         "creatorPrincipal": {
-          "$ref": "#/definitions/PrincipalInfo-core"
+          "$ref": "#/definitions/PrincipalInfoResponse-core"
         },
         "policyId": {
           "description": "The ID of the policy containing the matter.",
@@ -6707,7 +6707,7 @@
           "description": "Information about the user who created the matter."
         },
         "creatorPrincipal": {
-          "$ref": "#/definitions/PrincipalInfo-core"
+          "$ref": "#/definitions/PrincipalInfoResponse-core"
         },
         "policyId": {
           "description": "The ID of the policy containing the matter.",
@@ -6765,7 +6765,7 @@
           "$ref": "#/definitions/LegalHoldCreatorUserResponse-core"
         },
         "creatorPrincipal": {
-          "$ref": "#/definitions/PrincipalInfo-core"
+          "$ref": "#/definitions/PrincipalInfoResponse-core"
         },
         "creationDate": {
           "description": "The date the policy was created.",
@@ -6793,7 +6793,7 @@
           "$ref": "#/definitions/LegalHoldCreatorUserResponse-core"
         },
         "creatorPrincipal": {
-          "$ref": "#/definitions/PrincipalInfo-core"
+          "$ref": "#/definitions/PrincipalInfoResponse-core"
         },
         "creationDate": {
           "description": "The date the policy was created.",
@@ -6811,6 +6811,20 @@
         "membershipsChanged": {
           "description": "Whether the memberships were changed upon reactivation.\r\nIf true, this means that there were custodians on the matter at the time the matter got deactivated,\r\nand when reactivating, these users were placed back in legal hold.",
           "type": "boolean"
+        }
+      }
+    },
+    "PrincipalInfoResponse-core": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "principalId": {
+          "type": "string"
+        },
+        "displayName": {
+          "type": "string"
         }
       }
     },
