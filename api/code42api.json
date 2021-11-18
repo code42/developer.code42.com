@@ -1787,13 +1787,30 @@
         }
       }
     },
+    "/v1/oauth": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Create an API Client authentication token",
+        "description": "Most APIs require a Bearer token to be submitted in order to determine the calling user's identity and permissions. Call this endpoint with your API Client ID and Secret to retrieve a Bearer token.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/OAuthResponse-core"
+            }
+          }
+        }
+      }
+    },
     "/v1/auth": {
       "get": {
         "tags": [
           "Auth"
         ],
-        "summary": "Get an authentication token",
-        "description": "Most APIs require a Bearer token to be submitted in order to determine the calling user's identity and permissions. Call this endpoint with your user's basic authentication credentials to retrieve its Bearer token.",
+        "summary": "Get a User authentication token",
+        "description": "Most APIs require a Bearer token to be submitted in order to determine the calling user's identity and permissions. Call this endpoint with your user's basic authentication credentials to retrieve its Bearer token.\r\nIf your organization uses two-factor authentication for local users, you must also include a totp-auth header value containing the Time-based One-Time Password (TOTP).",
         "responses": {
           "200": {
             "description": "Success",
@@ -6811,6 +6828,24 @@
         "membershipsChanged": {
           "description": "Whether the memberships were changed upon reactivation.\r\nIf true, this means that there were custodians on the matter at the time the matter got deactivated,\r\nand when reactivating, these users were placed back in legal hold.",
           "type": "boolean"
+        }
+      }
+    },
+    "OAuthResponse-core": {
+      "type": "object",
+      "properties": {
+        "accessToken": {
+          "description": "A token representing a Code42 user's identity and permission set.",
+          "type": "string"
+        },
+        "tokenType": {
+          "description": "Type of token.",
+          "type": "string"
+        },
+        "expiresIn": {
+          "format": "int32",
+          "description": "Lifespan of the token.",
+          "type": "integer"
         }
       }
     },
