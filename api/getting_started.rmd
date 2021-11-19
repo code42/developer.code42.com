@@ -15,7 +15,7 @@ The domain used for making API requests can be determined using the domain you u
 
 API calls require an authentication token in the header of the request. To obtain an authentication token, [create an API client](https://support.code42.com/Administrator/Cloud/Code42_console_reference/API_clients) and then submit its ID and secret in a request to the /v1/oauth API. 
 
-In the following example (using curl), replace <ClientID> with the API client ID, replace <Secret> with the API client secret, and replace <RequestURL> with the [request URL](#section/Getting-started/Request-URLs) of your Code42 cloud instance (also known as the base URL):
+In the following example (using curl), replace `<ClientID>` with the API client ID, replace `<Secret>` with the API client secret, and replace `<RequestURL>` with the [request URL](#section/Getting-started/Request-URLs) of your Code42 cloud instance (also known as the base URL):
 
 ```bash
 curl -X POST -u '<ClientID>:<Secret>' -d "" https://<RequestURL>/v1/oauth
