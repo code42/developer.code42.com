@@ -5182,7 +5182,7 @@
             },
             "srtKey": {
               "type": "string",
-              "description": "The alert attribute to sort by.  Value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId",
+              "description": "The alert attribute to sort by.  Value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, IsSeededToDes",
               "example": "CreatedAt"
             },
             "srtDirection": {
@@ -5233,7 +5233,7 @@
           "properties": {
             "term": {
               "type": "string",
-              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsSystem, IsEnabled, RuleSource, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
+              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, IsSeededToDes.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsSystem, IsEnabled, RuleSource, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
               "example": "Name"
             },
             "operator": {
