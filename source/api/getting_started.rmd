@@ -61,12 +61,6 @@ curl -u "<username>:<password>" https://<RequestURL>/<Resource>
 curl -X GET -u "<username>:<password>" https://<RequestURL>/v1/auth
 ```
 
-**Basic authentication to obtain a User authentication token with the auth/jwt method:**
-
-```bash
-curl -u "<username>:<password>"  https://<RequestURL>/c42api/v3/auth/jwt?useBody=true
-```
-
 **Basic authentication to obtain a User authentication token when a second factor (TOTP) token is required:**
 
 ```bash
