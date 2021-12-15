@@ -3210,8 +3210,7 @@
               "type": "object"
             }
           }
-        },
-        "deprecated": false
+        }
       },
       "post": {
         "tags": [
@@ -3261,8 +3260,7 @@
               "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           }
-        },
-        "deprecated": false
+        }
       }
     },
     "/v1/trusted-activities/{id}": {
@@ -3295,8 +3293,7 @@
               "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           }
-        },
-        "deprecated": false
+        }
       },
       "put": {
         "tags": [
@@ -3342,8 +3339,7 @@
               "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           }
-        },
-        "deprecated": false
+        }
       },
       "delete": {
         "tags": [
@@ -3371,8 +3367,7 @@
           "404": {
             "description": "The value to be deleted was not found in db"
           }
-        },
-        "deprecated": false
+        }
       }
     }
   },
@@ -10112,13 +10107,13 @@
         "value"
       ],
       "properties": {
+        "description": {
+          "type": "string"
+        },
         "type": {
           "type": "string"
         },
         "value": {
-          "type": "string"
-        },
-        "description": {
           "type": "string"
         }
       },
@@ -10135,10 +10130,10 @@
           "type": "string",
           "description": "The type of the principal that last updated the resource.",
           "enum": [
-            "USER",
             "APIKEY",
             "DEVICE",
-            "SERVICE"
+            "SERVICE",
+            "USER"
           ]
         },
         "resourceId": {
