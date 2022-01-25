@@ -5768,18 +5768,6 @@
             "type": "string"
           }
         },
-        "fileAvailability": {
-          "type": "string",
-          "example": "EXACT_FILE_AVAILABLE",
-          "description": "The download availability status of the file associated with the event.",
-          "enum": [
-            "ERROR",
-            "EXACT_FILE_AVAILABLE",
-            "NO_FILE_AVAILABLE",
-            "PENDING",
-            "RECENT_FILE_AVAILABLE"
-          ]
-        },
         "fileName": {
           "type": "string",
           "example": "example.docx",
