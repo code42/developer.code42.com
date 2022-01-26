@@ -46,7 +46,7 @@ curl -X GET 'https://api.us.code42.com/v1/users?active=true&blocked=false&pageSi
 * Authentication tokens provide the API permissions defined in the API client. 
 
 
-Other authentication methods: While [API clients](#tag/Auth/paths/~1v1~1oauth/post) are the preferred method for authentication, these other authentication methods are still supported:
+Other authentication methods: [API clients](#tag/Auth/paths/~1v1~1oauth/post) are the preferred method for authentication. Basic authentication methods are deprecated:
 
 
 **Basic authentication:**
