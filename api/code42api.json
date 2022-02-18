@@ -3138,7 +3138,7 @@
         "tags": [
           "Trusted Activities"
         ],
-        "summary": "Get trusted activities",
+        "summary": "v1 - Get trusted activities",
         "operationId": "getTrustResourcesUsingGET",
         "parameters": [
           {
@@ -3210,13 +3210,14 @@
               "type": "object"
             }
           }
-        }
+        },
+        "deprecated": true
       },
       "post": {
         "tags": [
           "Trusted Activities"
         ],
-        "summary": "Create a trusted activity",
+        "summary": "v1 - Create a trusted activity",
         "operationId": "createTrustResourceUsingPOST",
         "parameters": [
           {
@@ -3260,7 +3261,8 @@
               "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/trusted-activities/{id}": {
@@ -3268,7 +3270,7 @@
         "tags": [
           "Trusted Activities"
         ],
-        "summary": "Get a trusted activity",
+        "summary": "v1 - Get a trusted activity",
         "operationId": "getTrustResourceUsingGET",
         "parameters": [
           {
@@ -3293,13 +3295,14 @@
               "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           }
-        }
+        },
+        "deprecated": true
       },
       "put": {
         "tags": [
           "Trusted Activities"
         ],
-        "summary": "Update a trusted activity",
+        "summary": "v1 - Update a trusted activity",
         "operationId": "editTrustResourceUsingPUT",
         "parameters": [
           {
@@ -3339,13 +3342,14 @@
               "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           }
-        }
+        },
+        "deprecated": true
       },
       "delete": {
         "tags": [
           "Trusted Activities"
         ],
-        "summary": "Delete a trusted activity",
+        "summary": "v1 - Delete a trusted activity",
         "operationId": "deleteTrustResourceUsingDELETE",
         "parameters": [
           {
@@ -3366,6 +3370,243 @@
           },
           "404": {
             "description": "The value to be deleted was not found in db"
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/v2/trusted-activities": {
+      "get": {
+        "tags": [
+          "Trusted Activities"
+        ],
+        "summary": "v2 - Get a list of trusted activities",
+        "operationId": "ListTrustedActivities",
+        "parameters": [
+          {
+            "name": "type",
+            "in": "query",
+            "description": "The type of the trusted activity.",
+            "schema": {
+              "enum": [
+                "TYPE_UNSPECIFIED",
+                "DOMAIN",
+                "URL_PATH",
+                "SLACK",
+                "IP_ADDRESS"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The desired page of trusted activity to retrieve.",
+            "schema": {
+              "type": "number",
+              "description": "The desired page of trusted activity to retrieve.",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "The desired number of results per page.",
+            "schema": {
+              "type": "number",
+              "description": "The desired number of results per page.",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "sort_key",
+            "in": "query",
+            "description": "The key by which to sort the returned list.",
+            "schema": {
+              "enum": [
+                "SORT_KEY_UNSPECIFIED",
+                "ACTIVITY_ID",
+                "DESCRIPTION",
+                "TYPE",
+                "UPDATED_BY_PRINCIPAL_NAME",
+                "UPDATE_TIME",
+                "VALUE"
+              ],
+              "type": "string"
+            }
+          },
+          {
+            "name": "sort_direction",
+            "in": "query",
+            "description": "The order in which to sort the returned list.",
+            "schema": {
+              "enum": [
+                "SORT_DIRECTION_UNSPECIFIED",
+                "ASC",
+                "DESC"
+              ],
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/ListTrustedActivitiesResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Trusted Activities"
+        ],
+        "summary": "v2 - Create a new trusted activity",
+        "operationId": "CreateTrustedActivity",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/CreateTrustedActivityRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/TrustedActivity"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v2/trusted-activities/{activity_id}": {
+      "get": {
+        "tags": [
+          "Trusted Activities"
+        ],
+        "summary": "v2 - Get a single trusted activity",
+        "operationId": "GetTrustedActivity",
+        "parameters": [
+          {
+            "name": "activity_id",
+            "in": "path",
+            "description": "The id of the trusted activity.",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "description": "The id of the trusted activity.",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/TrustedActivity"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Trusted Activities"
+        ],
+        "summary": "v2 - Delete a trusted activity",
+        "operationId": "DeleteTrustedActivity",
+        "parameters": [
+          {
+            "name": "activity_id",
+            "in": "path",
+            "description": "The id of the trusted activity.",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "description": "The id of the trusted activity.",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "additionalProperties": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Trusted Activities"
+        ],
+        "summary": "v2 - Modify a trusted activity",
+        "operationId": "UpdateTrustedActivity",
+        "parameters": [
+          {
+            "name": "activity_id",
+            "in": "path",
+            "description": "The id of the trusted activity.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "description": "The id of the trusted activity."
+            }
+          },
+          {
+            "name": "paths",
+            "in": "query",
+            "description": "The set of field mask paths.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "The set of field mask paths."
+              },
+              "description": "The set of field mask paths."
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/definitions/UpdatedTrustActivity"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/definitions/TrustedActivity"
+                }
+              }
+            }
           }
         }
       }
@@ -10236,6 +10477,205 @@
         }
       },
       "title": "TrustedResourceResponse"
+    },
+    "ProviderObject": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "enum": [
+            "PROVIDER_UNSPECIFIED",
+            "BOX",
+            "BOX_DRIVE",
+            "BOX_SYNC",
+            "GOOGLE_DRIVE",
+            "GOOGLE_DRIVE_DESKTOP",
+            "ICLOUD",
+            "ONE_DRIVE",
+            "GMAIL",
+            "OFFICE_365"
+          ],
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "ActivityAction": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "NAME_UNSPECIFIED",
+            "FILE_UPLOAD",
+            "CLOUD_SYNC",
+            "CLOUD_SHARE",
+            "EMAIL"
+          ],
+          "type": "string"
+        },
+        "providers": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProviderObject"
+          },
+          "description": "A list of enabled providers for the specified activity action."
+        }
+      },
+      "additionalProperties": false
+    },
+    "ActivityActionGroup": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the activity action group."
+        },
+        "activityActions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActivityAction"
+          },
+          "description": "The list of activity actions."
+        }
+      },
+      "additionalProperties": false
+    },
+    "TrustedActivity": {
+      "type": "object",
+      "properties": {
+        "activityId": {
+          "type": "string",
+          "description": "The unique identifier of the trusted activity."
+        },
+        "type": {
+          "enum": [
+            "TYPE_UNSPECIFIED",
+            "DOMAIN",
+            "URL_PATH",
+            "SLACK",
+            "IP_ADDRESS"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the trusted activity."
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the trusted activity."
+        },
+        "updatedByPrincipalId": {
+          "type": "string",
+          "description": "The unique identifier of the user who last updated the trust activity."
+        },
+        "updatedByPrincipalName": {
+          "type": "string",
+          "description": "The username of the user who last updated the trusted activity."
+        },
+        "principalType": {
+          "enum": [
+            "PRINCIPAL_UNSPECIFIED",
+            "USER",
+            "API_KEY",
+            "DEVICE",
+            "SERVICE"
+          ],
+          "type": "string"
+        },
+        "updateTime": {
+          "type": "string",
+          "description": "The time at which the trust activity was last created or modified.",
+          "format": "date-time",
+          "nullable": true
+        },
+        "activityActionGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActivityActionGroup"
+          },
+          "description": "The list of activity actions associated with the activity."
+        }
+      },
+      "additionalProperties": false
+    },
+    "ListTrustedActivitiesResponse": {
+      "type": "object",
+      "properties": {
+        "trustedActivities": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TrustedActivity"
+          },
+          "description": "A list of TrustedActivityResponses"
+        },
+        "totalCount": {
+          "type": "number",
+          "format": "int64"
+        }
+      },
+      "additionalProperties": false
+    },
+    "CreateTrustedActivityRequest": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "TYPE_UNSPECIFIED",
+            "DOMAIN",
+            "URL_PATH",
+            "SLACK",
+            "IP_ADDRESS"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the trusted activity."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the trusted activity."
+        },
+        "activityActionGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActivityActionGroup"
+          },
+          "description": "The list of activity action groups for the trusted activity. If empty all activity actions are enabled."
+        }
+      },
+      "additionalProperties": false
+    },
+    "UpdatedTrustActivity": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "enum": [
+            "TYPE_UNSPECIFIED",
+            "DOMAIN",
+            "URL_PATH",
+            "SLACK",
+            "IP_ADDRESS"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "description": "The value of the trusted activity."
+        },
+        "description": {
+          "type": "string",
+          "description": "The description of the trusted activity."
+        },
+        "activityActionGroups": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ActivityActionGroup"
+          },
+          "description": "The list of activity actions for the trusted activity."
+        }
+      },
+      "additionalProperties": false
     }
   }
 }
