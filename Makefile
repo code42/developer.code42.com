@@ -6,7 +6,7 @@ API_DOCS = $(BUILD)/api
 DOCS_SERVER = "https://api.us.code42.com"
 BUILD_SCRIPTS = build-scripts
 
-all:: clean html locations download definitions unify
+all:: clean html locations download transform definitions unify
 
 run:: all serve
 
@@ -18,6 +18,9 @@ locations::
 
 download::
 	$(BUILD_SCRIPTS)/download_open_api_files.sh $(DOCS_SRC) $(DOCS)
+
+transform::
+	$(BUILD_SCRIPTS)/transform.sh $(DOCS)
 
 definitions::
 	$(BUILD_SCRIPTS)/extract_open_api_paths_and_definitions.sh $(DOCS) $(DOCS_SRC)
@@ -31,4 +34,4 @@ html::
 serve::
 	bundle exec middleman serve
 
-.PHONY:: all clean locations download definitions unify html serve
+.PHONY:: all clean locations download transform definitions unify html serve
