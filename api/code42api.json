@@ -3167,11 +3167,11 @@
             "description": "The direction on which to sort the response, based on the corresponding key.",
             "required": false,
             "type": "string",
-            "default": "asc",
+            "default": "ASC",
             "allowEmptyValue": false,
             "enum": [
-              "asc",
-              "desc"
+              "ASC",
+              "DESC"
             ]
           },
           {
@@ -3183,12 +3183,12 @@
             "default": "type",
             "allowEmptyValue": false,
             "enum": [
-              "resourceId",
-              "description",
-              "type",
-              "updatedByUsername",
-              "updatedAt",
-              "value"
+              "RESOURCE_ID",
+              "DESCRIPTION",
+              "TYPE",
+              "UPDATED_BY_USERNAME",
+              "UPDATED_AT",
+              "VALUE"
             ]
           },
           {
@@ -4947,6 +4947,14 @@
               "type": "string",
               "description": "Indicates source of rule creation.  Either alerting or lens application name.",
               "example": "Departing Employee"
+            },
+            "watchlists": {
+              "type": "array",
+              "description": "Watchlists the actor is on at the time of the alert.",
+              "example": [],
+              "items": {
+                "$ref": "#/definitions/Watchlist-alerts"
+              }
             }
           }
         }
@@ -5039,6 +5047,71 @@
       ],
       "enum": [
         "EMAIL"
+      ]
+    },
+    "Watchlist-alerts": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DomainValue-alerts"
+        },
+        {
+          "type": "object",
+          "required": [
+            "type",
+            "isSignificant"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique id of this watchlist.",
+              "example": "guid"
+            },
+            "name": {
+              "type": "string",
+              "description": "Name of the watchlist.",
+              "example": "Development Department"
+            },
+            "type": {
+              "description": "Type of watchlist.",
+              "example": "DEPARTING_EMPLOYEE",
+              "$ref": "#/definitions/WatchlistType-alerts"
+            },
+            "isSignificant": {
+              "type": "boolean",
+              "description": "Indicates whether the watchlist was part of the triggering rule's criteria.",
+              "example": "true"
+            }
+          }
+        }
+      ]
+    },
+    "WatchlistType-alerts": {
+      "type": "integer",
+      "description": "Type of watchlist.",
+      "example": "DEPARTING_EMPLOYEE",
+      "x-enumNames": [
+        "WatchlistTypeUnspecified",
+        "ContractEmployee",
+        "DepartingEmployee",
+        "ElevatedAccessPrivileges",
+        "FlightRisk",
+        "HighImpactEmployee",
+        "NewEmployee",
+        "PerformanceConcerns",
+        "PoorSecurityPractices",
+        "SuspiciousSystemActivity"
+      ],
+      "enum": [
+        "CONTRACT_EMPLOYEE",
+        "DEPARTING_EMPLOYEE",
+        "ELEVATED_ACCESS_PRIVILEGES",
+        "FLIGHT_RISK",
+        "HIGH_IMPACT_EMPLOYEE",
+        "NEW_EMPLOYEE",
+        "PERFORMANCE_CONCERNS",
+        "POOR_SECURITY_PRACTICES",
+        "SUSPICIOUS_SYSTEM_ACTIVITY",
+        "WATCHLIST_TYPE_UNSPECIFIED"
       ]
     },
     "QueryProblem-alerts": {
@@ -5142,7 +5215,7 @@
             },
             "srtKey": {
               "type": "string",
-              "description": "The alert attribute to sort by.  Value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId",
+              "description": "The alert attribute to sort by.  Value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId",
               "example": "CreatedAt"
             },
             "srtDirection": {
@@ -5193,7 +5266,7 @@
           "properties": {
             "term": {
               "type": "string",
-              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsSystem, IsEnabled, RuleSource, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
+              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsSystem, IsEnabled, RuleSource, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
               "example": "Name"
             },
             "operator": {
