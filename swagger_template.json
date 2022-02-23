@@ -6,14 +6,20 @@
       "description": {"$ref": "./getting_started.rmd"}
     },
     "tags": [
-        {"name": "Rules", "description": {"$ref": "./api-descriptions/rules.rmd"}},
-        {"name": "Alerts", "description": {"$ref": "./api-descriptions/alerts.rmd"}},
-        {"name": "Cases", "description": {"$ref": "./api-descriptions/cases.rmd"}},
         {"name": "Auth", "description": {"$ref": "./api-descriptions/auth.rmd"}},
-        {"name": "Customer", "description": {"$ref": "./api-descriptions/customer.rmd"}},
-        {"name": "User", "description": {"$ref": "./api-descriptions/user.rmd"}},
+        {"name": "Alerts", "description": {"$ref": "./api-descriptions/alerts.rmd"}},
+        {"name": "Rules", "description": {"$ref": "./api-descriptions/rules.rmd"}},
+        {"name": "File Events", "description": {"$ref": "./api-descriptions/file_events.rmd"}},
+        {"name": "Cases", "description": {"$ref": "./api-descriptions/cases.rmd"}},
         {"name": "Detection Lists", "description": {"$ref": "./api-descriptions/detection_lists.rmd"}},
-        {"name": "File Events", "description": {"$ref": "./api-descriptions/file_events.rmd"}}
+        {"name": "Watchlists", "description": {"$ref": "./api-descriptions/watchlists.rmd"}},
+        {"name": "User Risk Profiles", "description": {"$ref": "./api-descriptions/user_risk_profiles.rmd"}},
+        {"name": "Trusted Activities"},
+        {"name": "Audit Log"},
+        {"name": "User", "description": {"$ref": "./api-descriptions/user.rmd"}},
+        {"name": "Device"},
+        {"name": "LegalHold"},
+        {"name": "Customer", "description": {"$ref": "./api-descriptions/customer.rmd"}}
     ],
     "produces": ["application/json"],
     "consumes": ["application/json"],
