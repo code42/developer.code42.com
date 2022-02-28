@@ -348,8 +348,6 @@ If a user ID was not provided when users were added to the alert rule (as is com
 
 If the rule applies to specific users, or if it applies to all users except specific users, you can add users to those inclusion or exclusion lists with the [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) API command. You cannot add users to rules that monitor all users.
 
-**Note:** You cannot use these alerts APIs to add or remove users from the inclusion or exclusion lists of default rules created by the Departing Employees list or High Risk Employees list. Instead, users are added to and removed from these lists directly in the [Departing Employees list](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Departing_Employees_reference) and [High Risk Employees list](https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference) or with the [Detection List Management API](/detection-list-management-api/#detection-list-management-api).
-
 ```bash
 curl -X POST "<RequestURL>/v1/alert-rules/add-users" \
 -H "accept: application/json" \
@@ -374,8 +372,6 @@ The aliases that you enter here become the values that are added to the rule's i
 ### Remove specific users from an alert rule
 
 You can also remove users' email addresses or cloud aliases from an alert rule's inclusion or exclusion list with the [/v1/alert-rules/remove-users](/api/#operation/Rules_RemoveUsersFromRule) API command. This command removes all of the email addresses or cloud aliases associated with the user's ID from the specified rule. You cannot remove users from rules that monitor all users.
-
-**Note:** You cannot use these alerts APIs to add or remove users from the inclusion or exclusion lists of [default rules](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/How_to_create_a_security_alert#Default_alert_rules_and_notifications) created by the Departing Employees list or High Risk Employees list. Instead, users are added to and removed from these lists directly in the [Departing Employees list](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Add_departing_employees) and [High Risk Employees list](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Add_high_risk_employees) or with the [Detection List Management API](/detection-list-management-api/#detection-list-management-api).
 
 ```bash
 curl -X POST "<RequestURL>/v1/alert-rules/remove-users" \
@@ -470,10 +466,10 @@ Type | Is, Is not | The rule's exposure type (Cloud share permissions changes ru
 Name | Is, Is not, Contains, Does not contain | The name of the rule, or portions thereof
 Description | Is, Is not, Contains, Does not contain | The description of the rule, or portions thereof
 Severity | Is, Is not | High, Medium, or low
-IsSystem | Is | True or False. Indicates whether the rule is a default rule created by the Departing Employee list or High Risk Employees list
+IsSystem | Is | True or False. Indicates whether the rule is a default rule 
 IsEnabled | Is | True or False. Indicates whether the rule is enabled or disabled.
-RuleSource | Is, Is not | The source that created the rule. For rules created manually: Alerting. For rules created by the Departing Employee list: Departing Employee. For rules created by the High Risk Employees list: High Risk Employee
+RuleSource | Is, Is not | The source that created the rule. For rules created manually: Alerting. 
 ModifiedAt | On, On or after, On or before | Date the rule was modified, in yyyy-MM-dd format
-ModifiedBy | Is, Is not, Contains, Does not contain | Username of the person who last modified the rule. For default rules created by the Departing Employee list or High Risk Employees list, use Code42 as the user name.
+ModifiedBy | Is, Is not, Contains, Does not contain | Username of the person who last modified the rule. 
 CreatedAt | On, On or after, On or before | Date the rule was created, in yyyy-MM-dd format
-CreatedBy | Is, Is not, Contains, Does not contain | Username of the person who created the rule. For default rules created by the Departing Employee list or High Risk Employees list, use Code42 as the user name.
+CreatedBy | Is, Is not, Contains, Does not contain | Username of the person who created the rule. 
