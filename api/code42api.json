@@ -3415,6 +3415,863 @@
         },
         "deprecated": true
       }
+    },
+    "/v2/trusted-activities": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The type of the trusted activity.",
+            "enum": [
+              "TYPE_UNSPECIFIED",
+              "DOMAIN",
+              "URL_PATH",
+              "SLACK",
+              "IP_ADDRESS"
+            ],
+            "in": "query",
+            "name": "type",
+            "type": "string"
+          },
+          {
+            "description": "The desired page of trusted activity to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "number"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "number"
+          },
+          {
+            "description": "The key by which to sort the returned list.",
+            "enum": [
+              "SORT_KEY_UNSPECIFIED",
+              "ACTIVITY_ID",
+              "DESCRIPTION",
+              "TYPE",
+              "UPDATED_BY_PRINCIPAL_NAME",
+              "UPDATE_TIME",
+              "VALUE"
+            ],
+            "in": "query",
+            "name": "sort_key",
+            "type": "string"
+          },
+          {
+            "description": "The order in which to sort the returned list.",
+            "enum": [
+              "SORT_DIRECTION_UNSPECIFIED",
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "sort_direction",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListTrustedActivitiesResponse"
+            }
+          }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "ListTrustedActivities",
+        "summary": "v2 - Get a list of trusted activities"
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The type of the trusted activity. Eg: DOMAIN, URL, SLACK.",
+            "enum": [
+              "TYPE_UNSPECIFIED",
+              "DOMAIN",
+              "URL_PATH",
+              "SLACK",
+              "IP_ADDRESS"
+            ],
+            "in": "query",
+            "name": "type",
+            "type": "string"
+          },
+          {
+            "description": "The value of the trusted activity.",
+            "in": "query",
+            "name": "value",
+            "type": "string"
+          },
+          {
+            "description": "The description of the trusted activity.",
+            "in": "query",
+            "name": "description",
+            "type": "string"
+          },
+          {
+            "description": "The name of the activity action group.",
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "description": "The name of the activity action.",
+            "enum": [
+              "NAME_UNSPECIFIED",
+              "FILE_UPLOAD",
+              "CLOUD_SYNC",
+              "CLOUD_SHARE",
+              "EMAIL"
+            ],
+            "in": "query",
+            "name": "type",
+            "type": "string"
+          },
+          {
+            "enum": [
+              "PROVIDER_UNSPECIFIED",
+              "BOX",
+              "BOX_DRIVE",
+              "BOX_SYNC",
+              "GOOGLE_DRIVE",
+              "GOOGLE_DRIVE_DESKTOP",
+              "ICLOUD",
+              "ONE_DRIVE",
+              "GMAIL",
+              "OFFICE_365"
+            ],
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateTrustedActivityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TrustedActivity"
+            }
+          }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "CreateTrustedActivity",
+        "summary": "v2 - Create a new trusted activity"
+      }
+    },
+    "/v2/trusted-activities/{activity_id}": {
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The id of the trusted activity.",
+            "format": "int64",
+            "in": "path",
+            "name": "activity_id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "DeleteTrustedActivity",
+        "summary": "v2 - Delete a trusted activity"
+      },
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The id of the trusted activity.",
+            "format": "int64",
+            "in": "path",
+            "name": "activity_id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TrustedActivity"
+            }
+          }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "GetTrustedActivity",
+        "summary": "v2 - Get a single trusted activity"
+      },
+      "patch": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The id of the trusted activity.",
+            "in": "path",
+            "name": "activity_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "collectionFormat": "multi",
+            "description": "The set of field mask paths.",
+            "in": "query",
+            "items": {
+              "description": "The set of field mask paths.",
+              "type": "string"
+            },
+            "name": "paths",
+            "type": "array"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdatedTrustActivity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TrustedActivity"
+            }
+          }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "UpdateTrustedActivity",
+        "summary": "v2 - Modify a trusted activity"
+      }
+    },
+    "/v1/user-risk-profiles": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The desired page of user risk profile results to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          },
+          {
+            "description": "Matches users whose manager has the given Code42 user ID.",
+            "in": "query",
+            "name": "manager_id",
+            "type": "string"
+          },
+          {
+            "description": "Matches users with the given job title.",
+            "in": "query",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "description": "Matches users in the given division.",
+            "in": "query",
+            "name": "division",
+            "type": "string"
+          },
+          {
+            "description": "Matches users in the given department.",
+            "in": "query",
+            "name": "department",
+            "type": "string"
+          },
+          {
+            "description": "Matches users with the given employment type.",
+            "in": "query",
+            "name": "employment_type",
+            "type": "string"
+          },
+          {
+            "description": "Matches users in the given country.",
+            "in": "query",
+            "name": "country",
+            "type": "string"
+          },
+          {
+            "description": "Matches users the given region (state).",
+            "in": "query",
+            "name": "region",
+            "type": "string"
+          },
+          {
+            "description": "Matches users in the given locality (city).",
+            "in": "query",
+            "name": "locality",
+            "type": "string"
+          },
+          {
+            "description": "Matches users by whether the user is active.",
+            "in": "query",
+            "name": "active",
+            "type": "boolean"
+          },
+          {
+            "description": "Matches users by whether the user is deleted.",
+            "in": "query",
+            "name": "deleted",
+            "type": "boolean"
+          },
+          {
+            "description": "Matches users by whether the user is a support user.",
+            "in": "query",
+            "name": "support_user",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListUserRiskProfilesResponse"
+            }
+          }
+        },
+        "tags": [
+          "User Risk Profiles"
+        ],
+        "operationId": "ListUserRiskProfiles",
+        "summary": "Get a list of user risk profiles"
+      }
+    },
+    "/v1/user-risk-profiles/{user_id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique user ID.",
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UserRiskProfile"
+            }
+          }
+        },
+        "tags": [
+          "User Risk Profiles"
+        ],
+        "operationId": "GetUserRiskProfile",
+        "summary": "Get a user risk profile"
+      },
+      "patch": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The ID of the user to update.",
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "collectionFormat": "multi",
+            "description": "The set of field mask paths.",
+            "in": "query",
+            "items": {
+              "description": "The set of field mask paths.",
+              "type": "string"
+            },
+            "name": "paths",
+            "type": "array"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdatedUserRiskProfile"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UserRiskProfile"
+            }
+          }
+        },
+        "tags": [
+          "User Risk Profiles"
+        ],
+        "operationId": "UpdateUserRiskProfile",
+        "summary": "Update a user risk profile"
+      }
+    },
+    "/v1/user-risk-profiles/{user_id}/add-cloud-aliases": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The ID of the user to add cloud aliases.",
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AddCloudAliasesRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "User Risk Profiles"
+        ],
+        "operationId": "AddCloudAliases",
+        "summary": "Add cloud aliases to a user risk profile"
+      }
+    },
+    "/v1/user-risk-profiles/{user_id}/delete-cloud-aliases": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The ID of the user to delete cloud aliases.",
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/DeleteCloudAliasesRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "User Risk Profiles"
+        ],
+        "operationId": "DeleteCloudAliases",
+        "summary": "Delete cloud aliases from a user risk profile"
+      }
+    },
+    "/v1/watchlists": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The desired page of watchlist results to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListWatchlistsResponse"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "ListWatchlists",
+        "summary": "Get a list of watchlists"
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateWatchlistRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Watchlist"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "CreateWatchlist",
+        "summary": "Create a new watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}": {
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "DeleteWatchlist",
+        "summary": "Delete a watchlist"
+      },
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Watchlist"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "GetWatchlist",
+        "summary": "Get a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-users": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The desired page of included users to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListIncludedUsersResponse"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "ListIncludedUsers",
+        "summary": "Get the list of users explicitly included on a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-users/add": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AddIncludedUsersRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "AddIncludedUsers",
+        "summary": "Explicitly include users on a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-users/delete": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/DeleteIncludedUsersRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "DeleteIncludedUsers",
+        "summary": "Remove users that are explicitly included on a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/members": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The desired page of members to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListWatchlistMembersResponse"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "ListWatchlistMembers",
+        "summary": "Get a list of all members of a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/members/{user_id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "A unique user ID.",
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistMember"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "GetWatchlistMember",
+        "summary": "Get a member of a watchlist"
+      }
     }
   },
   "definitions": {
@@ -10282,6 +11139,585 @@
         }
       },
       "title": "TrustedResourceResponse"
+    },
+    "ActivityAction": {
+      "additionalProperties": false,
+      "properties": {
+        "providers": {
+          "description": "A list of enabled providers for the specified activity action.",
+          "items": {
+            "$ref": "#/definitions/ProviderObject"
+          },
+          "type": "array"
+        },
+        "type": {
+          "enum": [
+            "NAME_UNSPECIFIED",
+            "FILE_UPLOAD",
+            "CLOUD_SYNC",
+            "CLOUD_SHARE",
+            "EMAIL"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ActivityActionGroup": {
+      "additionalProperties": false,
+      "properties": {
+        "activityActions": {
+          "description": "The list of activity actions.",
+          "items": {
+            "$ref": "#/definitions/ActivityAction"
+          },
+          "type": "array"
+        },
+        "name": {
+          "description": "The name of the activity action group.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "CreateTrustedActivityRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "activityActionGroups": {
+          "description": "The list of activity action groups for the trusted activity. If empty all activity actions are enabled.",
+          "items": {
+            "$ref": "#/definitions/ActivityActionGroup"
+          },
+          "type": "array"
+        },
+        "description": {
+          "description": "The description of the trusted activity.",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "TYPE_UNSPECIFIED",
+            "DOMAIN",
+            "URL_PATH",
+            "SLACK",
+            "IP_ADDRESS"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of the trusted activity.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ListTrustedActivitiesResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "totalCount": {
+          "format": "int64",
+          "type": "number"
+        },
+        "trustedActivities": {
+          "description": "A list of TrustedActivityResponses",
+          "items": {
+            "$ref": "#/definitions/TrustedActivity"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ProviderObject": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "enum": [
+            "PROVIDER_UNSPECIFIED",
+            "BOX",
+            "BOX_DRIVE",
+            "BOX_SYNC",
+            "GOOGLE_DRIVE",
+            "GOOGLE_DRIVE_DESKTOP",
+            "ICLOUD",
+            "ONE_DRIVE",
+            "GMAIL",
+            "OFFICE_365"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TrustedActivity": {
+      "additionalProperties": false,
+      "properties": {
+        "activityActionGroups": {
+          "description": "The list of activity actions associated with the activity.",
+          "items": {
+            "$ref": "#/definitions/ActivityActionGroup"
+          },
+          "type": "array"
+        },
+        "activityId": {
+          "description": "The unique identifier of the trusted activity.",
+          "type": "string"
+        },
+        "description": {
+          "description": "A description of the trusted activity.",
+          "type": "string"
+        },
+        "principalType": {
+          "enum": [
+            "PRINCIPAL_UNSPECIFIED",
+            "USER",
+            "API_KEY",
+            "DEVICE",
+            "SERVICE"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "TYPE_UNSPECIFIED",
+            "DOMAIN",
+            "URL_PATH",
+            "SLACK",
+            "IP_ADDRESS"
+          ],
+          "type": "string"
+        },
+        "updateTime": {
+          "description": "The time at which the trust activity was last created or modified.",
+          "format": "date-time",
+          "type": "string",
+          "x-nullable": true
+        },
+        "updatedByPrincipalId": {
+          "description": "The unique identifier of the user who last updated the trust activity.",
+          "type": "string"
+        },
+        "updatedByPrincipalName": {
+          "description": "The username of the user who last updated the trusted activity.",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of the trusted activity.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "UpdatedTrustActivity": {
+      "additionalProperties": false,
+      "properties": {
+        "activityActionGroups": {
+          "description": "The list of activity actions for the trusted activity.",
+          "items": {
+            "$ref": "#/definitions/ActivityActionGroup"
+          },
+          "type": "array"
+        },
+        "description": {
+          "description": "The description of the trusted activity.",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "TYPE_UNSPECIFIED",
+            "DOMAIN",
+            "URL_PATH",
+            "SLACK",
+            "IP_ADDRESS"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of the trusted activity.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "AddCloudAliasesRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "cloudAliases": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "userId": {
+          "description": "The ID of the user to add cloud aliases.",
+          "example": "123",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "AddIncludedUsersRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "userIds": {
+          "description": "A list of user IDs to add.",
+          "items": {
+            "description": "A list of user IDs to add.",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "watchlistId": {
+          "description": "A unique watchlist ID.",
+          "example": "123",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "CreateWatchlistRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "watchlistType": {
+          "$ref": "#/definitions/WatchlistType",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Date": {
+      "additionalProperties": false,
+      "properties": {
+        "day": {
+          "description": "Day of month. Must be from 1 to 31 and valid for the year and month, or 0\n if specifying a year by itself or a year and month where the day is not\n significant.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "month": {
+          "description": "Month of year. Must be from 1 to 12, or 0 if specifying a year without a\n month and day.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "year": {
+          "description": "Year of date. Must be from 1 to 9999, or 0 if specifying a date without\n a year.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "DeleteCloudAliasesRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "cloudAliases": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "userId": {
+          "description": "The ID of the user to delete cloud aliases.",
+          "example": "123",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "DeleteIncludedUsersRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "userIds": {
+          "description": "A list of user IDs to delete.",
+          "items": {
+            "description": "A list of user IDs to delete.",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "watchlistId": {
+          "description": "A unique watchlist ID.",
+          "example": "123",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "IncludedUser": {
+      "additionalProperties": false,
+      "properties": {
+        "addedTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "userId": {
+          "description": "A unique user ID.",
+          "example": "23",
+          "type": "string"
+        },
+        "username": {
+          "example": "foo@bar.com",
+          "type": "string"
+        }
+      },
+      "required": [
+        "addedTime"
+      ],
+      "type": "object"
+    },
+    "ListIncludedUsersResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "includedUsers": {
+          "items": {
+            "$ref": "#/definitions/IncludedUser"
+          },
+          "type": "array"
+        },
+        "totalCount": {
+          "description": "The total count of all included users.",
+          "example": 10,
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "ListUserRiskProfilesResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "totalCount": {
+          "description": "The total count of all user risk profiles.",
+          "example": 10,
+          "format": "int64",
+          "type": "integer"
+        },
+        "userRiskProfiles": {
+          "items": {
+            "$ref": "#/definitions/UserRiskProfile"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ListWatchlistMembersResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "totalCount": {
+          "description": "The total count of all included users..",
+          "example": 10,
+          "format": "int64",
+          "type": "integer"
+        },
+        "watchlistMembers": {
+          "items": {
+            "$ref": "#/definitions/WatchlistMember"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ListWatchlistsResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "totalCount": {
+          "description": "The total count of all watchlists.",
+          "example": 10,
+          "format": "int64",
+          "type": "integer"
+        },
+        "watchlists": {
+          "description": "The list of watchlists.",
+          "items": {
+            "$ref": "#/definitions/Watchlist"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "UpdatedUserRiskProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "endDate": {
+          "$ref": "#/definitions/Date"
+        },
+        "notes": {
+          "description": "Notes to add to the user risk profile.",
+          "example": "These are my notes",
+          "type": "string",
+          "x-nullable": true
+        },
+        "startDate": {
+          "$ref": "#/definitions/Date"
+        }
+      },
+      "type": "object"
+    },
+    "UserRiskProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "active": {
+          "description": "Whether the user is active.",
+          "type": "boolean"
+        },
+        "cloudAliases": {
+          "description": "A list of cloud aliases for the user.",
+          "items": {
+            "description": "A list of cloud aliases for the user.",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "country": {
+          "description": "The user's country.",
+          "type": "string"
+        },
+        "deleted": {
+          "description": "Whether the user is deleted.",
+          "type": "boolean"
+        },
+        "department": {
+          "description": "The user's department.",
+          "type": "string"
+        },
+        "displayName": {
+          "description": "The user's friendly display name.",
+          "type": "string"
+        },
+        "division": {
+          "description": "The user's division.",
+          "type": "string"
+        },
+        "employmentType": {
+          "description": "The user's employment type.",
+          "type": "string"
+        },
+        "endDate": {
+          "$ref": "#/definitions/Date"
+        },
+        "locality": {
+          "description": "The user's locality (city).",
+          "type": "string"
+        },
+        "managerDisplayName": {
+          "description": "The user's manager's friendly display name.",
+          "type": "string"
+        },
+        "managerId": {
+          "description": "The Code42 user ID of the user's manager.",
+          "type": "string"
+        },
+        "managerUsername": {
+          "description": "The Code42 username of the user's manager.",
+          "type": "string"
+        },
+        "notes": {
+          "description": "Notes about the user.",
+          "type": "string"
+        },
+        "region": {
+          "description": "The user's region (state).",
+          "type": "string"
+        },
+        "startDate": {
+          "$ref": "#/definitions/Date"
+        },
+        "supportUser": {
+          "description": "Whether the user is a support user.",
+          "type": "boolean"
+        },
+        "tenantId": {
+          "description": "A unique tenant ID.",
+          "type": "string"
+        },
+        "title": {
+          "description": "The user's job title.",
+          "type": "string"
+        },
+        "userId": {
+          "description": "A unique user ID.",
+          "type": "string"
+        },
+        "username": {
+          "description": "The user's Code42 username.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Watchlist": {
+      "additionalProperties": false,
+      "properties": {
+        "listType": {
+          "$ref": "#/definitions/WatchlistType",
+          "type": "string"
+        },
+        "stats": {
+          "$ref": "#/definitions/WatchlistStats"
+        },
+        "tenantId": {
+          "description": "A unique tenant ID.",
+          "type": "string"
+        },
+        "watchlistId": {
+          "description": "A unique watchlist ID.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "listType"
+      ],
+      "type": "object"
+    },
+    "WatchlistMember": {
+      "additionalProperties": false,
+      "properties": {
+        "addedTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "userId": {
+          "description": "A unique user ID.",
+          "example": "23",
+          "type": "string"
+        },
+        "username": {
+          "example": "foo@bar.com",
+          "type": "string"
+        }
+      },
+      "required": [
+        "addedTime"
+      ],
+      "type": "object"
+    },
+    "WatchlistStats": {
+      "additionalProperties": false,
+      "properties": {
+        "includedUsersCount": {
+          "description": "The number of users explicitly included on the watchlist.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistType": {
+      "enum": [
+        "WATCHLIST_TYPE_UNSPECIFIED",
+        "CONTRACT_EMPLOYEE",
+        "DEPARTING_EMPLOYEE",
+        "ELEVATED_ACCESS_PRIVILEGES",
+        "FLIGHT_RISK",
+        "HIGH_IMPACT_EMPLOYEE",
+        "NEW_EMPLOYEE",
+        "PERFORMANCE_CONCERNS",
+        "POOR_SECURITY_PRACTICES",
+        "SUSPICIOUS_SYSTEM_ACTIVITY"
+      ],
+      "type": "string"
     }
   }
 }
