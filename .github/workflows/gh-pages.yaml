@@ -42,7 +42,7 @@ jobs:
             bundle install --jobs 4 --retry 3
 
       - name: install api-spec-converter
-        run: npm install api-spec-converter
+        run: npm install -g api-spec-converter
 
       - name: Build
         run: make BUILD="build"
