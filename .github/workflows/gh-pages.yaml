@@ -16,6 +16,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      -   name: Setup Node.js
+          uses: actions/setup-node@v2
+          with:
+              node-version: '14'
+
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -35,6 +40,9 @@ jobs:
         run: |
             bundle config path vendor/bundle
             bundle install --jobs 4 --retry 3
+
+      - name: install api-spec-converter
+        run: npm install api-spec-converter
 
       - name: Build
         run: make BUILD="build"
