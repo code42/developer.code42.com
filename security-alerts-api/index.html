@@ -696,8 +696,6 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div><h3 id='add-users-to-an-alert-rule'>Add users to an alert rule</h3>
 <p>If the rule applies to specific users, or if it applies to all users except specific users, you can add users to those inclusion or exclusion lists with the <a href="/api/#operation/Rules_AddUsersToRule">/v1/alert-rules/add-users</a> API command. You cannot add users to rules that monitor all users.</p>
-
-<p><strong>Note:</strong> You cannot use these alerts APIs to add or remove users from the inclusion or exclusion lists of default rules created by the Departing Employees list or High Risk Employees list. Instead, users are added to and removed from these lists directly in the <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/Departing_Employees_reference">Departing Employees list</a> and <a href="https://support.code42.com/Administrator/Cloud/Code42_console_reference/High_Risk_Employees_reference">High Risk Employees list</a> or with the <a href="/detection-list-management-api/#detection-list-management-api">Detection List Management API</a>.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alert-rules/add-users"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: application/json"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
@@ -723,8 +721,6 @@
 <p>The aliases that you enter here become the values that are added to the rule&#39;s inclusion or exclusion list and used to trigger or filter alert notifications.</p>
 <h3 id='remove-specific-users-from-an-alert-rule'>Remove specific users from an alert rule</h3>
 <p>You can also remove users&#39; email addresses or cloud aliases from an alert rule&#39;s inclusion or exclusion list with the <a href="/api/#operation/Rules_RemoveUsersFromRule">/v1/alert-rules/remove-users</a> API command. This command removes all of the email addresses or cloud aliases associated with the user&#39;s ID from the specified rule. You cannot remove users from rules that monitor all users.</p>
-
-<p><strong>Note:</strong> You cannot use these alerts APIs to add or remove users from the inclusion or exclusion lists of <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/How_to_create_a_security_alert#Default_alert_rules_and_notifications">default rules</a> created by the Departing Employees list or High Risk Employees list. Instead, users are added to and removed from these lists directly in the <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Add_departing_employees">Departing Employees list</a> and <a href="https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Add_high_risk_employees">High Risk Employees list</a> or with the <a href="/detection-list-management-api/#detection-list-management-api">Detection List Management API</a>.</p>
 <div class="highlight"><pre class="highlight shell"><code>curl <span class="nt">-X</span> POST <span class="s2">"&lt;RequestURL&gt;/v1/alert-rules/remove-users"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"accept: application/json"</span> <span class="se">\</span>
 <span class="nt">-H</span> <span class="s2">"Authorization: Bearer &lt;AuthToken&gt;"</span> <span class="se">\</span>
@@ -881,7 +877,7 @@
 <tr>
 <td>IsSystem</td>
 <td>Is</td>
-<td>True or False. Indicates whether the rule is a default rule created by the Departing Employee list or High Risk Employees list</td>
+<td>True or False. Indicates whether the rule is a default rule</td>
 </tr>
 <tr>
 <td>IsEnabled</td>
@@ -891,7 +887,7 @@
 <tr>
 <td>RuleSource</td>
 <td>Is, Is not</td>
-<td>The source that created the rule. For rules created manually: Alerting. For rules created by the Departing Employee list: Departing Employee. For rules created by the High Risk Employees list: High Risk Employee</td>
+<td>The source that created the rule. For rules created manually: Alerting.</td>
 </tr>
 <tr>
 <td>ModifiedAt</td>
@@ -901,7 +897,7 @@
 <tr>
 <td>ModifiedBy</td>
 <td>Is, Is not, Contains, Does not contain</td>
-<td>Username of the person who last modified the rule. For default rules created by the Departing Employee list or High Risk Employees list, use Code42 as the user name.</td>
+<td>Username of the person who last modified the rule.</td>
 </tr>
 <tr>
 <td>CreatedAt</td>
@@ -911,7 +907,7 @@
 <tr>
 <td>CreatedBy</td>
 <td>Is, Is not, Contains, Does not contain</td>
-<td>Username of the person who created the rule. For default rules created by the Departing Employee list or High Risk Employees list, use Code42 as the user name.</td>
+<td>Username of the person who created the rule. </td>
 </tr>
 </tbody></table>
 
