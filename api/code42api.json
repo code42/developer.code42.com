@@ -6169,7 +6169,7 @@
           "properties": {
             "term": {
               "type": "string",
-              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsSystem, IsEnabled, RuleSource, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
+              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
               "example": "Name"
             },
             "operator": {
@@ -6486,7 +6486,6 @@
         {
           "type": "object",
           "required": [
-            "isSystem",
             "isEnabled"
           ],
           "properties": {
@@ -6596,7 +6595,7 @@
             },
             "srtKey": {
               "type": "string",
-              "description": "The rule metadata attribute to sort by.  Value must be one of: RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsSystem, IsEnabled, RuleSource, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString",
+              "description": "The rule metadata attribute to sort by.  Value must be one of: RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString",
               "example": "CreatedAt"
             },
             "srtDirection": {
