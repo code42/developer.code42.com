@@ -399,68 +399,6 @@
         }
       }
     },
-    "/v1/alerts/resolve-alert": {
-      "post": {
-        "tags": [
-          "Alerts"
-        ],
-        "summary": "Resolve a set of alerts",
-        "description": "This endpoint is deprecated. Use the 'update-state' endpoint instead.",
-        "operationId": "Alerts_ResolveAlert",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "The command to resolve the given alerts.",
-            "schema": {
-              "$ref": "#/definitions/ResolveCommand-alerts"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success: Given alerts are resolved."
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/alerts/reopen-alert": {
-      "post": {
-        "tags": [
-          "Alerts"
-        ],
-        "summary": "Reopen a set of alerts",
-        "description": "This endpoint is deprecated. Use the 'update-state' endpoint instead.",
-        "operationId": "Alerts_ReopenAlert",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "The command to reopen the given alerts.",
-            "schema": {
-              "$ref": "#/definitions/ReopenCommand-alerts"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success: Given alerts are reopened."
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
     "/v1/alerts/update-state": {
       "post": {
         "tags": [
@@ -5524,90 +5462,6 @@
         }
       ]
     },
-    "ResolveCommand-alerts": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-alerts"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "alertIds"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The unique identifier representing the tenant.",
-              "maxLength": 40,
-              "example": "MyExampleTenant"
-            },
-            "alertIds": {
-              "type": "array",
-              "description": "The unique identifiers representing the alerts you want to act upon.",
-              "maxLength": 100,
-              "example": [
-                "ExampleAlertId1",
-                "ExampleAlertId2"
-              ],
-              "items": {
-                "type": "string"
-              }
-            },
-            "note": {
-              "type": "string",
-              "description": "An optional note to attach to the alert",
-              "maxLength": 2000,
-              "example": "This is an example note."
-            }
-          }
-        }
-      ]
-    },
-    "DomainValue-alerts": {
-      "type": "object",
-      "x-abstract": true
-    },
-    "ReopenCommand-alerts": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-alerts"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "alertIds"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The unique identifier representing the tenant.",
-              "maxLength": 40,
-              "example": "MyExampleTenant"
-            },
-            "alertIds": {
-              "type": "array",
-              "description": "The unique identifiers representing the alerts you want to act upon.",
-              "maxLength": 100,
-              "example": [
-                "ExampleAlertId1",
-                "ExampleAlertId2"
-              ],
-              "items": {
-                "type": "string"
-              }
-            },
-            "note": {
-              "type": "string",
-              "description": "An optional note to attach to the alert",
-              "maxLength": 2000,
-              "example": "This is an example note."
-            }
-          }
-        }
-      ]
-    },
     "UpdateStateCommand-alerts": {
       "allOf": [
         {
@@ -5669,6 +5523,10 @@
         "IN_PROGRESS",
         "PENDING"
       ]
+    },
+    "DomainValue-alerts": {
+      "type": "object",
+      "x-abstract": true
     },
     "AddNoteCommand-alerts": {
       "allOf": [
