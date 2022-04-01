@@ -1709,6 +1709,43 @@
         }
       }
     },
+    "/v1/cases/{caseNumber}/fileevent/{eventId}/file": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Download the file associated with an event, if present",
+        "operationId": "downloadUsingGET",
+        "parameters": [
+          {
+            "name": "caseNumber",
+            "in": "path",
+            "description": "Unique numeric identifier for the case.",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "eventId",
+            "in": "path",
+            "description": "eventId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Streaming response containing file data.",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
+            }
+          },
+          "404": {
+            "description": "Not Found: Event not on case, or has no file."
+          }
+        }
+      }
+    },
     "/v1/oauth": {
       "post": {
         "tags": [
@@ -6600,6 +6637,18 @@
           "items": {
             "type": "string"
           }
+        },
+        "fileAvailability": {
+          "type": "string",
+          "example": "EXACT_FILE_AVAILABLE",
+          "description": "The download availability status of the file associated with the event.",
+          "enum": [
+            "ERROR",
+            "EXACT_FILE_AVAILABLE",
+            "NO_FILE_AVAILABLE",
+            "PENDING",
+            "RECENT_FILE_AVAILABLE"
+          ]
         },
         "fileName": {
           "type": "string",
