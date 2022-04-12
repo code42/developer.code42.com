@@ -28,3 +28,7 @@ make serve
 ```
 
 Then, open your browser to `localhost:4567` to explore the site. Once the server is started, you can edit files and simply refresh the page to see your changes!
+
+## Development with a local Baldur instance
+The dev portal can build docs from a locally running Baldur instance by modifying the DOCS_SERVER variable in the Makefile to the url of your local Baldur.
+By default, that is `http://localhost:5000`

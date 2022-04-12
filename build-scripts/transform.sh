@@ -6,6 +6,7 @@ main() {
   TRUSTED_ACTIVITIES_V1="${docs}/trusted-activities"
   TRUSTED_ACTIVITIES_V2="${docs}/trusted-activities.json"
   WATCHLISTS="${docs}/watchlists.json"
+  FILE_EVENTS="${docs}/file-events"
 
   echo "Applying transformations..."
 
@@ -23,6 +24,14 @@ main() {
   jq '.paths[][].tags |= [ "Trusted Activities" ]' < $TRUSTED_ACTIVITIES_V2 > $TMP && mv $TMP $TRUSTED_ACTIVITIES_V2
   # mark trusted-activities summary fields with "v1" and "v2" accordingly
   jq '.paths[][].summary |= "v2 - \(.)"' < $TRUSTED_ACTIVITIES_V2 > $TMP && mv $TMP $TRUSTED_ACTIVITIES_V2
+
+  ### File Events
+  # prefix v1 summary fields with "v1" and mark as deprecated
+  jq '.paths |= with_entries( if .key | contains("v1") then .value[].summary  |= "v1 - \(.)" else . end)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
+  jq '.paths |= with_entries( if .key | contains("v1") then .value[].deprecated |= true else . end)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
+
+   # prefix v2 summary fields with "v2"
+  jq '.paths |= with_entries( if .key | contains("v2") then .value.post.summary  |= "v2 - \(.)" else . end)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
 
   ### Watchlists
   # convert openapi 3 yaml to swagger 2 json
