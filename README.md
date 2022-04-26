@@ -19,6 +19,8 @@ bundle install
 npm install api-spec-converter
 ```
 
+Bundler documentation is handy if you run into issues: [Bundler troubleshooting page](https://bundler.io/doc/troubleshooting.html)
+
 Slate documentation if the above is not successful:
 
 * [Installing Dependencies on Ubuntu 18.04+](https://github.com/slatedocs/slate/wiki/Using-Slate-Natively#installing-dependencies-on-ubuntu-1804)
