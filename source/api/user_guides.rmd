@@ -1,0 +1,1191 @@
+# User Guides
+
+* [Get started](#get-started)
+* [Search file events](#search-file-events)
+* [Manage alerts](#manage-alerts)
+* [Manage watchlists](#manage-watchlists)
+* [Manage cases](#manage-cases)
+* [Manage users](#manage-users)
+
+
+## Get started
+
+### Licensing
+
+To use all the APIs you must have [full API access](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_API_resources/API_access).
+
+### Request URLs
+
+The domain used for making API requests can be determined using the domain you use to log in to the Code42 console. All API requests should be made using https.
+
+| Console Domain            | API Domain         |
+| ------------------------- | ------------------ |
+| console.us.code42.com     | api.us.code42.com  |
+| console.us2.code42.com    | api.us2.code42.com |
+| console.ie.code42.com     | api.ie.code42.com  |
+| console.gov.code42.com    | api.gov.code42.com |
+
+### Authentication
+
+API calls require an authentication token in the header of the request. To obtain an authentication token, [create an API client](https://support.code42.com/Administrator/Cloud/Code42_console_reference/API_clients) and then submit its ID and secret in a request to the /v1/oauth API. 
+
+In the following example (using curl), replace `<ClientID>` with the API client ID, replace `<Secret>` with the API client secret, and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance (also known as the base URL):
+
+```bash
+curl -X POST -u '<ClientID>:<Secret>' -d "" https://<RequestURL>/v1/oauth
+```
+
+For example:
+
+```bash
+curl -X POST -u 'key-79muGw9i424:DWL-mPQ' -d "" https://api.us.code42.com/v1/oauth
+```
+
+A successful request returns an authentication token. For example:
+
+```bash
+{"access_token":"eyJjdHkiO_bxYJOOn28y...5HGtGHgJzHVCE8zfy1qRBf_rhchA","token_type":"bearer","expires_in":900}
+```
+
+Use the authentication token (also known as a bearer token) in all your API requests. For example, following is an API request to get a list of users:
+
+```bash
+curl -X GET 'https://api.us.code42.com/v1/users?active=true&blocked=false&pageSize=100' \
+-H "authorization: Bearer eyJjdHkiO_bxYJOOn28y...5HGtGHgJzHVCE8zfy1qRBf_rhchA" 
+```
+
+### Token considerations
+
+* Authentication tokens expire after 15 minutes.
+* Authentication tokens provide the API permissions defined in the API client. 
+
+
+[API clients](#tag/Auth/paths/~1v1~1oauth/post) are the preferred method for authentication. Basic authentication methods are deprecated:
+
+
+**Basic authentication:**
+
+```bash
+curl -u "<username>:<password>" https://<RequestURL>/<Resource>
+```
+
+**Basic authentication to obtain a User authentication token:**
+
+```bash
+curl -X GET -u "<username>:<password>" https://<RequestURL>/v1/auth
+```
+
+**Basic authentication to obtain a User authentication token when a second factor (TOTP) token is required:**
+
+```bash
+curl -X -H "totp-auth: <totp_token" GET -u "<username>:<password>" https://<RequestURL>/v1/auth 
+```
+
+### Get a tenant ID
+
+Some APIs require that you provide the unique ID of your organization (or tenant) in the Code42 cloud. To obtain the tenant ID, use your Code42 administrator credentials to submit a `GET` request to the [`/v1/customer` API](/api/#tag/Customer).
+
+In the following example, replace `<AuthToken>` with the [authentication token](#authentication) and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance:
+
+```bash
+curl -X GET -H "Authorization: Bearer <AuthToken>" https://<RequestURL>/v1/customer
+```
+
+A successful response returns the tenantId:
+
+```json
+{
+    "name": "Example customer",
+    "registrationKey": "8u42pwskc42p42hmrj",
+    "tenantId": "c4b5e830-4242-4242-4242-345664cfbb33"
+}
+```
+
+### Request variables
+
+In the examples in the user guides:
+
+* Replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](#authentication).
+* Replace `<SampleTenant>` with the [tenant ID](#get-a-tenant-id).
+
+
+### Troubleshooting and support
+If you experience issues, contact [Code42 support](https://support.code42.com/), or contact your Customer Success Manager (CSM) to engage the Code42 Professional Services team.
+
+
+## Search file events
+Use the File Events API to search for file activity, also known as "Forensic Search". 
+
+### Groups and filters
+
+File Events API queries are organized by groups of filters. This structure facilitates complicated requests with multiple `AND` or `OR` conditions. For example, use case 1 in the [Sample use cases](#sample-use-cases) section searches for files matching any one of 11 different file extensions that also exist in any one of nine different locations. Search queries are limited to a total of 1,024 criteria per request.
+
+For example, the JSON below uses two groups of filters:
+
+* The first group uses a `filterClause` value of `OR`, which returns results if any of the four MD5 values are found (`db349b97c37d22f5ea1d1841e3c89eb4` or `84c82835a5d21bbcf75a61706d8ab549` or `f351e1fcca0c4ea05fc44d15a17f8b36` or `7bf2b57f2a205768755c07f238fb32cc`).
+
+* The second group uses a `filterClause` value of `AND`, which returns results only if all criteria in the filter are met (in this example, `on or after 2018-02-01` **and** `on or before 2018-02-07`).
+
+* Finally, to link these two groups together, the `groupClause` value of `AND` returns results only if both the first group and second group criteria are met.
+
+```json
+{
+  "groups": [
+    {
+      "filters": [
+        {
+          "operator": "IS",
+          "term": "md5Checksum",
+          "value": "db349b97c37d22f5ea1d1841e3c89eb4"
+        },
+        {
+          "operator": "IS",
+          "term": "md5Checksum",
+          "value": "84c82835a5d21bbcf75a61706d8ab549"
+        },
+        {
+          "operator": "IS",
+          "term": "md5Checksum",
+          "value": "f351e1fcca0c4ea05fc44d15a17f8b36"
+        },
+        {
+          "operator": "IS",
+          "term": "md5Checksum",
+          "value": "7bf2b57f2a205768755c07f238fb32cc"
+        }
+      ],
+      "filterClause": "OR"
+    },
+    {
+      "filters": [
+        {
+          "operator": "ON_OR_AFTER",
+          "term": "eventTimestamp",
+          "value": "2018-02-01T00:00:00.00Z"
+        },
+        {
+          "operator": "ON_OR_BEFORE",
+          "term": "eventTimestamp",
+          "value": "2018-02-07T23:59:59.59Z"
+        }
+      ],
+      "filterClause": "AND"
+    }
+  ],
+  "groupClause": "AND",
+  "pgNum": 1,
+  "pgSize": 100,
+  "srtDir": "asc",
+  "srtKey": "eventTimestamp"
+}
+```
+
+### Sample request
+
+This simple example demonstrates a search for all files on all devices with the file extension `.docx` that exist anywhere except the file path `C:/Users`. For more complicated examples with multiple groups and additional filters, see the [sample use cases](#sample-use-cases) in the next section.
+
+Use the following as a starting point for your own searches:
+
+```bash
+curl -X POST <RequestURL>/v1/file-events \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>" \
+-d '{
+    "groups": [{
+        "filters": [{
+            "operator": "IS",
+            "term": "fileName",
+            "value": "*.docx"
+        },
+        {
+            "operator": "IS_NOT",
+            "term": "filePath",
+            "value": "C:/Users*"
+        }
+    ],
+    "filterClause": "AND"
+    }],
+    "groupClause": "AND",
+    "pgNum": 1,
+    "pgSize": 100
+}'
+```
+
+**Note:** To receive results in CSV format instead of JSON, use the [/v1/file-events/export](/api/#operation/exportUsingPOST) resource instead of [/v1/file-events](/api/#operation/searchEventsUsingPOST).
+
+### API limits
+
+* Request rate: To ensure optimal performance throughout your Code42 environment, Code42 limits API requests to 120 per minute. Requests that exceed this limit are blocked and do not return results.
+* Result set:
+  * `file-events` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `file-events` query with `pgSize=10000` cannot display `pgNum=2`). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details, see the [/v1/file-events API documentation](/api/#operation/searchEventsUsingPOST).)
+  * `file-events/export` queries are limited to 200,000 events.
+  * `file-events/grouping` queries are limited to 1,000 groups
+
+### Sample Use Cases
+
+#### Use case 1: Search for application files in unexpected locations
+
+The sample JSON below shows how to search for files with any of these extensions (.action, .app, .bat, .bin, .cmd, .com, .command, .cpl, .exe, .msc, .osx) that exist outside these locations:
+
+* `C:\Program Files`
+* `/Applications`
+* `/Library`
+* `/User/*/Applications`
+* `/User/*/Library`
+* `/usr/bin`
+* `/usr/local/bin`
+* `/sbin`
+* `/bin`
+
+##### Sample JSON search query for application files in specific locations
+
+Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above).
+
+```json
+{
+  "groups": [
+    {
+      "filters": [
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.action"
+        },
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.app"
+        },
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.bat"
+        },
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.bin"
+        },
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.cmd"
+        },
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.com"
+        },
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.command"
+        },
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.cpl"
+        },
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.exe"
+        },
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.msc"
+        },
+        {
+          "operator": "IS",
+          "term": "fileName",
+          "value": "*.osx"
+        }
+      ],
+      "filterClause": "OR"
+    },
+    {
+      "filters": [
+        {
+          "operator": "IS_NOT",
+          "term": "filePath",
+          "value": "C:\\Program Files*"
+        },
+        {
+          "operator": "IS_NOT",
+          "term": "filePath",
+          "value": "/Applications*"
+        },
+        {
+          "operator": "IS_NOT",
+          "term": "filePath",
+          "value": "/Library*"
+        },
+        {
+          "operator": "IS_NOT",
+          "term": "filePath",
+          "value": "/User/*/Applications*"
+        },
+        {
+          "operator": "IS_NOT",
+          "term": "filePath",
+          "value": "/User/*/Library*"
+        },
+        {
+          "operator": "IS_NOT",
+          "term": "filePath",
+          "value": "/usr/bin*"
+        },
+        {
+          "operator": "IS_NOT",
+          "term": "filePath",
+          "value": "/usr/local/bin*"
+        },
+        {
+          "operator": "IS_NOT",
+          "term": "filePath",
+          "value": "/sbin*"
+        },
+        {
+          "operator": "IS_NOT",
+          "term": "filePath",
+          "value": "/bin*"
+        }
+      ],
+      "filterClause": "AND"
+    }
+  ],
+  "groupClause": "AND",
+  "pgNum": 1,
+  "pgSize": 100,
+  "srtDir": "asc",
+  "srtKey": "eventTimestamp"
+}
+```
+
+##### Sample results of application files in specific locations
+
+```json
+{
+  "totalCount": 3,
+  "fileEvents": [
+    {
+      "eventId": "0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843318595055164516_6",
+      "eventType": "CREATED",
+      "eventTimestamp": "2018-04-10T23:57:33.682Z",
+      "filePath": "C:/$GetCurrent/SafeOS/",
+      "fileName": "SetupComplete.cmd",
+      "fileType": "FILE",
+      "fileSize": 307,
+      "fileOwner": "Administrators",
+      "md5Checksum": "0582b19fa3b500db28f976ed33efa487",
+      "createTimestamp": "2018-03-19T18:10:42.041Z",
+      "modifyTimestamp": "2018-03-19T18:10:42.120Z",
+      "deviceUserName": "clyde@example.com",
+      "osHostName": "CO-SAMPLE-1",
+      "domainName": "192.0.2.0",
+      "publicIpAddress": "192.0.2.0",
+      "privateIpAddresses": [
+        "2001:db8:49a3:7d3:1309:8a2e:370:7342",
+        "192.0.4.0",
+        "0:0:0:0:0:0:0:1",
+        "127.0.0.1"
+      ],
+      "deviceUid": "423278037859030542",
+      "userUid": "424242424242424242"
+    },
+    {
+      "eventId": "0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843318595055164516_7",
+      "eventType": "CREATED",
+      "eventTimestamp": "2018-04-10T23:57:33.682Z",
+      "filePath": "C:/$GetCurrent/SafeOS/",
+      "fileName": "preoobe.cmd",
+      "fileType": "FILE",
+      "fileSize": 74,
+      "fileOwner": "Administrators",
+      "md5Checksum": "2f9537b7f7cb5b559ed6ec3694832fe6",
+      "createTimestamp": "2018-03-19T18:10:41.936Z",
+      "modifyTimestamp": "2018-03-19T18:10:42.041Z",
+      "deviceUserName": "paige@example.com",
+      "osHostName": "CO-SAMPLE-2",
+      "domainName": "192.0.2.0",
+      "publicIpAddress": "192.0.2.0",
+      "privateIpAddresses": [
+        "2001:db8:49a3:7d3:1309:8a2e:370:7342",
+        "192.0.4.0",
+        "0:0:0:0:0:0:0:1",
+        "127.0.0.1"
+      ],
+      "deviceUid": "423278037859030542",
+      "userUid": "424242424242424243"
+    },
+    {
+      "eventId": "0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843419521787010148_344",
+      "eventType": "CREATED",
+      "eventTimestamp": "2018-04-11T16:40:11.090Z",
+      "filePath": "C:/Windows/en-US/",
+      "fileName": "bootfix.bin",
+      "fileType": "FILE",
+      "fileSize": 1024,
+      "fileOwner": "TrustedInstaller",
+      "md5Checksum": "eb145d5f87ddf43c8bd6f27e97db8bf2",
+      "createTimestamp": "2017-09-29T14:41:10.345Z",
+      "modifyTimestamp": "2017-09-29T14:41:10.346Z",
+      "deviceUserName": "clyde@example.com",
+      "osHostName": "CO-SAMPLE-3",
+      "domainName": "192.0.4.0",
+      "publicIpAddress": "192.0.4.0",
+      "privateIpAddresses": [
+        "2001:db8:49a3:7d3:1309:8a2e:370:7342",
+        "192.0.4.0",
+        "0:0:0:0:0:0:0:1",
+        "127.0.0.1"
+      ],
+      "deviceUid": "423278037859030542",
+      "userUid": "424242424242424242"
+    }
+  ],
+  "problems": null
+}
+```
+
+#### Use case 2: Search for files on a device within a specific date range based on MD5 values
+
+The sample JSON below shows how to search for files files matching any of four MD5 values that existed on devices between February 1 and 7, 2018.
+
+**Note:** To search for SHA256 hash values instead of MD5, replace `md5Checksum` with `sha256Checksum` in the sample JSON below.
+
+##### Sample JSON search query for MD5 values between two dates
+
+Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above).
+
+```json
+{
+  "groups": [
+    {
+      "filters": [
+        {
+          "operator": "IS",
+          "term": "md5Checksum",
+          "value": "db349b97c37d22f5ea1d1841e3c89eb4"
+        },
+        {
+          "operator": "IS",
+          "term": "md5Checksum",
+          "value": "84c82835a5d21bbcf75a61706d8ab549"
+        },
+        {
+          "operator": "IS",
+          "term": "md5Checksum",
+          "value": "f351e1fcca0c4ea05fc44d15a17f8b36"
+        },
+        {
+          "operator": "IS",
+          "term": "md5Checksum",
+          "value": "7bf2b57f2a205768755c07f238fb32cc"
+        }
+      ],
+      "filterClause": "OR"
+    },
+    {
+      "filters": [
+        {
+          "operator": "ON_OR_AFTER",
+          "term": "eventTimestamp",
+          "value": "2018-02-01T00:00:00.00Z"
+        },
+        {
+          "operator": "ON_OR_BEFORE",
+          "term": "eventTimestamp",
+          "value": "2018-02-07T23:59:59.59Z"
+        }
+      ],
+      "filterClause": "AND"
+    }
+  ],
+  "groupClause": "AND",
+  "pgNum": 1,
+  "pgSize": 100,
+  "srtDir": "asc",
+  "srtKey": "eventTimestamp"
+}
+```
+
+##### Sample results of file events matching the MD5 values and date range
+
+```json
+{
+  "totalCount": 2,
+  "fileEvents": [
+    {
+      "eventId": "0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843279264407737861_1",
+      "eventType": "CREATED",
+      "eventTimestamp": "2018-02-04T18:40:37.790Z",
+      "filePath": "C:/Windows/",
+      "fileName": "mssecsvc.exe",
+      "fileType": "FILE",
+      "fileSize": 282,
+      "fileOwner": "clyde",
+      "md5Checksum": "db349b97c37d22f5ea1d1841e3c89eb4",
+      "createTimestamp": "2018-02-03T15:43:29.388Z",
+      "modifyTimestamp": "2018-02-04T15:13:28.783Z",
+      "deviceUserName": "clyde@example.com",
+      "osHostName": "CO-SAMPLE-01",
+      "domainName": "192.0.2.0",
+      "publicIpAddress": "192.0.2.0",
+      "privateIpAddresses": [
+        "2001:db8:49a3:7d3:1309:8a2e:370:7342",
+        "192.0.4.0",
+        "0:0:0:0:0:0:0:1",
+        "127.0.0.1"
+      ],
+      "deviceUid": "425916091791253442",
+      "userUid": "424242424242424242"
+    },
+    {
+      "eventId": "0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843317905847131236_1",
+      "eventType": "MODIFIED",
+      "eventTimestamp": "2018-02-02T23:50:42.294Z",
+      "filePath": "C:/Users/Paige/Downloads/",
+      "fileName": "tasksche.exe",
+      "fileType": "FILE",
+      "fileSize": 282,
+      "fileOwner": "paige",
+      "md5Checksum": "84c82835a5d21bbcf75a61706d8ab549",
+      "createTimestamp": "2018-02-01T15:43:29.388Z",
+      "modifyTimestamp": "2018-02-02T23:47:04.336Z",
+      "deviceUserName": "paige@example.com",
+      "osHostName": "CO-SAMPLE-02",
+      "domainName": "192.0.4.0",
+      "publicIpAddress": "192.0.4.0",
+      "privateIpAddresses": [
+        "2001:db8:49a3:7d3:1309:8a2e:370:7342",
+        "192.0.4.0",
+        "0:0:0:0:0:0:0:1",
+        "127.0.0.1"
+      ],
+      "deviceUid": "423278037859030542",
+      "userUid": "424242424242424243"
+    }
+  ],
+  "problems": null
+}
+```
+
+#### Use case 3: See all cloud sync destinations for a user
+
+The sample JSON below shows how to use the [/v1/file-events/grouping](/api/#operation/groupingUsingPOST) resource to find an approximate count of **Synced to cloud service** file events for a specific user for each cloud service. This sample groups by the `syncDestination` value, but you can choose any `groupingTerm` listed in the [/v1/file-events/grouping](/api/#operation/groupingUsingPOST) API documentation in your requests.
+
+##### Sample JSON search query for cloud service file event counts
+
+Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above). For grouping queries, you must use the [/v1/file-events/grouping](/api/#operation/groupingUsingPOST) resource.
+
+```json
+{
+  "groupingTerm": "syncDestination",
+  "groups": [
+    {
+      "filters": [
+        {
+          "operator": "IS",
+          "term": "deviceUserName",
+          "value": "clyde@example.com"
+        }
+      ]
+    }
+  ]
+}
+```
+
+##### Sample results of cloud service file event counts
+
+```json
+{
+  "groups": [
+    {
+      "value": "Dropbox",
+      "docCount": 114
+    },
+    {
+      "value": "Google Drive",
+      "docCount": 8
+    }
+  ]
+}
+```
+
+**Missing or unknown values**
+
+Some file events may not capture all metadata. Reasons for omitted metadata can include:
+
+* The file did not exist on disk long enough for Code42 to capture all the metadata.
+* Several values, including `deviceUserName` and `userUid`, are captured and reported from the Code42 cloud instead of directly from the user device. If those values haven't been reported yet, they may be blank or may display as `UNKNOWN` or `NAME_NOT_AVAILABLE`.
+
+
+## Manage alerts
+
+### Manage alert notifications
+
+To work with alert notifications, use the API query commands to search for alert notifications. Once you [identify specific alert IDs](#locate-alert-rule-ids), you can then add a note, dismiss, or reopen those alert notifications.
+
+#### Search for alert notifications by alert filter criteria
+
+To search for alert notifications using filter criteria and identify alert IDs, use the [/v1/alerts/query-alerts](/api/#operation/Alerts_QueryAlert) API command.
+
+```bash
+curl -X POST "<RequestURL>/v1/alerts/query-alerts" \
+-H "accept: text/plain" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "tenantId": "<SampleTenant>", "groups": [ { "filters": [ { "term": "<FilterType>", "operator": "<OperatorValue>", "value": "<Criteria>" } ], "filterClause": "AND" } ], "groupClause": "OR", "pgSize": "20", "pgNum": "0", "srtKey": "CreatedAt", "srtDirection": "DESC" }'
+```
+
+In the preceding example, replace `<FilterType>` with the filter, `<OperatorValue>` with the operator option, and `<Criteria>` with the search term to use in the search. See [Filter syntax for the query-alerts API command](#filter-syntax-for-the-query-alerts-api-command) below for details.
+
+A successful response returns basic information about the alert notifications that match your search criteria, including the alert IDs of those notifications (look for the `"id":"value"` entry):
+
+```json
+{
+  "type$": "ALERT_QUERY_RESPONSE",
+  "alerts": [
+    {
+      "type$": "ALERT_SUMMARY",
+      "tenantId": "123456",
+      "type": "FED_ENDPOINT_EXFILTRATION",
+      "name": "Departing employee endpoint exfiltration system rule",
+      "description": "System rule for departing employee endpoint exfiltration.",
+      "actor": "burt.morales@example.com",
+      "target": "N/A",
+      "severity": "HIGH",
+      "ruleId": "123456789424242",
+      "ruleSource": "Departing Employee",
+      "id": "987654321424242",
+      "createdAt": "2020-04-03T15:21:44.6139300Z",
+      "state": "OPEN"
+    }
+  ],
+  "totalCount": 1,
+  "problems": []
+}
+```
+
+#### Search for multiple alert notifications by alert IDs
+
+After you've located the alert IDs for specific alerts, use the [/v1/alerts/query-details](/api/#operation/Alerts_QueryAlertDetails) API command to search those IDs and view more details about those alert notifications.
+
+```bash
+curl -X POST "<RequestURL>/v1/alerts/query-details" \
+-H "accept: text/plain" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "alertIds": [ "<SampleAlertID1>", "<SampleAlertID2>" ]}'
+```
+
+In the preceding example, replace `<SampleAlertID1>` and `<SampleAlertID2>` with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.
+
+A successful response returns full details about the alert notifications, including a list of files involved in the activity.
+
+```bash
+{
+  "type$": "ALERT_DETAILS_RESPONSE",
+  "alerts": [
+    {
+      "type$": "ALERT_DETAILS",
+      "tenantId": "123456",
+      "type": "FED_ENDPOINT_EXFILTRATION",
+      "name": "Departing employee endpoint exfiltration system rule",
+      "description": "System rule for departing employee endpoint exfiltration.",
+      "actor": "burt.morales@example.com",
+      "target": "N/A",
+      "severity": "HIGH",
+      "ruleId": "123456789424242",
+      "ruleSource": "Departing Employee",
+      "id": "987654321424242",
+      "createdAt": "2020-04-08T13:50:25.3644410Z",
+      "state": "OPEN",
+      "observations": [
+        {
+          "type$": "OBSERVATION",
+          "id": "112233445566",
+          "observedAt": "2020-04-08T13:40:00.0000000Z",
+          "type": "FedEndpointExfiltration",
+          "data": "{\"type$\":\"OBSERVED_ENDPOINT_ACTIVITY\",\"id\":\"665544332211\",\"sources\":[\"Endpoint\"],\"exposureTypes\":[\"ApplicationRead\",\"CloudStorage\"],\"firstActivityAt\":\"2020-04-08T13:40:00.0000000Z\",\"lastActivityAt\":\"2020-04-08T13:45:00.0000000Z\",\"fileCount\":2,\"totalFileSize\":311096,\"fileCategories\":[{\"type$\":\"OBSERVED_FILE_CATEGORY\",\"category\":\"Image\",\"fileCount\":2,\"totalFileSize\":311096,\"isSignificant\":false}],\"files\":[{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"998877665544\",\"path\":\"C:/Users/burt.morales/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"},{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"334455667788\",\"path\":\"C:/Users/burt.morales/Dropbox/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"}],\"syncToServices\":[\"Dropbox\"],\"sendingIpAddresses\":[\"192.0.2.0\"]}"
+        }
+      ]
+    }
+  ]
+}
+```
+
+#### Search for a single notification by alert ID
+
+Use the [/v1/alerts/query-details-aggregate](/api/#operation/Alerts_QueryAlertDetailsAggregate) API command to search for a single alert notification using its alert ID.
+
+```bash
+curl -X POST "<RequestURL>/v1/alerts/query-details-aggregate" \
+-H "accept: text/plain" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "alertId": "<SampleAlertID>"}'
+```
+
+In the preceding example, replace `<SampleAlertID>` with the alert ID.
+
+A successful response returns full details about the alert notification with all file activity aggregated into a single Observation value.
+
+```json
+{
+  "type$": "ALERT_DETAILS_IN_AGGREGATE_RESPONSE",
+  "alert": {
+    "type$": "ALERT_DETAILS_AGGREGATE",
+    "tenantId": "123456",
+    "type": "FED_ENDPOINT_EXFILTRATION",
+    "name": "Departing employee endpoint exfiltration system rule",
+    "description": "System rule for departing employee endpoint exfiltration.",
+    "actor": "burt.morales@c42se.com",
+    "target": "N/A",
+    "severity": "HIGH",
+    "ruleId": "1234567894242",
+    "ruleSource": "Departing Employee",
+    "id": "9876543214242",
+    "createdAt": "2020-04-08T13:50:25.3644410Z",
+    "state": "OPEN",
+    "observation": {
+      "type$": "OBSERVATION_AGGREGATE",
+      "observedAt": "2020-04-08T13:40:00.0000000Z",
+      "type": "FedEndpointExfiltration",
+      "data": "{\"type$\":\"OBSERVED_ENDPOINT_ACTIVITY\",\"id\":\"112233445566\",\"sources\":[\"Endpoint\"],\"exposureTypes\":[\"ApplicationRead\",\"CloudStorage\"],\"firstActivityAt\":\"2020-04-08T13:40:00.0000000Z\",\"lastActivityAt\":\"2020-04-08T13:45:00.0000000Z\",\"fileCount\":2,\"totalFileSize\":311096,\"fileCategories\":[{\"type$\":\"OBSERVED_FILE_CATEGORY\",\"category\":\"Image\",\"fileCount\":2,\"totalFileSize\":311096,\"isSignificant\":false}],\"files\":[{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"998877665544\",\"path\":\"C:/Users/burt.morales/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"},{\"type$\":\"OBSERVED_FILE\",\"eventId\":\"334455667788\",\"path\":\"C:/Users/burt.morales/Dropbox/\",\"name\":\"1586353274_family_photo.png\",\"category\":\"Image\"}],\"syncToServices\":[\"Dropbox\"],\"sendingIpAddresses\":[\"192.0.2.0\"],\"isRemoteActivity\":false}"
+    }
+  }
+}
+```
+
+#### Add a note to an alert notification
+
+To add a note to an alert notification, first locate its alert ID using one of the queries above. Then use the [/v1/alerts/add-note](/api/#operation/Alerts_AddNoteToAlert) API command to add a note to that alert. Be aware that any note you add overwrites any existing note attached to the alert.
+
+```bash
+curl -X POST "<RequestURL>/v1/alerts/add-note" \
+-H "accept: application/json" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "tenantId": "<SampleTenant>", "alertId": "<SampleAlertID>", "note": "This is an example note." }'
+```
+
+In the preceding example, replace `<SampleAlertID>` with the alert ID.
+
+#### Dismiss alert notifications
+
+You can dismiss multiple alert notifications at once using the API. To dismiss alert notifications, first locate the alert IDs using one of the queries above. Then use the [/v1/alerts/update-state](/api/#operation/Alerts_UpdateAlertState) API command with a `state` value of `RESOLVED` to dismiss those alerts.
+
+```bash
+curl -X POST "<RequestURL>/v1/alerts/update-state" \
+-H "accept: application/json" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "tenantId": "<SampleTenant>", "alertIds": [ "<SampleAlertID1>", "<SampleAlertID2>" ], "state": "RESOLVED", "note": "This is an example note."}'
+```
+
+In the preceding example, replace `<SampleAlertID1>` and `<SampleAlertID2>` with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.
+
+Be aware that any note you enter overwrites any existing note attached to the alert. If you want to dismiss the alert without adding a note (or want to preserve existing notes), delete the "note" term and sample text from the command.
+
+#### Reopen dismissed alert notifications
+
+You can reopen multiple dismissed alert notifications at once using the API. To reopen alert notifications, first locate the alert IDs using one of the queries above. Then use the [/v1/alerts/update-state](/api/#operation/Alerts_UpdateAlertState) API command with the OPEN state value to reopen those alerts.
+
+```bash
+curl -X POST "<RequestURL>/v1/alerts/update-state" \
+-H "accept: application/json" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "tenantId": "<SampleTenant>", "alertIds": [ "<SampleAlertID1>", "<SampleAlertID2>" ], "state": "OPEN", "note": "This is an example note."}'
+```
+
+In the preceding example, replace `<SampleAlertID1>` and `<SampleAlertID2>` with the IDs of the alert notifications. Enclose each ID in quotation marks and separate them with commas.
+
+Be aware that any note you enter overwrites any existing note attached to the alert. If you want to reopen the alert without adding a note (or want to preserve existing notes), delete the "note" term and sample text from the command.
+
+#### Filter syntax for the query alerts API command
+
+The [/v1/alerts/query-alerts](/api/#operation/Alerts_QueryAlert) API uses these filter types, operators, and criteria values to search for alert notifications.
+
+Filter Type | Operator | Criteria
+-------------- | -------------- | --------------
+DateObserved | On, On or after, On or before | Date the alert was triggered, in yyyy-MM-dd format
+Actor | Is, Is not, Contains, Does not contain | The username or cloud alias (actor) of the person who caused the event, or portions thereof
+Severity | Is, Is not | High, Medium, or Low
+RuleName | Is, Is not, Contains, Does not contain | The name of the rule, or portions thereof
+Description | Is, Is not, Contains, Does not contain | The description of the rule, or portions thereof
+AlertState | Is, Is not | Open or Dismissed
+AlertID | Is | The ID of a specific alert notification
+
+
+
+### Manage alert rule user lists
+
+If a rule either applies only to specific users or applies to all users except specific users, you can manage the users in those inclusion or exclusion lists using the API. As with alert notifications, you'll need to identify the rule ID associated with the rule before you can manage the users to which it applies.
+
+#### Locate alert rule IDs
+
+Before you can manage the users associated with an alert rule, you need to view details about alert rules and identify the rule IDs for which you want to manage users. Use the [/v1/alerts/rules/query-rule-metadata](/api/#operation/Rules_QueryRuleMetadata) API command to locate alert rule IDs.
+
+**Note:** The API commands for alert notification searches described above also include the ID of the rule that generated the alert. Look for the "ruleID": `"<value>"` entry in the details returned by the query.
+
+```bash
+curl -X POST "<RequestURL>/v1/alerts/rules/query-rule-metadata" \
+-H "accept: text/plain" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "tenantId": "<SampleTenant>", "groups": [ { "filters": [ { "term": "<FilterTerm>", "operator": "<OperatorValue>", "value": "<Criteria>" } ], "filterClause": "AND" } ], "groupClause": "OR", "pgSize": "20", "pgNum": "0", "srtKey": "CreatedAt", "srtDirection": "DESC"}'
+```
+
+In the preceding example, replace `<FilterType>` with the filter, `<OperatorValue>` with the operator option, and `<Criteria>` with the search term to use in the search. See [Filter syntax for the query rule metadata API command](#filter-syntax-for-the-query-rule-metadata-api-command) below for details.
+
+A successful response returns basic information about the alert notifications that match your search criteria, including the rule IDs of those notifications (look for the "observerRuleId":"value" entry):
+
+```json
+{
+  "type$": "RULE_METADATA_SEARCH_RESPONSE",
+  "ruleMetadata": [
+    {
+      "type$": "RULE_METADATA",
+      "modifiedBy": "Code42",
+      "modifiedAt": "2020-06-04T21:07:03.5417950Z",
+      "name": "Exposure on an endpoint",
+      "description": "This default rule alerts you when departing employees move data from an endpoint.",
+      "severity": "HIGH",
+      "isSystem": true,
+      "isEnabled": false,
+      "ruleSource": "Departing Employee",
+      "tenantId": "123456",
+      "observerRuleId": "1234567894242",
+      "type": "FED_ENDPOINT_EXFILTRATION",
+      "id": "9876543214242",
+      "createdBy": "Code42",
+      "createdAt": "2020-01-10T12:16:40.7765970Z"
+    }
+  ],
+  "totalCount": 8,
+  "problems": []
+}
+```
+
+#### View an alert rule's user list
+
+Use the [/v1/alert-rules/query-users](/api/#operation/Rules_QueryUsersOnRule) API command to view a list of users that are either included in or excluded from a specific alert rule. The output from this command groups the user email addresses and cloud aliases in the rule's inclusion or exclusion list by the user ID associated with those details (which is generally the userUID value in Code42). You can then use this user ID to remove specific email addresses and cloud aliases from a rule's inclusion or exclusion list as needed.
+
+```bash
+curl -X POST "<RequestURL>/v1/alert-rules/query-users" \
+-H "accept: text/plain" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "tenantId": "<SampleTenant>", "ruleId": "<SampleRuleID>"}'
+```
+
+In the preceding example, replace `<SampleRuleID>` with the ID of the alert rule for which you want to view users.
+
+A successful response lists the email addresses and cloud aliases of the users in the alert rule's inclusion or exclusion list, grouped by the user ID value (identified by the "userIdFromAuthority" label) associated with that information. The "usersToAlertOn" label identifies whether the rule applies only to the specified users in an inclusion list (`SPECIFIED_USERS`), to all users except the specified users in an exclusion list (`ALL_USERS_NOT_SPECIFIED`), or to all users (`ALL_USERS`).
+
+```json
+{
+  "type$": "USERS_IN_RULE_RESPONSE",
+  "users": [
+    {
+      "type$": "USER_BAG",
+      "userIdFromAuthority": "947210378478595410",
+      "userAliasList": [
+        "SCassidy",
+        "SeanCassidy",
+        "sean.cassidy@example.com"
+      ]
+    }
+  ],
+  "usersToAlertOn": "SPECIFIED_USERS"
+}
+```
+
+If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference)), the results note that the "userIdFromAuthority" value is null. To work with an alert rule's inclusion or exclusion list if the user ID value is null, use the [Alerts screens in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Review_Alerts) to manually add and remove users. Alternately, you can use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) using the users' userUID in Code42.
+
+```json
+{
+  "type$": "USERS_IN_RULE_RESPONSE",
+  "users": [
+    {
+      "type$": "USER_BAG",
+      "userIdFromAuthority": "Null UserIdFromAuthority.  These usernames must be edited in the web app.",
+      "userAliasList": [
+        "burt.morales@example.com",
+        "astrid.ludwig@example.com"
+      ]
+    }
+  ],
+  "usersToAlertOn": "SPECIFIED_USERS"
+}
+```
+
+#### Add users to an alert rule
+
+If the rule applies to specific users, or if it applies to all users except specific users, you can add users to those inclusion or exclusion lists with the [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) API command. You cannot add users to rules that monitor all users.
+
+```bash
+curl -X POST "<RequestURL>/v1/alert-rules/add-users" \
+-H "accept: application/json" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "tenantId": "<SampleTenant>", "ruleId": "<SampleRuleId>", "userList": [ { "userIdFromAuthority": "<SampleUserUID>", "userAliasList": [ "<SampleAlias1>", "<SampleAlias2>" ] } ]}'
+```
+
+In the preceding example:
+
+* Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove users.
+* Replace `<SampleUserID>` with a value that uniquely identifies the user you want to add. As a best practice, use the user's userUID in Code42 for this value.
+* The `userAliasList` parameter identifies the list of email addresses or cloud aliases to associate with that `<SampleUserID>`. Replace `<SampleAlias1>` and `<SampleAlias2>` with the email addresses or cloud aliases you want to add to the rule's inclusion or exclusion list for that user ID.
+  * If you want to enter only one email address or cloud alias, use this construction: `"userAliasList": [ "<SampleAlias1>" ]`
+  * If you want to enter multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.
+
+The aliases that you enter here become the values that are added to the rule's inclusion or exclusion list and used to trigger or filter alert notifications.
+
+#### Remove specific users from an alert rule
+
+You can also remove users' email addresses or cloud aliases from an alert rule's inclusion or exclusion list with the [/v1/alert-rules/remove-users](/api/#operation/Rules_RemoveUsersFromRule) API command. This command removes all of the email addresses or cloud aliases associated with the user's ID from the specified rule. You cannot remove users from rules that monitor all users.
+
+```bash
+curl -X POST "<RequestURL>/v1/alert-rules/remove-users" \
+-H "accept: application/json" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "tenantId": "<SampleTenant>", "ruleId": "<SampleRuleID>", "userIdList": [ "<SampleUserUID>" ]}'
+```
+
+In the preceding example:
+
+* Replace `<SampleTenant>` with the [tenant ID](#get-a-tenant-id).
+* Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove users.
+* Replace `<SampleUserUID>` with the value that uniquely identifies the alias list of the user you want to remove (such as the user's userUID in Code42).
+
+**Note:** The [/v1/alert-rules/remove-users](/api/#operation/Rules_RemoveUsersFromRule) API command uses the `<SampleUserUID>` value to identify the user alias list to remove from the rule. This value may not always be supplied when users are added to rules, such as when users are added via the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference). Therefore, results from using [/v1/alert-rules/remove-users](/api/#operation/Rules_RemoveUsersFromRule) may not be what you expect: if no `<SampleUserUID>` value exists, the corresponding alias list cannot be identified and no users are removed. To resolve this issue using the API, use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) API command to remove all users from a rule's inclusion or exclusion list, then use the [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) API command to add user aliases that are associated with a `<SampleUserUID>` value.
+
+#### Remove a user's aliases from an alert rule
+
+Before removing user information from an alert rule's inclusion or exclusion list, use the [/v1/alert-rules/query-users](/api/#operation/Rules_QueryUsersOnRule) API command to identify what user information is contained in that list and whether it is associated with a user ID. After identifying the user ID associated with the email addresses or cloud aliases in a rule's inclusion or exclusion list, you can then use the [/v1/alert-rules/remove-user-aliases](/api/#operation/Rules_RemoveUserAliasesFromRule) API command to remove only that user information from the list.
+
+**Note:** If there are no user IDs associated with the user information in an alert rule's inclusion or exclusion list, you cannot remove specific email addresses or cloud aliases from that list with this API command. Instead, you can use one of these methods to work with a rule's user information:
+
+* Use the [Alerts screen in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference) to manually add and remove users.
+* Use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) and [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) API commands to remove all user information and then re-add the email addresses and cloud aliases (associated with a Code42 userUID value) that you want to keep.
+
+```bash
+curl -X POST "<RequestURL>/v1/alert-rules/remove-user-aliases" \
+-H "accept: application/json" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "tenantId": "<SampleTenant>", "ruleId": "<SampleRuleID>", "userList": [ { "userIdFromAuthority": "<SampleUserID>", "userAliasList": [ "<SampleAlias1>", "<SampleAlias2>" ] } ]}'
+```
+
+In the preceding example:
+
+* Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove users.
+* Replace `<SampleUserID>` with the value that is associated with the email addresses or cloud aliases that you want to remove.
+* The userAliasList parameter identifies the email addresses or cloud aliases associated with that `<SampleUserID>` that should be removed from the list. Replace `<SampleAlias1>` and `<SampleAlias2>` with the email addresses or cloud aliases you want to remove from the rule's inclusion or exclusion list for that user ID.
+  * If you want to remove only one email address or cloud alias, use this construction: `"userAliasList": [ "<SampleAlias1>" ]`
+  
+* If you want to remove multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.
+  * If there are multiple email addresses or cloud aliases associated with that user ID but you want to remove only one or two, specify only the values to remove.
+
+#### Remove all users from an alert rule
+
+If you do not know the user ID associated with the list of email addresses or cloud aliases for a user, you can use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) API command to remove all users from an alert rule's inclusion or exclusion list. You can then use the add-users API command to rebuild those lists using known user IDs.
+
+```bash
+curl -X POST "<RequestURL>/v1/alert-rules/remove-all-users" \
+-H "accept: application/json" \
+-H "Authorization: Bearer <AuthToken>" \
+-H "Content-Type: application/json" \
+-d '{ "tenantId": "<SampleTenant>", "ruleId": "<SampleRuleID>" }'
+```
+
+In the preceding example:
+
+* Replace `<SampleTenant>` with the [tenant ID](#get-a-tenant-id).
+* Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove all users.
+
+#### Filter syntax for the query rule metadata API command
+
+The [/v1/alerts/rules/query-rule-metadata](/api/#operation/Rules_QueryRuleMetadata) API uses these filter types, operators, and criteria values to search for alert rules.
+
+Filter Type | Operator | Criteria
+-------------- | -------------- | --------------
+TenantId | Is | The ID of your organization or tenant in Code42.
+ObserverRuleId | Is | The ID of a specific alert rule.
+Type | Is, Is not | The rule's exposure type (Cloud share permissions changes rules: FED_CLOUD_SHARE_PERMISSIONS), (Exposure on an endpoint rules: FED_ENDPOINT_EXFILTRATION), (Suspicious file mismatch rules: FED_FILE_TYPE_MISMATCH)
+Name | Is, Is not, Contains, Does not contain | The name of the rule, or portions thereof
+Description | Is, Is not, Contains, Does not contain | The description of the rule, or portions thereof
+Severity | Is, Is not | High, Medium, or low
+IsSystem | Is | True or False. Indicates whether the rule is a default rule 
+IsEnabled | Is | True or False. Indicates whether the rule is enabled or disabled.
+RuleSource | Is, Is not | The source that created the rule. For rules created manually: Alerting. 
+ModifiedAt | On, On or after, On or before | Date the rule was modified, in yyyy-MM-dd format
+ModifiedBy | Is, Is not, Contains, Does not contain | Username of the person who last modified the rule. 
+CreatedAt | On, On or after, On or before | Date the rule was created, in yyyy-MM-dd format
+CreatedBy | Is, Is not, Contains, Does not contain | Username of the person who created the rule. 
+
+
+## Manage watchlists
+
+### Add a user to a watchlist
+
+The following example demonstrates how to add a user to a watchlist using the [/v1/watchlists/<watchlist_id>/included-users/add](/api/#operation/AddIncludedUsers) API. To add multiple users, submit a comma-delimited list to the UserIds parameter.
+
+```bash
+curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/add \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>" \
+-d '{"userIds": ["<userUID>"]}'
+```
+
+In the preceding example:
+
+* Replace `<watchlist_id>` with the watchlist ID obtained from the  [watchlists](api/#operation/ListWatchlists) API.
+* Replace `<userID>` with a list of user UIDs.
+
+### Remove a user from a watchlist
+
+The following example demonstrates how to remove a user from a watchlist using the [/v1/watchlists/<watchlist_id>/included-users/delete](/api/#operation/DeleteIncludedUsers) API. To remove multiple users, submit a comma-delimited list to the UserIds parameter.
+
+```bash
+curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/delete \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>" \
+-d '{"userIds": ["<userUID>"]}'
+```
+
+In the preceding example:
+
+* Replace `<watchlist_id>` with the watchlist ID obtained from the  [watchlists](api/#operation/ListWatchlists) API.
+* Replace `<userUIDs>` with a list of user UIDs.
+
+
+### Get a user risk profile
+
+A user's risk profile appears in their watchlist entry, and includes notes about their risk.
+
+The following example demonstrates how to get a risk profile of a user with the [/v1/user-risk-profiles](/api/#operation/ListUserRiskProfiles) API.
+
+```bash
+curl -X GET <requestURL>/v1/user-risk-profiles/<userUID> \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>" 
+```
+
+In the preceding example, replace `<userUID>` with the user's UID.
+
+
+## Manage cases
+Use the Case APIs to create and manage cases for security investigations. A case is used to record results of an investigation into suspicious file activity. For information about creating and managing cases in the Code42 console, see our [support article](https://support.code42.com/Incydr/Admin/Code42_console_reference/Cases_reference).
+
+Typically, a security analyst will create a case based on an investigation that shows unauthorized file activity, and will add file events from Forensic Search to the case as evidence. The case can have additional file events added to it if needed, and can be routed in a CSV or PDF file as necessary for resolution. Although cases are specific to Code42, you can integrate cases into your SIEM, SOAR, or other incident management system. For integration resources, see our [support article](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_integrations_resources).
+
+### Create a case
+
+When you create a case, you include a name for the case and any other information needed, such as the user UID of the person whom the case is about, the user UID of the person assigned to work on the case, a description of the case, and a summary of the findings. By default, when you create a case, its status is "open".
+
+The following example demonstrates how to create a case with the [/v1/cases](/api/#operation/createCaseUsingPOST) API.
+
+```bash
+curl -X POST <requestURL>/v1/cases \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>"" \
+-d '{"assignee": "<userUID-of-assignee>", "description": "<description>", "findings": "<findings>", "name": "<name-of-case>", "subject": "<userUID-of-subject>" }'
+```
+
+In the preceding example:
+
+* Replace `<userUID-of-assignee>` with the user UID of the person assigned to take the case.
+* Replace `<userUID-of-subject>` with the user UID of the person the case is about.
+
+### Download case summary as a PDF
+
+The PDF contains the case subject, details, and findings. Detailed file activity is not included. You can route the resulting PDF to interested parties, such as a security team, members of an insider risk working group, or company executives. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line. 
+
+The following example demonstrates how to download a case summary with a PDF using the [/v1/cases/{caseNumber}/export](/api/#operation/pdfExportUsingGET) API.
+
+```bash
+curl -X GET <requestURL>/v1/cases/<caseID>/export \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>" -o <filename>.pdf
+```
+
+In the preceding example, replace `<caseID>` with the ID of the case.
+
+
+### Export file events for a case as a CSV file
+
+The comma-separated value (CSV) file contains the case subject, details, and findings, as well as the file events associated with the case. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line. 
+
+You can integrate the resulting CSV file into your SOAR, SIEM, or other incident management system. For integration resources, see our [support article](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_integrations_resources). For field definitions of the file events shown in the CSV file, see our [support article](https://support.code42.com/Incydr/Admin/Code42_console_reference/File_event_metadata_reference). 
+
+The following example demonstrates how to export file events for a case as a CSV file using the [/v1/cases/{caseNumber}/fileevent/export](/api/#operation/csvExportUsingGET) API.
+
+```bash
+curl -X GET <requestURL>/v1/cases/<caseID>/fileevent/export \
+-H 'content-type: application/json' \
+-H 'authorization: Bearer <AuthToken>' -o <filename>.csv
+```
+
+In the preceding example, replace `<caseID>` with the ID of the case.
+
+### Get all cases for a tenant
+
+You can get a paginated list of all cases in your company's instance in the Code42 cloud, also known as your "tenant". The returned information does not include the file event details. This API can be used for verification purposes, such as to check whether cases have been successfully added or successfully updated. 
+
+The following example demonstrates how to get all cases for a tenant using the [/v1/cases](/api/#operation/getCasesUsingGET) API.
+
+```bash
+curl -X GET '<requestURL>/v1/cases' \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>" 
+```
+
+
+## Manage users
+
+The User APIs are useful to get a user's basic information, or to get a quick snapshot of users who are active, inactive, or blocked. 
+
+### Get a list of users
+
+To get a list of specific users, in the username field enter the Code42 usernames in a comma-separated list. To return a list of all users, leave the username field empty. Among other details, the returned results include the user's UID, Code42 username, and organization the user belongs to. 
+
+The following example demonstrates how to get a list of users using the [/v1/users](/api/#tag/User/paths/~1v1~1users/get) API.
+
+```bash
+curl -X GET <requestURL>/v1/users \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>" \
+-d '{"active": true, "blocked": false,"username":[],"page":0,"pageSize":100}'
+```
+
+
+### Get a user
+
+You can get information on an individual user that includes the Code42 username, whether the user is active or blocked, and organization the user belongs to, among other things. 
+
+The following example demonstrates how to get information on a user with the [/v1/users/<userId>}](/api/#tag/User/paths/~1v1~1users~1{userId}/get) API.
+
+```bash
+curl -X GET <requestURL>/v1/users/<userUID> \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>"
+```
+
+In the preceding example, replace `<userUID>` with the user's UID.
+
+
+
+
+
+
+
+
+
