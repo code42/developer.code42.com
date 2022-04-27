@@ -20,7 +20,7 @@ We offer several different approaches to integrate into Code42 so you can choose
 | [Py42](#py42) | Python library | Custom scripting | Moderate | Moderate
 | [Code42 CLI](#code42-command-line-interface) | Command Line | Prebuilt, out-of-the-box scripts | Least | Least
 
-Be sure to also check out our guides for common use cases in the top menu.
+
 
 ## REST API
 
