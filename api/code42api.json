@@ -6660,6 +6660,13 @@
           "example": "/Users/casey/Documents/",
           "description": "The file location on the user's device; a path forward or backslash should be included at the end of the filepath. Possibly null if the file event occurred on a cloud provider."
         },
+        "riskIndicators": {
+          "type": "array",
+          "description": "List of risk indicators identified for this event. If more than one risk indicator applies to this event, the sum of all indicators determines the total risk score.",
+          "items": {
+            "$ref": "#/definitions/RiskIndicator-cases"
+          }
+        },
         "riskScore": {
           "type": "integer",
           "format": "int32",
@@ -6728,6 +6735,23 @@
         }
       },
       "title": "MultipleEventsResponse"
+    },
+    "RiskIndicator-cases": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "Browser upload",
+          "description": "Name of the risk indicator."
+        },
+        "weight": {
+          "type": "integer",
+          "format": "int32",
+          "example": 5,
+          "description": "Numeric score of the risk indicator at the time this event was observed. Higher scores denote higher risk severity."
+        }
+      },
+      "title": "RiskIndicator"
     },
     "SingleCaseResponse-cases": {
       "type": "object",
