@@ -18,7 +18,6 @@ main() {
   ### Trusted Activities v2
   # convert openapi 3 yaml to swagger 2 json
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/trusted-activities.yaml > $TRUSTED_ACTIVITIES_V2
-  rm ${docs}/trusted-activities.yaml
   # rename tags
   jq '.paths[][].tags |= [ "Trusted Activities" ]' < $TRUSTED_ACTIVITIES_V2 > $TMP && mv $TMP $TRUSTED_ACTIVITIES_V2
   # mark trusted-activities summary fields with "v1" and "v2" accordingly
@@ -27,7 +26,6 @@ main() {
   ### Watchlists
   # convert openapi 3 yaml to swagger 2 json
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/watchlists.yaml > $WATCHLISTS
-  rm ${docs}/watchlists.yaml
   # rename UserRiskProfileService tags
   jq '(.paths[][] | select(.tags == ["UserRiskProfileService"]) | .tags) |= ["User Risk Profiles"]' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
   # rename WatchlistsService tags
