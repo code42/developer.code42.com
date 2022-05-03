@@ -1030,7 +1030,7 @@ CreatedBy | Is, Is not, Contains, Does not contain | Username of the person who 
 
 ### Add a user to a watchlist
 
-The following example demonstrates how to add a user to a watchlist using the [/v1/watchlists/<watchlist_id>/included-users/add](/api/#operation/AddIncludedUsers) API. To add multiple users, submit a comma-delimited list to the UserIds parameter.
+The following example demonstrates how to add a user to a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/add](/api/#operation/AddIncludedUsers) API. To add multiple users, submit a comma-delimited list to the UserIds parameter.
 
 ```bash
 curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/add \
@@ -1046,7 +1046,7 @@ In the preceding example:
 
 ### Remove a user from a watchlist
 
-The following example demonstrates how to remove a user from a watchlist using the [/v1/watchlists/<watchlist_id>/included-users/delete](/api/#operation/DeleteIncludedUsers) API. To remove multiple users, submit a comma-delimited list to the UserIds parameter.
+The following example demonstrates how to remove a user from a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/delete](/api/#operation/DeleteIncludedUsers) API. To remove multiple users, submit a comma-delimited list to the UserIds parameter.
 
 ```bash
 curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/delete \
@@ -1103,7 +1103,7 @@ In the preceding example:
 
 The PDF contains the case subject, details, and findings. Detailed file activity is not included. You can route the resulting PDF to interested parties, such as a security team, members of an insider risk working group, or company executives. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line. 
 
-The following example demonstrates how to download a case summary with a PDF using the [/v1/cases/{caseNumber}/export](/api/#operation/pdfExportUsingGET) API.
+The following example demonstrates how to download a case summary with a PDF using the [/v1/cases/\<caseNumber\>/export](/api/#operation/pdfExportUsingGET) API.
 
 ```bash
 curl -X GET <requestURL>/v1/cases/<caseID>/export \
@@ -1120,7 +1120,7 @@ The comma-separated value (CSV) file contains the case subject, details, and fin
 
 You can integrate the resulting CSV file into your SOAR, SIEM, or other incident management system. For integration resources, see our [support article](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_integrations_resources). For field definitions of the file events shown in the CSV file, see our [support article](https://support.code42.com/Incydr/Admin/Code42_console_reference/File_event_metadata_reference). 
 
-The following example demonstrates how to export file events for a case as a CSV file using the [/v1/cases/{caseNumber}/fileevent/export](/api/#operation/csvExportUsingGET) API.
+The following example demonstrates how to export file events for a case as a CSV file using the [/v1/cases/\<caseNumber\>/fileevent/export](/api/#operation/csvExportUsingGET) API.
 
 ```bash
 curl -X GET <requestURL>/v1/cases/<caseID>/fileevent/export \
@@ -1165,7 +1165,7 @@ curl -X GET <requestURL>/v1/users \
 
 You can get information on an individual user that includes the Code42 username, whether the user is active or blocked, and organization the user belongs to, among other things. 
 
-The following example demonstrates how to get information on a user with the [/v1/users/<userId>}](/api/#tag/User/paths/~1v1~1users~1{userId}/get) API.
+The following example demonstrates how to get information on a user with the [/v1/users/\<userId\>](/api/#tag/User/paths/~1v1~1users~1{userId}/get) API.
 
 ```bash
 curl -X GET <requestURL>/v1/users/<userUID> \
@@ -1174,12 +1174,4 @@ curl -X GET <requestURL>/v1/users/<userUID> \
 ```
 
 In the preceding example, replace `<userUID>` with the user's UID.
-
-
-
-
-
-
-
-
 
