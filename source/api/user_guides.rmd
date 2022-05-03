@@ -206,13 +206,13 @@ curl -X POST <RequestURL>/v1/file-events \
 }'
 ```
 
-**Note:** To receive results in CSV format instead of JSON, use the [/v1/file-events/export](/api/#operation/exportUsingPOST) resource instead of [/v1/file-events](/api/#operation/searchEventsUsingPOST).
+**Note:** To receive results in CSV format instead of JSON, use the [/v1/file-events/export](/api#operation/exportUsingPOST) resource instead of [/v1/file-events](/api#operation/searchEventsUsingPOST).
 
 ### API limits
 
 * Request rate: To ensure optimal performance throughout your Code42 environment, Code42 limits API requests to 120 per minute. Requests that exceed this limit are blocked and do not return results.
 * Result set:
-  * `file-events` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `file-events` query with `pgSize=10000` cannot display `pgNum=2`). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details, see the [/v1/file-events API documentation](/api/#operation/searchEventsUsingPOST).)
+  * `file-events` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `file-events` query with `pgSize=10000` cannot display `pgNum=2`). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details, see the [/v1/file-events API documentation](/api#operation/searchEventsUsingPOST).)
   * `file-events/export` queries are limited to 200,000 events.
   * `file-events/grouping` queries are limited to 1,000 groups
 
@@ -569,11 +569,11 @@ Modify this sample to fit your environment and then include it in a request (as 
 
 #### Use case 3: See all cloud sync destinations for a user
 
-The sample JSON below shows how to use the [/v1/file-events/grouping](/api/#operation/groupingUsingPOST) resource to find an approximate count of **Synced to cloud service** file events for a specific user for each cloud service. This sample groups by the `syncDestination` value, but you can choose any `groupingTerm` listed in the [/v1/file-events/grouping](/api/#operation/groupingUsingPOST) API documentation in your requests.
+The sample JSON below shows how to use the [/v1/file-events/grouping](/api#operation/groupingUsingPOST) resource to find an approximate count of **Synced to cloud service** file events for a specific user for each cloud service. This sample groups by the `syncDestination` value, but you can choose any `groupingTerm` listed in the [/v1/file-events/grouping](/api#operation/groupingUsingPOST) API documentation in your requests.
 
 ##### Sample JSON search query for cloud service file event counts
 
-Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above). For grouping queries, you must use the [/v1/file-events/grouping](/api/#operation/groupingUsingPOST) resource.
+Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above). For grouping queries, you must use the [/v1/file-events/grouping](/api#operation/groupingUsingPOST) resource.
 
 ```json
 {
@@ -625,7 +625,7 @@ To work with alert notifications, use the API query commands to search for alert
 
 #### Search for alert notifications by alert filter criteria
 
-To search for alert notifications using filter criteria and identify alert IDs, use the [/v1/alerts/query-alerts](/api/#operation/Alerts_QueryAlert) API command.
+To search for alert notifications using filter criteria and identify alert IDs, use the [/v1/alerts/query-alerts](/api#operation/Alerts_QueryAlert) API command.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alerts/query-alerts" \
@@ -666,7 +666,7 @@ A successful response returns basic information about the alert notifications th
 
 #### Search for multiple alert notifications by alert IDs
 
-After you've located the alert IDs for specific alerts, use the [/v1/alerts/query-details](/api/#operation/Alerts_QueryAlertDetails) API command to search those IDs and view more details about those alert notifications.
+After you've located the alert IDs for specific alerts, use the [/v1/alerts/query-details](/api#operation/Alerts_QueryAlertDetails) API command to search those IDs and view more details about those alert notifications.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alerts/query-details" \
@@ -714,7 +714,7 @@ A successful response returns full details about the alert notifications, includ
 
 #### Search for a single notification by alert ID
 
-Use the [/v1/alerts/query-details-aggregate](/api/#operation/Alerts_QueryAlertDetailsAggregate) API command to search for a single alert notification using its alert ID.
+Use the [/v1/alerts/query-details-aggregate](/api#operation/Alerts_QueryAlertDetailsAggregate) API command to search for a single alert notification using its alert ID.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alerts/query-details-aggregate" \
@@ -757,7 +757,7 @@ A successful response returns full details about the alert notification with all
 
 #### Add a note to an alert notification
 
-To add a note to an alert notification, first locate its alert ID using one of the queries above. Then use the [/v1/alerts/add-note](/api/#operation/Alerts_AddNoteToAlert) API command to add a note to that alert. Be aware that any note you add overwrites any existing note attached to the alert.
+To add a note to an alert notification, first locate its alert ID using one of the queries above. Then use the [/v1/alerts/add-note](/api#operation/Alerts_AddNoteToAlert) API command to add a note to that alert. Be aware that any note you add overwrites any existing note attached to the alert.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alerts/add-note" \
@@ -771,7 +771,7 @@ In the preceding example, replace `<SampleAlertID>` with the alert ID.
 
 #### Dismiss alert notifications
 
-You can dismiss multiple alert notifications at once using the API. To dismiss alert notifications, first locate the alert IDs using one of the queries above. Then use the [/v1/alerts/update-state](/api/#operation/Alerts_UpdateAlertState) API command with a `state` value of `RESOLVED` to dismiss those alerts.
+You can dismiss multiple alert notifications at once using the API. To dismiss alert notifications, first locate the alert IDs using one of the queries above. Then use the [/v1/alerts/update-state](/api#operation/Alerts_UpdateAlertState) API command with a `state` value of `RESOLVED` to dismiss those alerts.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alerts/update-state" \
@@ -787,7 +787,7 @@ Be aware that any note you enter overwrites any existing note attached to the al
 
 #### Reopen dismissed alert notifications
 
-You can reopen multiple dismissed alert notifications at once using the API. To reopen alert notifications, first locate the alert IDs using one of the queries above. Then use the [/v1/alerts/update-state](/api/#operation/Alerts_UpdateAlertState) API command with the OPEN state value to reopen those alerts.
+You can reopen multiple dismissed alert notifications at once using the API. To reopen alert notifications, first locate the alert IDs using one of the queries above. Then use the [/v1/alerts/update-state](/api#operation/Alerts_UpdateAlertState) API command with the OPEN state value to reopen those alerts.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alerts/update-state" \
@@ -803,7 +803,7 @@ Be aware that any note you enter overwrites any existing note attached to the al
 
 #### Filter syntax for the query alerts API command
 
-The [/v1/alerts/query-alerts](/api/#operation/Alerts_QueryAlert) API uses these filter types, operators, and criteria values to search for alert notifications.
+The [/v1/alerts/query-alerts](/api#operation/Alerts_QueryAlert) API uses these filter types, operators, and criteria values to search for alert notifications.
 
 Filter Type | Operator | Criteria
 -------------- | -------------- | --------------
@@ -823,7 +823,7 @@ If a rule either applies only to specific users or applies to all users except s
 
 #### Locate alert rule IDs
 
-Before you can manage the users associated with an alert rule, you need to view details about alert rules and identify the rule IDs for which you want to manage users. Use the [/v1/alerts/rules/query-rule-metadata](/api/#operation/Rules_QueryRuleMetadata) API command to locate alert rule IDs.
+Before you can manage the users associated with an alert rule, you need to view details about alert rules and identify the rule IDs for which you want to manage users. Use the [/v1/alerts/rules/query-rule-metadata](/api#operation/Rules_QueryRuleMetadata) API command to locate alert rule IDs.
 
 **Note:** The API commands for alert notification searches described above also include the ID of the rule that generated the alert. Look for the "ruleID": `"<value>"` entry in the details returned by the query.
 
@@ -868,7 +868,7 @@ A successful response returns basic information about the alert notifications th
 
 #### View an alert rule's user list
 
-Use the [/v1/alert-rules/query-users](/api/#operation/Rules_QueryUsersOnRule) API command to view a list of users that are either included in or excluded from a specific alert rule. The output from this command groups the user email addresses and cloud aliases in the rule's inclusion or exclusion list by the user ID associated with those details (which is generally the userUID value in Code42). You can then use this user ID to remove specific email addresses and cloud aliases from a rule's inclusion or exclusion list as needed.
+Use the [/v1/alert-rules/query-users](/api#operation/Rules_QueryUsersOnRule) API command to view a list of users that are either included in or excluded from a specific alert rule. The output from this command groups the user email addresses and cloud aliases in the rule's inclusion or exclusion list by the user ID associated with those details (which is generally the userUID value in Code42). You can then use this user ID to remove specific email addresses and cloud aliases from a rule's inclusion or exclusion list as needed.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alert-rules/query-users" \
@@ -900,7 +900,7 @@ A successful response lists the email addresses and cloud aliases of the users i
 }
 ```
 
-If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference)), the results note that the "userIdFromAuthority" value is null. To work with an alert rule's inclusion or exclusion list if the user ID value is null, use the [Alerts screens in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Review_Alerts) to manually add and remove users. Alternately, you can use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) using the users' userUID in Code42.
+If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference)), the results note that the "userIdFromAuthority" value is null. To work with an alert rule's inclusion or exclusion list if the user ID value is null, use the [Alerts screens in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Review_Alerts) to manually add and remove users. Alternately, you can use the [/v1/alert-rules/remove-all-users](/api#operation/Rules_RemoveAllUsersFromRule) API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the [/v1/alert-rules/add-users](/api#operation/Rules_AddUsersToRule) using the users' userUID in Code42.
 
 ```json
 {
@@ -921,7 +921,7 @@ If a user ID was not provided when users were added to the alert rule (as is com
 
 #### Add users to an alert rule
 
-If the rule applies to specific users, or if it applies to all users except specific users, you can add users to those inclusion or exclusion lists with the [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) API command. You cannot add users to rules that monitor all users.
+If the rule applies to specific users, or if it applies to all users except specific users, you can add users to those inclusion or exclusion lists with the [/v1/alert-rules/add-users](/api#operation/Rules_AddUsersToRule) API command. You cannot add users to rules that monitor all users.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alert-rules/add-users" \
@@ -943,7 +943,7 @@ The aliases that you enter here become the values that are added to the rule's i
 
 #### Remove specific users from an alert rule
 
-You can also remove users' email addresses or cloud aliases from an alert rule's inclusion or exclusion list with the [/v1/alert-rules/remove-users](/api/#operation/Rules_RemoveUsersFromRule) API command. This command removes all of the email addresses or cloud aliases associated with the user's ID from the specified rule. You cannot remove users from rules that monitor all users.
+You can also remove users' email addresses or cloud aliases from an alert rule's inclusion or exclusion list with the [/v1/alert-rules/remove-users](/api#operation/Rules_RemoveUsersFromRule) API command. This command removes all of the email addresses or cloud aliases associated with the user's ID from the specified rule. You cannot remove users from rules that monitor all users.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alert-rules/remove-users" \
@@ -959,16 +959,16 @@ In the preceding example:
 * Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove users.
 * Replace `<SampleUserUID>` with the value that uniquely identifies the alias list of the user you want to remove (such as the user's userUID in Code42).
 
-**Note:** The [/v1/alert-rules/remove-users](/api/#operation/Rules_RemoveUsersFromRule) API command uses the `<SampleUserUID>` value to identify the user alias list to remove from the rule. This value may not always be supplied when users are added to rules, such as when users are added via the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference). Therefore, results from using [/v1/alert-rules/remove-users](/api/#operation/Rules_RemoveUsersFromRule) may not be what you expect: if no `<SampleUserUID>` value exists, the corresponding alias list cannot be identified and no users are removed. To resolve this issue using the API, use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) API command to remove all users from a rule's inclusion or exclusion list, then use the [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) API command to add user aliases that are associated with a `<SampleUserUID>` value.
+**Note:** The [/v1/alert-rules/remove-users](/api#operation/Rules_RemoveUsersFromRule) API command uses the `<SampleUserUID>` value to identify the user alias list to remove from the rule. This value may not always be supplied when users are added to rules, such as when users are added via the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference). Therefore, results from using [/v1/alert-rules/remove-users](/api#operation/Rules_RemoveUsersFromRule) may not be what you expect: if no `<SampleUserUID>` value exists, the corresponding alias list cannot be identified and no users are removed. To resolve this issue using the API, use the [/v1/alert-rules/remove-all-users](/api#operation/Rules_RemoveAllUsersFromRule) API command to remove all users from a rule's inclusion or exclusion list, then use the [/v1/alert-rules/add-users](/api#operation/Rules_AddUsersToRule) API command to add user aliases that are associated with a `<SampleUserUID>` value.
 
 #### Remove a user's aliases from an alert rule
 
-Before removing user information from an alert rule's inclusion or exclusion list, use the [/v1/alert-rules/query-users](/api/#operation/Rules_QueryUsersOnRule) API command to identify what user information is contained in that list and whether it is associated with a user ID. After identifying the user ID associated with the email addresses or cloud aliases in a rule's inclusion or exclusion list, you can then use the [/v1/alert-rules/remove-user-aliases](/api/#operation/Rules_RemoveUserAliasesFromRule) API command to remove only that user information from the list.
+Before removing user information from an alert rule's inclusion or exclusion list, use the [/v1/alert-rules/query-users](/api#operation/Rules_QueryUsersOnRule) API command to identify what user information is contained in that list and whether it is associated with a user ID. After identifying the user ID associated with the email addresses or cloud aliases in a rule's inclusion or exclusion list, you can then use the [/v1/alert-rules/remove-user-aliases](/api#operation/Rules_RemoveUserAliasesFromRule) API command to remove only that user information from the list.
 
 **Note:** If there are no user IDs associated with the user information in an alert rule's inclusion or exclusion list, you cannot remove specific email addresses or cloud aliases from that list with this API command. Instead, you can use one of these methods to work with a rule's user information:
 
 * Use the [Alerts screen in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference) to manually add and remove users.
-* Use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) and [/v1/alert-rules/add-users](/api/#operation/Rules_AddUsersToRule) API commands to remove all user information and then re-add the email addresses and cloud aliases (associated with a Code42 userUID value) that you want to keep.
+* Use the [/v1/alert-rules/remove-all-users](/api#operation/Rules_RemoveAllUsersFromRule) and [/v1/alert-rules/add-users](/api#operation/Rules_AddUsersToRule) API commands to remove all user information and then re-add the email addresses and cloud aliases (associated with a Code42 userUID value) that you want to keep.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alert-rules/remove-user-aliases" \
@@ -990,7 +990,7 @@ In the preceding example:
 
 #### Remove all users from an alert rule
 
-If you do not know the user ID associated with the list of email addresses or cloud aliases for a user, you can use the [/v1/alert-rules/remove-all-users](/api/#operation/Rules_RemoveAllUsersFromRule) API command to remove all users from an alert rule's inclusion or exclusion list. You can then use the add-users API command to rebuild those lists using known user IDs.
+If you do not know the user ID associated with the list of email addresses or cloud aliases for a user, you can use the [/v1/alert-rules/remove-all-users](/api#operation/Rules_RemoveAllUsersFromRule) API command to remove all users from an alert rule's inclusion or exclusion list. You can then use the add-users API command to rebuild those lists using known user IDs.
 
 ```bash
 curl -X POST "<RequestURL>/v1/alert-rules/remove-all-users" \
@@ -1007,7 +1007,7 @@ In the preceding example:
 
 #### Filter syntax for the query rule metadata API command
 
-The [/v1/alerts/rules/query-rule-metadata](/api/#operation/Rules_QueryRuleMetadata) API uses these filter types, operators, and criteria values to search for alert rules.
+The [/v1/alerts/rules/query-rule-metadata](/api#operation/Rules_QueryRuleMetadata) API uses these filter types, operators, and criteria values to search for alert rules.
 
 Filter Type | Operator | Criteria
 -------------- | -------------- | --------------
@@ -1030,7 +1030,7 @@ CreatedBy | Is, Is not, Contains, Does not contain | Username of the person who 
 
 ### Add a user to a watchlist
 
-The following example demonstrates how to add a user to a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/add](/api/#operation/AddIncludedUsers) API. To add multiple users, submit a comma-delimited list to the UserIds parameter.
+The following example demonstrates how to add a user to a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/add](/api#operation/AddIncludedUsers) API. To add multiple users, submit a comma-delimited list to the UserIds parameter.
 
 ```bash
 curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/add \
@@ -1046,7 +1046,7 @@ In the preceding example:
 
 ### Remove a user from a watchlist
 
-The following example demonstrates how to remove a user from a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/delete](/api/#operation/DeleteIncludedUsers) API. To remove multiple users, submit a comma-delimited list to the UserIds parameter.
+The following example demonstrates how to remove a user from a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/delete](/api#operation/DeleteIncludedUsers) API. To remove multiple users, submit a comma-delimited list to the UserIds parameter.
 
 ```bash
 curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/delete \
@@ -1065,7 +1065,7 @@ In the preceding example:
 
 A user's risk profile appears in their watchlist entry, and includes notes about their risk.
 
-The following example demonstrates how to get a risk profile of a user with the [/v1/user-risk-profiles](/api/#operation/ListUserRiskProfiles) API.
+The following example demonstrates how to get a risk profile of a user with the [/v1/user-risk-profiles](/api#operation/ListUserRiskProfiles) API.
 
 ```bash
 curl -X GET <requestURL>/v1/user-risk-profiles/<userUID> \
@@ -1085,7 +1085,7 @@ Typically, a security analyst will create a case based on an investigation that 
 
 When you create a case, you include a name for the case and any other information needed, such as the user UID of the person whom the case is about, the user UID of the person assigned to work on the case, a description of the case, and a summary of the findings. By default, when you create a case, its status is "open".
 
-The following example demonstrates how to create a case with the [/v1/cases](/api/#operation/createCaseUsingPOST) API.
+The following example demonstrates how to create a case with the [/v1/cases](/api#operation/createCaseUsingPOST) API.
 
 ```bash
 curl -X POST <requestURL>/v1/cases \
@@ -1103,7 +1103,7 @@ In the preceding example:
 
 The PDF contains the case subject, details, and findings. Detailed file activity is not included. You can route the resulting PDF to interested parties, such as a security team, members of an insider risk working group, or company executives. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line. 
 
-The following example demonstrates how to download a case summary with a PDF using the [/v1/cases/\<caseNumber\>/export](/api/#operation/pdfExportUsingGET) API.
+The following example demonstrates how to download a case summary with a PDF using the [/v1/cases/\<caseNumber\>/export](/api#operation/pdfExportUsingGET) API.
 
 ```bash
 curl -X GET <requestURL>/v1/cases/<caseID>/export \
@@ -1120,7 +1120,7 @@ The comma-separated value (CSV) file contains the case subject, details, and fin
 
 You can integrate the resulting CSV file into your SOAR, SIEM, or other incident management system. For integration resources, see our [support article](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_integrations_resources). For field definitions of the file events shown in the CSV file, see our [support article](https://support.code42.com/Incydr/Admin/Code42_console_reference/File_event_metadata_reference). 
 
-The following example demonstrates how to export file events for a case as a CSV file using the [/v1/cases/\<caseNumber\>/fileevent/export](/api/#operation/csvExportUsingGET) API.
+The following example demonstrates how to export file events for a case as a CSV file using the [/v1/cases/\<caseNumber\>/fileevent/export](/api#operation/csvExportUsingGET) API.
 
 ```bash
 curl -X GET <requestURL>/v1/cases/<caseID>/fileevent/export \
@@ -1134,7 +1134,7 @@ In the preceding example, replace `<caseID>` with the ID of the case.
 
 You can get a paginated list of all cases in your company's instance in the Code42 cloud, also known as your "tenant". The returned information does not include the file event details. This API can be used for verification purposes, such as to check whether cases have been successfully added or successfully updated. 
 
-The following example demonstrates how to get all cases for a tenant using the [/v1/cases](/api/#operation/getCasesUsingGET) API.
+The following example demonstrates how to get all cases for a tenant using the [/v1/cases](/api#operation/getCasesUsingGET) API.
 
 ```bash
 curl -X GET '<requestURL>/v1/cases' \
