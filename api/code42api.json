@@ -11213,17 +11213,17 @@
     },
     "RiskIndicator-cases": {
       "type": "object",
+      "required": [
+        "name",
+        "weight"
+      ],
       "properties": {
         "name": {
-          "type": "string",
-          "example": "Browser upload",
-          "description": "Name of the risk indicator."
+          "type": "string"
         },
         "weight": {
           "type": "integer",
-          "format": "int32",
-          "example": 5,
-          "description": "Numeric score of the risk indicator at the time this event was observed. Higher scores denote higher risk severity."
+          "format": "int32"
         }
       },
       "title": "RiskIndicator"
