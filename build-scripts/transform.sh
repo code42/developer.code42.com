@@ -31,7 +31,7 @@ main() {
   jq '.paths |= with_entries( if .key | contains("v1") then .value[].deprecated |= true else . end)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
 
    # prefix v2 summary fields with "v2"
-  jq '.paths |= with_entries( if .key | contains("v2") then .value.post.summary  |= "v2 - \(.)" else . end)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
+  jq '.paths |= with_entries( if .key | contains("v2") then (if .value.post? then .value.post.summary |= "v2 - \(.)" else .value.get.summary |= "v2 - \(.)" end) else . end)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
 
   ### Watchlists
   # convert openapi 3 yaml to swagger 2 json
