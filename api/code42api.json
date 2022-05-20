@@ -404,7 +404,7 @@
         "tags": [
           "File Events"
         ],
-        "summary": "Search for file events",
+        "summary": "v1 - Search for file events",
         "operationId": "searchEventsUsingPOST",
         "parameters": [
           {
@@ -430,7 +430,8 @@
           "500": {
             "description": "Server Error: Search execution failed."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/file-events/export": {
@@ -438,7 +439,7 @@
         "tags": [
           "File Events"
         ],
-        "summary": "Export search results as a CSV file",
+        "summary": "v1 - Export search results as a CSV file",
         "operationId": "exportUsingPOST",
         "parameters": [
           {
@@ -461,7 +462,8 @@
           "400": {
             "description": "Bad Request: An invalid query was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/file-events/grouping": {
@@ -469,7 +471,7 @@
         "tags": [
           "File Events"
         ],
-        "summary": "Group results by search term",
+        "summary": "v1 - Group results by search term",
         "description": "Search file events, providing a group parameter to bucket results into unique values and approximate counts for each value.",
         "operationId": "groupingUsingPOST",
         "parameters": [
@@ -496,7 +498,8 @@
           "500": {
             "description": "Server Error: Search execution failed."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/file-events/saved-searches": {
@@ -504,7 +507,7 @@
         "tags": [
           "File Events"
         ],
-        "summary": "Get all saved searches",
+        "summary": "v1 - Get all saved searches",
         "operationId": "getSavedSearchesUsingGET",
         "responses": {
           "200": {
@@ -513,7 +516,8 @@
               "$ref": "#/definitions/SavedSearchResponse«SearchTermV1»-file-events"
             }
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/file-events/saved-searches/{id}": {
@@ -521,7 +525,7 @@
         "tags": [
           "File Events"
         ],
-        "summary": "Get a single saved search",
+        "summary": "v1 - Get a single saved search",
         "operationId": "getSavedSearchByIdUsingGET",
         "parameters": [
           {
@@ -537,6 +541,153 @@
             "description": "Success: Details of the specified saved search.",
             "schema": {
               "$ref": "#/definitions/SavedSearchResponse«SearchTermV1»-file-events"
+            }
+          },
+          "404": {
+            "description": "Not found: Saved search does not exist."
+          }
+        },
+        "deprecated": true
+      }
+    },
+    "/v2/file-events": {
+      "post": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "v2 - Search for file events",
+        "operationId": "searchEventsUsingPOST_1",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SearchRequest«SearchTermV2»-file-events"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: List of file events matching the query.",
+            "schema": {
+              "$ref": "#/definitions/FileEventResponseV2-file-events"
+            }
+          },
+          "400": {
+            "description": "Bad Request: An invalid query was provided."
+          },
+          "500": {
+            "description": "Server Error: Search execution failed."
+          }
+        }
+      }
+    },
+    "/v2/file-events/export": {
+      "post": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "v2 - Export search results as a CSV file",
+        "operationId": "exportUsingPOST_1",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ExportRequest«SearchTermV2»-file-events"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: CSV of file events matching the query.",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-file-events"
+            }
+          },
+          "400": {
+            "description": "Bad Request: An invalid query was provided."
+          }
+        }
+      }
+    },
+    "/v2/file-events/grouping": {
+      "post": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "v2 - Group results by search term",
+        "description": "Search file events, providing a group parameter to bucket results into unique values and approximate counts for each value.",
+        "operationId": "groupingUsingPOST_1",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupingRequest«SearchTermV2»-file-events"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: List of groups matching the query.",
+            "schema": {
+              "$ref": "#/definitions/GroupingResponse«SearchTermV2»-file-events"
+            }
+          },
+          "400": {
+            "description": "Bad Request: An invalid query was provided."
+          },
+          "500": {
+            "description": "Server Error: Search execution failed."
+          }
+        }
+      }
+    },
+    "/v2/file-events/saved-searches": {
+      "get": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "v2 - Get all saved searches",
+        "operationId": "getSavedSearchesUsingGET_1",
+        "responses": {
+          "200": {
+            "description": "Success: List of all saved searches for the tenant.",
+            "schema": {
+              "$ref": "#/definitions/SavedSearchResponse«SearchTermV2»-file-events"
+            }
+          }
+        }
+      }
+    },
+    "/v2/file-events/saved-searches/{id}": {
+      "get": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "v2 - Get a single saved search",
+        "operationId": "getSavedSearchByIdUsingGET_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique identifier for a saved search.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Details of the specified saved search.",
+            "schema": {
+              "$ref": "#/definitions/SavedSearchResponse«SearchTermV2»-file-events"
             }
           },
           "404": {
@@ -5426,6 +5577,163 @@
         }
       ]
     },
+    "Destination-file-events": {
+      "type": "object",
+      "required": [
+        "privateIp"
+      ],
+      "properties": {
+        "accountName": {
+          "type": "string",
+          "description": "For cloud sync apps installed on user devices, the name of the cloud account where the event was observed. This can help identify if the activity occurred in a business or personal account."
+        },
+        "accountType": {
+          "type": "string",
+          "example": "BUSINESS",
+          "description": "For cloud sync apps installed on user devices, the type of account where the event was observed. For example, 'BUSINESS' or 'PERSONAL'."
+        },
+        "category": {
+          "type": "string",
+          "example": "Social Media",
+          "description": "General category of where the file originated. For example: Cloud Storage, Email, Social Media."
+        },
+        "email": {
+          "description": "Metadata about the destination email.",
+          "$ref": "#/definitions/DestinationEmail-file-events"
+        },
+        "ip": {
+          "type": "string",
+          "example": "127.0.0.1",
+          "description": "The external IP address of the user's device."
+        },
+        "name": {
+          "type": "string",
+          "example": "Mari's MacBook",
+          "description": "The name reported by the device's operating system.  This may be different than the device name in the Code42 console."
+        },
+        "operatingSystem": {
+          "type": "string",
+          "example": "Windows 10",
+          "description": "The operating system of the destination device."
+        },
+        "printJobName": {
+          "type": "string",
+          "example": "printer.exe",
+          "description": "For print events, the name of the print job, as reported by the user's device."
+        },
+        "printerName": {
+          "type": "string",
+          "example": "OfficeJet",
+          "description": "For print events, the name of the printer the job was sent to."
+        },
+        "privateIp": {
+          "type": "array",
+          "example": [
+            "127.0.0.1",
+            "127.0.0.2"
+          ],
+          "description": "The IP address of the user's device on your internal network, including Network interfaces, Virtual Network Interface controllers (NICs), and Loopback/non-routable addresses.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "removableMedia": {
+          "description": "Metadata about the removable media destination.",
+          "$ref": "#/definitions/RemovableMedia-file-events"
+        },
+        "tabs": {
+          "type": "array",
+          "description": "Metadata about the browser tab destination.",
+          "items": {
+            "$ref": "#/definitions/Tab-file-events"
+          }
+        },
+        "user": {
+          "description": "Metadata about the destination user.",
+          "$ref": "#/definitions/DestinationUser-file-events"
+        }
+      },
+      "title": "Destination"
+    },
+    "DestinationEmail-file-events": {
+      "type": "object",
+      "properties": {
+        "recipients": {
+          "type": "array",
+          "example": [
+            "cody@example.com",
+            "theboss@example.com"
+          ],
+          "description": "The CC and BCC recipients included on the email that matched on a DLP rule.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "subject": {
+          "type": "string",
+          "example": "Important business documents",
+          "description": "The subject of the email that matched on a DLP rule."
+        }
+      },
+      "title": "DestinationEmail"
+    },
+    "DestinationUser-file-events": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "array",
+          "example": [
+            "first.last@example.com",
+            "first_last_example_com"
+          ],
+          "description": "For endpoint events where a file in cloud storage is synced to a device, the email address of the user logged in to the cloud storage provider. For cloud events, the email addresses of users added as sharing recipients. In some case, OneDrive events may return multiple values, but this is often the same username formatted in different ways.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "DestinationUser"
+    },
+    "Event-file-events": {
+      "type": "object",
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "action": {
+          "type": "string",
+          "example": "file-downloaded",
+          "description": "The type of file event observed. For example: file-modified, application-read, removable-media-created."
+        },
+        "id": {
+          "type": "string",
+          "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
+          "description": "The unique identifier for the event."
+        },
+        "inserted": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-10-27T15:16:05.369203Z",
+          "description": "Date and time that the event was received for indexing by Code42; timestamp is based on the Code42 server system clock and reported in Coordinated Universal Time (UTC)."
+        },
+        "observer": {
+          "type": "string",
+          "example": "Endpoint",
+          "description": "The data source that captured the file event. For example: GoogleDrive, Office365, Salesforce."
+        },
+        "shareType": {
+          "type": "array",
+          "example": [
+            "SharedViaLink"
+          ],
+          "description": "Sharing types added by this event.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "Event"
+    },
     "ExportRequest«SearchTermV1»-file-events": {
       "type": "object",
       "required": [
@@ -5655,6 +5963,233 @@
       },
       "title": "ExportRequest«SearchTermV1»"
     },
+    "ExportRequest«SearchTermV2»-file-events": {
+      "type": "object",
+      "required": [
+        "groups"
+      ],
+      "properties": {
+        "columns": {
+          "type": "array",
+          "example": [
+            "fileName",
+            "filePath"
+          ],
+          "description": "Which columns to include in the output. If none is provided, all available columnswill be output in an unspecified, not-guaranteed order.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "@timestamp",
+              "destination.accountName",
+              "destination.accountType",
+              "destination.category",
+              "destination.email.recipients",
+              "destination.email.subject",
+              "destination.ip",
+              "destination.name",
+              "destination.operatingSystem",
+              "destination.printJobName",
+              "destination.printedFilesBackupPath",
+              "destination.printerName",
+              "destination.privateIp",
+              "destination.removableMedia.busType",
+              "destination.removableMedia.capacity",
+              "destination.removableMedia.mediaName",
+              "destination.removableMedia.name",
+              "destination.removableMedia.partitionId",
+              "destination.removableMedia.serialNumber",
+              "destination.removableMedia.vendor",
+              "destination.removableMedia.volumeName",
+              "destination.tabs.title",
+              "destination.tabs.titleError",
+              "destination.tabs.url",
+              "destination.tabs.urlError",
+              "destination.user.email",
+              "event.action",
+              "event.id",
+              "event.inserted",
+              "event.observer",
+              "event.shareType",
+              "file.category",
+              "file.categoryByBytes",
+              "file.categoryByExtension",
+              "file.classifications.value",
+              "file.classifications.vendor",
+              "file.cloudDriveId",
+              "file.created",
+              "file.directory",
+              "file.directoryId",
+              "file.hash.md5",
+              "file.hash.sha256",
+              "file.id",
+              "file.mimeTypeByBytes",
+              "file.mimeTypeByExtension",
+              "file.modified",
+              "file.name",
+              "file.owner",
+              "file.sizeInBytes",
+              "file.url",
+              "process.executable",
+              "process.owner",
+              "report.count",
+              "report.description",
+              "report.headers",
+              "report.id",
+              "report.name",
+              "report.type",
+              "risk.indicators.name",
+              "risk.indicators.weight",
+              "risk.score",
+              "risk.severity",
+              "risk.trustReason",
+              "risk.trusted",
+              "source.category",
+              "source.domain",
+              "source.email.from",
+              "source.email.sender",
+              "source.ip",
+              "source.name",
+              "source.operatingSystem",
+              "source.privateIp",
+              "source.removableMedia.busType",
+              "source.removableMedia.capacity",
+              "source.removableMedia.mediaName",
+              "source.removableMedia.name",
+              "source.removableMedia.partitionId",
+              "source.removableMedia.serialNumber",
+              "source.removableMedia.vendor",
+              "source.removableMedia.volumeName",
+              "source.tabs.title",
+              "source.tabs.titleError",
+              "source.tabs.url",
+              "source.tabs.urlError",
+              "user.deviceUid",
+              "user.email",
+              "user.id"
+            ]
+          }
+        },
+        "groupClause": {
+          "type": "string",
+          "example": "OR",
+          "description": "Grouping clause for any specified groups.  Default is `AND`.",
+          "enum": [
+            "AND",
+            "OR"
+          ]
+        },
+        "groups": {
+          "type": "array",
+          "description": "One or more FilterGroups to be combined in a query.",
+          "items": {
+            "$ref": "#/definitions/FilterGroup«SearchTermV2»-file-events"
+          }
+        },
+        "srtDir": {
+          "type": "string",
+          "example": "asc",
+          "description": "Sort direction.  Default is `desc`.",
+          "enum": [
+            "asc",
+            "desc"
+          ]
+        },
+        "srtKey": {
+          "type": "string",
+          "description": "Search term for sorting.",
+          "enum": [
+            "@timestamp",
+            "destination.accountName",
+            "destination.accountType",
+            "destination.category",
+            "destination.email.recipients",
+            "destination.email.subject",
+            "destination.ip",
+            "destination.name",
+            "destination.operatingSystem",
+            "destination.printJobName",
+            "destination.printedFilesBackupPath",
+            "destination.printerName",
+            "destination.privateIp",
+            "destination.removableMedia.busType",
+            "destination.removableMedia.capacity",
+            "destination.removableMedia.mediaName",
+            "destination.removableMedia.name",
+            "destination.removableMedia.partitionId",
+            "destination.removableMedia.serialNumber",
+            "destination.removableMedia.vendor",
+            "destination.removableMedia.volumeName",
+            "destination.tabs.title",
+            "destination.tabs.titleError",
+            "destination.tabs.url",
+            "destination.tabs.urlError",
+            "destination.user.email",
+            "event.action",
+            "event.id",
+            "event.inserted",
+            "event.observer",
+            "event.shareType",
+            "file.category",
+            "file.categoryByBytes",
+            "file.categoryByExtension",
+            "file.classifications.value",
+            "file.classifications.vendor",
+            "file.cloudDriveId",
+            "file.created",
+            "file.directory",
+            "file.directoryId",
+            "file.hash.md5",
+            "file.hash.sha256",
+            "file.id",
+            "file.mimeTypeByBytes",
+            "file.mimeTypeByExtension",
+            "file.modified",
+            "file.name",
+            "file.owner",
+            "file.sizeInBytes",
+            "file.url",
+            "process.executable",
+            "process.owner",
+            "report.count",
+            "report.description",
+            "report.headers",
+            "report.id",
+            "report.name",
+            "report.type",
+            "risk.indicators.name",
+            "risk.indicators.weight",
+            "risk.score",
+            "risk.severity",
+            "risk.trustReason",
+            "risk.trusted",
+            "source.category",
+            "source.domain",
+            "source.email.from",
+            "source.email.sender",
+            "source.ip",
+            "source.name",
+            "source.operatingSystem",
+            "source.privateIp",
+            "source.removableMedia.busType",
+            "source.removableMedia.capacity",
+            "source.removableMedia.mediaName",
+            "source.removableMedia.name",
+            "source.removableMedia.partitionId",
+            "source.removableMedia.serialNumber",
+            "source.removableMedia.vendor",
+            "source.removableMedia.volumeName",
+            "source.tabs.title",
+            "source.tabs.titleError",
+            "source.tabs.url",
+            "source.tabs.urlError",
+            "user.deviceUid",
+            "user.email",
+            "user.id"
+          ]
+        }
+      },
+      "title": "ExportRequest«SearchTermV2»"
+    },
     "FieldError-file-events": {
       "type": "object",
       "properties": {
@@ -5670,6 +6205,110 @@
         }
       },
       "title": "FieldError"
+    },
+    "File-file-events": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "category": {
+          "type": "string",
+          "example": "Audio",
+          "description": "A categorization of the file that is inferred from MIME type."
+        },
+        "categoryByBytes": {
+          "type": "string",
+          "example": "Image",
+          "description": "A categorization of the file based on its contents."
+        },
+        "categoryByExtension": {
+          "type": "string",
+          "example": "Document",
+          "description": "A categorization of the file based on its extension."
+        },
+        "classifications": {
+          "type": "array",
+          "description": "Data provided by an external file classification vendor.",
+          "items": {
+            "$ref": "#/definitions/FileClassification-file-events"
+          }
+        },
+        "cloudDriveId": {
+          "type": "string",
+          "example": "RvBpZ48u2m",
+          "description": "Unique identifier reported by the cloud provider for the drive containing the file at the time the event occurred."
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-10-27T15:16:05.369203Z",
+          "description": "File creation timestamp as reported by the device's operating system in Coordinated Universal Time (UTC); available for Mac and Windows NTFS devices only."
+        },
+        "directory": {
+          "type": "string",
+          "example": "/Users/alix/Documents/",
+          "description": "The file location on the user's device; a forward or backslash must be included at the end of the filepath. Possibly null if the file event occurred on a cloud provider."
+        },
+        "directoryId": {
+          "type": "array",
+          "example": [
+            "1234",
+            "56d78"
+          ],
+          "description": "Unique identifiers of the parent drives that contain the file; searching on directoryId will return events for all of the files contained in the parent drive.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "hash": {
+          "description": "Hash values of the file.",
+          "$ref": "#/definitions/Hash-file-events"
+        },
+        "id": {
+          "type": "string",
+          "example": "PUL5zWLRrdudiJZ1OCWw",
+          "description": "Unique identifier reported by the cloud provider for the file associated with the event."
+        },
+        "mimeTypeByBytes": {
+          "type": "string",
+          "example": "text/csv",
+          "description": "The MIME type of the file based on its contents."
+        },
+        "mimeTypeByExtension": {
+          "type": "string",
+          "example": "audio/vorbis",
+          "description": "The MIME type of the file based on its extension."
+        },
+        "modified": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-10-27T15:16:05.369203Z",
+          "description": "File modification timestamp as reported by the device's operating system.  This only indicates changes to file contents.  Changes to file permissions, file owner, or other metadata are not reflected in this timestamp.  Date is reported in Coordinated Universal Time (UTC)."
+        },
+        "name": {
+          "type": "string",
+          "example": "ReadMe.md",
+          "description": "The name of the file, including the file extension."
+        },
+        "owner": {
+          "type": "string",
+          "example": "ari.example",
+          "description": "The name of the user who owns the file as reported by the device's file system."
+        },
+        "sizeInBytes": {
+          "type": "integer",
+          "format": "int64",
+          "example": 256,
+          "description": "Size of the file in bytes."
+        },
+        "url": {
+          "type": "string",
+          "example": "https://example.com",
+          "description": "URL reported by the cloud provider at the time the event occurred."
+        }
+      },
+      "title": "File"
     },
     "FileClassification-file-events": {
       "type": "object",
@@ -5717,6 +6356,37 @@
         }
       },
       "title": "FileEventResponseV1"
+    },
+    "FileEventResponseV2-file-events": {
+      "type": "object",
+      "properties": {
+        "fileEvents": {
+          "type": "array",
+          "description": "List of file events in the response.",
+          "items": {
+            "$ref": "#/definitions/FileEventV2-file-events"
+          }
+        },
+        "nextPgToken": {
+          "type": "string",
+          "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
+          "description": "Use as the pgToken value in another request to indicate the starting point for additional page results. nextPgToken is null if there are no more results or if pgToken was not supplied."
+        },
+        "problems": {
+          "type": "array",
+          "description": "List of problems in the request.  A problem with a search request could be an invalid filter value, an operator that can't be used on a term, etc.",
+          "items": {
+            "$ref": "#/definitions/QueryProblem«SearchTermV2»-file-events"
+          }
+        },
+        "totalCount": {
+          "type": "integer",
+          "format": "int64",
+          "example": 42,
+          "description": "Total number of file events in the response."
+        }
+      },
+      "title": "FileEventResponseV2"
     },
     "FileEventV1-file-events": {
       "type": "object",
@@ -6271,6 +6941,50 @@
       },
       "title": "FileEventV1"
     },
+    "FileEventV2-file-events": {
+      "type": "object",
+      "properties": {
+        "@timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-10-27T15:16:05.369203Z",
+          "description": "Date and time that the Code42 service on the device detected an event; based on the device’s system clock and reported in Coordinated Universal Time (UTC)."
+        },
+        "destination": {
+          "description": "Metadata about the destination of the file event.",
+          "$ref": "#/definitions/Destination-file-events"
+        },
+        "event": {
+          "description": "Summary information about the event.",
+          "$ref": "#/definitions/Event-file-events"
+        },
+        "file": {
+          "description": "Metadata about the file for this event.",
+          "$ref": "#/definitions/File-file-events"
+        },
+        "process": {
+          "description": "Metadata about the process associated with the event.",
+          "$ref": "#/definitions/Process-file-events"
+        },
+        "report": {
+          "description": "Metadata for reports from 3rd party sources, such Salesforce downloads.",
+          "$ref": "#/definitions/Report-file-events"
+        },
+        "risk": {
+          "description": "Risk factor metadata.",
+          "$ref": "#/definitions/Risk-file-events"
+        },
+        "source": {
+          "description": "Metadata about the source of the file event.",
+          "$ref": "#/definitions/Source-file-events"
+        },
+        "user": {
+          "description": "Attributes of the the Code42 username signed in to the Code42 app on the device.",
+          "$ref": "#/definitions/User-file-events"
+        }
+      },
+      "title": "FileEventV2"
+    },
     "FilterGroup«SearchTermV1»-file-events": {
       "type": "object",
       "required": [
@@ -6295,6 +7009,31 @@
         }
       },
       "title": "FilterGroup«SearchTermV1»"
+    },
+    "FilterGroup«SearchTermV2»-file-events": {
+      "type": "object",
+      "required": [
+        "filters"
+      ],
+      "properties": {
+        "filterClause": {
+          "type": "string",
+          "example": "AND",
+          "description": "Grouping clause for filters.  Default is `AND`.",
+          "enum": [
+            "AND",
+            "OR"
+          ]
+        },
+        "filters": {
+          "type": "array",
+          "description": "One or more SearchFilters to be combined in a query.",
+          "items": {
+            "$ref": "#/definitions/SearchFilter«SearchTermV2»-file-events"
+          }
+        }
+      },
+      "title": "FilterGroup«SearchTermV2»"
     },
     "Group-file-events": {
       "type": "object",
@@ -6433,6 +7172,125 @@
       },
       "title": "GroupingRequest«SearchTermV1»"
     },
+    "GroupingRequest«SearchTermV2»-file-events": {
+      "type": "object",
+      "required": [
+        "groups"
+      ],
+      "properties": {
+        "groupClause": {
+          "type": "string",
+          "example": "AND",
+          "description": "Grouping clause for any specified groups.  Default is `AND`.",
+          "enum": [
+            "AND",
+            "OR"
+          ]
+        },
+        "groupingTerm": {
+          "type": "string",
+          "example": "eventType",
+          "description": "The search term to use to form the groups.",
+          "enum": [
+            "@timestamp",
+            "destination.accountName",
+            "destination.accountType",
+            "destination.category",
+            "destination.email.recipients",
+            "destination.email.subject",
+            "destination.ip",
+            "destination.name",
+            "destination.operatingSystem",
+            "destination.printJobName",
+            "destination.printedFilesBackupPath",
+            "destination.printerName",
+            "destination.privateIp",
+            "destination.removableMedia.busType",
+            "destination.removableMedia.capacity",
+            "destination.removableMedia.mediaName",
+            "destination.removableMedia.name",
+            "destination.removableMedia.partitionId",
+            "destination.removableMedia.serialNumber",
+            "destination.removableMedia.vendor",
+            "destination.removableMedia.volumeName",
+            "destination.tabs.title",
+            "destination.tabs.titleError",
+            "destination.tabs.url",
+            "destination.tabs.urlError",
+            "destination.user.email",
+            "event.action",
+            "event.id",
+            "event.inserted",
+            "event.observer",
+            "event.shareType",
+            "file.category",
+            "file.categoryByBytes",
+            "file.categoryByExtension",
+            "file.classifications.value",
+            "file.classifications.vendor",
+            "file.cloudDriveId",
+            "file.created",
+            "file.directory",
+            "file.directoryId",
+            "file.hash.md5",
+            "file.hash.sha256",
+            "file.id",
+            "file.mimeTypeByBytes",
+            "file.mimeTypeByExtension",
+            "file.modified",
+            "file.name",
+            "file.owner",
+            "file.sizeInBytes",
+            "file.url",
+            "process.executable",
+            "process.owner",
+            "report.count",
+            "report.description",
+            "report.headers",
+            "report.id",
+            "report.name",
+            "report.type",
+            "risk.indicators.name",
+            "risk.indicators.weight",
+            "risk.score",
+            "risk.severity",
+            "risk.trustReason",
+            "risk.trusted",
+            "source.category",
+            "source.domain",
+            "source.email.from",
+            "source.email.sender",
+            "source.ip",
+            "source.name",
+            "source.operatingSystem",
+            "source.privateIp",
+            "source.removableMedia.busType",
+            "source.removableMedia.capacity",
+            "source.removableMedia.mediaName",
+            "source.removableMedia.name",
+            "source.removableMedia.partitionId",
+            "source.removableMedia.serialNumber",
+            "source.removableMedia.vendor",
+            "source.removableMedia.volumeName",
+            "source.tabs.title",
+            "source.tabs.titleError",
+            "source.tabs.url",
+            "source.tabs.urlError",
+            "user.deviceUid",
+            "user.email",
+            "user.id"
+          ]
+        },
+        "groups": {
+          "type": "array",
+          "description": "One or more FilterGroups to be combined in a query.",
+          "items": {
+            "$ref": "#/definitions/FilterGroup«SearchTermV2»-file-events"
+          }
+        }
+      },
+      "title": "GroupingRequest«SearchTermV2»"
+    },
     "GroupingResponse«SearchTermV1»-file-events": {
       "type": "object",
       "properties": {
@@ -6452,6 +7310,58 @@
         }
       },
       "title": "GroupingResponse«SearchTermV1»"
+    },
+    "GroupingResponse«SearchTermV2»-file-events": {
+      "type": "object",
+      "properties": {
+        "groups": {
+          "type": "array",
+          "description": "The top groups based on the query and group by term.",
+          "items": {
+            "$ref": "#/definitions/Group-file-events"
+          }
+        },
+        "problems": {
+          "type": "array",
+          "description": "List of problems in the request.  A problem with a search request could be an invalid filter value, an operator that can't be used on a term, etc.",
+          "items": {
+            "$ref": "#/definitions/QueryProblem«SearchTermV2»-file-events"
+          }
+        }
+      },
+      "title": "GroupingResponse«SearchTermV2»"
+    },
+    "Hash-file-events": {
+      "type": "object",
+      "properties": {
+        "md5": {
+          "type": "string",
+          "example": "a162591e78eb2c816a28907d3ac020f9",
+          "description": "The MD5 hash of the file contents."
+        },
+        "sha256": {
+          "type": "string",
+          "example": "ded96d69c63754472efc4aa86fed68d4e17784b38089851cfa84e699e48b4155",
+          "description": "The SHA256 hash of the file contents."
+        }
+      },
+      "title": "Hash"
+    },
+    "Process-file-events": {
+      "type": "object",
+      "properties": {
+        "executable": {
+          "type": "string",
+          "example": "bash",
+          "description": "The name of the process that accessed the file, as reported by the device’s operating system. Depending on your Code42 product plan, this value may be null for some event types."
+        },
+        "owner": {
+          "type": "string",
+          "example": "root",
+          "description": "The username of the process owner, as reported by the device’s operating system. Depending on your Code42 product plan, this value may be null for some event types."
+        }
+      },
+      "title": "Process"
     },
     "QueryProblem«SearchTermV1»-file-events": {
       "type": "object",
@@ -6492,6 +7402,196 @@
         }
       },
       "title": "QueryProblem«SearchTermV1»"
+    },
+    "QueryProblem«SearchTermV2»-file-events": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "badFilter": {
+          "description": "The search filter that caused this problem.",
+          "$ref": "#/definitions/SearchFilter«SearchTermV2»Res-file-events"
+        },
+        "description": {
+          "type": "string",
+          "example": "Request timed out.  Refine your filter criteria and try again.",
+          "description": "Additional description of the problem."
+        },
+        "type": {
+          "type": "string",
+          "example": "SEARCH_FAILED",
+          "description": "The type of problem that occured.",
+          "enum": [
+            "ILLEGAL_GROUP",
+            "ILLEGAL_OPERATOR",
+            "ILLEGAL_SORT",
+            "ILLEGAL_VALUE",
+            "INVALID_PAGE_NUMBER",
+            "INVALID_PAGE_SIZE",
+            "INVALID_PAGE_TOKEN",
+            "MAX_FILTERS_EXCEEDED",
+            "MAX_LENGTH_EXCEEDED",
+            "MISSING_FILTERS",
+            "MISSING_GROUPS",
+            "MISSING_VALUE",
+            "QUERY_TIMEOUT",
+            "SEARCH_FAILED",
+            "UNEXPECTED_VALUE"
+          ]
+        }
+      },
+      "title": "QueryProblem«SearchTermV2»"
+    },
+    "RemovableMedia-file-events": {
+      "type": "object",
+      "properties": {
+        "busType": {
+          "type": "string",
+          "example": "USB 3.0 Bus",
+          "description": "For events detected on removable media, indicates the communication system used to transfer data between the host and the removable device."
+        },
+        "capacity": {
+          "type": "integer",
+          "format": "int64",
+          "example": 15631122432,
+          "description": "For events detected on removable media, the capacity of the removable device in bytes."
+        },
+        "mediaName": {
+          "type": "string",
+          "example": "Cruzer Blade",
+          "description": "For events detected on removable media, the media name of the device, as reported by the vendor/device. This is usually very similar to the productName, but can vary based on the type of device. For example, if the device is a hard drive in a USB enclosure, this may be the combination of the drive model and the enclosure model.\nThis value is not provided by all devices, so it may be null in some cases."
+        },
+        "name": {
+          "type": "string",
+          "example": "JUMPDRIVE",
+          "description": "For events detected on removable media, the name of the removable device."
+        },
+        "partitionId": {
+          "type": "array",
+          "example": [
+            "disk0s2",
+            "disk0s3"
+          ],
+          "description": "For events detected on removable media, a unique identifier assigned to the volume/partition when it was formatted. Windows devices refer to this as the VolumeGuid. On Mac devices, this is the Disk / Partition UUID, which appears when running the Terminal command diskUtil info.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "serialNumber": {
+          "type": "string",
+          "example": "4C531001550407108465",
+          "description": "For events detected on removable media, the serial number of the removable device."
+        },
+        "vendor": {
+          "type": "string",
+          "example": "SanDisk",
+          "description": "For events detected on removable media, the vendor of the removable device."
+        },
+        "volumeName": {
+          "type": "array",
+          "example": [
+            "MY_FILES"
+          ],
+          "description": "For events detected on removable media, the name assigned to the volume when it was formatted, as reported by the device's operating system. This is also frequently called the \"partition\" name.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "RemovableMedia"
+    },
+    "Report-file-events": {
+      "type": "object",
+      "properties": {
+        "count": {
+          "type": "integer",
+          "format": "int32",
+          "example": 20,
+          "description": "The total number of rows returned in the report."
+        },
+        "description": {
+          "type": "string",
+          "example": "Top 20 accounts based on annual revenue",
+          "description": "The description of the report."
+        },
+        "headers": {
+          "type": "array",
+          "example": [
+            "USERNAME",
+            "ACCOUNT_NAME",
+            "TYPE",
+            "DUE_DATE",
+            "LAST_UPDATE",
+            "ADDRESS1_STATE"
+          ],
+          "description": "The list of column headers that are in the report.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "id": {
+          "type": "string",
+          "example": "00OB00000042FHdMAM",
+          "description": "The ID of the report associated with this event."
+        },
+        "name": {
+          "type": "string",
+          "example": "Top Accounts Report",
+          "description": "The display name of the report."
+        },
+        "type": {
+          "type": "string",
+          "example": "REPORT_TYPE_SAVED",
+          "description": "Indicates if the report is \"REPORT_TYPE_AD_HOC\" or \"REPORT_TYPE_SAVED\".",
+          "enum": [
+            "REPORT_TYPE_AD_HOC",
+            "REPORT_TYPE_SAVED"
+          ]
+        }
+      },
+      "title": "Report"
+    },
+    "Risk-file-events": {
+      "type": "object",
+      "properties": {
+        "indicators": {
+          "type": "array",
+          "description": "List of risk indicators identified for this event. If more than one risk indicator applies to this event, the sum of all indicators determines the total risk score.",
+          "items": {
+            "$ref": "#/definitions/RiskIndicator-file-events"
+          }
+        },
+        "score": {
+          "type": "integer",
+          "format": "int32",
+          "example": 12,
+          "description": "Sum of the weights for each risk indicator. This score is used to determine the overall risk severity of the event."
+        },
+        "severity": {
+          "type": "string",
+          "example": "CRITICAL",
+          "description": "The general risk assessment of the event, based on the numeric score.",
+          "enum": [
+            "CRITICAL",
+            "HIGH",
+            "LOW",
+            "MODERATE",
+            "NO_RISK_INDICATED"
+          ]
+        },
+        "trustReason": {
+          "type": "string",
+          "example": "TRUSTED_DOMAIN_BROWSER_URL",
+          "description": "The reason the event is trusted. trustReason is only populated if trusted is true for this event."
+        },
+        "trusted": {
+          "type": "boolean",
+          "example": true,
+          "description": "Indicates whether or not the file activity is trusted based on your Data Preferences settings."
+        }
+      },
+      "title": "Risk"
     },
     "RiskIndicator-file-events": {
       "type": "object",
@@ -6786,6 +7886,280 @@
       },
       "title": "SavedSearchDetail«SearchTermV1»"
     },
+    "SavedSearchDetail«SearchTermV2»-file-events": {
+      "type": "object",
+      "properties": {
+        "apiVersion": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "Version of the API used to create the search."
+        },
+        "columns": {
+          "type": "array",
+          "description": "List of columns to be displayed in the web app for the search.",
+          "items": {
+            "type": "string",
+            "enum": [
+              "@timestamp",
+              "destination.accountName",
+              "destination.accountType",
+              "destination.category",
+              "destination.email.recipients",
+              "destination.email.subject",
+              "destination.ip",
+              "destination.name",
+              "destination.operatingSystem",
+              "destination.printJobName",
+              "destination.printedFilesBackupPath",
+              "destination.printerName",
+              "destination.privateIp",
+              "destination.removableMedia.busType",
+              "destination.removableMedia.capacity",
+              "destination.removableMedia.mediaName",
+              "destination.removableMedia.name",
+              "destination.removableMedia.partitionId",
+              "destination.removableMedia.serialNumber",
+              "destination.removableMedia.vendor",
+              "destination.removableMedia.volumeName",
+              "destination.tabs.title",
+              "destination.tabs.titleError",
+              "destination.tabs.url",
+              "destination.tabs.urlError",
+              "destination.user.email",
+              "event.action",
+              "event.id",
+              "event.inserted",
+              "event.observer",
+              "event.shareType",
+              "file.category",
+              "file.categoryByBytes",
+              "file.categoryByExtension",
+              "file.classifications.value",
+              "file.classifications.vendor",
+              "file.cloudDriveId",
+              "file.created",
+              "file.directory",
+              "file.directoryId",
+              "file.hash.md5",
+              "file.hash.sha256",
+              "file.id",
+              "file.mimeTypeByBytes",
+              "file.mimeTypeByExtension",
+              "file.modified",
+              "file.name",
+              "file.owner",
+              "file.sizeInBytes",
+              "file.url",
+              "process.executable",
+              "process.owner",
+              "report.count",
+              "report.description",
+              "report.headers",
+              "report.id",
+              "report.name",
+              "report.type",
+              "risk.indicators.name",
+              "risk.indicators.weight",
+              "risk.score",
+              "risk.severity",
+              "risk.trustReason",
+              "risk.trusted",
+              "source.category",
+              "source.domain",
+              "source.email.from",
+              "source.email.sender",
+              "source.ip",
+              "source.name",
+              "source.operatingSystem",
+              "source.privateIp",
+              "source.removableMedia.busType",
+              "source.removableMedia.capacity",
+              "source.removableMedia.mediaName",
+              "source.removableMedia.name",
+              "source.removableMedia.partitionId",
+              "source.removableMedia.serialNumber",
+              "source.removableMedia.vendor",
+              "source.removableMedia.volumeName",
+              "source.tabs.title",
+              "source.tabs.titleError",
+              "source.tabs.url",
+              "source.tabs.urlError",
+              "user.deviceUid",
+              "user.email",
+              "user.id"
+            ]
+          }
+        },
+        "createdByUID": {
+          "type": "string",
+          "example": 806150685834341100,
+          "description": "User UID of the user who created the saved search."
+        },
+        "createdByUsername": {
+          "type": "string",
+          "example": "adrian@example.com",
+          "description": "Username of the user who created the saved search."
+        },
+        "creationTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-10-27T15:16:05.369203Z",
+          "description": "Time at which the saved search was created."
+        },
+        "groupClause": {
+          "type": "string",
+          "example": "OR",
+          "description": "Grouping clause for any specified groups.",
+          "enum": [
+            "AND",
+            "OR"
+          ]
+        },
+        "groups": {
+          "type": "array",
+          "description": "One or more FilterGroups to be combined in a query.",
+          "items": {
+            "$ref": "#/definitions/FilterGroup«SearchTermV2»-file-events"
+          }
+        },
+        "id": {
+          "type": "string",
+          "example": "cde979fa-d551-4be9-b242-39e75b824089",
+          "description": "Unique identifier for the saved search."
+        },
+        "modifiedByUID": {
+          "type": "string",
+          "example": 421380797518239200,
+          "description": "User UID of the user who last modified the saved search."
+        },
+        "modifiedByUsername": {
+          "type": "string",
+          "example": "ari@example.com",
+          "description": "Username of the user who last modified the saved search."
+        },
+        "modifiedTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-10-27T15:20:26.311894Z",
+          "description": "Time at which the saved search was last modified."
+        },
+        "name": {
+          "type": "string",
+          "example": "Example saved search",
+          "description": "Name given to the saved search."
+        },
+        "notes": {
+          "type": "string",
+          "example": "This search returns all events.",
+          "description": "Optional notes about the search."
+        },
+        "srtDir": {
+          "type": "string",
+          "example": "asc",
+          "description": "Sort direction.",
+          "enum": [
+            "asc",
+            "desc"
+          ]
+        },
+        "srtKey": {
+          "type": "string",
+          "example": "eventId",
+          "description": "Search term for sorting.",
+          "enum": [
+            "@timestamp",
+            "destination.accountName",
+            "destination.accountType",
+            "destination.category",
+            "destination.email.recipients",
+            "destination.email.subject",
+            "destination.ip",
+            "destination.name",
+            "destination.operatingSystem",
+            "destination.printJobName",
+            "destination.printedFilesBackupPath",
+            "destination.printerName",
+            "destination.privateIp",
+            "destination.removableMedia.busType",
+            "destination.removableMedia.capacity",
+            "destination.removableMedia.mediaName",
+            "destination.removableMedia.name",
+            "destination.removableMedia.partitionId",
+            "destination.removableMedia.serialNumber",
+            "destination.removableMedia.vendor",
+            "destination.removableMedia.volumeName",
+            "destination.tabs.title",
+            "destination.tabs.titleError",
+            "destination.tabs.url",
+            "destination.tabs.urlError",
+            "destination.user.email",
+            "event.action",
+            "event.id",
+            "event.inserted",
+            "event.observer",
+            "event.shareType",
+            "file.category",
+            "file.categoryByBytes",
+            "file.categoryByExtension",
+            "file.classifications.value",
+            "file.classifications.vendor",
+            "file.cloudDriveId",
+            "file.created",
+            "file.directory",
+            "file.directoryId",
+            "file.hash.md5",
+            "file.hash.sha256",
+            "file.id",
+            "file.mimeTypeByBytes",
+            "file.mimeTypeByExtension",
+            "file.modified",
+            "file.name",
+            "file.owner",
+            "file.sizeInBytes",
+            "file.url",
+            "process.executable",
+            "process.owner",
+            "report.count",
+            "report.description",
+            "report.headers",
+            "report.id",
+            "report.name",
+            "report.type",
+            "risk.indicators.name",
+            "risk.indicators.weight",
+            "risk.score",
+            "risk.severity",
+            "risk.trustReason",
+            "risk.trusted",
+            "source.category",
+            "source.domain",
+            "source.email.from",
+            "source.email.sender",
+            "source.ip",
+            "source.name",
+            "source.operatingSystem",
+            "source.privateIp",
+            "source.removableMedia.busType",
+            "source.removableMedia.capacity",
+            "source.removableMedia.mediaName",
+            "source.removableMedia.name",
+            "source.removableMedia.partitionId",
+            "source.removableMedia.serialNumber",
+            "source.removableMedia.vendor",
+            "source.removableMedia.volumeName",
+            "source.tabs.title",
+            "source.tabs.titleError",
+            "source.tabs.url",
+            "source.tabs.urlError",
+            "user.deviceUid",
+            "user.email",
+            "user.id"
+          ]
+        }
+      },
+      "title": "SavedSearchDetail«SearchTermV2»"
+    },
     "SavedSearchResponse«SearchTermV1»-file-events": {
       "type": "object",
       "properties": {
@@ -6798,6 +8172,19 @@
         }
       },
       "title": "SavedSearchResponse«SearchTermV1»"
+    },
+    "SavedSearchResponse«SearchTermV2»-file-events": {
+      "type": "object",
+      "properties": {
+        "searches": {
+          "type": "array",
+          "description": "List of saved searches in the response.",
+          "items": {
+            "$ref": "#/definitions/SavedSearchDetail«SearchTermV2»-file-events"
+          }
+        }
+      },
+      "title": "SavedSearchResponse«SearchTermV2»"
     },
     "SearchFilter«SearchTermV1»-file-events": {
       "type": "object",
@@ -7051,6 +8438,256 @@
       },
       "title": "SearchFilter«SearchTermV1»Res"
     },
+    "SearchFilter«SearchTermV2»-file-events": {
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "operator": {
+          "type": "string",
+          "example": "IS_NOT",
+          "description": "The type of match to perform.  Default value is `IS`.",
+          "enum": [
+            "DOES_NOT_EXIST",
+            "EXISTS",
+            "GREATER_THAN",
+            "IS",
+            "IS_NOT",
+            "LESS_THAN",
+            "ON",
+            "ON_OR_AFTER",
+            "ON_OR_BEFORE",
+            "WITHIN_THE_LAST"
+          ]
+        },
+        "term": {
+          "type": "string",
+          "example": "actor",
+          "description": "The field to match.",
+          "enum": [
+            "@timestamp",
+            "destination.accountName",
+            "destination.accountType",
+            "destination.category",
+            "destination.email.recipients",
+            "destination.email.subject",
+            "destination.ip",
+            "destination.name",
+            "destination.operatingSystem",
+            "destination.printJobName",
+            "destination.printedFilesBackupPath",
+            "destination.printerName",
+            "destination.privateIp",
+            "destination.removableMedia.busType",
+            "destination.removableMedia.capacity",
+            "destination.removableMedia.mediaName",
+            "destination.removableMedia.name",
+            "destination.removableMedia.partitionId",
+            "destination.removableMedia.serialNumber",
+            "destination.removableMedia.vendor",
+            "destination.removableMedia.volumeName",
+            "destination.tabs.title",
+            "destination.tabs.titleError",
+            "destination.tabs.url",
+            "destination.tabs.urlError",
+            "destination.user.email",
+            "event.action",
+            "event.id",
+            "event.inserted",
+            "event.observer",
+            "event.shareType",
+            "file.category",
+            "file.categoryByBytes",
+            "file.categoryByExtension",
+            "file.classifications.value",
+            "file.classifications.vendor",
+            "file.cloudDriveId",
+            "file.created",
+            "file.directory",
+            "file.directoryId",
+            "file.hash.md5",
+            "file.hash.sha256",
+            "file.id",
+            "file.mimeTypeByBytes",
+            "file.mimeTypeByExtension",
+            "file.modified",
+            "file.name",
+            "file.owner",
+            "file.sizeInBytes",
+            "file.url",
+            "process.executable",
+            "process.owner",
+            "report.count",
+            "report.description",
+            "report.headers",
+            "report.id",
+            "report.name",
+            "report.type",
+            "risk.indicators.name",
+            "risk.indicators.weight",
+            "risk.score",
+            "risk.severity",
+            "risk.trustReason",
+            "risk.trusted",
+            "source.category",
+            "source.domain",
+            "source.email.from",
+            "source.email.sender",
+            "source.ip",
+            "source.name",
+            "source.operatingSystem",
+            "source.privateIp",
+            "source.removableMedia.busType",
+            "source.removableMedia.capacity",
+            "source.removableMedia.mediaName",
+            "source.removableMedia.name",
+            "source.removableMedia.partitionId",
+            "source.removableMedia.serialNumber",
+            "source.removableMedia.vendor",
+            "source.removableMedia.volumeName",
+            "source.tabs.title",
+            "source.tabs.titleError",
+            "source.tabs.url",
+            "source.tabs.urlError",
+            "user.deviceUid",
+            "user.email",
+            "user.id"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "example": "ari@example.com",
+          "description": "The input for the search."
+        }
+      },
+      "title": "SearchFilter«SearchTermV2»"
+    },
+    "SearchFilter«SearchTermV2»Res-file-events": {
+      "type": "object",
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "operator": {
+          "type": "string",
+          "example": "IS_NOT",
+          "description": "The type of match to perform.  Default value is `IS`.",
+          "enum": [
+            "DOES_NOT_EXIST",
+            "EXISTS",
+            "GREATER_THAN",
+            "IS",
+            "IS_NOT",
+            "LESS_THAN",
+            "ON",
+            "ON_OR_AFTER",
+            "ON_OR_BEFORE",
+            "WITHIN_THE_LAST"
+          ]
+        },
+        "term": {
+          "type": "string",
+          "example": "actor",
+          "description": "The field to match.",
+          "enum": [
+            "@timestamp",
+            "destination.accountName",
+            "destination.accountType",
+            "destination.category",
+            "destination.email.recipients",
+            "destination.email.subject",
+            "destination.ip",
+            "destination.name",
+            "destination.operatingSystem",
+            "destination.printJobName",
+            "destination.printedFilesBackupPath",
+            "destination.printerName",
+            "destination.privateIp",
+            "destination.removableMedia.busType",
+            "destination.removableMedia.capacity",
+            "destination.removableMedia.mediaName",
+            "destination.removableMedia.name",
+            "destination.removableMedia.partitionId",
+            "destination.removableMedia.serialNumber",
+            "destination.removableMedia.vendor",
+            "destination.removableMedia.volumeName",
+            "destination.tabs.title",
+            "destination.tabs.titleError",
+            "destination.tabs.url",
+            "destination.tabs.urlError",
+            "destination.user.email",
+            "event.action",
+            "event.id",
+            "event.inserted",
+            "event.observer",
+            "event.shareType",
+            "file.category",
+            "file.categoryByBytes",
+            "file.categoryByExtension",
+            "file.classifications.value",
+            "file.classifications.vendor",
+            "file.cloudDriveId",
+            "file.created",
+            "file.directory",
+            "file.directoryId",
+            "file.hash.md5",
+            "file.hash.sha256",
+            "file.id",
+            "file.mimeTypeByBytes",
+            "file.mimeTypeByExtension",
+            "file.modified",
+            "file.name",
+            "file.owner",
+            "file.sizeInBytes",
+            "file.url",
+            "process.executable",
+            "process.owner",
+            "report.count",
+            "report.description",
+            "report.headers",
+            "report.id",
+            "report.name",
+            "report.type",
+            "risk.indicators.name",
+            "risk.indicators.weight",
+            "risk.score",
+            "risk.severity",
+            "risk.trustReason",
+            "risk.trusted",
+            "source.category",
+            "source.domain",
+            "source.email.from",
+            "source.email.sender",
+            "source.ip",
+            "source.name",
+            "source.operatingSystem",
+            "source.privateIp",
+            "source.removableMedia.busType",
+            "source.removableMedia.capacity",
+            "source.removableMedia.mediaName",
+            "source.removableMedia.name",
+            "source.removableMedia.partitionId",
+            "source.removableMedia.serialNumber",
+            "source.removableMedia.vendor",
+            "source.removableMedia.volumeName",
+            "source.tabs.title",
+            "source.tabs.titleError",
+            "source.tabs.url",
+            "source.tabs.urlError",
+            "user.deviceUid",
+            "user.email",
+            "user.id"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "example": "ari@example.com",
+          "description": "The input for the search."
+        }
+      },
+      "title": "SearchFilter«SearchTermV2»Res"
+    },
     "SearchRequest«SearchTermV1»-file-events": {
       "type": "object",
       "required": [
@@ -7197,6 +8834,151 @@
       },
       "title": "SearchRequest«SearchTermV1»"
     },
+    "SearchRequest«SearchTermV2»-file-events": {
+      "type": "object",
+      "required": [
+        "groups"
+      ],
+      "properties": {
+        "groupClause": {
+          "type": "string",
+          "example": "OR",
+          "description": "Grouping clause for any specified groups.  Default is `AND`.",
+          "enum": [
+            "AND",
+            "OR"
+          ]
+        },
+        "groups": {
+          "type": "array",
+          "description": "One or more FilterGroups to be combined in a query.",
+          "items": {
+            "$ref": "#/definitions/FilterGroup«SearchTermV2»-file-events"
+          }
+        },
+        "pgNum": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "Page number for search; ignored if pgToken is included.  Default is 1."
+        },
+        "pgSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "Max number of results to return for a page.  Default is 100."
+        },
+        "pgToken": {
+          "type": "string",
+          "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
+          "description": "A token used to indicate the starting point for additional page results. Typically, you obtain the pgToken value from the nextPgToken provided in a previous request. A pgToken is the only way to page past 10,000 results. If pgToken is supplied, pgNum is ignored. Provide empty string to retrieve the 'first page of results and null to use the pgNum value.  Default is null."
+        },
+        "srtDir": {
+          "type": "string",
+          "example": "asc",
+          "description": "Sort direction.  Default is `desc`.",
+          "enum": [
+            "asc",
+            "desc"
+          ]
+        },
+        "srtKey": {
+          "type": "string",
+          "example": "eventId",
+          "description": "Search term for sorting.",
+          "enum": [
+            "@timestamp",
+            "destination.accountName",
+            "destination.accountType",
+            "destination.category",
+            "destination.email.recipients",
+            "destination.email.subject",
+            "destination.ip",
+            "destination.name",
+            "destination.operatingSystem",
+            "destination.printJobName",
+            "destination.printedFilesBackupPath",
+            "destination.printerName",
+            "destination.privateIp",
+            "destination.removableMedia.busType",
+            "destination.removableMedia.capacity",
+            "destination.removableMedia.mediaName",
+            "destination.removableMedia.name",
+            "destination.removableMedia.partitionId",
+            "destination.removableMedia.serialNumber",
+            "destination.removableMedia.vendor",
+            "destination.removableMedia.volumeName",
+            "destination.tabs.title",
+            "destination.tabs.titleError",
+            "destination.tabs.url",
+            "destination.tabs.urlError",
+            "destination.user.email",
+            "event.action",
+            "event.id",
+            "event.inserted",
+            "event.observer",
+            "event.shareType",
+            "file.category",
+            "file.categoryByBytes",
+            "file.categoryByExtension",
+            "file.classifications.value",
+            "file.classifications.vendor",
+            "file.cloudDriveId",
+            "file.created",
+            "file.directory",
+            "file.directoryId",
+            "file.hash.md5",
+            "file.hash.sha256",
+            "file.id",
+            "file.mimeTypeByBytes",
+            "file.mimeTypeByExtension",
+            "file.modified",
+            "file.name",
+            "file.owner",
+            "file.sizeInBytes",
+            "file.url",
+            "process.executable",
+            "process.owner",
+            "report.count",
+            "report.description",
+            "report.headers",
+            "report.id",
+            "report.name",
+            "report.type",
+            "risk.indicators.name",
+            "risk.indicators.weight",
+            "risk.score",
+            "risk.severity",
+            "risk.trustReason",
+            "risk.trusted",
+            "source.category",
+            "source.domain",
+            "source.email.from",
+            "source.email.sender",
+            "source.ip",
+            "source.name",
+            "source.operatingSystem",
+            "source.privateIp",
+            "source.removableMedia.busType",
+            "source.removableMedia.capacity",
+            "source.removableMedia.mediaName",
+            "source.removableMedia.name",
+            "source.removableMedia.partitionId",
+            "source.removableMedia.serialNumber",
+            "source.removableMedia.vendor",
+            "source.removableMedia.volumeName",
+            "source.tabs.title",
+            "source.tabs.titleError",
+            "source.tabs.url",
+            "source.tabs.urlError",
+            "user.deviceUid",
+            "user.email",
+            "user.id"
+          ]
+        }
+      },
+      "title": "SearchRequest«SearchTermV2»"
+    },
     "SharedWithUser-file-events": {
       "type": "object",
       "properties": {
@@ -7207,6 +8989,82 @@
         }
       },
       "title": "SharedWithUser"
+    },
+    "Source-file-events": {
+      "type": "object",
+      "required": [
+        "privateIp"
+      ],
+      "properties": {
+        "category": {
+          "type": "string",
+          "example": "Social Media",
+          "description": "General category of where the file originated. For example: Cloud Storage, Email, Social Media."
+        },
+        "domain": {
+          "type": "string",
+          "example": "localhost",
+          "description": "Fully qualified domain name (FQDN) for the user's device at the time the event is recorded.  If the device is unable to resolve the domain name of the host, it reports the IP address of the host."
+        },
+        "email": {
+          "description": "Metadata about the email source.",
+          "$ref": "#/definitions/SourceEmail-file-events"
+        },
+        "ip": {
+          "type": "string",
+          "example": "127.0.0.1",
+          "description": "The external IP address of the user's device."
+        },
+        "name": {
+          "type": "string",
+          "example": "Mari's MacBook",
+          "description": "The name reported by the device's operating system.  This may be different than the device name in the Code42 console."
+        },
+        "operatingSystem": {
+          "type": "string",
+          "example": "Windows 10",
+          "description": "The operating system of the source device."
+        },
+        "privateIp": {
+          "type": "array",
+          "example": [
+            "127.0.0.1",
+            "127.0.0.2"
+          ],
+          "description": "The IP address of the user's device on your internal network, including Network interfaces, Virtual Network Interface controllers (NICs), and Loopback/non-routable addresses.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "removableMedia": {
+          "description": "Metadata about the removable media source.",
+          "$ref": "#/definitions/RemovableMedia-file-events"
+        },
+        "tabs": {
+          "type": "array",
+          "description": "Metadata about the browser tab source.",
+          "items": {
+            "$ref": "#/definitions/Tab-file-events"
+          }
+        }
+      },
+      "title": "Source"
+    },
+    "SourceEmail-file-events": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "example": "ari@example.com",
+          "description": "The owner of the email account that matched on a DLP rule."
+        },
+        "sender": {
+          "type": "string",
+          "example": "ari@example.com",
+          "description": "The individual who sent the email. This is often, but not always, the owner of the email account that matched on a DLP rule."
+        }
+      },
+      "title": "SourceEmail"
     },
     "StreamingResponseBody-file-events": {
       "type": "object",
@@ -7237,6 +9095,27 @@
         }
       },
       "title": "Tab"
+    },
+    "User-file-events": {
+      "type": "object",
+      "properties": {
+        "deviceUid": {
+          "type": "string",
+          "example": 24681,
+          "description": "Unique identifier for the device. Null if the file event occurred on a cloud provider."
+        },
+        "email": {
+          "type": "string",
+          "example": "cody@example.com",
+          "description": "The Code42 username used to sign in to the Code42 app on the device. Null if the file event occurred on a cloud provider."
+        },
+        "id": {
+          "type": "string",
+          "example": 1138,
+          "description": "Unique identifier for the user of the Code42 app on the device. Null if the file event occurred on a cloud provider."
+        }
+      },
+      "title": "User"
     },
     "AddCloudAliasesRequest": {
       "additionalProperties": false,
