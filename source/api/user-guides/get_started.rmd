@@ -1,0 +1,104 @@
+## Get started
+
+### Licensing
+
+To use all the APIs you must have [full API access](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_API_resources/API_access).
+
+### Request URLs
+
+The domain used for making API requests can be determined using the domain you use to log in to the Code42 console. All API requests should be made using https.
+
+| Console Domain            | API Domain         |
+| ------------------------- | ------------------ |
+| console.us.code42.com     | api.us.code42.com  |
+| console.us2.code42.com    | api.us2.code42.com |
+| console.ie.code42.com     | api.ie.code42.com  |
+| console.gov.code42.com    | api.gov.code42.com |
+
+### Authentication
+
+API calls require an authentication token in the header of the request. To obtain an authentication token, [create an API client](https://support.code42.com/Administrator/Cloud/Code42_console_reference/API_clients) and then submit its ID and secret in a request to the /v1/oauth API. 
+
+In the following example (using curl), replace `<ClientID>` with the API client ID, replace `<Secret>` with the API client secret, and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance (also known as the base URL):
+
+```bash
+curl -X POST -u '<ClientID>:<Secret>' -d "" https://<RequestURL>/v1/oauth
+```
+
+For example:
+
+```bash
+curl -X POST -u 'key-79muGw9i424:DWL-mPQ' -d "" https://api.us.code42.com/v1/oauth
+```
+
+A successful request returns an authentication token. For example:
+
+```bash
+{"access_token":"eyJjdHkiO_bxYJOOn28y...5HGtGHgJzHVCE8zfy1qRBf_rhchA","token_type":"bearer","expires_in":900}
+```
+
+Use the authentication token (also known as a bearer token) in all your API requests. For example, following is an API request to get a list of users:
+
+```bash
+curl -X GET 'https://api.us.code42.com/v1/users?active=true&blocked=false&pageSize=100' \
+-H "authorization: Bearer eyJjdHkiO_bxYJOOn28y...5HGtGHgJzHVCE8zfy1qRBf_rhchA" 
+```
+
+### Token considerations
+
+* Authentication tokens expire after 15 minutes.
+* Authentication tokens provide the API permissions defined in the API client. 
+
+
+[API clients](#tag/Auth/paths/~1v1~1oauth/post) are the preferred method for authentication. Basic authentication methods are deprecated:
+
+
+**Basic authentication:**
+
+```bash
+curl -u "<username>:<password>" https://<RequestURL>/<Resource>
+```
+
+**Basic authentication to obtain a User authentication token:**
+
+```bash
+curl -X GET -u "<username>:<password>" https://<RequestURL>/v1/auth
+```
+
+**Basic authentication to obtain a User authentication token when a second factor (TOTP) token is required:**
+
+```bash
+curl -X -H "totp-auth: <totp_token" GET -u "<username>:<password>" https://<RequestURL>/v1/auth 
+```
+
+### Get a tenant ID
+
+Some APIs require that you provide the unique ID of your organization (or tenant) in the Code42 cloud. To obtain the tenant ID, use your Code42 administrator credentials to submit a `GET` request to the [`/v1/customer` API](/api/#tag/Customer).
+
+In the following example, replace `<AuthToken>` with the [authentication token](#authentication) and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance:
+
+```bash
+curl -X GET -H "Authorization: Bearer <AuthToken>" https://<RequestURL>/v1/customer
+```
+
+A successful response returns the tenantId:
+
+```json
+{
+    "name": "Example customer",
+    "registrationKey": "8u42pwskc42p42hmrj",
+    "tenantId": "c4b5e830-4242-4242-4242-345664cfbb33"
+}
+```
+
+### Request variables
+
+In the examples in the user guides:
+
+* Replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance.
+* Replace `<AuthToken>` with the [authentication token](#authentication).
+* Replace `<SampleTenant>` with the [tenant ID](#get-a-tenant-id).
+
+
+### Troubleshooting and support
+If you experience issues, contact [Code42 support](https://support.code42.com/), or contact your Customer Success Manager (CSM) to engage the Code42 Professional Services team.

@@ -6,7 +6,7 @@ API_DOCS = $(BUILD)/api
 DOCS_SERVER = "https://api.us.code42.com"
 BUILD_SCRIPTS = build-scripts
 
-all:: clean html locations download transform definitions unify
+all:: clean docs html locations download transform definitions unify
 
 run:: all serve
 
@@ -34,4 +34,16 @@ html::
 serve::
 	bundle exec middleman serve
 
-.PHONY:: all clean locations download transform definitions unify html serve
+docs::
+	mdmerge -o source/api/user_guides.rmd \
+	source/api/user-guides/user_guides.rmd \
+	source/api/user-guides/get_started.rmd \
+	source/api/user-guides/manage_alerts.rmd \
+	source/api/user-guides/manage_cases.rmd \
+	source/api/user-guides/manage_users.rmd \
+	source/api/user-guides/manage_watchlists.rmd \
+	source/api/user-guides/search_file_events.rmd \
+	source/api/user-guides/use_case_alerts.rmd \
+	source/api/user-guides/use_case_high_risk_employee.rmd
+
+.PHONY:: all clean locations download transform definitions unify html serve docs

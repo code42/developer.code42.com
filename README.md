@@ -7,6 +7,7 @@ To build the site locally, you will need the following:
 * [jq](https://stedolan.github.io/jq/)
 * [wget](https://www.gnu.org/software/wget/)
 * [api-spec-converter](https://www.npmjs.com/package/api-spec-converter)
+* [MarkdownTools2](https://pypi.org/project/MarkdownTools2/)
 
 # Installing dependencies
 
@@ -27,6 +28,26 @@ Slate documentation if the above is not successful:
 * [Installing dependencies on macOS](https://github.com/slatedocs/slate/wiki/Using-Slate-Natively#installing-dependencies-on-macos)
 
 Note that Slate is unsupported on Windows.
+
+# User Guides
+
+The user guides are separated into their own files for easy navigation and editing.  The `MarkdownTools2` package provides the CLI command `mdmerge` that we use to merge these files into one so that they can be hosted on a single page. 
+
+You can install `MarkdownTools2` with pip:
+```bash
+pip install MarkdownTools2
+```
+
+Use the following command to build the `source/api/user_guides.rmd` file.
+```bash
+make docs
+```
+
+To add a user guide:
+
+1. add it to the `source/api/user-guides` directory.
+2. insert it into the proper index within the `make docs` command. (This is the order that the markdown files will be merged.)
+3. rebuild the docs via `make docs`.
 
 # Build
 
