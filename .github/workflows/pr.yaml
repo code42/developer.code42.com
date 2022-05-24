@@ -8,8 +8,16 @@ jobs:
     runs-on: ubuntu-18.04
     env:
         ruby-version: 2.5
+    
     steps:
       - uses: actions/checkout@v2
+
+      - name: Setup Python
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install MarkdownTools2
+        run: pip install MarkdownTools2
 
       - name: Setup Node.js
         uses: actions/setup-node@v2
