@@ -4,16 +4,10 @@
     "title": "Code42 API Documentation",
     "version": "v1",
     "description": {
-      "$ref": "./getting_started.rmd"
+      "$ref": "./user_guides.rmd"
     }
   },
   "tags": [
-    {
-      "name": "Auth",
-      "description": {
-        "$ref": "./api-descriptions/auth.rmd"
-      }
-    },
     {
       "name": "Alerts",
       "description": {
@@ -21,15 +15,12 @@
       }
     },
     {
-      "name": "Rules",
-      "description": {
-        "$ref": "./api-descriptions/rules.rmd"
-      }
+      "name": "Audit Log"
     },
     {
-      "name": "File Events",
+      "name": "Auth",
       "description": {
-        "$ref": "./api-descriptions/file_events.rmd"
+        "$ref": "./api-descriptions/auth.rmd"
       }
     },
     {
@@ -39,25 +30,37 @@
       }
     },
     {
+      "name": "Customer",
+      "description": {
+        "$ref": "./api-descriptions/customer.rmd"
+      }
+    },
+    {
       "name": "Detection Lists",
       "description": {
         "$ref": "./api-descriptions/detection_lists.rmd"
       }
     },
     {
-      "name": "Watchlists",
+      "name": "Device"
+    },
+    {
+      "name": "File Events",
       "description": {
-        "$ref": "./api-descriptions/watchlists.rmd"
+        "$ref": "./api-descriptions/file_events.rmd"
       }
     },
     {
-      "name": "User Risk Profiles"
+      "name": "LegalHold"
+    },
+    {
+      "name": "Rules",
+      "description": {
+        "$ref": "./api-descriptions/rules.rmd"
+      }
     },
     {
       "name": "Trusted Activities"
-    },
-    {
-      "name": "Audit Log"
     },
     {
       "name": "User",
@@ -66,15 +69,12 @@
       }
     },
     {
-      "name": "Device"
+      "name": "User Risk Profiles"
     },
     {
-      "name": "LegalHold"
-    },
-    {
-      "name": "Customer",
+      "name": "Watchlists",
       "description": {
-        "$ref": "./api-descriptions/customer.rmd"
+        "$ref": "./api-descriptions/watchlists.rmd"
       }
     }
   ],

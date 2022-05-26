@@ -1,0 +1,66 @@
+## Manage cases
+Use the Case APIs to create and manage cases for security investigations. A case is used to record results of an investigation into suspicious file activity. For information about creating and managing cases in the Code42 console, see our [support article](https://support.code42.com/Incydr/Admin/Code42_console_reference/Cases_reference).
+
+Typically, a security analyst will create a case based on an investigation that shows unauthorized file activity, and will add file events from Forensic Search to the case as evidence. The case can have additional file events added to it if needed, and can be routed in a CSV or PDF file as necessary for resolution. Although cases are specific to Code42, you can integrate cases into your SIEM, SOAR, or other incident management system. For integration resources, see our [support article](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_integrations_resources).
+
+### Create a case
+
+When you create a case, you include a name for the case and any other information needed, such as the user UID of the person whom the case is about, the user UID of the person assigned to work on the case, a description of the case, and a summary of the findings. By default, when you create a case, its status is "open".
+
+The following example demonstrates how to create a case with the [/v1/cases](/api#operation/createCaseUsingPOST) API.
+
+```bash
+curl -X POST <requestURL>/v1/cases \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>"" \
+-d '{"assignee": "<userUID-of-assignee>", "description": "<description>", "findings": "<findings>", "name": "<name-of-case>", "subject": "<userUID-of-subject>" }'
+```
+
+In the preceding example:
+
+* Replace `<userUID-of-assignee>` with the user UID of the person assigned to take the case.
+* Replace `<userUID-of-subject>` with the user UID of the person the case is about.
+
+### Download case summary as a PDF
+
+The PDF contains the case subject, details, and findings. Detailed file activity is not included. You can route the resulting PDF to interested parties, such as a security team, members of an insider risk working group, or company executives. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line. 
+
+The following example demonstrates how to download a case summary with a PDF using the [/v1/cases/\<caseNumber\>/export](/api#operation/pdfExportUsingGET) API.
+
+```bash
+curl -X GET <requestURL>/v1/cases/<caseID>/export \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>" -o <filename>.pdf
+```
+
+In the preceding example, replace `<caseID>` with the ID of the case.
+
+
+### Export file events for a case as a CSV file
+
+The comma-separated value (CSV) file contains the case subject, details, and findings, as well as the file events associated with the case. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line. 
+
+You can integrate the resulting CSV file into your SOAR, SIEM, or other incident management system. For integration resources, see our [support article](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_integrations_resources). For field definitions of the file events shown in the CSV file, see our [support article](https://support.code42.com/Incydr/Admin/Code42_console_reference/File_event_metadata_reference). 
+
+The following example demonstrates how to export file events for a case as a CSV file using the [/v1/cases/\<caseNumber\>/fileevent/export](/api#operation/csvExportUsingGET) API.
+
+```bash
+curl -X GET <requestURL>/v1/cases/<caseID>/fileevent/export \
+-H 'content-type: application/json' \
+-H 'authorization: Bearer <AuthToken>' -o <filename>.csv
+```
+
+In the preceding example, replace `<caseID>` with the ID of the case.
+
+### Get all cases for a tenant
+
+You can get a paginated list of all cases in your company's instance in the Code42 cloud, also known as your "tenant". The returned information does not include the file event details. This API can be used for verification purposes, such as to check whether cases have been successfully added or successfully updated. 
+
+The following example demonstrates how to get all cases for a tenant using the [/v1/cases](/api#operation/getCasesUsingGET) API.
+
+```bash
+curl -X GET '<requestURL>/v1/cases' \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>" 
+```
+
