@@ -12961,7 +12961,13 @@
             },
             "observedAt": {
               "type": "string",
-              "description": "Timestamp of when the observation was observed.",
+              "description": "Timestamp when the activity was first observed.",
+              "format": "date-time",
+              "example": "2020-02-19T01:57:45.006683Z"
+            },
+            "lastObservedAt": {
+              "type": "string",
+              "description": "Timestamp when the activity was last observed.",
               "format": "date-time",
               "example": "2020-02-19T01:57:45.006683Z"
             },
