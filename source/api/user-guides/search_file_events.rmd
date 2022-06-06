@@ -2,6 +2,8 @@
 
 Use the File Events API to search for file activity, also known as "Forensic Search". 
 
+**Note:** The examples in this guide use /v1/file-events resources, which are deprecated and are replaced by /v2/file-events resources. 
+
 ### Groups and filters
 
 File Events API queries are organized by groups of filters. This structure facilitates complicated requests with multiple `AND` or `OR` conditions. For example, use case 1 in the [Sample use cases](#sample-use-cases) section searches for files matching any one of 11 different file extensions that also exist in any one of nine different locations. Search queries are limited to a total of 1,024 criteria per request.
