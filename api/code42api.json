@@ -5336,7 +5336,7 @@
             "cody@example.com",
             "theboss@example.com"
           ],
-          "description": "The CC and BCC recipients included on the email that matched on a DLP rule.",
+          "description": "The email addresses of those who received the email. Includes the To, Cc, and Bcc recipients.",
           "items": {
             "type": "string"
           }
@@ -5344,7 +5344,7 @@
         "subject": {
           "type": "string",
           "example": "Important business documents",
-          "description": "The subject of the email that matched on a DLP rule."
+          "description": "The subject of the email message."
         }
       },
       "title": "DestinationEmail"
@@ -6137,7 +6137,7 @@
           "example": [
             "External recipient"
           ],
-          "description": "The name of the DLP policy that matched on the email's file attachment.",
+          "description": "No longer in use. Deprecated September 2021.",
           "items": {
             "type": "string"
           }
@@ -6145,7 +6145,7 @@
         "emailFrom": {
           "type": "string",
           "example": "ari@example.com",
-          "description": "The owner of the email account that matched on a DLP rule."
+          "description": "The display name of the sender, as it appears in the \"From\" field in the email. In many cases, this is the same as emailSender, but it can be different if the message is sent by a server or other mail agent on behalf of someone else."
         },
         "emailRecipients": {
           "type": "array",
@@ -6153,7 +6153,7 @@
             "cody@example.com",
             "theboss@example.com"
           ],
-          "description": "The CC and BCC recipients included on the email that matched on a DLP rule.",
+          "description": " The email addresses of those who received the email. Includes the To, Cc, and Bcc recipients.",
           "items": {
             "type": "string"
           }
@@ -6161,12 +6161,12 @@
         "emailSender": {
           "type": "string",
           "example": "ari@example.com",
-          "description": "The individual who sent the email. This is often, but not always, the owner of the email account that matched on a DLP rule."
+          "description": "The address of the entity responsible for transmitting the message. In many cases, this is the same as emailFrom, but it can be different if the message is sent by a server or other mail agent on behalf of someone else."
         },
         "emailSubject": {
           "type": "string",
           "example": "Important business documents",
-          "description": "The subject of the email that matched on a DLP rule."
+          "description": "The subject of the email message."
         },
         "eventId": {
           "type": "string",
@@ -8752,12 +8752,12 @@
         "from": {
           "type": "string",
           "example": "ari@example.com",
-          "description": "The owner of the email account that matched on a DLP rule."
+          "description": "The display name of the sender, as it appears in the \"From\" field in the email. In many cases, this is the same as source.email.sender, but it can be different if the message is sent by a server or other mail agent on behalf of someone else."
         },
         "sender": {
           "type": "string",
           "example": "ari@example.com",
-          "description": "The individual who sent the email. This is often, but not always, the owner of the email account that matched on a DLP rule."
+          "description": "The address of the entity responsible for transmitting the message. In many cases, this is the same as source.email.from, but it can be different if the message is sent by a server or other mail agent on behalf of someone else."
         }
       },
       "title": "SourceEmail"
