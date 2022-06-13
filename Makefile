@@ -37,6 +37,7 @@ serve::
 docs::
 	mdmerge -o source/api/user_guides.rmd \
 	source/api/user-guides/user_guides.rmd \
+    source/api/user-guides/release_notes.rmd \
 	source/api/user-guides/get_started.rmd \
 	source/api/user-guides/manage_alerts.rmd \
 	source/api/user-guides/manage_cases.rmd \
