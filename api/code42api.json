@@ -5269,6 +5269,13 @@
           "example": "Social Media",
           "description": "General category of where the file originated. For example: Cloud Storage, Email, Social Media."
         },
+        "domains": {
+          "type": "array",
+          "description": "The domain section of the URLs reported in destination.tabs.url.",
+          "items": {
+            "type": "string"
+          }
+        },
         "email": {
           "description": "Metadata about the destination email.",
           "$ref": "#/definitions/DestinationEmail-file-events"
@@ -5655,6 +5662,7 @@
               "destination.accountName",
               "destination.accountType",
               "destination.category",
+              "destination.domains",
               "destination.email.recipients",
               "destination.email.subject",
               "destination.ip",
@@ -5719,6 +5727,7 @@
               "risk.trusted",
               "source.category",
               "source.domain",
+              "source.domains",
               "source.email.from",
               "source.email.sender",
               "source.ip",
@@ -5776,6 +5785,7 @@
             "destination.accountName",
             "destination.accountType",
             "destination.category",
+            "destination.domains",
             "destination.email.recipients",
             "destination.email.subject",
             "destination.ip",
@@ -5840,6 +5850,7 @@
             "risk.trusted",
             "source.category",
             "source.domain",
+            "source.domains",
             "source.email.from",
             "source.email.sender",
             "source.ip",
@@ -6872,6 +6883,7 @@
             "destination.accountName",
             "destination.accountType",
             "destination.category",
+            "destination.domains",
             "destination.email.recipients",
             "destination.email.subject",
             "destination.ip",
@@ -6936,6 +6948,7 @@
             "risk.trusted",
             "source.category",
             "source.domain",
+            "source.domains",
             "source.email.from",
             "source.email.sender",
             "source.ip",
@@ -7591,6 +7604,7 @@
               "destination.accountName",
               "destination.accountType",
               "destination.category",
+              "destination.domains",
               "destination.email.recipients",
               "destination.email.subject",
               "destination.ip",
@@ -7655,6 +7669,7 @@
               "risk.trusted",
               "source.category",
               "source.domain",
+              "source.domains",
               "source.email.from",
               "source.email.sender",
               "source.ip",
@@ -7760,6 +7775,7 @@
             "destination.accountName",
             "destination.accountType",
             "destination.category",
+            "destination.domains",
             "destination.email.recipients",
             "destination.email.subject",
             "destination.ip",
@@ -7824,6 +7840,7 @@
             "risk.trusted",
             "source.category",
             "source.domain",
+            "source.domains",
             "source.email.from",
             "source.email.sender",
             "source.ip",
@@ -8160,6 +8177,7 @@
             "destination.accountName",
             "destination.accountType",
             "destination.category",
+            "destination.domains",
             "destination.email.recipients",
             "destination.email.subject",
             "destination.ip",
@@ -8224,6 +8242,7 @@
             "risk.trusted",
             "source.category",
             "source.domain",
+            "source.domains",
             "source.email.from",
             "source.email.sender",
             "source.ip",
@@ -8287,6 +8306,7 @@
             "destination.accountName",
             "destination.accountType",
             "destination.category",
+            "destination.domains",
             "destination.email.recipients",
             "destination.email.subject",
             "destination.ip",
@@ -8351,6 +8371,7 @@
             "risk.trusted",
             "source.category",
             "source.domain",
+            "source.domains",
             "source.email.from",
             "source.email.sender",
             "source.ip",
@@ -8585,6 +8606,7 @@
             "destination.accountName",
             "destination.accountType",
             "destination.category",
+            "destination.domains",
             "destination.email.recipients",
             "destination.email.subject",
             "destination.ip",
@@ -8649,6 +8671,7 @@
             "risk.trusted",
             "source.category",
             "source.domain",
+            "source.domains",
             "source.email.from",
             "source.email.sender",
             "source.ip",
@@ -8701,6 +8724,13 @@
           "type": "string",
           "example": "localhost",
           "description": "Fully qualified domain name (FQDN) for the user's device at the time the event is recorded.  If the device is unable to resolve the domain name of the host, it reports the IP address of the host."
+        },
+        "domains": {
+          "type": "array",
+          "description": "The domain section of the URLs reported in source.tabs.url. (Note: Although similar in name, this field has no relation to source.domain, which reports the FQDN or IP address of the user’s device.)",
+          "items": {
+            "type": "string"
+          }
         },
         "email": {
           "description": "Metadata about the email source.",
