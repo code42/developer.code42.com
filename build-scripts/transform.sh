@@ -32,6 +32,9 @@ main() {
    # prefix v2 summary fields with "v2"
   jq '.paths |= with_entries( if .key | contains("v2") then (if .value.post? then .value.post.summary |= "v2 - \(.)" else .value.get.summary |= "v2 - \(.)" end) else . end)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
 
+  # order v2 events before v1
+  jq '.paths |= (to_entries | [_nwise(.; 5)] | reverse | flatten | from_entries)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
+
   ### Watchlists
   # convert openapi 3 yaml to swagger 2 json
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/watchlists.yaml > $WATCHLISTS
