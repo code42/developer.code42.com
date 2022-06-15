@@ -1,15 +1,12 @@
-To use these endpoints, your [product plan](https://code42.com/r/support/product-plans) must include full Code42 API access.
-
 File events represent the creation, modification, deletion, and movement of files in your organization's working environment (both on endpoints and in supported cloud providers).
 
 When file activity occurs on an endpoint or in the cloud, Incydr records metadata about the event and retains it according to the event data retention period specified in your product plan. At any time during that retention period, you can search for the file activity based on the metadata collected, such as (but not limited to):
 
-- the file name
-- who acted on the file
-- whether the file was shared in a cloud service or email
-- the device the file was stored on
+* the file name
+* who acted on the file
+* whether the file was shared in a cloud service or email
+* the device the file was stored on
 
-## More resources
-- [Description of all information recorded in file event details](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Forensic_Search_reference_guide#File_event_details)
-- [Step-by-step tutorial for using the File Events APIs](/forensic-search-api/#forensic-search-api)
-- [Field name mapping and definitions](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_API_resources/Forensic_Search_API#FieldMapping)
+To use these APIs, your [product plan](https://code42.com/r/support/product-plans) must include full Code42 API access.
+
+For information about file event metadata, see our [support article](https://support.code42.com/Incydr/Admin/Code42_console_reference/File_event_metadata_reference#File_event_details).
