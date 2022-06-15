@@ -2101,6 +2101,152 @@
         "operationId": "rpc/search/search-results-count"
       }
     },
+    "/v2/file-events": {
+      "post": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "v2 - Search for file events",
+        "operationId": "searchEventsUsingPOST_1",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SearchRequest«SearchTermV2»-file-events"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: List of file events matching the query.",
+            "schema": {
+              "$ref": "#/definitions/FileEventResponseV2-file-events"
+            }
+          },
+          "400": {
+            "description": "Bad Request: An invalid query was provided."
+          },
+          "500": {
+            "description": "Server Error: Search execution failed."
+          }
+        }
+      }
+    },
+    "/v2/file-events/export": {
+      "post": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "v2 - Export search results as a CSV file",
+        "operationId": "exportUsingPOST_1",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ExportRequest«SearchTermV2»-file-events"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: CSV of file events matching the query.",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-file-events"
+            }
+          },
+          "400": {
+            "description": "Bad Request: An invalid query was provided."
+          }
+        }
+      }
+    },
+    "/v2/file-events/grouping": {
+      "post": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "v2 - Group results by search term",
+        "description": "Search file events, providing a group parameter to bucket results into unique values and approximate counts for each value.",
+        "operationId": "groupingUsingPOST_1",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "request",
+            "description": "request",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GroupingRequest«SearchTermV2»-file-events"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: List of groups matching the query.",
+            "schema": {
+              "$ref": "#/definitions/GroupingResponse«SearchTermV2»-file-events"
+            }
+          },
+          "400": {
+            "description": "Bad Request: An invalid query was provided."
+          },
+          "500": {
+            "description": "Server Error: Search execution failed."
+          }
+        }
+      }
+    },
+    "/v2/file-events/saved-searches": {
+      "get": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "v2 - Get all saved searches",
+        "operationId": "getSavedSearchesUsingGET_1",
+        "responses": {
+          "200": {
+            "description": "Success: List of all saved searches for the tenant.",
+            "schema": {
+              "$ref": "#/definitions/SavedSearchResponse«SearchTermV2»-file-events"
+            }
+          }
+        }
+      }
+    },
+    "/v2/file-events/saved-searches/{id}": {
+      "get": {
+        "tags": [
+          "File Events"
+        ],
+        "summary": "v2 - Get a single saved search",
+        "operationId": "getSavedSearchByIdUsingGET_1",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Unique identifier for a saved search.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Details of the specified saved search.",
+            "schema": {
+              "$ref": "#/definitions/SavedSearchResponse«SearchTermV2»-file-events"
+            }
+          },
+          "404": {
+            "description": "Not found: Saved search does not exist."
+          }
+        }
+      }
+    },
     "/v1/file-events": {
       "post": {
         "tags": [
@@ -2250,152 +2396,6 @@
           }
         },
         "deprecated": true
-      }
-    },
-    "/v2/file-events": {
-      "post": {
-        "tags": [
-          "File Events"
-        ],
-        "summary": "v2 - Search for file events",
-        "operationId": "searchEventsUsingPOST_1",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "request",
-            "description": "request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/SearchRequest«SearchTermV2»-file-events"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success: List of file events matching the query.",
-            "schema": {
-              "$ref": "#/definitions/FileEventResponseV2-file-events"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid query was provided."
-          },
-          "500": {
-            "description": "Server Error: Search execution failed."
-          }
-        }
-      }
-    },
-    "/v2/file-events/export": {
-      "post": {
-        "tags": [
-          "File Events"
-        ],
-        "summary": "v2 - Export search results as a CSV file",
-        "operationId": "exportUsingPOST_1",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "request",
-            "description": "request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ExportRequest«SearchTermV2»-file-events"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success: CSV of file events matching the query.",
-            "schema": {
-              "$ref": "#/definitions/StreamingResponseBody-file-events"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid query was provided."
-          }
-        }
-      }
-    },
-    "/v2/file-events/grouping": {
-      "post": {
-        "tags": [
-          "File Events"
-        ],
-        "summary": "v2 - Group results by search term",
-        "description": "Search file events, providing a group parameter to bucket results into unique values and approximate counts for each value.",
-        "operationId": "groupingUsingPOST_1",
-        "parameters": [
-          {
-            "in": "body",
-            "name": "request",
-            "description": "request",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/GroupingRequest«SearchTermV2»-file-events"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success: List of groups matching the query.",
-            "schema": {
-              "$ref": "#/definitions/GroupingResponse«SearchTermV2»-file-events"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid query was provided."
-          },
-          "500": {
-            "description": "Server Error: Search execution failed."
-          }
-        }
-      }
-    },
-    "/v2/file-events/saved-searches": {
-      "get": {
-        "tags": [
-          "File Events"
-        ],
-        "summary": "v2 - Get all saved searches",
-        "operationId": "getSavedSearchesUsingGET_1",
-        "responses": {
-          "200": {
-            "description": "Success: List of all saved searches for the tenant.",
-            "schema": {
-              "$ref": "#/definitions/SavedSearchResponse«SearchTermV2»-file-events"
-            }
-          }
-        }
-      }
-    },
-    "/v2/file-events/saved-searches/{id}": {
-      "get": {
-        "tags": [
-          "File Events"
-        ],
-        "summary": "v2 - Get a single saved search",
-        "operationId": "getSavedSearchByIdUsingGET_1",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Unique identifier for a saved search.",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success: Details of the specified saved search.",
-            "schema": {
-              "$ref": "#/definitions/SavedSearchResponse«SearchTermV2»-file-events"
-            }
-          },
-          "404": {
-            "description": "Not found: Saved search does not exist."
-          }
-        }
       }
     },
     "/v1/oauth": {
