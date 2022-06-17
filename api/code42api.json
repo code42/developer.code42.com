@@ -3622,12 +3622,6 @@
             "schema": {
               "$ref": "#/definitions/CaseProblemResponse-cases"
             }
-          },
-          "502": {
-            "description": "Bad Gateway: Unable to reach user validation.",
-            "schema": {
-              "$ref": "#/definitions/CaseProblemResponse-cases"
-            }
           }
         }
       }
@@ -3707,12 +3701,6 @@
           },
           "404": {
             "description": "Not Found: Case does not exist."
-          },
-          "502": {
-            "description": "Bad Gateway: Unable to reach user validation.",
-            "schema": {
-              "$ref": "#/definitions/CaseProblemResponse-cases"
-            }
           }
         }
       },
@@ -3780,9 +3768,6 @@
           },
           "404": {
             "description": "Not Found: Case does not exist."
-          },
-          "502": {
-            "description": "Bad Gateway: Unable to reach CSV definitions."
           }
         }
       }
@@ -3876,12 +3861,6 @@
           },
           "403": {
             "description": "Forbidden: Forbidden by events.",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
-          },
-          "502": {
-            "description": "Bad Gateway: Failure to reach events.",
             "schema": {
               "$ref": "#/definitions/EventProblemResponse-cases"
             }
@@ -3993,12 +3972,6 @@
           },
           "403": {
             "description": "Forbidden: Forbidden by events.",
-            "schema": {
-              "$ref": "#/definitions/EventProblemResponse-cases"
-            }
-          },
-          "502": {
-            "description": "Bad Gateway: Failure to reach events.",
             "schema": {
               "$ref": "#/definitions/EventProblemResponse-cases"
             }
@@ -4699,8 +4672,8 @@
         "columns": {
           "type": "array",
           "example": [
-            "fileName",
-            "filePath"
+            "eventId",
+            "eventType"
           ],
           "description": "Which columns to include in the output. If none is provided, all available columnswill be output in an unspecified, not-guaranteed order.",
           "items": {
@@ -4928,8 +4901,8 @@
         "columns": {
           "type": "array",
           "example": [
-            "fileName",
-            "filePath"
+            "file.name",
+            "file.directory"
           ],
           "description": "Which columns to include in the output. If none is provided, all available columnswill be output in an unspecified, not-guaranteed order.",
           "items": {
@@ -6033,7 +6006,7 @@
         },
         "groupingTerm": {
           "type": "string",
-          "example": "eventType",
+          "example": "eventId",
           "description": "The search term to use to form the groups.",
           "enum": [
             "actor",
@@ -6153,7 +6126,7 @@
         },
         "groupingTerm": {
           "type": "string",
-          "example": "eventType",
+          "example": "event.action",
           "description": "The search term to use to form the groups.",
           "enum": [
             "@timestamp",
@@ -7195,7 +7168,7 @@
         },
         "term": {
           "type": "string",
-          "example": "actor",
+          "example": "eventId",
           "description": "The field to match.",
           "enum": [
             "actor",
@@ -7321,7 +7294,7 @@
         },
         "term": {
           "type": "string",
-          "example": "actor",
+          "example": "eventId",
           "description": "The field to match.",
           "enum": [
             "actor",
@@ -7447,7 +7420,7 @@
         },
         "term": {
           "type": "string",
-          "example": "actor",
+          "example": "user.email",
           "description": "The field to match.",
           "enum": [
             "@timestamp",
@@ -7576,7 +7549,7 @@
         },
         "term": {
           "type": "string",
-          "example": "actor",
+          "example": "user.email",
           "description": "The field to match.",
           "enum": [
             "@timestamp",
@@ -7876,7 +7849,7 @@
         },
         "srtKey": {
           "type": "string",
-          "example": "eventId",
+          "example": "event.id",
           "description": "Search term for sorting.",
           "enum": [
             "@timestamp",
