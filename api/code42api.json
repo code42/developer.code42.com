@@ -4639,11 +4639,17 @@
           "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
           "description": "The unique identifier for the event."
         },
+        "ingested": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-10-27T15:15:05.369203Z",
+          "description": "Date and time the event was initially received by Code42; timestamp is based on the Code42 server system clock and reported in Coordinated Universal Time (UTC)."
+        },
         "inserted": {
           "type": "string",
           "format": "date-time",
           "example": "2020-10-27T15:16:05.369203Z",
-          "description": "Date and time that the event was received for indexing by Code42; timestamp is based on the Code42 server system clock and reported in Coordinated Universal Time (UTC)."
+          "description": "Date and time the event processing is completed by Code42; timestamp is based on the Code42 server system clock and reported in Coordinated Universal Time (UTC). Typically occurs very soon after the event.ingested time."
         },
         "observer": {
           "type": "string",
@@ -4937,6 +4943,7 @@
               "destination.user.email",
               "event.action",
               "event.id",
+              "event.ingested",
               "event.inserted",
               "event.observer",
               "event.shareType",
@@ -5060,6 +5067,7 @@
             "destination.user.email",
             "event.action",
             "event.id",
+            "event.ingested",
             "event.inserted",
             "event.observer",
             "event.shareType",
@@ -6158,6 +6166,7 @@
             "destination.user.email",
             "event.action",
             "event.id",
+            "event.ingested",
             "event.inserted",
             "event.observer",
             "event.shareType",
@@ -6879,6 +6888,7 @@
               "destination.user.email",
               "event.action",
               "event.id",
+              "event.ingested",
               "event.inserted",
               "event.observer",
               "event.shareType",
@@ -7050,6 +7060,7 @@
             "destination.user.email",
             "event.action",
             "event.id",
+            "event.ingested",
             "event.inserted",
             "event.observer",
             "event.shareType",
@@ -7452,6 +7463,7 @@
             "destination.user.email",
             "event.action",
             "event.id",
+            "event.ingested",
             "event.inserted",
             "event.observer",
             "event.shareType",
@@ -7581,6 +7593,7 @@
             "destination.user.email",
             "event.action",
             "event.id",
+            "event.ingested",
             "event.inserted",
             "event.observer",
             "event.shareType",
@@ -7881,6 +7894,7 @@
             "destination.user.email",
             "event.action",
             "event.id",
+            "event.ingested",
             "event.inserted",
             "event.observer",
             "event.shareType",
