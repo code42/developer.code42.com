@@ -15,7 +15,10 @@
       }
     },
     {
-      "name": "Audit Log"
+      "name": "Audit Log",
+      "description": {
+        "$ref": "./api-descriptions/audit_log.rmd"
+      }
     },
     {
       "name": "Auth",
@@ -42,7 +45,10 @@
       }
     },
     {
-      "name": "Device"
+      "name": "Device",
+      "description": {
+        "$ref": "./api-descriptions/device.rmd"
+      }
     },
     {
       "name": "File Events",
@@ -51,7 +57,10 @@
       }
     },
     {
-      "name": "LegalHold"
+      "name": "LegalHold",
+      "description": {
+        "$ref": "./api-descriptions/legal_hold.rmd"
+      }
     },
     {
       "name": "Rules",
@@ -60,7 +69,10 @@
       }
     },
     {
-      "name": "Trusted Activities"
+      "name": "Trusted Activities",
+      "description": {
+        "$ref": "./api-descriptions/trusted_activities.rmd"
+      }
     },
     {
       "name": "User",
@@ -69,7 +81,10 @@
       }
     },
     {
-      "name": "User Risk Profiles"
+      "name": "User Risk Profiles",
+      "description": {
+        "$ref": "./api-descriptions/user_risk_profiles.rmd"
+      }
     },
     {
       "name": "Watchlists",
