@@ -188,13 +188,13 @@ The [/v1/alerts/query-alerts](/api#operation/Alerts_QueryAlert) API uses these f
 
 Filter Type | Operator | Criteria
 -------------- | -------------- | --------------
-DateObserved | On, On or after, On or before | Date the alert was triggered, in yyyy-MM-dd format
-Actor | Is, Is not, Contains, Does not contain | The username or cloud alias (actor) of the person who caused the event, or portions thereof
-Severity | Is, Is not | High, Medium, or Low
-RuleName | Is, Is not, Contains, Does not contain | The name of the rule, or portions thereof
-Description | Is, Is not, Contains, Does not contain | The description of the rule, or portions thereof
-AlertState | Is, Is not | Open or Dismissed
-AlertID | Is | The ID of a specific alert notification
+CreatedAt | ON, ON_OR_AFTER, ON_OR_BEFORE | Date the alert was triggered, in yyyy-MM-dd format
+Actor | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | The username or cloud alias (actor) of the person who caused the event, or portions thereof
+Severity | IS, IS_NOT | HIGH, MEDIUM, or LOW
+Name | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | The name of the rule, or portions thereof
+Description | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | The description of the rule, or portions thereof
+State | IS, IS_NOT | OPEN or DISMISSED
+AlertID | IS | The ID of a specific alert notification
 
 
 
@@ -392,17 +392,16 @@ The [/v1/alerts/rules/query-rule-metadata](/api#operation/Rules_QueryRuleMetadat
 
 Filter Type | Operator | Criteria
 -------------- | -------------- | --------------
-TenantId | Is | The ID of your organization or tenant in Code42.
-ObserverRuleId | Is | The ID of a specific alert rule.
-Type | Is, Is not | The rule's exposure type (Cloud share permissions changes rules: FED_CLOUD_SHARE_PERMISSIONS), (Exposure on an endpoint rules: FED_ENDPOINT_EXFILTRATION), (Suspicious file mismatch rules: FED_FILE_TYPE_MISMATCH)
-Name | Is, Is not, Contains, Does not contain | The name of the rule, or portions thereof
-Description | Is, Is not, Contains, Does not contain | The description of the rule, or portions thereof
-Severity | Is, Is not | High, Medium, or low
-IsSystem | Is | True or False. Indicates whether the rule is a default rule 
-IsEnabled | Is | True or False. Indicates whether the rule is enabled or disabled.
-RuleSource | Is, Is not | The source that created the rule. For rules created manually: Alerting. 
-ModifiedAt | On, On or after, On or before | Date the rule was modified, in yyyy-MM-dd format
-ModifiedBy | Is, Is not, Contains, Does not contain | Username of the person who last modified the rule. 
-CreatedAt | On, On or after, On or before | Date the rule was created, in yyyy-MM-dd format
-CreatedBy | Is, Is not, Contains, Does not contain | Username of the person who created the rule. 
+TenantId | IS | The ID of your organization or tenant in Code42.
+ObserverRuleId | IS | The ID of a specific alert rule.
+Type | IS, IS_NOT | The rule's exposure type (Cloud share permissions changes rules: FED_CLOUD_SHARE_PERMISSIONS), (Exposure on an endpoint rules: FED_ENDPOINT_EXFILTRATION), (Suspicious file mismatch rules: FED_FILE_TYPE_MISMATCH)
+Name | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | The name of the rule, or portions thereof
+Description | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | The description of the rule, or portions thereof
+Severity | IS, IS_NOT | HIGH, MEDIUM, or LOW
+IsEnabled | IS | True or False. Indicates whether the rule is enabled or disabled.
+RuleSource | IS, IS_NOT | The source that created the rule. For rules created manually: Alerting. 
+ModifiedAt | ON, ON_OR_AFTER, ON_OR_BEFORE | Date the rule was modified, in yyyy-MM-dd format
+ModifiedBy | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | Username of the person who last modified the rule. 
+CreatedAt | ON, ON_OR_AFTER, ON_OR_BEFORE | Date the rule was created, in yyyy-MM-dd format
+CreatedBy | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | Username of the person who created the rule. 
 
