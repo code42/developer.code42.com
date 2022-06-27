@@ -49,8 +49,10 @@ A successful request returns an authentication token. For example:
 Use the authentication token (also known as a bearer token) in all your API requests. For example, following is an API request to get a list of users:
 
 ```bash
-curl -X GET 'https://api.us.code42.com/v1/users?active=true&blocked=false&pageSize=100' \
--H "authorization: Bearer eyJjdHkiO_bxYJOOn28y...5HGtGHgJzHVCE8zfy1qRBf_rhchA" 
+curl -X GET https://api.us.code42.com/v1/users \
+-H 'content-type: application/json' \
+-H "authorization: Bearer eyJjdHkiO_bxYJOOn28y...5HGtGHgJzHVCE8zfy1qRBf_rhchA" \
+-d '{"active": true, "blocked": false,"username":[],"page":0,"pageSize":100}'
 ```
 
 ### Token considerations
