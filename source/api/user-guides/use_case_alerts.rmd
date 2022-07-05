@@ -162,33 +162,30 @@ A successful response returns full details about the alert notification, includi
 #### Look for the files involved in the alert
 
 Use the [File Events APIs](#tag/File-Events) to look for the files identified in the preceding alert query response.
-The following sample request using the [/v1/file-events](/api#operation/searchEventsUsingPOST) API command demonstrates a search for all files on all devices with the file extension **.docx** that exist anywhere in the file path **C:/Users**. Use this simple example as a starting point for your own searches and replace the content of the -d section with your specific search criteria.
+The following sample request using the [/v2/file-events](/api#operation/searchEventsUsingPOST_1) API command demonstrates a search for all files on all devices with the file extension **.docx** that exist anywhere in the file path **C:/Users**. Use this simple example as a starting point for your own searches and replace the content of the -d section with your specific search criteria.
 
 ```bash
-curl -X POST  <RequestURL>/v1/file-events \
+curl -X POST <RequestURL>/v2/file-events \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>" \
 -d '{
-  "groups": [
-    {
-      "filters": [
-        {
-          "operator": "IS",
-          "term": "fileName",
-          "value": "*.docx"
+    "groups": [{
+        "filters": [{
+            "operator": "IS",
+            "term": "file.name",
+            "value": "*.docx"
         },
         {
-          "operator": "IS",
-          "term": "filePath",
-          "value": "C:/Users*"
+            "operator": "IS",
+            "term": "file.directory",
+            "value": "C:/Users*"
         }
-      ],
-      "filterClause": "AND"
-    }
-  ],
-  "groupClause": "AND",
-  "pgNum": 1,
-  "pgSize": 100
+    ],
+    "filterClause": "AND"
+    }],
+    "groupClause": "AND",
+    "pgNum": 1,
+    "pgSize": 100
 }'
 ```
 
