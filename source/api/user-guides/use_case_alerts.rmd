@@ -176,7 +176,7 @@ curl -X POST <RequestURL>/v2/file-events \
             "value": "*.docx"
         },
         {
-            "operator": "IS_NOT",
+            "operator": "IS",
             "term": "file.directory",
             "value": "C:/Users*"
         }
