@@ -39,12 +39,13 @@ main() {
   # convert openapi 3 yaml to swagger 2 json
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/watchlists.yaml > $WATCHLISTS
   # rename tags
-  jq '
-  (.paths[][] | select(.tags == ["UserRiskProfileService"]) | .tags) |= ["User Risk Profiles"] |
-  (.paths[][] | select(.tags == ["WatchlistService"]) | .tags) |= ["Watchlists"] |
-  (.paths[][] | select(.tags == ["DepartmentsService"]) | .tags) |= ["Departments"] |
-  (.paths[][] | select(.tags == ["DirectoryGroupsService"]) | .tags) |= ["Directory Groups"]
-  ' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
+  jq '.paths[][].tags[] |=
+  if . == "WatchlistService" then "Watchlists"
+  elif . == "UserRiskProfileService" then "User Risk Profiles"
+  elif . == "DepartmentsService" then "Departments"
+  elif . == "DirectoryGroupsService" then "Directory Groups"
+  else .
+  end' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
 }
 
 main "$@"
