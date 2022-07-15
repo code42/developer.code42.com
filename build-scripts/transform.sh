@@ -38,11 +38,11 @@ main() {
   ### Watchlists
   # convert openapi 3 yaml to swagger 2 json
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/watchlists.yaml > $WATCHLISTS
-  # rename UserRiskProfileService tags
-  jq '(.paths[][] | select(.tags == ["UserRiskProfileService"]) | .tags) |= ["User Risk Profiles"]' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
-  # rename WatchlistsService tags
-  jq '(.paths[][] | select(.tags == ["WatchlistService"]) | .tags) |= ["Watchlists"]' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
-
+  # rename tags
+  jq '(.paths[][] | select(.tags == ["UserRiskProfileService"]) | .tags) |= ["User Risk Profiles"] |
+  (.paths[][] | select(.tags == ["WatchlistService"]) | .tags) |= ["Watchlists"] |
+  (.paths[][] | select(.tags == ["DepartmentsService"]) | .tags) |= ["Departments"] |
+  (.paths[][] | select(.tags == ["DirectoryGroupsService"]) | .tags) |= ["Directory Groups"]' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
 }
 
 main "$@"
