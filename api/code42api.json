@@ -39,6 +39,12 @@
       }
     },
     {
+      "name": "Departments",
+      "description": {
+        "$ref": "./api-descriptions/departments.rmd"
+      }
+    },
+    {
       "name": "Detection Lists",
       "description": {
         "$ref": "./api-descriptions/detection_lists.rmd"
@@ -48,6 +54,12 @@
       "name": "Device",
       "description": {
         "$ref": "./api-descriptions/device.rmd"
+      }
+    },
+    {
+      "name": "Directory Groups",
+      "description": {
+        "$ref": "./api-descriptions/directory-groups.rmd"
       }
     },
     {
@@ -1184,6 +1196,90 @@
         }
       }
     },
+    "/v1/departments": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The desired page of department results to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          },
+          {
+            "description": "Matches departments whose name is like the given value.",
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListDepartmentsResponse"
+            }
+          }
+        },
+        "tags": [
+          "Departments"
+        ],
+        "operationId": "ListDepartments",
+        "summary": "Get a list of departments"
+      }
+    },
+    "/v1/directory-groups": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The desired page of directory group results to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          },
+          {
+            "description": "Matches directory groups whose name is like the given value.",
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListDirectoryGroupsResponse"
+            }
+          }
+        },
+        "tags": [
+          "Directory Groups"
+        ],
+        "operationId": "ListDirectoryGroups",
+        "summary": "Get a list of directory groups"
+      }
+    },
     "/v1/user-risk-profiles": {
       "get": {
         "produces": [
@@ -1462,6 +1558,12 @@
             "in": "query",
             "name": "page_size",
             "type": "integer"
+          },
+          {
+            "description": "Matches watchlists where user is a member.",
+            "in": "query",
+            "name": "user_id",
+            "type": "string"
           }
         ],
         "responses": {
@@ -1564,6 +1666,531 @@
         ],
         "operationId": "GetWatchlist",
         "summary": "Get a watchlist"
+      },
+      "patch": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The ID of the watchlist to update.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "collectionFormat": "multi",
+            "description": "The set of field mask paths.",
+            "in": "query",
+            "items": {
+              "description": "The set of field mask paths.",
+              "type": "string"
+            },
+            "name": "paths",
+            "type": "array"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdatedWatchlist"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Watchlist"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "UpdateWatchlist",
+        "summary": "Update a custom watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/excluded-users": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The desired page of excluded users to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListExcludedUsersResponse"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "ListExcludedUsers",
+        "summary": "Get the list of users explicitly excluded from a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/excluded-users/add": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AddExcludedUsersRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "AddExcludedUsers",
+        "summary": "Explicitly exclude users from a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/excluded-users/delete": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/DeleteExcludedUsersRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "DeleteExcludedUsers",
+        "summary": "Remove users that are explicitly excluded from a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/excluded-users/{user_id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "A unique user ID.",
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ExcludedUser"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "GetExcludedUser",
+        "summary": "Get an excluded user for a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-departments": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The desired page of included departments to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListIncludedDepartmentsResponse"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "ListIncludedDepartments",
+        "summary": "Get the list of departments explicitly included on a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-departments/add": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AddIncludedDepartmentsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "AddIncludedDepartments",
+        "summary": "Explicitly include departments on a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-departments/delete": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/DeleteIncludedDepartmentsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "DeleteIncludedDepartments",
+        "summary": "Remove departments that are explicitly included on a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-departments/{department}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "A department.",
+            "in": "path",
+            "name": "department",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IncludedDepartment"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "GetIncludedDepartment",
+        "summary": "Get an included department for a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-directory-groups": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The desired page of included directory groups to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListIncludedDirectoryGroupsResponse"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "ListIncludedDirectoryGroups",
+        "summary": "Get the list of directory groups explicitly included on a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-directory-groups/add": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/AddIncludedDirectoryGroupsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "AddIncludedDirectoryGroups",
+        "summary": "Explicitly include directory groups on a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-directory-groups/delete": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/DeleteIncludedDirectoryGroupsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "DeleteIncludedDirectoryGroups",
+        "summary": "Remove directory groups that are explicitly included on a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-directory-groups/{group_id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "A unique group ID.",
+            "in": "path",
+            "name": "group_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IncludedDirectoryGroup"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "GetIncludedDirectoryGroup",
+        "summary": "Get an included directory group for a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-users": {
@@ -1687,6 +2314,42 @@
         ],
         "operationId": "DeleteIncludedUsers",
         "summary": "Remove users that are explicitly included on a watchlist"
+      }
+    },
+    "/v1/watchlists/{watchlist_id}/included-users/{user_id}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "A unique user ID.",
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/IncludedUser"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "operationId": "GetIncludedUser",
+        "summary": "Get an included user for a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/members": {
@@ -4374,7 +5037,7 @@
           "type": "string"
         },
         "type": {
-          "description": "The type of the trusted activity.\n\nThe `ACCOUNT_NAME` type requires agent version 1.5.0 or later (for `ONE_DRIVE`) and 1.6.0 or later \n(for `DROPBOX`) for Incydr Professional, Enterprise, Gov F2, and Horizon product plans. For Incydr Basic,\nAdvanced, and Gov F1 product plans, ACCOUNT_NAME requires Code42 app version 10.3.0 or later.\n",
+          "description": "The type of the trusted activity.\n\nNote: The `ACCOUNT_NAME` trusted activity type requires agent version 1.5.0 or later for Incydr \nProfessional, Enterprise, Gov F2, and Horizon product plans, and Code42 app version 9.0.0 or later for \nIncydr Basic, Advanced, and Gov F1 product plans.\n",
           "enum": [
             "DOMAIN",
             "ACCOUNT_NAME",
@@ -4411,7 +5074,7 @@
       "additionalProperties": false,
       "properties": {
         "name": {
-          "description": "The name of a provider for a specified activity action.\n  ### Supported providers for trusted activity type and actions\n\n  - `DOMAIN`\n    - `CLOUD_SHARE`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ONE_DRIVE`\n    - `CLOUD_SYNC`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ICLOUD` \n      - `ONE_DRIVE` \n    - `EMAIL` \n      - `GMAIL`\n      - `OFFICE_365`\n  - `ACCOUNT_NAME`\n    - `CLOUD_SYNC`\n      - `DROPBOX`\n      - `ONE_DRIVE`\n",
+          "description": "The name of a provider for a specified activity action.\n  ### Supported providers for trusted activity type and actions\n\n  - `DOMAIN`\n    - `CLOUD_SHARE`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ONE_DRIVE`\n    - `CLOUD_SYNC`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ICLOUD` \n      - `ONE_DRIVE` \n    - `EMAIL` \n      - `GMAIL`\n      - `OFFICE_365`\n  - `ACCOUNT_NAME`\n    - `CLOUD_SYNC`\n      - `ONE_DRIVE`\n",
           "enum": [
             "BOX",
             "GOOGLE_DRIVE",
@@ -5030,6 +5693,48 @@
       },
       "type": "object"
     },
+    "AddExcludedUsersRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "userIds": {
+          "description": "A list of user IDs to add.",
+          "items": {
+            "description": "A list of user IDs to add.",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "AddIncludedDepartmentsRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "departments": {
+          "description": "A list of departments to add.",
+          "items": {
+            "description": "A list of departments to add.",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "AddIncludedDirectoryGroupsRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "groupIds": {
+          "description": "A list of group IDs to add.",
+          "items": {
+            "description": "A list of group IDs to add.",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
     "AddIncludedUsersRequest": {
       "additionalProperties": false,
       "properties": {
@@ -5052,11 +5757,26 @@
     "CreateWatchlistRequest": {
       "additionalProperties": false,
       "properties": {
+        "description": {
+          "description": "The optional description of a custom watchlist.",
+          "example": "List of users that fit a custom use case.",
+          "maxLength": 250,
+          "type": "string"
+        },
+        "title": {
+          "description": "The required title for a custom watchlist.",
+          "example": "My Custom List",
+          "maxLength": 50,
+          "type": "string"
+        },
         "watchlistType": {
           "$ref": "#/definitions/WatchlistType",
           "type": "string"
         }
       },
+      "required": [
+        "watchlistType"
+      ],
       "type": "object"
     },
     "Date": {
@@ -5097,6 +5817,48 @@
       },
       "type": "object"
     },
+    "DeleteExcludedUsersRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "userIds": {
+          "description": "A list of user IDs to delete.",
+          "items": {
+            "description": "A list of user IDs to delete.",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "DeleteIncludedDepartmentsRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "departments": {
+          "description": "A list of departments to delete.",
+          "items": {
+            "description": "A list of departments to delete.",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "DeleteIncludedDirectoryGroupsRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "groupIds": {
+          "description": "A list of group IDs to delete.",
+          "items": {
+            "description": "A list of group IDs to delete.",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
     "DeleteIncludedUsersRequest": {
       "additionalProperties": false,
       "properties": {
@@ -5114,6 +5876,86 @@
           "type": "string"
         }
       },
+      "type": "object"
+    },
+    "DirectoryGroup": {
+      "additionalProperties": false,
+      "properties": {
+        "groupId": {
+          "description": "A unique group ID.",
+          "example": "23",
+          "type": "string"
+        },
+        "name": {
+          "example": "Research and development",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ExcludedUser": {
+      "additionalProperties": false,
+      "properties": {
+        "addedTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "userId": {
+          "description": "A unique user ID.",
+          "example": "23",
+          "type": "string"
+        },
+        "username": {
+          "example": "foo@bar.com",
+          "type": "string"
+        }
+      },
+      "required": [
+        "addedTime"
+      ],
+      "type": "object"
+    },
+    "IncludedDepartment": {
+      "additionalProperties": false,
+      "properties": {
+        "addedTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "example": "Engineering",
+          "type": "string"
+        }
+      },
+      "required": [
+        "addedTime"
+      ],
+      "type": "object"
+    },
+    "IncludedDirectoryGroup": {
+      "additionalProperties": false,
+      "properties": {
+        "addedTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "groupId": {
+          "description": "A unique group ID.",
+          "example": "23",
+          "type": "string"
+        },
+        "isDeleted": {
+          "description": "Whether the included group was deleted by the directory provider but still referenced by the watchlist",
+          "type": "boolean"
+        },
+        "name": {
+          "example": "Research and development",
+          "type": "string"
+        }
+      },
+      "required": [
+        "addedTime"
+      ],
       "type": "object"
     },
     "IncludedUser": {
@@ -5136,6 +5978,96 @@
       "required": [
         "addedTime"
       ],
+      "type": "object"
+    },
+    "ListDepartmentsResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "departments": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "totalCount": {
+          "description": "The total count of all departments.",
+          "example": 10,
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "ListDirectoryGroupsResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "directoryGroups": {
+          "items": {
+            "$ref": "#/definitions/DirectoryGroup"
+          },
+          "type": "array"
+        },
+        "totalCount": {
+          "description": "The total count of all directory groups.",
+          "example": 10,
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "ListExcludedUsersResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "excludedUsers": {
+          "items": {
+            "$ref": "#/definitions/ExcludedUser"
+          },
+          "type": "array"
+        },
+        "totalCount": {
+          "description": "The total count of all excluded users.",
+          "example": 10,
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "ListIncludedDepartmentsResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "includedDepartments": {
+          "items": {
+            "$ref": "#/definitions/IncludedDepartment"
+          },
+          "type": "array"
+        },
+        "totalCount": {
+          "description": "The total count of all included departments.",
+          "example": 10,
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "ListIncludedDirectoryGroupsResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "includedDirectoryGroups": {
+          "items": {
+            "$ref": "#/definitions/IncludedDirectoryGroup"
+          },
+          "type": "array"
+        },
+        "totalCount": {
+          "description": "The total count of all included directory groups.",
+          "example": 10,
+          "format": "int64",
+          "type": "integer"
+        }
+      },
       "type": "object"
     },
     "ListIncludedUsersResponse": {
@@ -5225,6 +6157,26 @@
         },
         "startDate": {
           "$ref": "#/definitions/Date"
+        }
+      },
+      "type": "object"
+    },
+    "UpdatedWatchlist": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "description": "Description for a custom watchlist.",
+          "example": "A watchlist for a custom use case.",
+          "maxLength": 250,
+          "type": "string",
+          "x-nullable": true
+        },
+        "title": {
+          "description": "Title of a custom watchlist.",
+          "example": "My Custom watchlist title",
+          "maxLength": 50,
+          "nullable": false,
+          "type": "string"
         }
       },
       "type": "object"
@@ -5324,6 +6276,10 @@
     "Watchlist": {
       "additionalProperties": false,
       "properties": {
+        "description": {
+          "description": "Description for a custom watchlist.",
+          "type": "string"
+        },
         "listType": {
           "$ref": "#/definitions/WatchlistType",
           "type": "string"
@@ -5333,6 +6289,10 @@
         },
         "tenantId": {
           "description": "A unique tenant ID.",
+          "type": "string"
+        },
+        "title": {
+          "description": "Title for a custom watchlist.",
           "type": "string"
         },
         "watchlistId": {
@@ -5370,6 +6330,21 @@
     "WatchlistStats": {
       "additionalProperties": false,
       "properties": {
+        "excludedUsersCount": {
+          "description": "The number of users explicitly excluded from the watchlist.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "includedDepartmentsCount": {
+          "description": "The number of departments explicitly included on the watchlist.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "includedDirectoryGroupsCount": {
+          "description": "The number of directory groups explicitly included on the watchlist.",
+          "format": "int64",
+          "type": "integer"
+        },
         "includedUsersCount": {
           "description": "The number of users explicitly included on the watchlist.",
           "format": "int64",
@@ -5389,7 +6364,8 @@
         "NEW_EMPLOYEE",
         "PERFORMANCE_CONCERNS",
         "POOR_SECURITY_PRACTICES",
-        "SUSPICIOUS_SYSTEM_ACTIVITY"
+        "SUSPICIOUS_SYSTEM_ACTIVITY",
+        "CUSTOM"
       ],
       "type": "string"
     },
