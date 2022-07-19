@@ -14194,7 +14194,7 @@
           "type": "string"
         },
         "type": {
-          "description": "The type of the trusted activity.\n\nNote: The `ACCOUNT_NAME` trusted activity type requires agent version 1.5.0 or later for Incydr \nProfessional, Enterprise, Gov F2, and Horizon product plans, and Code42 app version 9.0.0 or later for \nIncydr Basic, Advanced, and Gov F1 product plans.\n",
+          "description": "The type of the trusted activity.\n\nThe `ACCOUNT_NAME` type requires agent version 1.5.0 or later (for `ONE_DRIVE`) and 1.6.0 or later \n(for `DROPBOX`) for Incydr Professional, Enterprise, Gov F2, and Horizon product plans. For Incydr Basic,\nAdvanced, and Gov F1 product plans, ACCOUNT_NAME requires Code42 app version 10.3.0 or later.\n",
           "enum": [
             "DOMAIN",
             "ACCOUNT_NAME",
@@ -14231,7 +14231,7 @@
       "additionalProperties": false,
       "properties": {
         "name": {
-          "description": "The name of a provider for a specified activity action.\n  ### Supported providers for trusted activity type and actions\n\n  - `DOMAIN`\n    - `CLOUD_SHARE`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ONE_DRIVE`\n    - `CLOUD_SYNC`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ICLOUD` \n      - `ONE_DRIVE` \n    - `EMAIL` \n      - `GMAIL`\n      - `OFFICE_365`\n  - `ACCOUNT_NAME`\n    - `CLOUD_SYNC`\n      - `ONE_DRIVE`\n",
+          "description": "The name of a provider for a specified activity action.\n  ### Supported providers for trusted activity type and actions\n\n  - `DOMAIN`\n    - `CLOUD_SHARE`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ONE_DRIVE`\n    - `CLOUD_SYNC`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ICLOUD` \n      - `ONE_DRIVE` \n    - `EMAIL` \n      - `GMAIL`\n      - `OFFICE_365`\n  - `ACCOUNT_NAME`\n    - `CLOUD_SYNC`\n      - `DROPBOX`\n      - `ONE_DRIVE`\n",
           "enum": [
             "BOX",
             "GOOGLE_DRIVE",
