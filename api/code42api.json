@@ -75,6 +75,12 @@
       }
     },
     {
+      "name": "Org",
+      "description": {
+        "$ref": "./api-descriptions/orgs.rmd"
+      }
+    },
+    {
       "name": "Rules",
       "description": {
         "$ref": "./api-descriptions/rules.rmd"
@@ -1185,6 +1191,154 @@
             "schema": {
               "$ref": "#/definitions/LegalHoldCustodianMatterListResponse-core"
             }
+          }
+        }
+      }
+    },
+    "/v1/orgs": {
+      "get": {
+        "tags": [
+          "Org"
+        ],
+        "summary": "Get a list of orgs",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "active",
+            "description": "When true, return only active orgs. When false, return only inactive orgs. Defaults to returning both.",
+            "type": "boolean"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/OrgListResponse-core"
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Org"
+        ],
+        "summary": "Create an org",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "A request that contains the fields for org creation.",
+            "schema": {
+              "$ref": "#/definitions/OrgCreateRequest-core"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/OrgResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/orgs/{orgGuid}": {
+      "get": {
+        "tags": [
+          "Org"
+        ],
+        "summary": "Get a specific org",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orgGuid",
+            "description": "The unique ID of the org to return.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/OrgResponse-core"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Org"
+        ],
+        "summary": "Update a specific org",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orgGuid",
+            "description": "The unique ID of the org to update.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "A request that contains one or more fields to update for the org.",
+            "schema": {
+              "$ref": "#/definitions/OrgUpdateRequest-core"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/OrgResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/orgs/{orgGuid}/activate": {
+      "post": {
+        "tags": [
+          "Org"
+        ],
+        "summary": "Activate a specific org",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orgGuid",
+            "description": "The unique ID of the org to activate.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/v1/orgs/{orgGuid}/deactivate": {
+      "post": {
+        "tags": [
+          "Org"
+        ],
+        "summary": "Deactivate a specific org",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "orgGuid",
+            "description": "The unique ID of the org to deactivate.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -6049,6 +6203,179 @@
           "format": "int32",
           "description": "Lifespan of the token.",
           "type": "integer"
+        }
+      }
+    },
+    "OrgCreateRequest-core": {
+      "type": "object",
+      "properties": {
+        "orgName": {
+          "description": "The name of the org to create.",
+          "type": "string"
+        },
+        "orgExtRef": {
+          "description": "The external reference of the org to create.",
+          "type": "string"
+        },
+        "parentOrgGuid": {
+          "description": "The parent ID of the org to create.",
+          "type": "string"
+        },
+        "notes": {
+          "description": "The notes of the org to create.",
+          "type": "string"
+        }
+      }
+    },
+    "OrgListResponse-core": {
+      "type": "object",
+      "properties": {
+        "totalCount": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "orgs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrgPreserveResponse-core"
+          }
+        }
+      }
+    },
+    "OrgPreserveResponse-core": {
+      "type": "object",
+      "properties": {
+        "orgGuid": {
+          "description": "The globally unique ID of this org.",
+          "type": "string"
+        },
+        "orgName": {
+          "description": "The name of this org",
+          "type": "string"
+        },
+        "orgExtRef": {
+          "description": "The optional external reference for this org, such as a serial number, asset tag, employee ID, or help desk issue ID.",
+          "type": "string"
+        },
+        "notes": {
+          "description": "The notes for this org.  Intended for optional additional descriptive information.",
+          "type": "string"
+        },
+        "parentOrgGuid": {
+          "description": "The globally unique ID of the parent org.",
+          "type": "string"
+        },
+        "active": {
+          "description": "Whether or not the org is currently active.",
+          "type": "boolean"
+        },
+        "creationDate": {
+          "description": "The date and time the org was created.",
+          "type": "string"
+        },
+        "modificationDate": {
+          "description": "The date and time the org was last modified.",
+          "type": "string"
+        },
+        "deactivationDate": {
+          "description": "The date and time the org was deactivated.",
+          "type": "string"
+        },
+        "registrationKey": {
+          "description": "The registration key for the org.",
+          "type": "string"
+        },
+        "userCount": {
+          "format": "int32",
+          "description": "The count of users within this org.",
+          "type": "integer"
+        },
+        "computerCount": {
+          "format": "int32",
+          "description": "The count of computers within this org.",
+          "type": "integer"
+        },
+        "orgCount": {
+          "format": "int32",
+          "description": "The count of child orgs for this org.",
+          "type": "integer"
+        }
+      }
+    },
+    "OrgResponse-core": {
+      "type": "object",
+      "properties": {
+        "orgGuid": {
+          "description": "The globally unique ID of this org.",
+          "type": "string"
+        },
+        "orgName": {
+          "description": "The name of this org",
+          "type": "string"
+        },
+        "orgExtRef": {
+          "description": "The optional external reference for this org, such as a serial number, asset tag, employee ID, or help desk issue ID.",
+          "type": "string"
+        },
+        "notes": {
+          "description": "The notes for this org.  Intended for optional additional descriptive information.",
+          "type": "string"
+        },
+        "parentOrgGuid": {
+          "description": "The globally unique ID of the parent org.",
+          "type": "string"
+        },
+        "active": {
+          "description": "Whether or not the org is currently active.",
+          "type": "boolean"
+        },
+        "creationDate": {
+          "description": "The date and time the org was created.",
+          "type": "string"
+        },
+        "modificationDate": {
+          "description": "The date and time the org was last modified.",
+          "type": "string"
+        },
+        "deactivationDate": {
+          "description": "The date and time the org was deactivated.",
+          "type": "string"
+        },
+        "registrationKey": {
+          "description": "The registration key for the org.",
+          "type": "string"
+        },
+        "userCount": {
+          "format": "int32",
+          "description": "The count of users within this org.",
+          "type": "integer"
+        },
+        "computerCount": {
+          "format": "int32",
+          "description": "The count of computers within this org.",
+          "type": "integer"
+        },
+        "orgCount": {
+          "format": "int32",
+          "description": "The count of child orgs for this org.",
+          "type": "integer"
+        }
+      }
+    },
+    "OrgUpdateRequest-core": {
+      "type": "object",
+      "properties": {
+        "orgName": {
+          "description": "The updated name for the org.",
+          "type": "string"
+        },
+        "orgExtRef": {
+          "description": "The updated external reference for the org.",
+          "type": "string"
+        },
+        "notes": {
+          "description": "The updated notes for the org.",
+          "type": "string"
         }
       }
     },
