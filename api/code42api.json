@@ -21,7 +21,7 @@
       }
     },
     {
-      "name": "Auth",
+      "name": "Authentication",
       "description": {
         "$ref": "./api-descriptions/auth.rmd"
       }
@@ -51,7 +51,7 @@
       }
     },
     {
-      "name": "Device",
+      "name": "Devices",
       "description": {
         "$ref": "./api-descriptions/device.rmd"
       }
@@ -69,13 +69,13 @@
       }
     },
     {
-      "name": "LegalHold",
+      "name": "Legal Hold",
       "description": {
         "$ref": "./api-descriptions/legal_hold.rmd"
       }
     },
     {
-      "name": "Org",
+      "name": "Organizations",
       "description": {
         "$ref": "./api-descriptions/orgs.rmd"
       }
@@ -93,7 +93,7 @@
       }
     },
     {
-      "name": "User",
+      "name": "Users",
       "description": {
         "$ref": "./api-descriptions/user.rmd"
       }
@@ -475,6 +475,78 @@
         }
       }
     },
+    "/v1/cases/{caseNumber}/export/full": {
+      "get": {
+        "tags": [
+          "Cases"
+        ],
+        "summary": "Export some or all components of a case.",
+        "operationId": "caseExportUsingGET",
+        "parameters": [
+          {
+            "name": "caseNumber",
+            "in": "path",
+            "description": "Unique numeric identifier for the case.",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "fileEvents",
+            "in": "query",
+            "description": "Specifies inclusion of the file events CSV in the zip. Defaults to true if no value is supplied.",
+            "required": false,
+            "type": "boolean",
+            "default": true,
+            "allowEmptyValue": false,
+            "x-example": true
+          },
+          {
+            "name": "files",
+            "in": "query",
+            "description": "Specifies inclusion of the files in the zip. Defaults to true if no value is supplied.",
+            "required": false,
+            "type": "boolean",
+            "default": true,
+            "allowEmptyValue": false,
+            "x-example": true
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "Specifies the locale for the summary PDF export. Defaults to English if no value is supplied.",
+            "required": false,
+            "type": "string",
+            "allowEmptyValue": false,
+            "x-example": "de"
+          },
+          {
+            "name": "summary",
+            "in": "query",
+            "description": "Specifies inclusion of the summary PDF in the zip. Defaults to true if no value is supplied.",
+            "required": false,
+            "type": "boolean",
+            "default": true,
+            "allowEmptyValue": false,
+            "x-example": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Streaming response.",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
+            }
+          },
+          "400": {
+            "description": "Bad Request: Must include at least one export type."
+          },
+          "404": {
+            "description": "Not Found: Case does not exist."
+          }
+        }
+      }
+    },
     "/v1/cases/{caseNumber}/fileevent": {
       "get": {
         "tags": [
@@ -763,7 +835,7 @@
     "/v1/oauth": {
       "post": {
         "tags": [
-          "Auth"
+          "Authentication"
         ],
         "summary": "Create an API Client authentication token",
         "description": "Most APIs require a Bearer token to be submitted in order to determine the calling user's identity and permissions. Call this endpoint with your API Client ID and Secret to retrieve a Bearer token.",
@@ -780,7 +852,7 @@
     "/v1/auth": {
       "get": {
         "tags": [
-          "Auth"
+          "Authentication"
         ],
         "summary": "Get a User authentication token",
         "description": "Most APIs require a Bearer token to be submitted in order to determine the calling user's identity and permissions. Call this endpoint with your user's basic authentication credentials to retrieve its Bearer token.\r\nIf your organization uses two-factor authentication for local users, you must also include a totp-auth header value containing the Time-based One-Time Password (TOTP).",
@@ -794,27 +866,10 @@
         }
       }
     },
-    "/v1/customer": {
-      "get": {
-        "tags": [
-          "Customer"
-        ],
-        "summary": "Get customer account information",
-        "description": "Some APIs require a tenant ID to be submitted to retrieve or edit Code42 data. Call this endpoint to retrieve the tenant ID to use for those APIs.",
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/CustomerResponse-core"
-            }
-          }
-        }
-      }
-    },
     "/v1/devices": {
       "get": {
         "tags": [
-          "Device"
+          "Devices"
         ],
         "summary": "Get a list of devices",
         "parameters": [
@@ -872,7 +927,7 @@
     "/v1/devices/{deviceId}": {
       "get": {
         "tags": [
-          "Device"
+          "Devices"
         ],
         "summary": "Get a device",
         "parameters": [
@@ -897,7 +952,7 @@
     "/v1/legal-hold/policies": {
       "get": {
         "tags": [
-          "LegalHold"
+          "Legal Hold"
         ],
         "summary": "Get a list of policies",
         "responses": {
@@ -913,7 +968,7 @@
     "/v1/legal-hold/policies/{policyId}": {
       "get": {
         "tags": [
-          "LegalHold"
+          "Legal Hold"
         ],
         "summary": "Get a policy",
         "parameters": [
@@ -938,7 +993,7 @@
     "/v1/legal-hold/matters": {
       "get": {
         "tags": [
-          "LegalHold"
+          "Legal Hold"
         ],
         "summary": "Get a list matters",
         "parameters": [
@@ -988,7 +1043,7 @@
       },
       "post": {
         "tags": [
-          "LegalHold"
+          "Legal Hold"
         ],
         "summary": "Create a matter",
         "parameters": [
@@ -1013,7 +1068,7 @@
     "/v1/legal-hold/matters/{matterId}": {
       "get": {
         "tags": [
-          "LegalHold"
+          "Legal Hold"
         ],
         "summary": "Get a matter",
         "parameters": [
@@ -1038,7 +1093,7 @@
     "/v1/legal-hold/matters/{matterId}/deactivate": {
       "post": {
         "tags": [
-          "LegalHold"
+          "Legal Hold"
         ],
         "summary": "Deactivate a matter",
         "parameters": [
@@ -1060,7 +1115,7 @@
     "/v1/legal-hold/matters/{matterId}/reactivate": {
       "post": {
         "tags": [
-          "LegalHold"
+          "Legal Hold"
         ],
         "summary": "Reactivate a matter",
         "parameters": [
@@ -1085,7 +1140,7 @@
     "/v1/legal-hold/matters/{matterId}/custodians": {
       "get": {
         "tags": [
-          "LegalHold"
+          "Legal Hold"
         ],
         "summary": "Get a list of matter custodians",
         "parameters": [
@@ -1124,7 +1179,7 @@
       },
       "post": {
         "tags": [
-          "LegalHold"
+          "Legal Hold"
         ],
         "summary": "Add a user to a matter",
         "parameters": [
@@ -1157,7 +1212,7 @@
     "/v1/legal-hold/custodians/{userId}": {
       "get": {
         "tags": [
-          "LegalHold"
+          "Legal Hold"
         ],
         "summary": "Get a list of matters for a user",
         "parameters": [
@@ -1198,9 +1253,9 @@
     "/v1/orgs": {
       "get": {
         "tags": [
-          "Org"
+          "Organizations"
         ],
-        "summary": "Get a list of orgs",
+        "summary": "Get a list of organizations",
         "parameters": [
           {
             "in": "query",
@@ -1220,9 +1275,9 @@
       },
       "post": {
         "tags": [
-          "Org"
+          "Organizations"
         ],
-        "summary": "Create an org",
+        "summary": "Create an organization",
         "parameters": [
           {
             "in": "body",
@@ -1246,9 +1301,9 @@
     "/v1/orgs/{orgGuid}": {
       "get": {
         "tags": [
-          "Org"
+          "Organizations"
         ],
-        "summary": "Get a specific org",
+        "summary": "Get a specific organization",
         "parameters": [
           {
             "in": "path",
@@ -1269,9 +1324,9 @@
       },
       "put": {
         "tags": [
-          "Org"
+          "Organizations"
         ],
-        "summary": "Update a specific org",
+        "summary": "Update a specific organization",
         "parameters": [
           {
             "in": "path",
@@ -1302,9 +1357,9 @@
     "/v1/orgs/{orgGuid}/activate": {
       "post": {
         "tags": [
-          "Org"
+          "Organizations"
         ],
-        "summary": "Activate a specific org",
+        "summary": "Activate a specific organization",
         "parameters": [
           {
             "in": "path",
@@ -1324,9 +1379,9 @@
     "/v1/orgs/{orgGuid}/deactivate": {
       "post": {
         "tags": [
-          "Org"
+          "Organizations"
         ],
-        "summary": "Deactivate a specific org",
+        "summary": "Deactivate a specific organization",
         "parameters": [
           {
             "in": "path",
@@ -1346,7 +1401,7 @@
     "/v1/users": {
       "get": {
         "tags": [
-          "User"
+          "Users"
         ],
         "summary": "Get a list of users",
         "parameters": [
@@ -1398,7 +1453,7 @@
     "/v1/users/{userId}": {
       "get": {
         "tags": [
-          "User"
+          "Users"
         ],
         "summary": "Get a user",
         "parameters": [
@@ -1423,7 +1478,7 @@
     "/v1/users/{userId}/devices": {
       "get": {
         "tags": [
-          "User"
+          "Users"
         ],
         "summary": "Get a list of devices for a particular user",
         "parameters": [
@@ -5582,23 +5637,6 @@
         },
         "email": {
           "description": "The email of the custodian.",
-          "type": "string"
-        }
-      }
-    },
-    "CustomerResponse-core": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "description": "The customer's name.",
-          "type": "string"
-        },
-        "registrationKey": {
-          "description": "The customer's Code42 registration key.",
-          "type": "string"
-        },
-        "tenantId": {
-          "description": "The customer's unique ID identifying it within Code42.",
           "type": "string"
         }
       }
