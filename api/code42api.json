@@ -7064,6 +7064,8 @@
               "risk.severity",
               "risk.trustReason",
               "risk.trusted",
+              "source.accountName",
+              "source.accountType",
               "source.category",
               "source.domain",
               "source.domains",
@@ -7085,6 +7087,7 @@
               "source.tabs.titleError",
               "source.tabs.url",
               "source.tabs.urlError",
+              "source.user.email",
               "user.deviceUid",
               "user.email",
               "user.id"
@@ -7198,6 +7201,8 @@
             "risk.severity",
             "risk.trustReason",
             "risk.trusted",
+            "source.accountName",
+            "source.accountType",
             "source.category",
             "source.domain",
             "source.domains",
@@ -7219,6 +7224,7 @@
             "source.tabs.titleError",
             "source.tabs.url",
             "source.tabs.urlError",
+            "source.user.email",
             "user.deviceUid",
             "user.email",
             "user.id"
@@ -8307,6 +8313,8 @@
             "risk.severity",
             "risk.trustReason",
             "risk.trusted",
+            "source.accountName",
+            "source.accountType",
             "source.category",
             "source.domain",
             "source.domains",
@@ -8328,6 +8336,7 @@
             "source.tabs.titleError",
             "source.tabs.url",
             "source.tabs.urlError",
+            "source.user.email",
             "user.deviceUid",
             "user.email",
             "user.id"
@@ -9083,6 +9092,8 @@
               "risk.severity",
               "risk.trustReason",
               "risk.trusted",
+              "source.accountName",
+              "source.accountType",
               "source.category",
               "source.domain",
               "source.domains",
@@ -9104,6 +9115,7 @@
               "source.tabs.titleError",
               "source.tabs.url",
               "source.tabs.urlError",
+              "source.user.email",
               "user.deviceUid",
               "user.email",
               "user.id"
@@ -9265,6 +9277,8 @@
             "risk.severity",
             "risk.trustReason",
             "risk.trusted",
+            "source.accountName",
+            "source.accountType",
             "source.category",
             "source.domain",
             "source.domains",
@@ -9286,6 +9300,7 @@
             "source.tabs.titleError",
             "source.tabs.url",
             "source.tabs.urlError",
+            "source.user.email",
             "user.deviceUid",
             "user.email",
             "user.id"
@@ -9678,6 +9693,8 @@
             "risk.severity",
             "risk.trustReason",
             "risk.trusted",
+            "source.accountName",
+            "source.accountType",
             "source.category",
             "source.domain",
             "source.domains",
@@ -9699,6 +9716,7 @@
             "source.tabs.titleError",
             "source.tabs.url",
             "source.tabs.urlError",
+            "source.user.email",
             "user.deviceUid",
             "user.email",
             "user.id"
@@ -9818,6 +9836,8 @@
             "risk.severity",
             "risk.trustReason",
             "risk.trusted",
+            "source.accountName",
+            "source.accountType",
             "source.category",
             "source.domain",
             "source.domains",
@@ -9839,6 +9859,7 @@
             "source.tabs.titleError",
             "source.tabs.url",
             "source.tabs.urlError",
+            "source.user.email",
             "user.deviceUid",
             "user.email",
             "user.id"
@@ -10129,6 +10150,8 @@
             "risk.severity",
             "risk.trustReason",
             "risk.trusted",
+            "source.accountName",
+            "source.accountType",
             "source.category",
             "source.domain",
             "source.domains",
@@ -10150,6 +10173,7 @@
             "source.tabs.titleError",
             "source.tabs.url",
             "source.tabs.urlError",
+            "source.user.email",
             "user.deviceUid",
             "user.email",
             "user.id"
@@ -10175,6 +10199,14 @@
         "privateIp"
       ],
       "properties": {
+        "accountName": {
+          "type": "string",
+          "description": "For cloud sync apps installed on user devices, the name of the cloud account where the event was observed. This can help identify if the activity occurred in a business or personal account."
+        },
+        "accountType": {
+          "type": "string",
+          "description": "For cloud sync apps installed on user devices, the type of account where the event was observed. For example, ‘BUSINESS’ or ‘PERSONAL’."
+        },
         "category": {
           "type": "string",
           "example": "Social Media",
@@ -10232,6 +10264,10 @@
           "items": {
             "$ref": "#/definitions/Tab-file-events"
           }
+        },
+        "user": {
+          "description": "Metadata about the source user.",
+          "$ref": "#/definitions/SourceUser-file-events"
         }
       },
       "title": "Source"
@@ -10251,6 +10287,23 @@
         }
       },
       "title": "SourceEmail"
+    },
+    "SourceUser-file-events": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "array",
+          "example": [
+            "first.last@example.com",
+            "first_last_example_com"
+          ],
+          "description": "For endpoint events where a file in cloud storage is synced to a device, the email address of the user logged in to the cloud storage provider.",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "title": "SourceUser"
     },
     "StreamingResponseBody-file-events": {
       "type": "object",
