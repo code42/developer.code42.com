@@ -866,6 +866,23 @@
         }
       }
     },
+    "/v1/customer": {
+      "get": {
+        "tags": [
+          "Customer"
+        ],
+        "summary": "Get customer account information",
+        "description": "Some APIs require a tenant ID to be submitted to retrieve or edit Code42 data. Call this endpoint to retrieve the tenant ID to use for those APIs.",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/CustomerResponse-core"
+            }
+          }
+        }
+      }
+    },
     "/v1/devices": {
       "get": {
         "tags": [
@@ -5637,6 +5654,23 @@
         },
         "email": {
           "description": "The email of the custodian.",
+          "type": "string"
+        }
+      }
+    },
+    "CustomerResponse-core": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The customer's name.",
+          "type": "string"
+        },
+        "registrationKey": {
+          "description": "The customer's Code42 registration key.",
+          "type": "string"
+        },
+        "tenantId": {
+          "description": "The customer's unique ID identifying it within Code42.",
           "type": "string"
         }
       }
