@@ -6598,6 +6598,50 @@
         }
       }
     },
+    "AcquiredFrom-file-events": {
+      "type": "object",
+      "properties": {
+        "agentTimestamp": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2020-10-27T15:16:05.369203Z",
+          "description": "Date and time that the Code42 service on the device detected an event; based on the device’s system clock and reported in Coordinated Universal Time (UTC)."
+        },
+        "eventAction": {
+          "type": "string",
+          "example": "file-downloaded",
+          "description": "The type of file event observed. For example: file-modified, application-read, removable-media-created."
+        },
+        "eventId": {
+          "type": "string",
+          "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
+          "description": "The unique identifier for the event."
+        },
+        "sourceCategory": {
+          "type": "string",
+          "example": "Social Media",
+          "description": "General category of where the file originated. For example: Cloud Storage, Email, Social Media."
+        },
+        "sourceName": {
+          "type": "string",
+          "example": "Mari's MacBook",
+          "description": "The name reported by the device's operating system.  This may be different than the device name in the Code42 console."
+        },
+        "tabs": {
+          "type": "array",
+          "description": "Metadata about the browser tab source.",
+          "items": {
+            "$ref": "#/definitions/Tab-file-events"
+          }
+        },
+        "userEmail": {
+          "type": "string",
+          "example": "cody@example.com",
+          "description": "The Code42 username used to sign in to the Code42 app on the device (for endpoint events) or the cloud service username of the person who caused the event (for cloud events)."
+        }
+      },
+      "title": "AcquiredFrom"
+    },
     "Destination-file-events": {
       "type": "object",
       "required": [
@@ -6754,13 +6798,6 @@
           "type": "string",
           "example": "Endpoint",
           "description": "The data source that captured the file event. For example: GoogleDrive, Office365, Salesforce."
-        },
-        "relatedEvents": {
-          "type": "array",
-          "description": "List of other events associated with this file. This can help determine the origin of the file.",
-          "items": {
-            "$ref": "#/definitions/RelatedEvent-file-events"
-          }
         },
         "shareType": {
           "type": "array",
@@ -7052,17 +7089,17 @@
               "event.ingested",
               "event.inserted",
               "event.observer",
-              "event.relatedEvents.agentTimestamp",
-              "event.relatedEvents.eventAction",
-              "event.relatedEvents.id",
-              "event.relatedEvents.sourceCategory",
-              "event.relatedEvents.sourceName",
-              "event.relatedEvents.tabs.title",
-              "event.relatedEvents.tabs.titleError",
-              "event.relatedEvents.tabs.url",
-              "event.relatedEvents.tabs.urlError",
-              "event.relatedEvents.userEmail",
               "event.shareType",
+              "file.acquiredFrom.agentTimestamp",
+              "file.acquiredFrom.eventAction",
+              "file.acquiredFrom.eventId",
+              "file.acquiredFrom.sourceCategory",
+              "file.acquiredFrom.sourceName",
+              "file.acquiredFrom.tabs.title",
+              "file.acquiredFrom.tabs.titleError",
+              "file.acquiredFrom.tabs.url",
+              "file.acquiredFrom.tabs.urlError",
+              "file.acquiredFrom.userEmail",
               "file.category",
               "file.categoryByBytes",
               "file.categoryByExtension",
@@ -7189,17 +7226,17 @@
             "event.ingested",
             "event.inserted",
             "event.observer",
-            "event.relatedEvents.agentTimestamp",
-            "event.relatedEvents.eventAction",
-            "event.relatedEvents.id",
-            "event.relatedEvents.sourceCategory",
-            "event.relatedEvents.sourceName",
-            "event.relatedEvents.tabs.title",
-            "event.relatedEvents.tabs.titleError",
-            "event.relatedEvents.tabs.url",
-            "event.relatedEvents.tabs.urlError",
-            "event.relatedEvents.userEmail",
             "event.shareType",
+            "file.acquiredFrom.agentTimestamp",
+            "file.acquiredFrom.eventAction",
+            "file.acquiredFrom.eventId",
+            "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceName",
+            "file.acquiredFrom.tabs.title",
+            "file.acquiredFrom.tabs.titleError",
+            "file.acquiredFrom.tabs.url",
+            "file.acquiredFrom.tabs.urlError",
+            "file.acquiredFrom.userEmail",
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
@@ -7289,6 +7326,12 @@
         "name"
       ],
       "properties": {
+        "acquiredFrom": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/AcquiredFrom-file-events"
+          }
+        },
         "category": {
           "type": "string",
           "example": "Audio",
@@ -8301,17 +8344,17 @@
             "event.ingested",
             "event.inserted",
             "event.observer",
-            "event.relatedEvents.agentTimestamp",
-            "event.relatedEvents.eventAction",
-            "event.relatedEvents.id",
-            "event.relatedEvents.sourceCategory",
-            "event.relatedEvents.sourceName",
-            "event.relatedEvents.tabs.title",
-            "event.relatedEvents.tabs.titleError",
-            "event.relatedEvents.tabs.url",
-            "event.relatedEvents.tabs.urlError",
-            "event.relatedEvents.userEmail",
             "event.shareType",
+            "file.acquiredFrom.agentTimestamp",
+            "file.acquiredFrom.eventAction",
+            "file.acquiredFrom.eventId",
+            "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceName",
+            "file.acquiredFrom.tabs.title",
+            "file.acquiredFrom.tabs.titleError",
+            "file.acquiredFrom.tabs.url",
+            "file.acquiredFrom.tabs.urlError",
+            "file.acquiredFrom.userEmail",
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
@@ -8545,50 +8588,6 @@
         }
       },
       "title": "QueryProblem«SearchTermV2»"
-    },
-    "RelatedEvent-file-events": {
-      "type": "object",
-      "properties": {
-        "agentTimestamp": {
-          "type": "string",
-          "format": "date-time",
-          "example": "2020-10-27T15:16:05.369203Z",
-          "description": "Date and time that the Code42 service on the device detected an event; based on the device’s system clock and reported in Coordinated Universal Time (UTC)."
-        },
-        "eventAction": {
-          "type": "string",
-          "example": "file-downloaded",
-          "description": "The type of file event observed. For example: file-modified, application-read, removable-media-created."
-        },
-        "id": {
-          "type": "string",
-          "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
-          "description": "The unique identifier for the event."
-        },
-        "sourceCategory": {
-          "type": "string",
-          "example": "Social Media",
-          "description": "General category of where the file originated. For example: Cloud Storage, Email, Social Media."
-        },
-        "sourceName": {
-          "type": "string",
-          "example": "Mari's MacBook",
-          "description": "The name reported by the device's operating system.  This may be different than the device name in the Code42 console."
-        },
-        "tabs": {
-          "type": "array",
-          "description": "Metadata about the browser tab source.",
-          "items": {
-            "$ref": "#/definitions/Tab-file-events"
-          }
-        },
-        "userEmail": {
-          "type": "string",
-          "example": "cody@example.com",
-          "description": "The Code42 username used to sign in to the Code42 app on the device (for endpoint events) or the cloud service username of the person who caused the event (for cloud events)."
-        }
-      },
-      "title": "RelatedEvent"
     },
     "RemovableMedia-file-events": {
       "type": "object",
@@ -9080,17 +9079,17 @@
               "event.ingested",
               "event.inserted",
               "event.observer",
-              "event.relatedEvents.agentTimestamp",
-              "event.relatedEvents.eventAction",
-              "event.relatedEvents.id",
-              "event.relatedEvents.sourceCategory",
-              "event.relatedEvents.sourceName",
-              "event.relatedEvents.tabs.title",
-              "event.relatedEvents.tabs.titleError",
-              "event.relatedEvents.tabs.url",
-              "event.relatedEvents.tabs.urlError",
-              "event.relatedEvents.userEmail",
               "event.shareType",
+              "file.acquiredFrom.agentTimestamp",
+              "file.acquiredFrom.eventAction",
+              "file.acquiredFrom.eventId",
+              "file.acquiredFrom.sourceCategory",
+              "file.acquiredFrom.sourceName",
+              "file.acquiredFrom.tabs.title",
+              "file.acquiredFrom.tabs.titleError",
+              "file.acquiredFrom.tabs.url",
+              "file.acquiredFrom.tabs.urlError",
+              "file.acquiredFrom.userEmail",
               "file.category",
               "file.categoryByBytes",
               "file.categoryByExtension",
@@ -9265,17 +9264,17 @@
             "event.ingested",
             "event.inserted",
             "event.observer",
-            "event.relatedEvents.agentTimestamp",
-            "event.relatedEvents.eventAction",
-            "event.relatedEvents.id",
-            "event.relatedEvents.sourceCategory",
-            "event.relatedEvents.sourceName",
-            "event.relatedEvents.tabs.title",
-            "event.relatedEvents.tabs.titleError",
-            "event.relatedEvents.tabs.url",
-            "event.relatedEvents.tabs.urlError",
-            "event.relatedEvents.userEmail",
             "event.shareType",
+            "file.acquiredFrom.agentTimestamp",
+            "file.acquiredFrom.eventAction",
+            "file.acquiredFrom.eventId",
+            "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceName",
+            "file.acquiredFrom.tabs.title",
+            "file.acquiredFrom.tabs.titleError",
+            "file.acquiredFrom.tabs.url",
+            "file.acquiredFrom.tabs.urlError",
+            "file.acquiredFrom.userEmail",
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
@@ -9681,17 +9680,17 @@
             "event.ingested",
             "event.inserted",
             "event.observer",
-            "event.relatedEvents.agentTimestamp",
-            "event.relatedEvents.eventAction",
-            "event.relatedEvents.id",
-            "event.relatedEvents.sourceCategory",
-            "event.relatedEvents.sourceName",
-            "event.relatedEvents.tabs.title",
-            "event.relatedEvents.tabs.titleError",
-            "event.relatedEvents.tabs.url",
-            "event.relatedEvents.tabs.urlError",
-            "event.relatedEvents.userEmail",
             "event.shareType",
+            "file.acquiredFrom.agentTimestamp",
+            "file.acquiredFrom.eventAction",
+            "file.acquiredFrom.eventId",
+            "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceName",
+            "file.acquiredFrom.tabs.title",
+            "file.acquiredFrom.tabs.titleError",
+            "file.acquiredFrom.tabs.url",
+            "file.acquiredFrom.tabs.urlError",
+            "file.acquiredFrom.userEmail",
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
@@ -9824,17 +9823,17 @@
             "event.ingested",
             "event.inserted",
             "event.observer",
-            "event.relatedEvents.agentTimestamp",
-            "event.relatedEvents.eventAction",
-            "event.relatedEvents.id",
-            "event.relatedEvents.sourceCategory",
-            "event.relatedEvents.sourceName",
-            "event.relatedEvents.tabs.title",
-            "event.relatedEvents.tabs.titleError",
-            "event.relatedEvents.tabs.url",
-            "event.relatedEvents.tabs.urlError",
-            "event.relatedEvents.userEmail",
             "event.shareType",
+            "file.acquiredFrom.agentTimestamp",
+            "file.acquiredFrom.eventAction",
+            "file.acquiredFrom.eventId",
+            "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceName",
+            "file.acquiredFrom.tabs.title",
+            "file.acquiredFrom.tabs.titleError",
+            "file.acquiredFrom.tabs.url",
+            "file.acquiredFrom.tabs.urlError",
+            "file.acquiredFrom.userEmail",
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
@@ -10138,17 +10137,17 @@
             "event.ingested",
             "event.inserted",
             "event.observer",
-            "event.relatedEvents.agentTimestamp",
-            "event.relatedEvents.eventAction",
-            "event.relatedEvents.id",
-            "event.relatedEvents.sourceCategory",
-            "event.relatedEvents.sourceName",
-            "event.relatedEvents.tabs.title",
-            "event.relatedEvents.tabs.titleError",
-            "event.relatedEvents.tabs.url",
-            "event.relatedEvents.tabs.urlError",
-            "event.relatedEvents.userEmail",
             "event.shareType",
+            "file.acquiredFrom.agentTimestamp",
+            "file.acquiredFrom.eventAction",
+            "file.acquiredFrom.eventId",
+            "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceName",
+            "file.acquiredFrom.tabs.title",
+            "file.acquiredFrom.tabs.titleError",
+            "file.acquiredFrom.tabs.url",
+            "file.acquiredFrom.tabs.urlError",
+            "file.acquiredFrom.userEmail",
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
@@ -10904,7 +10903,7 @@
             },
             "srtKey": {
               "type": "string",
-              "description": "The alert attribute to sort by.  Value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId",
+              "description": "The alert attribute to sort by.  Value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, Severity",
               "example": "CreatedAt"
             },
             "srtDirection": {
@@ -10955,7 +10954,7 @@
           "properties": {
             "term": {
               "type": "string",
-              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, Severity, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
+              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, Severity.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
               "example": "Name"
             },
             "operator": {
