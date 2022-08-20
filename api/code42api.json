@@ -5225,6 +5225,7 @@
           "enum": [
             "DESCRIPTION_TOO_LONG",
             "FINDINGS_TOO_LONG",
+            "INVALID_CHAR_IN_REQUEST",
             "INVALID_PAGE_NUMBER",
             "INVALID_PAGE_SIZE",
             "INVALID_TIME_INTERVAL",
@@ -6627,6 +6628,14 @@
           "example": "Social Media",
           "description": "General category of where the file originated. For example: Cloud Storage, Email, Social Media."
         },
+        "sourceDomains": {
+          "type": "array",
+          "example": "example.com",
+          "description": "The domain section of the URLs reported in file.acquiredFrom.tabs.url.",
+          "items": {
+            "type": "string"
+          }
+        },
         "sourceName": {
           "type": "string",
           "example": "Mari's MacBook",
@@ -7099,6 +7108,7 @@
               "file.acquiredFrom.eventAction",
               "file.acquiredFrom.eventId",
               "file.acquiredFrom.sourceCategory",
+              "file.acquiredFrom.sourceDomains",
               "file.acquiredFrom.sourceName",
               "file.acquiredFrom.tabs.title",
               "file.acquiredFrom.tabs.titleError",
@@ -7236,6 +7246,7 @@
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceDomains",
             "file.acquiredFrom.sourceName",
             "file.acquiredFrom.tabs.title",
             "file.acquiredFrom.tabs.titleError",
@@ -8354,6 +8365,7 @@
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceDomains",
             "file.acquiredFrom.sourceName",
             "file.acquiredFrom.tabs.title",
             "file.acquiredFrom.tabs.titleError",
@@ -9089,6 +9101,7 @@
               "file.acquiredFrom.eventAction",
               "file.acquiredFrom.eventId",
               "file.acquiredFrom.sourceCategory",
+              "file.acquiredFrom.sourceDomains",
               "file.acquiredFrom.sourceName",
               "file.acquiredFrom.tabs.title",
               "file.acquiredFrom.tabs.titleError",
@@ -9274,6 +9287,7 @@
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceDomains",
             "file.acquiredFrom.sourceName",
             "file.acquiredFrom.tabs.title",
             "file.acquiredFrom.tabs.titleError",
@@ -9690,6 +9704,7 @@
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceDomains",
             "file.acquiredFrom.sourceName",
             "file.acquiredFrom.tabs.title",
             "file.acquiredFrom.tabs.titleError",
@@ -9833,6 +9848,7 @@
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceDomains",
             "file.acquiredFrom.sourceName",
             "file.acquiredFrom.tabs.title",
             "file.acquiredFrom.tabs.titleError",
@@ -10147,6 +10163,7 @@
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceCategory",
+            "file.acquiredFrom.sourceDomains",
             "file.acquiredFrom.sourceName",
             "file.acquiredFrom.tabs.title",
             "file.acquiredFrom.tabs.titleError",
