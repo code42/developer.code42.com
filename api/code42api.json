@@ -10457,7 +10457,7 @@
       ]
     },
     "AlertState-alerts": {
-      "type": "integer",
+      "type": "string",
       "description": "Enum indicating possible alert states.",
       "example": "OPEN",
       "x-enumNames": [
@@ -10671,7 +10671,7 @@
       ]
     },
     "RuleType-alerts": {
-      "type": "integer",
+      "type": "string",
       "description": "Rule type that generates alerts.",
       "example": "FED_ENDPOINT_EXFILTRATION",
       "x-enumNames": [
@@ -10690,7 +10690,7 @@
       ]
     },
     "SeverityRating-alerts": {
-      "type": "integer",
+      "type": "string",
       "description": "Possible severity values for an alert.",
       "example": "LOW",
       "x-enumNames": [
@@ -10705,7 +10705,7 @@
       ]
     },
     "RiskSeverityRating-alerts": {
-      "type": "integer",
+      "type": "string",
       "description": "",
       "x-enumNames": [
         "Unknown",
@@ -10749,7 +10749,7 @@
       ]
     },
     "NotificationType-alerts": {
-      "type": "integer",
+      "type": "string",
       "description": "Type of notification.",
       "example": "EMAIL",
       "x-enumNames": [
@@ -10796,7 +10796,7 @@
       ]
     },
     "WatchlistType-alerts": {
-      "type": "integer",
+      "type": "string",
       "description": "Type of watchlist.",
       "example": "DEPARTING_EMPLOYEE",
       "x-enumNames": [
@@ -10848,7 +10848,7 @@
       ]
     },
     "ProblemType-alerts": {
-      "type": "integer",
+      "type": "string",
       "description": "Potential issues when running a query on alerts.",
       "example": "SearchFailed",
       "x-enumNames": [
@@ -10993,7 +10993,7 @@
       ]
     },
     "FilterOperator-alerts": {
-      "type": "integer",
+      "type": "string",
       "description": "The filter operator to use.",
       "example": "IS",
       "x-enumNames": [
@@ -11020,7 +11020,7 @@
       ]
     },
     "SearchClause-alerts": {
-      "type": "integer",
+      "type": "string",
       "description": "The filter clause to use when combining the search filters.  Must be AND/OR.s",
       "example": "AND",
       "x-enumNames": [
@@ -11033,7 +11033,7 @@
       ]
     },
     "SortDirection-alerts": {
-      "type": "integer",
+      "type": "string",
       "description": "The sort direction applied to the returned page of alerts.",
       "default": "ASC",
       "example": "DESC",
