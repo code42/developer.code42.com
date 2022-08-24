@@ -10,6 +10,10 @@ main() {
 
   echo "Applying transformations..."
 
+  ### Audit log
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/audit-log.yaml > ${docs}/audit
+  jq '.paths |= with_entries( .key |= gsub("/rpc/search/"; "/v1/audit/") )' < ${docs}/audit > $TMP && mv $TMP ${docs}/audit
+  jq '.paths[][].tags |= [ "Audit Log" ]' < ${docs}/audit > $TMP && mv $TMP ${docs}/audit
   ### Trusted Activities v1
   # prefix summary fields with "v1"
   jq '.paths[][].summary |= "v1 - \(.)"' < $TRUSTED_ACTIVITIES_V1 > $TMP && mv $TMP $TRUSTED_ACTIVITIES_V1
