@@ -2087,27 +2087,6 @@
             "type": "array"
           },
           {
-            "description": "Finds events whose affected_user_id is one of the given user ids. Only some event types have an\naffected user. When this argument is given, event types that don't have an affected user will not be found.",
-            "in": "query",
-            "items": {
-              "format": "uuid",
-              "type": "string"
-            },
-            "name": "affectedUserIds",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose affected_user_name is one of the given names. A user may be impacted by\nan event directly (e.g. user deactivated), or indirectly (e.g. device deactivated). Only some event types\ninclude an affected user. When this argument is given, event types that don't have an affected user will not be found.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "affectedUserNames",
-            "required": true,
-            "type": "array"
-          },
-          {
             "description": "Which page of events to view.",
             "format": "int32",
             "in": "query",
@@ -2125,7 +2104,7 @@
             "type": "integer"
           },
           {
-            "description": "Filters searchable events that match either actor or affected_user type",
+            "description": "Filters searchable events that match actor type",
             "in": "query",
             "items": {
               "enum": [
@@ -2260,27 +2239,6 @@
             "type": "array"
           },
           {
-            "description": "Finds events whose affected_user_id is one of the given user ids. Only some event types have an\naffected user. When this argument is given, event types that don't have an affected user will not be found.",
-            "in": "query",
-            "items": {
-              "format": "uuid",
-              "type": "string"
-            },
-            "name": "affectedUserIds",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose affected_user_name is one of the given names. A user may be impacted by\nan event directly (e.g. user deactivated), or indirectly (e.g. device deactivated). Only some event types\ninclude an affected user. When this argument is given, event types that don't have an affected user will not be found.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "affectedUserNames",
-            "required": true,
-            "type": "array"
-          },
-          {
             "description": "Which page of events to view.",
             "format": "int32",
             "in": "query",
@@ -2298,7 +2256,7 @@
             "type": "integer"
           },
           {
-            "description": "Filters export events that match either actor or affected_user type",
+            "description": "Filters export events that match actor type",
             "in": "query",
             "items": {
               "enum": [
@@ -2469,28 +2427,7 @@
             "type": "array"
           },
           {
-            "description": "Finds events whose affected_user_id is one of the given user ids. Only some event types have an\naffected user. When this argument is given, event types that don't have an affected user will not be found.",
-            "in": "query",
-            "items": {
-              "format": "uuid",
-              "type": "string"
-            },
-            "name": "affectedUserIds",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose affected_user_name is one of the given names. A user may be impacted by\nan event directly (e.g. user deactivated), or indirectly (e.g. device deactivated). Only some event types\ninclude an affected user. When this argument is given, event types that don't have an affected user will not be found.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "affectedUserNames",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Filters result counts that match either actor or affected_user type",
+            "description": "Filters result counts that match actor type",
             "in": "query",
             "items": {
               "enum": [
@@ -11523,7 +11460,7 @@
           "type": "string"
         },
         "actor_type": {
-          "description": "The type of actor or affected user account coming from the customer-directory-definition",
+          "description": "The type of actor account coming from the customer-directory-definition",
           "enum": [
             "USER",
             "SUPPORT_USER",
