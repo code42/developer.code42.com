@@ -1559,6 +1559,136 @@
         }
       }
     },
+    "/v1/users/{userId}/roles": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get the roles associated with a user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "The unique Code42 userId of the user to return.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RolesListResponse-core"
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update the roles associated with a user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "The unique Code42 userId of the user to return.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The request containing the role IDs to assign the new user (ex: desktop-user).  These will replace the existing roles assigned to the user.",
+            "schema": {
+              "$ref": "#/definitions/UpdateRolesRequest-core"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/UpdateRolesResponse-core"
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/{userId}/activate": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Activate a user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "The unique Code42 userId of the user to return.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/v1/users/{userId}/deactivate": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Deactivate a user",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "The unique Code42 userId of the user to return.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/v1/users/{userId}/move": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Move a user to a specified organization",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "description": "The unique Code42 userId of the user to return.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The request containing the orgId of the org to move the user to.",
+            "schema": {
+              "$ref": "#/definitions/MoveUserRequest-core"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/v2/file-events": {
       "post": {
         "tags": [
@@ -6203,6 +6333,15 @@
         }
       }
     },
+    "MoveUserRequest-core": {
+      "type": "object",
+      "properties": {
+        "orgGuid": {
+          "description": "The org GUID of the org to move the user to.",
+          "type": "string"
+        }
+      }
+    },
     "OAuthResponse-core": {
       "type": "object",
       "properties": {
@@ -6408,6 +6547,92 @@
         }
       }
     },
+    "RolePreserveResponse-core": {
+      "type": "object",
+      "properties": {
+        "roleId": {
+          "description": "A role ID.",
+          "type": "string"
+        },
+        "roleName": {
+          "description": "A role name.",
+          "type": "string"
+        },
+        "modificationDate": {
+          "description": "The date and time this role was last modified.",
+          "type": "string"
+        },
+        "creationDate": {
+          "description": "The date and time this role was created.",
+          "type": "string"
+        },
+        "permissionIds": {
+          "description": "The permissions given to this role.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "RolesListResponse-core": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "description": "A list of a user's current roles.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/RolePreserveResponse-core"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "UpdateRolesRequest-core": {
+      "type": "object",
+      "properties": {
+        "roleIds": {
+          "description": "The list of role IDs to associate with a user.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "UpdateRolesResponse-core": {
+      "type": "object",
+      "properties": {
+        "processedReplacementRoleIds": {
+          "description": "The role IDs processed.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "newlyAssignedRoleIds": {
+          "description": "The role IDs newly assigned to the user.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "unassignedRoleIds": {
+          "description": "The role IDs unassigned from the user.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "ignoredRoleIds": {
+          "description": "The role IDs ignored.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
     "UserListResponse-core": {
       "type": "object",
       "properties": {
@@ -6453,7 +6678,11 @@
           "readOnly": true
         },
         "orgId": {
-          "description": "The globally unique ID of the Code42 organization this user belongs to.",
+          "description": "The ID of the Code42 organization this user belongs to.",
+          "type": "string"
+        },
+        "orgGuid": {
+          "description": "The unique org ID of the Code42 organization this user belongs to.  This value should be used for actions conducted through the org APIs.",
           "type": "string"
         },
         "orgName": {
@@ -6512,7 +6741,11 @@
           "readOnly": true
         },
         "orgId": {
-          "description": "The globally unique ID of the Code42 organization this user belongs to.",
+          "description": "The ID of the Code42 organization this user belongs to.",
+          "type": "string"
+        },
+        "orgGuid": {
+          "description": "The unique org ID of the Code42 organization this user belongs to.  This value should be used for actions conducted through the org APIs.",
           "type": "string"
         },
         "orgName": {
