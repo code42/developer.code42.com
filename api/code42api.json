@@ -1479,7 +1479,7 @@
           {
             "in": "path",
             "name": "userId",
-            "description": "The unique Code42 userId of the user to return.",
+            "description": "The unique Code42 user ID of the user to return.",
             "required": true,
             "type": "string"
           }
@@ -1504,7 +1504,7 @@
           {
             "in": "path",
             "name": "userId",
-            "description": "The unique Code42 userId of the user whose devices should be returned.",
+            "description": "The unique Code42 user ID of the user whose devices should be returned.",
             "required": true,
             "type": "string"
           },
@@ -1569,7 +1569,7 @@
           {
             "in": "path",
             "name": "userId",
-            "description": "The unique Code42 userId of the user to return.",
+            "description": "The unique Code42 user ID of the user to return.",
             "required": true,
             "type": "string"
           }
@@ -1592,7 +1592,7 @@
           {
             "in": "path",
             "name": "userId",
-            "description": "The unique Code42 userId of the user to return.",
+            "description": "The unique Code42 user ID of the user to return.",
             "required": true,
             "type": "string"
           },
@@ -1625,7 +1625,7 @@
           {
             "in": "path",
             "name": "userId",
-            "description": "The unique Code42 userId of the user to return.",
+            "description": "The unique Code42 user ID of the user to return.",
             "required": true,
             "type": "string"
           }
@@ -1647,7 +1647,7 @@
           {
             "in": "path",
             "name": "userId",
-            "description": "The unique Code42 userId of the user to return.",
+            "description": "The unique Code42 user ID of the user to return.",
             "required": true,
             "type": "string"
           }
@@ -1669,14 +1669,14 @@
           {
             "in": "path",
             "name": "userId",
-            "description": "The unique Code42 userId of the user to return.",
+            "description": "The unique Code42 user ID of the user to return.",
             "required": true,
             "type": "string"
           },
           {
             "in": "body",
             "name": "body",
-            "description": "The request containing the orgId of the org to move the user to.",
+            "description": "The request containing the org GUID of the org to move the user to.",
             "schema": {
               "$ref": "#/definitions/MoveUserRequest-core"
             }
@@ -13097,7 +13097,7 @@
             },
             "userList": {
               "type": "array",
-              "description": "List of users to add to the rule.",
+              "description": "List of users to remove from the rule.",
               "items": {
                 "$ref": "#/definitions/UserBag-alert-rules"
               }
@@ -13275,7 +13275,7 @@
           "properties": {
             "id": {
               "type": "string",
-              "description": "Unique of the rule.",
+              "description": "Unique id of the rule.",
               "example": "RuleId"
             }
           }
@@ -13717,7 +13717,7 @@
           "properties": {
             "id": {
               "type": "string",
-              "description": "Unique of the rule.",
+              "description": "Unique id of the rule.",
               "example": "RuleId"
             }
           }
@@ -13980,7 +13980,7 @@
           "properties": {
             "id": {
               "type": "string",
-              "description": "Unique of the rule.",
+              "description": "Unique id of the rule.",
               "example": "RuleId"
             }
           }
@@ -14104,7 +14104,7 @@
           "properties": {
             "id": {
               "type": "string",
-              "description": "Unique of the rule.",
+              "description": "Unique id of the rule.",
               "example": "RuleId"
             }
           }
@@ -14566,6 +14566,7 @@
       "additionalProperties": false,
       "properties": {
         "includedUsers": {
+          "description": "A paged collection of users explictly added as included users for a watchlist.",
           "items": {
             "$ref": "#/definitions/IncludedUser"
           },
@@ -14602,12 +14603,13 @@
       "additionalProperties": false,
       "properties": {
         "totalCount": {
-          "description": "The total count of all included users..",
+          "description": "The total count of all watchlist members.",
           "example": 10,
           "format": "int64",
           "type": "integer"
         },
         "watchlistMembers": {
+          "description": "A paged collection of users who are members of the watchlist.  These users may have been added as an included user, or are members of an included department, etc.",
           "items": {
             "$ref": "#/definitions/WatchlistMember"
           },
