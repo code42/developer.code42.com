@@ -3289,7 +3289,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Enable or disable a list of rules",
+        "summary": "Enable or disable a list of rules.",
         "operationId": "Rules_UpdateIsEnabled",
         "parameters": [
           {
@@ -3318,7 +3318,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Add users to a rule's watch list",
+        "summary": "Add users to a rule's watch list.",
         "description": "Note that the added users could become either included included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command. See our [support docs](https://support.code42.com/Cloud/Monitoring_and_managing/Manage_security_alerts_with_the_Code42_API) for more information on this id.",
         "operationId": "Rules_AddUsersToRule",
         "parameters": [
@@ -3348,7 +3348,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Remove users from a rule's watch list",
+        "summary": "Remove users from a rule's watch list.",
         "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command. See our [support docs](https://support.code42.com/Cloud/Monitoring_and_managing/Manage_security_alerts_with_the_Code42_API) for more information on this id.",
         "operationId": "Rules_RemoveUsersFromRule",
         "parameters": [
@@ -3378,7 +3378,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Remove user aliases from a rule's watch list",
+        "summary": "Remove user aliases from a rule's watch list.",
         "description": "Note that the removed user aliases could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command. See our [support docs](https://support.code42.com/Cloud/Monitoring_and_managing/Manage_security_alerts_with_the_Code42_API) for more information on this id.",
         "operationId": "Rules_RemoveUserAliasesFromRule",
         "parameters": [
@@ -3408,7 +3408,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Remove all users from a rule's watch list",
+        "summary": "Remove all users from a rule's watch list.",
         "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command. See our [support docs](https://support.code42.com/Cloud/Monitoring_and_managing/Manage_security_alerts_with_the_Code42_API) for more information on this id.",
         "operationId": "Rules_RemoveAllUsersFromRule",
         "parameters": [
@@ -3438,7 +3438,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Get users assigned to a given rule",
+        "summary": "Get users assigned to a given rule.",
         "operationId": "Rules_QueryUsersOnRule",
         "parameters": [
           {
@@ -3471,7 +3471,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Get details about a set of Cloud Share Permissions rules",
+        "summary": "Get details about a set of Cloud Share Permissions rules.",
         "operationId": "Rules_QueryCloudSharePermissionsRule",
         "parameters": [
           {
@@ -3504,7 +3504,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Get details about a set of Endpoint Exfiltration rules",
+        "summary": "Get details about a set of Endpoint Exfiltration rules.",
         "operationId": "Rules_QueryEndpointExfiltrationRule",
         "parameters": [
           {
@@ -3537,7 +3537,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Get details about a set of File Type Mismatch rules",
+        "summary": "Get details about a set of File Type Mismatch rules.",
         "operationId": "Rules_QueryFileTypeMismatchRule",
         "parameters": [
           {
@@ -3570,7 +3570,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Get details about a set of File Name rules",
+        "summary": "Get details about a set of File Name rules.",
         "operationId": "Rules_QueryFileNameRule",
         "parameters": [
           {
