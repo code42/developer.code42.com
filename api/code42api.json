@@ -2143,285 +2143,29 @@
         }
       }
     },
-    "/v1/audit/search-audit-log": {
-      "post": {
-        "summary": "Search for audit events",
-        "parameters": [
-          {
-            "description": "Finds events whose type is one of the given types.",
-            "in": "query",
-            "items": {
-              "enum": [
-                "USER_REGISTERED",
-                "USER_ACTIVATED",
-                "USER_DEACTIVATED",
-                "USERNAME_CHANGED",
-                "NAME_CHANGED",
-                "EMAIL_CHANGED",
-                "EXTERNAL_ATTRIBUTES_CHANGED",
-                "EXTERNAL_REFERENCE_CHANGED",
-                "LOCAL_AUTH_ONLY_CHANGED",
-                "CASE_CREATED",
-                "CASE_SUBJECT_CHANGED",
-                "CASE_ASSIGNEE_CHANGED",
-                "CASE_FILE_EVENT_ADDED",
-                "CASE_FILE_EVENT_REMOVED",
-                "CASE_CLOSED",
-                "CASE_ARCHIVED",
-                "CASE_DELETED",
-                "SUPPORT_USER_ACCESS_DISABLED",
-                "SUPPORT_USER_ACCESS_ENABLED",
-                "SEARCH_ISSUED",
-                "FILE_DOWNLOAD",
-                "FILE_DOWNLOAD_IO_ERROR",
-                "PRESERVATION_RESTORE_ENDED",
-                "PRESERVATION_RESTORE_STARTED",
-                "PRESERVATION_ZIP_DOWNLOADED",
-                "LOGGED_IN"
-              ],
-              "type": "string"
-            },
-            "name": "eventTypes",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
-            "in": "query",
-            "items": {
-              "format": "uuid",
-              "type": "string"
-            },
-            "name": "actorIds",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "actorNames",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "actorIpAddresses",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Which page of events to view.",
-            "format": "int32",
-            "in": "query",
-            "name": "page",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "default": 100,
-            "description": "How many elements to return on each page.",
-            "format": "int32",
-            "in": "query",
-            "name": "pageSize",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "description": "Filters searchable events that match actor type",
-            "in": "query",
-            "items": {
-              "enum": [
-                "USER",
-                "SUPPORT_USER",
-                "UNKNOWN"
-              ],
-              "type": "string"
-            },
-            "name": "userTypes",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/DateRange-audit"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "properties": {
-                "events": {
-                  "description": "A list of zero or more events matching the given criteria.",
-                  "items": {
-                    "$ref": "#/definitions/Event-audit"
-                  },
-                  "type": "array"
-                },
-                "paginationRangeEndIndex": {
-                  "description": "The index of the last result returned, in relation to total results found",
-                  "format": "int64",
-                  "type": "integer"
-                },
-                "paginationRangeStartIndex": {
-                  "description": "The index of the first result returned, in relation to total results found",
-                  "format": "int64",
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "events",
-                "paginationRangeStartIndex",
-                "paginationRangeEndIndex"
-              ],
-              "type": "object"
-            }
-          }
-        },
-        "tags": [
-          "Audit Log"
-        ],
-        "description": "General purpose audit-log search. All parameters are optional. A search with no arguments returns all events\nto which the searching user has access.\n\nA search with multiple values for a single parameter applies \"or\" logic for that parameter.\ne.g. Searching for \"actor_name=[alice@example.com, bob@example.com]\" finds events for which either alice or bob was the actor.\n\nA search with multiple parameters applies \"and\" logic between parameters.\ne.g. Searching for \"event_type=user_registered,actor_name=alice@example.com\" finds user_registered events for which alice@example.com was the actor.",
-        "operationId": "rpc/search/search-audit-log"
-      }
-    },
     "/v1/audit/export": {
       "post": {
-        "summary": "Export search results to a file",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
-          {
-            "description": "Finds events whose type is one of the given types.",
-            "in": "query",
-            "items": {
-              "enum": [
-                "USER_REGISTERED",
-                "USER_ACTIVATED",
-                "USER_DEACTIVATED",
-                "USERNAME_CHANGED",
-                "NAME_CHANGED",
-                "EMAIL_CHANGED",
-                "EXTERNAL_ATTRIBUTES_CHANGED",
-                "EXTERNAL_REFERENCE_CHANGED",
-                "LOCAL_AUTH_ONLY_CHANGED",
-                "CASE_CREATED",
-                "CASE_SUBJECT_CHANGED",
-                "CASE_ASSIGNEE_CHANGED",
-                "CASE_FILE_EVENT_ADDED",
-                "CASE_FILE_EVENT_REMOVED",
-                "CASE_CLOSED",
-                "CASE_ARCHIVED",
-                "CASE_DELETED",
-                "SUPPORT_USER_ACCESS_DISABLED",
-                "SUPPORT_USER_ACCESS_ENABLED",
-                "SEARCH_ISSUED",
-                "FILE_DOWNLOAD",
-                "FILE_DOWNLOAD_IO_ERROR",
-                "PRESERVATION_RESTORE_ENDED",
-                "PRESERVATION_RESTORE_STARTED",
-                "PRESERVATION_ZIP_DOWNLOADED",
-                "LOGGED_IN"
-              ],
-              "type": "string"
-            },
-            "name": "eventTypes",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
-            "in": "query",
-            "items": {
-              "format": "uuid",
-              "type": "string"
-            },
-            "name": "actorIds",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "actorNames",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "actorIpAddresses",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Which page of events to view.",
-            "format": "int32",
-            "in": "query",
-            "name": "page",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "default": 100,
-            "description": "How many elements to return on each page.",
-            "format": "int32",
-            "in": "query",
-            "name": "pageSize",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "description": "Filters export events that match actor type",
-            "in": "query",
-            "items": {
-              "enum": [
-                "USER",
-                "SUPPORT_USER",
-                "UNKNOWN"
-              ],
-              "type": "string"
-            },
-            "name": "userTypes",
-            "required": false,
-            "type": "array"
-          },
           {
             "in": "body",
             "name": "body",
+            "required": true,
             "schema": {
-              "$ref": "#/definitions/DateRange-audit"
+              "$ref": "#/definitions/ExportRequest"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "schema": {
-              "properties": {
-                "downloadToken": {
-                  "description": "",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "downloadToken"
-              ],
-              "type": "object"
+              "$ref": "#/definitions/RpcExportResponse"
             }
           }
         },
@@ -2429,12 +2173,119 @@
           "Audit Log"
         ],
         "description": "Perform an export of the data, getting back a download token that can be redeemed to get the actual file.",
-        "operationId": "rpc/search/export"
+        "operationId": "export",
+        "summary": "Export search results to a file"
       }
     },
-    "/v1/audit/redeem-download-token": {
+    "/v1/audit/search-audit-log": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/csv"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SearchAuditLogBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RpcSearchResponse"
+            }
+          }
+        },
+        "tags": [
+          "Audit Log"
+        ],
+        "description": "General purpose audit-log search. All parameters are optional. A search with no arguments returns all events to which the searching user has access.\n\nA search with multiple values for a single parameter applies \"or\" logic for that parameter. e.g. Searching for \"actor_name=[alice@example.com, bob@example.com]\" finds events for which either alice or bob was the actor.\n\nA search with multiple parameters applies \"and\" logic between parameters. e.g. Searching for \"event_type=user_registered,actor_name=alice@example.com\" finds user_registered events for which alice@example.com was the actor.",
+        "operationId": "searchAuditLog",
+        "summary": "Search for audit events"
+      }
+    },
+    "/v1/audit/search-results-count": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SearchAuditLogBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RpcSearchResultsCountResponse"
+            }
+          }
+        },
+        "tags": [
+          "Audit Log"
+        ],
+        "description": "Returns the count of events found in a search with identical parameters and at the same time. Parameters follow an identical behavior for this results count query, as they would the audit-log search query.",
+        "operationId": "searchResultsCount",
+        "summary": "Get the number of events matching a search"
+      }
+    },
+    "/v1/audit/search-results-export": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/csv"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SearchAuditLogBody"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RpcSearchResponse"
+            }
+          }
+        },
+        "tags": [
+          "Audit Log"
+        ],
+        "description": "Audit-log search, parameters follow an identical behavior for this results count query, as they would the general purpose audit-log search query.",
+        "operationId": "exportStreaming",
+        "summary": "Search for audit events, specifically for large result sets"
+      }
+    },
+    "/v1/audit/{method}": {
       "get": {
-        "summary": "Download an exported search result",
+        "produces": [
+          "text/csv"
+        ],
         "parameters": [
           {
             "description": "Download token to execute an export, acquired from the export api.",
@@ -2446,33 +2297,9 @@
         ],
         "responses": {
           "200": {
-            "description": "Success",
+            "description": "OK",
             "schema": {
-              "properties": {
-                "events": {
-                  "description": "A list of zero or more events matching the given criteria.",
-                  "items": {
-                    "$ref": "#/definitions/Event-audit"
-                  },
-                  "type": "array"
-                },
-                "paginationRangeEndIndex": {
-                  "description": "The index of the last result returned, in relation to total results found",
-                  "format": "int64",
-                  "type": "integer"
-                },
-                "paginationRangeStartIndex": {
-                  "description": "The index of the first result returned, in relation to total results found",
-                  "format": "int64",
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "events",
-                "paginationRangeStartIndex",
-                "paginationRangeEndIndex"
-              ],
-              "type": "object"
+              "$ref": "#/definitions/RpcSearchResponse"
             }
           }
         },
@@ -2480,128 +2307,8 @@
           "Audit Log"
         ],
         "description": "Executes a search based on a download token from the export api.",
-        "operationId": "rpc/search/redeem-download-token"
-      }
-    },
-    "/v1/audit/search-results-count": {
-      "post": {
-        "summary": "Get the number of events matching a search",
-        "parameters": [
-          {
-            "description": "Finds events whose type is one of the given types.",
-            "in": "query",
-            "items": {
-              "enum": [
-                "USER_REGISTERED",
-                "USER_ACTIVATED",
-                "USER_DEACTIVATED",
-                "USERNAME_CHANGED",
-                "NAME_CHANGED",
-                "EMAIL_CHANGED",
-                "EXTERNAL_ATTRIBUTES_CHANGED",
-                "EXTERNAL_REFERENCE_CHANGED",
-                "LOCAL_AUTH_ONLY_CHANGED",
-                "CASE_CREATED",
-                "CASE_SUBJECT_CHANGED",
-                "CASE_ASSIGNEE_CHANGED",
-                "CASE_FILE_EVENT_ADDED",
-                "CASE_FILE_EVENT_REMOVED",
-                "CASE_CLOSED",
-                "CASE_ARCHIVED",
-                "CASE_DELETED",
-                "SUPPORT_USER_ACCESS_DISABLED",
-                "SUPPORT_USER_ACCESS_ENABLED",
-                "SEARCH_ISSUED",
-                "FILE_DOWNLOAD",
-                "FILE_DOWNLOAD_IO_ERROR",
-                "PRESERVATION_RESTORE_ENDED",
-                "PRESERVATION_RESTORE_STARTED",
-                "PRESERVATION_ZIP_DOWNLOADED",
-                "LOGGED_IN"
-              ],
-              "type": "string"
-            },
-            "name": "eventTypes",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
-            "in": "query",
-            "items": {
-              "format": "uuid",
-              "type": "string"
-            },
-            "name": "actorIds",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "actorNames",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "actorIpAddresses",
-            "required": true,
-            "type": "array"
-          },
-          {
-            "description": "Filters result counts that match actor type",
-            "in": "query",
-            "items": {
-              "enum": [
-                "USER",
-                "SUPPORT_USER",
-                "UNKNOWN"
-              ],
-              "type": "string"
-            },
-            "name": "userTypes",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "schema": {
-              "$ref": "#/definitions/DateRange-audit"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "properties": {
-                "totalResultCount": {
-                  "description": "The total number of results found by this search",
-                  "format": "int64",
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "totalResultCount"
-              ],
-              "type": "object"
-            }
-          }
-        },
-        "tags": [
-          "Audit Log"
-        ],
-        "description": "Returns the count of events found in a search with identical parameters and at the same time.\nParameters follow an identical behavior for this results count query, as they would the search query",
-        "operationId": "rpc/search/search-results-count"
+        "operationId": "redeemDownloadToken",
+        "summary": "Download an exported search result"
       }
     },
     "/v1/detection-lists/departingemployee/get": {
@@ -11670,45 +11377,262 @@
         }
       ]
     },
-    "DateRange-audit": {
-      "description": "Range of date, inclusive of its endpoints. If both \"start_time\" and \"end_time\" are missing, the range includes all time."
-    },
-    "Event-audit": {
-      "description": "The base value for all auditable actions or observations taken, caused or invoked by an actor.\nAll audit log events must inherit from this type.",
+    "DateRange": {
+      "description": "Finds events whose timestamp is within the given range, inclusive of endpoints.",
       "properties": {
-        "actor_agent": {
-          "description": "A text description of the web browser or other client application used by an actor to cause an event.",
+        "endTime": {
+          "format": "date-time",
           "type": "string"
         },
-        "actor_id": {
-          "description": "The unique id of the user or system that caused the event.",
-          "type": "string"
-        },
-        "actor_ip_address": {
-          "description": "An IPv4 or IPv6 address.",
-          "type": "string"
-        },
-        "actor_name": {
-          "description": "The name associated with a Code42 user account. For example: john.smith@example.com.",
-          "type": "string"
-        },
-        "actor_type": {
-          "description": "The type of actor account coming from the customer-directory-definition",
-          "enum": [
-            "USER",
-            "SUPPORT_USER",
-            "UNKNOWN"
-          ],
-          "type": "string"
-        },
-        "timestamp": {
-          "description": "The date and time of the event.",
+        "startTime": {
           "format": "date-time",
           "type": "string"
         }
       },
+      "type": "object"
+    },
+    "ExportRequest": {
+      "properties": {
+        "actorIds": {
+          "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
+          "example": "user@example.com",
+          "items": {
+            "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
+            "example": "user@example.com",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "actorIpAddresses": {
+          "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
+          "example": "127.0.0.1",
+          "items": {
+            "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
+            "example": "127.0.0.1",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "actorNames": {
+          "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
+          "example": "ExampleName",
+          "items": {
+            "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
+            "example": "ExampleName",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dateRange": {
+          "$ref": "#/definitions/DateRange"
+        },
+        "eventTypes": {
+          "description": "Finds events whose type is one of the given types.",
+          "example": "support_user_access_disabled",
+          "items": {
+            "description": "Finds events whose type is one of the given types.",
+            "example": "support_user_access_disabled",
+            "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
+            "type": "string"
+          },
+          "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
+          "type": "array"
+        },
+        "resourceIds": {
+          "description": "Filters export events that match resource_id",
+          "example": 1523,
+          "items": {
+            "description": "Filters export events that match resource_id",
+            "example": "1523",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "userTypes": {
+          "description": "Filters export events that match actor type",
+          "enum": [
+            "User",
+            "Support_User",
+            "Api_Client",
+            "System",
+            "Unknown"
+          ],
+          "example": "User",
+          "items": {
+            "description": "Filters export events that match actor type",
+            "enum": [
+              "User",
+              "Support_User",
+              "Api_Client",
+              "System",
+              "Unknown"
+            ],
+            "example": "User",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "RpcExportResponse": {
+      "properties": {
+        "downloadToken": {
+          "description": "Download token to execute an export, acquired from the export api.",
+          "example": "07FIbJogTJ2aHTBcyreAbYOvsd0FlEKuLyNumVvkbOQ=",
+          "type": "string"
+        }
+      },
       "required": [
-        "timestamp"
+        "downloadToken"
+      ],
+      "type": "object"
+    },
+    "RpcSearchResponse": {
+      "properties": {
+        "events": {
+          "description": "A list of zero or more events matching the given criteria.",
+          "items": {
+            "additionalProperties": {
+              "description": "A list of zero or more events matching the given criteria.",
+              "type": "object"
+            },
+            "description": "A list of zero or more events matching the given criteria.",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "paginationRangeEndIndex": {
+          "description": "The index of the last result returned, in relation to total results found",
+          "example": 62,
+          "format": "int64",
+          "type": "integer"
+        },
+        "paginationRangeStartIndex": {
+          "description": "The index of the first result returned, in relation to total results found",
+          "example": 0,
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "events",
+        "paginationRangeEndIndex",
+        "paginationRangeStartIndex"
+      ],
+      "type": "object"
+    },
+    "RpcSearchResultsCountResponse": {
+      "properties": {
+        "totalResultCount": {
+          "description": "The total number of results found by this search",
+          "example": 104,
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "totalResultCount"
+      ],
+      "type": "object"
+    },
+    "SearchAuditLogBody": {
+      "properties": {
+        "actorIds": {
+          "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
+          "example": "user@example.com",
+          "items": {
+            "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
+            "example": "user@example.com",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "actorIpAddresses": {
+          "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
+          "example": "127.0.0.1",
+          "items": {
+            "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
+            "example": "127.0.0.1",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "actorNames": {
+          "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
+          "example": "ExampleName",
+          "items": {
+            "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
+            "example": "ExampleName",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dateRange": {
+          "$ref": "#/definitions/DateRange"
+        },
+        "eventTypes": {
+          "description": "Finds events whose type is one of the given types.",
+          "example": "support_user_access_disabled",
+          "items": {
+            "description": "Finds events whose type is one of the given types.",
+            "example": "support_user_access_disabled",
+            "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
+            "type": "string"
+          },
+          "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
+          "type": "array"
+        },
+        "page": {
+          "default": 0,
+          "description": "Which page of events to view.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageSize": {
+          "default": 100,
+          "description": "How many elements to return on each page.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "resourceIds": {
+          "description": "Filters searchable events that match resource_id.",
+          "example": 1523,
+          "items": {
+            "description": "Filters searchable events that match resource_id.",
+            "example": "1523",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "userTypes": {
+          "description": "Filters searchable events that match actor type.",
+          "enum": [
+            "USER",
+            "SUPPORT_USER",
+            "API_CLIENT",
+            "SYSTEM",
+            "UNKNOWN"
+          ],
+          "example": "User",
+          "items": {
+            "description": "Filters searchable events that match actor type.",
+            "enum": [
+              "USER",
+              "SUPPORT_USER",
+              "API_CLIENT",
+              "SYSTEM",
+              "UNKNOWN"
+            ],
+            "example": "User",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "page",
+        "pageSize"
       ],
       "type": "object"
     },
