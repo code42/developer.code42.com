@@ -4553,6 +4553,7 @@
             "enum": [
               "DOMAIN",
               "ACCOUNT_NAME",
+              "GIT_REPOSITORY_URI",
               "URL_PATH",
               "SLACK"
             ],
@@ -14804,12 +14805,13 @@
           "type": "array"
         },
         "type": {
-          "description": "The type of an activity action.\n### Supported trusted activity types for each activity action type\n\n- `CLOUD_SHARE` \n  - `DOMAIN`\n- `CLOUD_SYNC` \n  - `DOMAIN`\n  - `ACCOUNT_NAME`\n- `EMAIL` \n  - `DOMAIN`\n- `FILE_UPLOAD`\n  - `DOMAIN`\n\nNote: `SLACK` and `URL_PATH` do not need any activity actions specified.\n",
+          "description": "The type of an activity action.\n### Supported trusted activity types for each activity action type\n\n- `CLOUD_SHARE` \n  - `DOMAIN`\n- `CLOUD_SYNC` \n  - `DOMAIN`\n  - `ACCOUNT_NAME`\n- `EMAIL` \n  - `DOMAIN`\n- `FILE_UPLOAD`\n  - `DOMAIN`\n- `GIT_PUSH`\n  - `DOMAIN`\n  - `GIT_REPOSITORY_URI`\n\nNote: `SLACK` and `URL_PATH` do not need any activity actions specified.\n",
           "enum": [
             "CLOUD_SHARE",
             "CLOUD_SYNC",
             "EMAIL",
-            "FILE_UPLOAD"
+            "FILE_UPLOAD",
+            "GIT_PUSH"
           ],
           "type": "string"
         }
@@ -14840,7 +14842,7 @@
       "additionalProperties": false,
       "properties": {
         "activityActionGroups": {
-          "description": "The list of activity action groups for the trusted activity. \n- `DOMAIN` - If array is empty, all activity actions are enabled. \n- `ACCOUNT_NAME` - Atleast 1 activity action group is required.\n- `SLACK` - No activity action groups are allowed - array must be empty.\n- `URL_PATH` - No activity action groups are allowed - array must be empty.\n",
+          "description": "The list of activity action groups for the trusted activity. \n- `DOMAIN` - If array is empty, all activity actions are enabled. \n- `ACCOUNT_NAME` - Atleast 1 activity action group is required.\n- `GIT_REPOSITORY_URI` - Atleast 1 activity action group is required.\n- `SLACK` - No activity action groups are allowed - array must be empty.\n- `URL_PATH` - No activity action groups are allowed - array must be empty.\n",
           "items": {
             "$ref": "#/definitions/ActivityActionGroup"
           },
@@ -14851,10 +14853,11 @@
           "type": "string"
         },
         "type": {
-          "description": "The type of the trusted activity.\n\nThe `ACCOUNT_NAME` type requires agent version 1.5.0 or later (for `ONE_DRIVE`) and 1.6.0 or later \n(for `DROPBOX`) for Incydr Professional, Enterprise, Gov F2, and Horizon product plans. For Incydr Basic,\nAdvanced, and Gov F1 product plans, ACCOUNT_NAME requires Code42 app version 10.3.0 or later.\n",
+          "description": "The type of the trusted activity.\n\nThe `ACCOUNT_NAME` type requires agent version 1.5.0 or later (for `ONE_DRIVE`) and 1.6.0 or later \n(for `DROPBOX`) for Incydr Professional, Enterprise, Gov F2, and Horizon product plans. For Incydr Basic,\nAdvanced, and Gov F1 product plans, `ACCOUNT_NAME` requires Code42 app version 10.3.0 or later.\n\nThe `GIT_REPOSITORY_URI` and `DOMAIN` types with `GIT_PUSH` action require the Incydr Professional, \nEnterprise, Gov F2, or Horizon product plan.\n",
           "enum": [
             "DOMAIN",
             "ACCOUNT_NAME",
+            "GIT_REPOSITORY_URI",
             "URL_PATH",
             "SLACK"
           ],
@@ -14888,7 +14891,7 @@
       "additionalProperties": false,
       "properties": {
         "name": {
-          "description": "The name of a provider for a specified activity action.\n  ### Supported providers for trusted activity type and actions\n\n  - `DOMAIN`\n    - `CLOUD_SHARE`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ONE_DRIVE`\n    - `CLOUD_SYNC`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ICLOUD` \n      - `ONE_DRIVE` \n    - `EMAIL` \n      - `GMAIL`\n      - `OFFICE_365`\n  - `ACCOUNT_NAME`\n    - `CLOUD_SYNC`\n      - `DROPBOX`\n      - `ONE_DRIVE`\n",
+          "description": "The name of a provider for a specified activity action.\n  ### Supported providers for trusted activity type and actions\n\n  - `DOMAIN`\n    - `CLOUD_SHARE`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ONE_DRIVE`\n    - `CLOUD_SYNC`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ICLOUD` \n      - `ONE_DRIVE` \n    - `EMAIL` \n      - `GMAIL`\n      - `OFFICE_365`\n  - `ACCOUNT_NAME`\n    - `CLOUD_SYNC`\n      - `DROPBOX`\n      - `ONE_DRIVE`\n\nNote: `FILE_UPLOAD` and `GIT_PUSH` activity actions do not need any providers specified.\n",
           "enum": [
             "BOX",
             "GOOGLE_DRIVE",
@@ -14964,7 +14967,7 @@
       "additionalProperties": false,
       "properties": {
         "activityActionGroups": {
-          "description": "The list of activity action groups for the trusted activity. \n- `DOMAIN` - If array is empty, existing activity action groups are maintained. \n- `ACCOUNT_NAME` - Atleast 1 activity action group is required.\n- `SLACK` - No activity action groups are allowed - array must be empty.\n- `URL_PATH` - No activity action groups are allowed - array must be empty.\n",
+          "description": "The list of activity action groups for the trusted activity. \n- `DOMAIN` - If array is empty, existing activity action groups are maintained. \n- `ACCOUNT_NAME` - Atleast 1 activity action group is required.\n- `GIT_REPOSITORY_URI` - Atleast 1 activity action group is required.\n- `SLACK` - No activity action groups are allowed - array must be empty.\n- `URL_PATH` - No activity action groups are allowed - array must be empty.\n",
           "items": {
             "$ref": "#/definitions/ActivityActionGroup"
           },
@@ -14979,6 +14982,7 @@
           "enum": [
             "DOMAIN",
             "ACCOUNT_NAME",
+            "GIT_REPOSITORY_URI",
             "URL_PATH",
             "SLACK"
           ],
