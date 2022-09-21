@@ -250,14 +250,16 @@
               "type": "string",
               "enum": [
                 "OPEN",
-                "CLOSED"
+                "CLOSED",
+                "ARCHIVED"
               ]
             },
             "collectionFormat": "multi",
             "allowEmptyValue": false,
             "enum": [
               "OPEN",
-              "CLOSED"
+              "CLOSED",
+              "ARCHIVED"
             ]
           },
           {
@@ -5007,6 +5009,7 @@
             "NAME_EMPTY",
             "NAME_EXISTS",
             "NAME_TOO_LONG",
+            "NO_EDITS_ONCE_ARCHIVED",
             "NO_EDITS_ONCE_CLOSED",
             "USER_VALIDATION_FORBIDDEN",
             "USER_VALIDATION_UNAVAILABLE"
@@ -5259,8 +5262,9 @@
         "status": {
           "type": "string",
           "example": "OPEN",
-          "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.",
+          "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.\nARCHIVED: The case is no longer active. File events and file contents are permanently deleted and no longer accessible. Archived cases cannot be un-archived or modified.",
           "enum": [
+            "ARCHIVED",
             "CLOSED",
             "OPEN"
           ]
@@ -5337,8 +5341,9 @@
         "status": {
           "type": "string",
           "example": "OPEN",
-          "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.",
+          "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.\nARCHIVED: The case is no longer active. File events and file contents are permanently deleted and no longer accessible. Archived cases cannot be un-archived or modified.",
           "enum": [
+            "ARCHIVED",
             "CLOSED",
             "OPEN"
           ]
@@ -5392,8 +5397,9 @@
         "status": {
           "type": "string",
           "example": "OPEN",
-          "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.",
+          "description": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.\nARCHIVED: The case is no longer active. File events and file contents are permanently deleted and no longer accessible. Archived cases cannot be un-archived or modified.",
           "enum": [
+            "ARCHIVED",
             "CLOSED",
             "OPEN"
           ]
