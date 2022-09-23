@@ -1993,7 +1993,7 @@
         "tags": [
           "Alerts"
         ],
-        "summary": "Change the state of a set of alerts",
+        "summary": "Change the state of a set of alerts.",
         "operationId": "Alerts_UpdateAlertState",
         "parameters": [
           {
@@ -2022,7 +2022,7 @@
         "tags": [
           "Alerts"
         ],
-        "summary": "Add a note to an alert",
+        "summary": "Add a note to an alert.",
         "operationId": "Alerts_AddNoteToAlert",
         "parameters": [
           {
@@ -2051,7 +2051,7 @@
         "tags": [
           "Alerts"
         ],
-        "summary": "Search for alerts",
+        "summary": "Search for alerts.",
         "operationId": "Alerts_QueryAlert",
         "parameters": [
           {
@@ -2084,7 +2084,7 @@
         "tags": [
           "Alerts"
         ],
-        "summary": "Get details about an alert",
+        "summary": "Get details about an alert.",
         "operationId": "Alerts_QueryAlertDetails",
         "parameters": [
           {
@@ -3028,7 +3028,7 @@
           "Rules"
         ],
         "summary": "Add users to a rule's watch list.",
-        "description": "Note that the added users could become either included included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command. See our [support docs](https://support.code42.com/Cloud/Monitoring_and_managing/Manage_security_alerts_with_the_Code42_API) for more information on this id.",
+        "description": "Note that the added users could become either included included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
         "operationId": "Rules_AddUsersToRule",
         "parameters": [
           {
@@ -3058,7 +3058,7 @@
           "Rules"
         ],
         "summary": "Remove users from a rule's watch list.",
-        "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command. See our [support docs](https://support.code42.com/Cloud/Monitoring_and_managing/Manage_security_alerts_with_the_Code42_API) for more information on this id.",
+        "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
         "operationId": "Rules_RemoveUsersFromRule",
         "parameters": [
           {
@@ -3088,7 +3088,7 @@
           "Rules"
         ],
         "summary": "Remove user aliases from a rule's watch list.",
-        "description": "Note that the removed user aliases could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command. See our [support docs](https://support.code42.com/Cloud/Monitoring_and_managing/Manage_security_alerts_with_the_Code42_API) for more information on this id.",
+        "description": "Note that the removed user aliases could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
         "operationId": "Rules_RemoveUserAliasesFromRule",
         "parameters": [
           {
@@ -3118,7 +3118,7 @@
           "Rules"
         ],
         "summary": "Remove all users from a rule's watch list.",
-        "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command. See our [support docs](https://support.code42.com/Cloud/Monitoring_and_managing/Manage_security_alerts_with_the_Code42_API) for more information on this id.",
+        "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
         "operationId": "Rules_RemoveAllUsersFromRule",
         "parameters": [
           {
