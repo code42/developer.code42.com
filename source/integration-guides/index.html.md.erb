@@ -1,0 +1,27 @@
+---
+title: Integration Guides
+
+search: true
+
+code_clipboard: true
+
+hide_toc: true
+---
+
+# Integration Guides
+
+## Microsoft Sentinel
+
+### Send Incydr Alerts to Sentinel with py42 and the Azure Monitor data collector API
+
+Microsoft Sentinel can ingest arbitrary json data through the [data collector API](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-collector-api),
+which accepts json records over HTTP.
+
+This guide will outline how to send Incydr Alerts to Sentinel with a Python script using [py42](https://py42docs.code42.com)
+and the data collector API. While this example will focus on Incydr Alerts, the following pattern can be re-used for any
+type of data you can pull from the Code42 API.
+
+<details style="margin-left: 30px; margin-right: 60px">
+    <summary>Expand guide</summary>
+    <%= partial "azure-sentinel-data-collector" %>
+</details>
