@@ -5,13 +5,14 @@
 - [Create a Code42 API Client](https://support.code42.com/Incydr/Admin/Code42_console_reference/API_clients) to authenticate py42. The `Alerts Read` permission is required to query alerts.
 - Gather your Azure Log Analytics `Workspace ID` and either `Primary Key` or `Secondary Key` to authenticate requests pushing data into Sentinel.
 
-<aside><p style="margin-left: 30px">
-Workspace ID and Keys can be found in your Log Analytics Workspace Settings under <b>Agents Management</b> > <b>Log Analytics agent instructions</b>.
+<aside style="margin: 30px">
+<p style="margin-left: 30px">
+<b>NOTE:</b> Workspace ID and Keys can be found in your Log Analytics Workspace Settings under <b>Agents Management</b> > <b>Log Analytics agent instructions</b>.
 </aside>
 
 ### Writing the script:
 
-First, import the py42 sdk client and classes for building your Alert query:
+First, import the py42 SDK client and required classes for building your Alert query:
 
 ```python
 import py42.sdk
@@ -30,7 +31,13 @@ date_filter = DateObserved.on_or_after(datetime.utcnow() - timedelta(days=3))
 alert_query = AlertQuery(date_filter)
 ```
 
-Initialize the py42 sdk object with your API client details:
+<aside style="margin: 30px">
+<p style="margin-left: 30px">
+<b>NOTE:</b> If you are scheduling this script to run regularly, you'll want to store the last retrieved alert's
+timestamp to use as the starting point for the next query, so you don't ingest duplicate alerts.
+</aside>
+
+Initialize the py42 SDK object with your API client details:
 
 ```python
 sdk = py42.sdk.from_api_client(
@@ -46,8 +53,9 @@ Fetch the alerts with your query:
 response = sdk.alerts.search(query)
 ```
 
-<aside><p style="margin-left: 30px">
-If you anticipate needing to ingest a large number of alerts, you may want to use the
+<aside style="margin: 30px">
+<p style="margin-left: 30px">
+<b>NOTE:</b> If you anticipate needing to ingest a large number of alerts, you may want to use the
 <a href=https://py42docs.code42.com/en/stable/methoddocs/alerts.html#py42.clients.alerts.AlertsClient.search_all_pages>search_all_pages()</a>
 method, which will yield a generator of pages that you can iterate over to get all the results in a single call.
 </aside>
