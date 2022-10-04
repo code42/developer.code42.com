@@ -2,6 +2,11 @@
 
 Review the user guides to learn how to perform tasks using the Code42 APIs. 
 
+
+## Release notes
+
+For release notes, see the [Code42 API release notes](https://support.code42.com/Release_Notes/Incydr_release_notes/API_release_notes).
+
 ## Get started
 
 ### Licensing
@@ -44,8 +49,10 @@ A successful request returns an authentication token. For example:
 Use the authentication token (also known as a bearer token) in all your API requests. For example, following is an API request to get a list of users:
 
 ```bash
-curl -X GET 'https://api.us.code42.com/v1/users?active=true&blocked=false&pageSize=100' \
--H "authorization: Bearer eyJjdHkiO_bxYJOOn28y...5HGtGHgJzHVCE8zfy1qRBf_rhchA" 
+curl -X GET https://api.us.code42.com/v1/users \
+-H 'content-type: application/json' \
+-H "authorization: Bearer eyJjdHkiO_bxYJOOn28y...5HGtGHgJzHVCE8zfy1qRBf_rhchA" \
+-d '{"active": true, "blocked": false,"username":[],"page":0,"pageSize":100}'
 ```
 
 ### Token considerations
@@ -297,13 +304,13 @@ The [/v1/alerts/query-alerts](/api#operation/Alerts_QueryAlert) API uses these f
 
 Filter Type | Operator | Criteria
 -------------- | -------------- | --------------
-DateObserved | On, On or after, On or before | Date the alert was triggered, in yyyy-MM-dd format
-Actor | Is, Is not, Contains, Does not contain | The username or cloud alias (actor) of the person who caused the event, or portions thereof
-Severity | Is, Is not | High, Medium, or Low
-RuleName | Is, Is not, Contains, Does not contain | The name of the rule, or portions thereof
-Description | Is, Is not, Contains, Does not contain | The description of the rule, or portions thereof
-AlertState | Is, Is not | Open or Dismissed
-AlertID | Is | The ID of a specific alert notification
+CreatedAt | ON, ON_OR_AFTER, ON_OR_BEFORE | Date the alert was triggered, in yyyy-MM-dd format
+Actor | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | The username or cloud alias (actor) of the person who caused the event, or portions thereof
+Severity | IS, IS_NOT | HIGH, MEDIUM, or LOW
+Name | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | The name of the rule, or portions thereof
+Description | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | The description of the rule, or portions thereof
+State | IS, IS_NOT | OPEN or DISMISSED
+AlertID | IS | The ID of a specific alert notification
 
 
 
@@ -501,19 +508,18 @@ The [/v1/alerts/rules/query-rule-metadata](/api#operation/Rules_QueryRuleMetadat
 
 Filter Type | Operator | Criteria
 -------------- | -------------- | --------------
-TenantId | Is | The ID of your organization or tenant in Code42.
-ObserverRuleId | Is | The ID of a specific alert rule.
-Type | Is, Is not | The rule's exposure type (Cloud share permissions changes rules: FED_CLOUD_SHARE_PERMISSIONS), (Exposure on an endpoint rules: FED_ENDPOINT_EXFILTRATION), (Suspicious file mismatch rules: FED_FILE_TYPE_MISMATCH)
-Name | Is, Is not, Contains, Does not contain | The name of the rule, or portions thereof
-Description | Is, Is not, Contains, Does not contain | The description of the rule, or portions thereof
-Severity | Is, Is not | High, Medium, or low
-IsSystem | Is | True or False. Indicates whether the rule is a default rule 
-IsEnabled | Is | True or False. Indicates whether the rule is enabled or disabled.
-RuleSource | Is, Is not | The source that created the rule. For rules created manually: Alerting. 
-ModifiedAt | On, On or after, On or before | Date the rule was modified, in yyyy-MM-dd format
-ModifiedBy | Is, Is not, Contains, Does not contain | Username of the person who last modified the rule. 
-CreatedAt | On, On or after, On or before | Date the rule was created, in yyyy-MM-dd format
-CreatedBy | Is, Is not, Contains, Does not contain | Username of the person who created the rule. 
+TenantId | IS | The ID of your organization or tenant in Code42
+ObserverRuleId | IS | The ID of a specific alert rule
+Type | IS, IS_NOT | The rule's exposure type (Cloud share permissions changes rules: FED_CLOUD_SHARE_PERMISSIONS), (Exposure on an endpoint rules: FED_ENDPOINT_EXFILTRATION), (Suspicious file mismatch rules: FED_FILE_TYPE_MISMATCH)
+Name | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | The name of the rule, or portions thereof
+Description | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | The description of the rule, or portions thereof
+Severity | IS, IS_NOT | HIGH, MEDIUM, or LOW
+IsEnabled | IS | True or False. Indicates whether the rule is enabled or disabled
+RuleSource | IS, IS_NOT | The source that created the rule (for rules created manually: Alerting) 
+ModifiedAt | ON, ON_OR_AFTER, ON_OR_BEFORE | Date the rule was modified, in yyyy-MM-dd format
+ModifiedBy | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | Username of the person who last modified the rule 
+CreatedAt | ON, ON_OR_AFTER, ON_OR_BEFORE | Date the rule was created, in yyyy-MM-dd format
+CreatedBy | IS, IS_NOT, CONTAINS, DOES_NOT_CONTAIN | Username of the person who created the rule 
 
 
 ## Manage cases
@@ -671,6 +677,7 @@ In the preceding example, replace `<userUID>` with the user's UID.
 
 Use the File Events API to search for file activity, also known as "Forensic Search". 
 
+
 ### Groups and filters
 
 File Events API queries are organized by groups of filters. This structure facilitates complicated requests with multiple `AND` or `OR` conditions. For example, use case 1 in the [Sample use cases](#sample-use-cases) section searches for files matching any one of 11 different file extensions that also exist in any one of nine different locations. Search queries are limited to a total of 1,024 criteria per request.
@@ -679,7 +686,7 @@ For example, the JSON below uses two groups of filters:
 
 * The first group uses a `filterClause` value of `OR`, which returns results if any of the four MD5 values are found (`db349b97c37d22f5ea1d1841e3c89eb4` or `84c82835a5d21bbcf75a61706d8ab549` or `f351e1fcca0c4ea05fc44d15a17f8b36` or `7bf2b57f2a205768755c07f238fb32cc`).
 
-* The second group uses a `filterClause` value of `AND`, which returns results only if all criteria in the filter are met (in this example, `on or after 2018-02-01` **and** `on or before 2018-02-07`).
+* The second group uses a `filterClause` value of `AND`, which returns results only if all criteria in the filter are met (in this example, `on or after 2022-06-01` **and** `on or before 2022-06-16`).
 
 * Finally, to link these two groups together, the `groupClause` value of `AND` returns results only if both the first group and second group criteria are met.
 
@@ -690,22 +697,22 @@ For example, the JSON below uses two groups of filters:
       "filters": [
         {
           "operator": "IS",
-          "term": "md5Checksum",
+          "term": "file.hash.md5",
           "value": "db349b97c37d22f5ea1d1841e3c89eb4"
         },
         {
           "operator": "IS",
-          "term": "md5Checksum",
+          "term": "file.hash.md5",
           "value": "84c82835a5d21bbcf75a61706d8ab549"
         },
         {
           "operator": "IS",
-          "term": "md5Checksum",
+          "term": "file.hash.md5",
           "value": "f351e1fcca0c4ea05fc44d15a17f8b36"
         },
         {
           "operator": "IS",
-          "term": "md5Checksum",
+          "term": "file.hash.md5",
           "value": "7bf2b57f2a205768755c07f238fb32cc"
         }
       ],
@@ -715,13 +722,13 @@ For example, the JSON below uses two groups of filters:
       "filters": [
         {
           "operator": "ON_OR_AFTER",
-          "term": "eventTimestamp",
-          "value": "2018-02-01T00:00:00.00Z"
+          "term": "@timestamp",
+          "value": "2022-06-01T00:00:00.00Z"
         },
         {
           "operator": "ON_OR_BEFORE",
-          "term": "eventTimestamp",
-          "value": "2018-02-07T23:59:59.59Z"
+          "term": "@timestamp",
+          "value": "2022-06-16T23:59:59.59Z"
         }
       ],
       "filterClause": "AND"
@@ -731,7 +738,7 @@ For example, the JSON below uses two groups of filters:
   "pgNum": 1,
   "pgSize": 100,
   "srtDir": "asc",
-  "srtKey": "eventTimestamp"
+  "srtKey": "@timestamp"
 }
 ```
 
@@ -742,19 +749,19 @@ This simple example demonstrates a search for all files on all devices with the 
 Use the following as a starting point for your own searches:
 
 ```bash
-curl -X POST <RequestURL>/v1/file-events \
+curl -X POST <RequestURL>/v2/file-events \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>" \
 -d '{
     "groups": [{
         "filters": [{
             "operator": "IS",
-            "term": "fileName",
+            "term": "file.name",
             "value": "*.docx"
         },
         {
             "operator": "IS_NOT",
-            "term": "filePath",
+            "term": "file.directory",
             "value": "C:/Users*"
         }
     ],
@@ -766,13 +773,13 @@ curl -X POST <RequestURL>/v1/file-events \
 }'
 ```
 
-**Note:** To receive results in CSV format instead of JSON, use the [/v1/file-events/export](/api#operation/exportUsingPOST) resource instead of [/v1/file-events](/api#operation/searchEventsUsingPOST).
+**Note:** To receive results in CSV format instead of JSON, use the [/v2/file-events/export](/api#operation/exportUsingPOST_1) resource instead of [/v2/file-events](/api#operation/searchEventsUsingPOST_1).
 
 ### API limits
 
 * Request rate: To ensure optimal performance throughout your Code42 environment, Code42 limits API requests to 120 per minute. Requests that exceed this limit are blocked and do not return results.
 * Result set:
-  * `file-events` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `file-events` query with `pgSize=10000` cannot display `pgNum=2`). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details, see the [/v1/file-events API documentation](/api#operation/searchEventsUsingPOST).)
+  * `file-events` results are limited to 10,000 events per request. Requesting a page number that exceeds these limits returns an error (for example, a `file-events` query with `pgSize=10000` cannot display `pgNum=2`). To obtain more than 10,000 results, use the `pgToken` and `nextPgToken` request fields to submit multiple requests. (For `pgToken` implementation details, see the [/v2/file-events](/api#operation/searchEventsUsingPOST_1) API documentation.)
   * `file-events/export` queries are limited to 200,000 events.
   * `file-events/grouping` queries are limited to 1,000 groups
 
@@ -803,57 +810,57 @@ Modify this sample to fit your environment and then include it in a request (as 
       "filters": [
         {
           "operator": "IS",
-          "term": "fileName",
+          "term": "file.name",
           "value": "*.action"
         },
         {
           "operator": "IS",
-          "term": "fileName",
+          "term": "file.name",
           "value": "*.app"
         },
         {
           "operator": "IS",
-          "term": "fileName",
+          "term": "file.name",
           "value": "*.bat"
         },
         {
           "operator": "IS",
-          "term": "fileName",
+          "term": "file.name",
           "value": "*.bin"
         },
         {
           "operator": "IS",
-          "term": "fileName",
+          "term": "file.name",
           "value": "*.cmd"
         },
         {
           "operator": "IS",
-          "term": "fileName",
+          "term": "file.name",
           "value": "*.com"
         },
         {
           "operator": "IS",
-          "term": "fileName",
+          "term": "file.name",
           "value": "*.command"
         },
         {
           "operator": "IS",
-          "term": "fileName",
+          "term": "file.name",
           "value": "*.cpl"
         },
         {
           "operator": "IS",
-          "term": "fileName",
+          "term": "file.name",
           "value": "*.exe"
         },
         {
           "operator": "IS",
-          "term": "fileName",
+          "term": "file.name",
           "value": "*.msc"
         },
         {
           "operator": "IS",
-          "term": "fileName",
+          "term": "file.name",
           "value": "*.osx"
         }
       ],
@@ -863,47 +870,47 @@ Modify this sample to fit your environment and then include it in a request (as 
       "filters": [
         {
           "operator": "IS_NOT",
-          "term": "filePath",
+          "term": "file.directory",
           "value": "C:\\Program Files*"
         },
         {
           "operator": "IS_NOT",
-          "term": "filePath",
+          "term": "file.directory",
           "value": "/Applications*"
         },
         {
           "operator": "IS_NOT",
-          "term": "filePath",
+          "term": "file.directory",
           "value": "/Library*"
         },
         {
           "operator": "IS_NOT",
-          "term": "filePath",
+          "term": "file.directory",
           "value": "/User/*/Applications*"
         },
         {
           "operator": "IS_NOT",
-          "term": "filePath",
+          "term": "file.directory",
           "value": "/User/*/Library*"
         },
         {
           "operator": "IS_NOT",
-          "term": "filePath",
+          "term": "file.directory",
           "value": "/usr/bin*"
         },
         {
           "operator": "IS_NOT",
-          "term": "filePath",
+          "term": "file.directory",
           "value": "/usr/local/bin*"
         },
         {
           "operator": "IS_NOT",
-          "term": "filePath",
+          "term": "file.directory",
           "value": "/sbin*"
         },
         {
           "operator": "IS_NOT",
-          "term": "filePath",
+          "term": "file.directory",
           "value": "/bin*"
         }
       ],
@@ -914,7 +921,7 @@ Modify this sample to fit your environment and then include it in a request (as 
   "pgNum": 1,
   "pgSize": 100,
   "srtDir": "asc",
-  "srtKey": "eventTimestamp"
+  "srtKey": "@timestamp"
 }
 ```
 
@@ -922,93 +929,139 @@ Modify this sample to fit your environment and then include it in a request (as 
 
 ```json
 {
-  "totalCount": 3,
-  "fileEvents": [
-    {
-      "eventId": "0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843318595055164516_6",
-      "eventType": "CREATED",
-      "eventTimestamp": "2018-04-10T23:57:33.682Z",
-      "filePath": "C:/$GetCurrent/SafeOS/",
-      "fileName": "SetupComplete.cmd",
-      "fileType": "FILE",
-      "fileSize": 307,
-      "fileOwner": "Administrators",
-      "md5Checksum": "0582b19fa3b500db28f976ed33efa487",
-      "createTimestamp": "2018-03-19T18:10:42.041Z",
-      "modifyTimestamp": "2018-03-19T18:10:42.120Z",
-      "deviceUserName": "clyde@example.com",
-      "osHostName": "CO-SAMPLE-1",
-      "domainName": "192.0.2.0",
-      "publicIpAddress": "192.0.2.0",
-      "privateIpAddresses": [
-        "2001:db8:49a3:7d3:1309:8a2e:370:7342",
-        "192.0.4.0",
-        "0:0:0:0:0:0:0:1",
-        "127.0.0.1"
-      ],
-      "deviceUid": "423278037859030542",
-      "userUid": "424242424242424242"
-    },
-    {
-      "eventId": "0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843318595055164516_7",
-      "eventType": "CREATED",
-      "eventTimestamp": "2018-04-10T23:57:33.682Z",
-      "filePath": "C:/$GetCurrent/SafeOS/",
-      "fileName": "preoobe.cmd",
-      "fileType": "FILE",
-      "fileSize": 74,
-      "fileOwner": "Administrators",
-      "md5Checksum": "2f9537b7f7cb5b559ed6ec3694832fe6",
-      "createTimestamp": "2018-03-19T18:10:41.936Z",
-      "modifyTimestamp": "2018-03-19T18:10:42.041Z",
-      "deviceUserName": "paige@example.com",
-      "osHostName": "CO-SAMPLE-2",
-      "domainName": "192.0.2.0",
-      "publicIpAddress": "192.0.2.0",
-      "privateIpAddresses": [
-        "2001:db8:49a3:7d3:1309:8a2e:370:7342",
-        "192.0.4.0",
-        "0:0:0:0:0:0:0:1",
-        "127.0.0.1"
-      ],
-      "deviceUid": "423278037859030542",
-      "userUid": "424242424242424243"
-    },
-    {
-      "eventId": "0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843419521787010148_344",
-      "eventType": "CREATED",
-      "eventTimestamp": "2018-04-11T16:40:11.090Z",
-      "filePath": "C:/Windows/en-US/",
-      "fileName": "bootfix.bin",
-      "fileType": "FILE",
-      "fileSize": 1024,
-      "fileOwner": "TrustedInstaller",
-      "md5Checksum": "eb145d5f87ddf43c8bd6f27e97db8bf2",
-      "createTimestamp": "2017-09-29T14:41:10.345Z",
-      "modifyTimestamp": "2017-09-29T14:41:10.346Z",
-      "deviceUserName": "clyde@example.com",
-      "osHostName": "CO-SAMPLE-3",
-      "domainName": "192.0.4.0",
-      "publicIpAddress": "192.0.4.0",
-      "privateIpAddresses": [
-        "2001:db8:49a3:7d3:1309:8a2e:370:7342",
-        "192.0.4.0",
-        "0:0:0:0:0:0:0:1",
-        "127.0.0.1"
-      ],
-      "deviceUid": "423278037859030542",
-      "userUid": "424242424242424242"
-    }
-  ],
-  "problems": null
+  "totalCount":1,
+  "fileEvents":[
+        {
+            "@timestamp": "2022-04-19T16:42:37.943Z",
+            "event": {
+                "id": "0_1a88974e-4675-41cc-8792-7256d16f7d4a_963040578383726480_1056359497080919794_724",
+                "inserted": "2022-04-19T16:49:25.778583Z",
+                "action": "file-modified",
+                "observer": "Endpoint",
+                "shareType": []
+            },
+            "user": {
+                "email": "jim.harper@example.com",
+                "id": "851380922911151622",
+                "deviceUid": "963040578383726482"
+            },
+            "file": {
+                "name": "Updater.exe",
+                "directory": "C:/myapps/",
+                "category": "Executable",
+                "mimeTypeByBytes": "application/x-msdownload",
+                "categoryByBytes": "Executable",
+                "mimeTypeByExtension": "application/x-dosexec",
+                "categoryByExtension": "Executable",
+                "sizeInBytes": 4200864,
+                "owner": "qa",
+                "created": "2019-05-21T18:43:25.690Z",
+                "modified": "2022-04-19T16:42:05.570Z",
+                "hash": {
+                    "md5": "792e95b64b9cf45ac8bc10d4d0f077c4",
+                    "sha256": "60e64dd2c6d2ac6fe9b498fadac81bc34a725de5d893e7df8b2728d8dc5b194d",
+                    "md5Error": null,
+                    "sha256Error": null
+                },
+                "id": null,
+                "url": null,
+                "directoryId": [],
+                "cloudDriveId": null,
+                "classifications": []
+            },
+            "report": {
+                "id": null,
+                "name": null,
+                "description": null,
+                "headers": [],
+                "count": null,
+                "type": null
+            },
+            "source": {
+                "category": null,
+                "name": null,
+                "domain": "203.0.113.0",
+                "ip": "233.252.0.0",
+                "privateIp": [
+                    "203.0.113.0",
+                    "0:0:0:0:0:0:0:1",
+                    "fe80:0:0:0:3549:20c6:c7c8:42d5%eth3",
+                    "192.0.2.0"
+                ],
+                "operatingSystem": "Windows 10",
+                "email": {
+                    "sender": null,
+                    "from": null
+                },
+                "removableMedia": {
+                    "vendor": null,
+                    "name": null,
+                    "serialNumber": null,
+                    "capacity": null,
+                    "busType": null,
+                    "mediaName": null,
+                    "volumeName": [],
+                    "partitionId": []
+                },
+                "tabs": [],
+                "domains": []
+            },
+            "destination": {
+                "category": null,
+                "name": null,
+                "user": {
+                    "email": []
+                },
+                "ip": null,
+                "privateIp": [],
+                "operatingSystem": null,
+                "printJobName": null,
+                "printerName": null,
+                "printedFilesBackupPath": null,
+                "removableMedia": {
+                    "vendor": null,
+                    "name": null,
+                    "serialNumber": null,
+                    "capacity": null,
+                    "busType": null,
+                    "mediaName": null,
+                    "volumeName": [],
+                    "partitionId": []
+                },
+                "email": {
+                    "recipients": null,
+                    "subject": null
+                },
+                "tabs": [],
+                "accountName": null,
+                "accountType": null,
+                "domains": []
+            },
+            "process": {
+                "executable": null,
+                "owner": null
+            },
+            "risk": {
+                "score": 0,
+                "severity": "NO_RISK_INDICATED",
+                "indicators": [],
+                "trusted": false,
+                "trustReason": null
+            }
+        }
+    ],
+    "nextPgToken": null,
+    "problems": null
 }
+
+
 ```
 
 #### Use case 2: Search for files on a device within a specific date range based on MD5 values
 
-The sample JSON below shows how to search for files files matching any of four MD5 values that existed on devices between February 1 and 7, 2018.
+The sample JSON below shows how to search for files files matching any of four MD5 values that existed on devices between June 1 and 16, 2022.
 
-**Note:** To search for SHA256 hash values instead of MD5, replace `md5Checksum` with `sha256Checksum` in the sample JSON below.
+**Note:** To search for SHA256 hash values instead of MD5, replace `file.hash.md5` with `file.hash.sha256` in the sample JSON below.
 
 ##### Sample JSON search query for MD5 values between two dates
 
@@ -1021,22 +1074,22 @@ Modify this sample to fit your environment and then include it in a request (as 
       "filters": [
         {
           "operator": "IS",
-          "term": "md5Checksum",
-          "value": "db349b97c37d22f5ea1d1841e3c89eb4"
+          "term": "file.hash.md5",
+          "value": "2a67b45426cfd30acd4997353ec02a94"
         },
         {
           "operator": "IS",
-          "term": "md5Checksum",
+          "term": "file.hash.md5",
           "value": "84c82835a5d21bbcf75a61706d8ab549"
         },
         {
           "operator": "IS",
-          "term": "md5Checksum",
+          "term": "file.hash.md5",
           "value": "f351e1fcca0c4ea05fc44d15a17f8b36"
         },
         {
           "operator": "IS",
-          "term": "md5Checksum",
+          "term": "file.hash.md5",
           "value": "7bf2b57f2a205768755c07f238fb32cc"
         }
       ],
@@ -1046,13 +1099,13 @@ Modify this sample to fit your environment and then include it in a request (as 
       "filters": [
         {
           "operator": "ON_OR_AFTER",
-          "term": "eventTimestamp",
-          "value": "2018-02-01T00:00:00.00Z"
+          "term": "@timestamp",
+          "value": "2022-06-01T00:00:00.00Z"
         },
         {
           "operator": "ON_OR_BEFORE",
-          "term": "eventTimestamp",
-          "value": "2018-02-07T23:59:59.59Z"
+          "term": "@timestamp",
+          "value": "2022-06-16T23:59:59.59Z"
         }
       ],
       "filterClause": "AND"
@@ -1062,7 +1115,7 @@ Modify this sample to fit your environment and then include it in a request (as 
   "pgNum": 1,
   "pgSize": 100,
   "srtDir": "asc",
-  "srtKey": "eventTimestamp"
+  "srtKey": "@timestamp"
 }
 ```
 
@@ -1070,81 +1123,149 @@ Modify this sample to fit your environment and then include it in a request (as 
 
 ```json
 {
-  "totalCount": 2,
+  "totalCount": 1,
   "fileEvents": [
-    {
-      "eventId": "0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843279264407737861_1",
-      "eventType": "CREATED",
-      "eventTimestamp": "2018-02-04T18:40:37.790Z",
-      "filePath": "C:/Windows/",
-      "fileName": "mssecsvc.exe",
-      "fileType": "FILE",
-      "fileSize": 282,
-      "fileOwner": "clyde",
-      "md5Checksum": "db349b97c37d22f5ea1d1841e3c89eb4",
-      "createTimestamp": "2018-02-03T15:43:29.388Z",
-      "modifyTimestamp": "2018-02-04T15:13:28.783Z",
-      "deviceUserName": "clyde@example.com",
-      "osHostName": "CO-SAMPLE-01",
-      "domainName": "192.0.2.0",
-      "publicIpAddress": "192.0.2.0",
-      "privateIpAddresses": [
-        "2001:db8:49a3:7d3:1309:8a2e:370:7342",
-        "192.0.4.0",
-        "0:0:0:0:0:0:0:1",
-        "127.0.0.1"
-      ],
-      "deviceUid": "425916091791253442",
-      "userUid": "424242424242424242"
-    },
-    {
-      "eventId": "0_1dcc9b7c-123d-40d7-b0fb-436520b2cab8_843278037859030533_843317905847131236_1",
-      "eventType": "MODIFIED",
-      "eventTimestamp": "2018-02-02T23:50:42.294Z",
-      "filePath": "C:/Users/Paige/Downloads/",
-      "fileName": "tasksche.exe",
-      "fileType": "FILE",
-      "fileSize": 282,
-      "fileOwner": "paige",
-      "md5Checksum": "84c82835a5d21bbcf75a61706d8ab549",
-      "createTimestamp": "2018-02-01T15:43:29.388Z",
-      "modifyTimestamp": "2018-02-02T23:47:04.336Z",
-      "deviceUserName": "paige@example.com",
-      "osHostName": "CO-SAMPLE-02",
-      "domainName": "192.0.4.0",
-      "publicIpAddress": "192.0.4.0",
-      "privateIpAddresses": [
-        "2001:db8:49a3:7d3:1309:8a2e:370:7342",
-        "192.0.4.0",
-        "0:0:0:0:0:0:0:1",
-        "127.0.0.1"
-      ],
-      "deviceUid": "423278037859030542",
-      "userUid": "424242424242424243"
-    }
-  ],
-  "problems": null
-}
+        {
+            "@timestamp": "2022-06-15T22:33:14.078Z",
+            "event": {
+                "id": "0_1a88974e-4675-41cc-8792-7256d16f7d4a_963040578383726480_1064656813338231764_13",
+                "inserted": "2022-06-15T22:35:28.477386Z",
+                "action": "file-created",
+                "observer": "Endpoint",
+                "shareType": []
+            },
+            "user": {
+                "email": "jim.harper@example.com",
+                "id": "851380922911151620",
+                "deviceUid": "963040578383726480"
+            },
+            "file": {
+                "name": "2022_customer_list.docx",
+                "directory": "C:/Users/qa/Documents/",
+                "category": "Document",
+                "mimeTypeByBytes": "text/plain",
+                "categoryByBytes": "Document",
+                "mimeTypeByExtension": "text/plain",
+                "categoryByExtension": "Document",
+                "sizeInBytes": 33,
+                "owner": "qa",
+                "created": "2022-06-15T22:33:13.255Z",
+                "modified": "2022-06-15T22:33:13.294Z",
+                "hash": {
+                    "md5": "2a67b45426cfd30acd4997353ec02a94",
+                    "sha256": "899359b93c1a86e0bc0cd412ff01f1241f947a4768a1214e3fec1e1082f6d42b",
+                    "md5Error": null,
+                    "sha256Error": null
+                },
+                "id": null,
+                "url": null,
+                "directoryId": [],
+                "cloudDriveId": null,
+                "classifications": []
+            },
+            "report": {
+                "id": null,
+                "name": null,
+                "description": null,
+                "headers": [],
+                "count": null,
+                "type": null
+            },
+            "source": {
+                "category": null,
+                "name": null,
+                "domain": "203.0.113.0",
+                "ip": "233.252.0.0",
+                "privateIp": [
+                    "203.0.113.0",
+                    "0:0:0:0:0:0:0:1",
+                    "fe80:0:0:0:3549:20c6:c7c8:42d5%eth3",
+                    "192.0.2.0"
+                ],
+                "operatingSystem": "Windows 10",
+                "email": {
+                    "sender": null,
+                    "from": null
+                },
+                "removableMedia": {
+                    "vendor": null,
+                    "name": null,
+                    "serialNumber": null,
+                    "capacity": null,
+                    "busType": null,
+                    "mediaName": null,
+                    "volumeName": [],
+                    "partitionId": []
+                },
+                "tabs": [],
+                "domains": []
+            },
+            "destination": {
+                "category": null,
+                "name": null,
+                "user": {
+                    "email": []
+                },
+                "ip": null,
+                "privateIp": [],
+                "operatingSystem": null,
+                "printJobName": null,
+                "printerName": null,
+                "printedFilesBackupPath": null,
+                "removableMedia": {
+                    "vendor": null,
+                    "name": null,
+                    "serialNumber": null,
+                    "capacity": null,
+                    "busType": null,
+                    "mediaName": null,
+                    "volumeName": [],
+                    "partitionId": []
+                },
+                "email": {
+                    "recipients": null,
+                    "subject": null
+                },
+                "tabs": [],
+                "accountName": null,
+                "accountType": null,
+                "domains": []
+            },
+            "process": {
+                "executable": null,
+                "owner": null
+            },
+            "risk": {
+                "score": 0,
+                "severity": "NO_RISK_INDICATED",
+                "indicators": [],
+                "trusted": false,
+                "trustReason": null
+            }
+        },
+    ],
+    "nextPgToken": null,
+    "problems": null
 ```
 
 #### Use case 3: See all cloud sync destinations for a user
 
-The sample JSON below shows how to use the [/v1/file-events/grouping](/api#operation/groupingUsingPOST) resource to find an approximate count of **Synced to cloud service** file events for a specific user for each cloud service. This sample groups by the `syncDestination` value, but you can choose any `groupingTerm` listed in the [/v1/file-events/grouping](/api#operation/groupingUsingPOST) API documentation in your requests.
+The sample JSON below shows how to use the [/v2/file-events/grouping](/api#operation/groupingUsingPOST_1) resource to find an approximate count of **Synced to cloud service** file events for a specific user for each cloud service. This sample groups by the `destination.name` value, but you can choose any `groupingTerm` listed in the [/v2/file-events/grouping](/api#operation/groupingUsingPOST_1) API documentation in your requests.
 
 ##### Sample JSON search query for cloud service file event counts
 
-Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above). For grouping queries, you must use the [/v1/file-events/grouping](/api#operation/groupingUsingPOST) resource.
+Modify this sample to fit your environment and then include it in a request (as shown in the [Sample request](#sample-request) section above). For grouping queries, you must use the [/v2/file-events/grouping](/api#operation/groupingUsingPOST_1) resource.
 
 ```json
 {
-  "groupingTerm": "syncDestination",
+  "groupingTerm": "destination.name",
   "groups": [
     {
       "filters": [
         {
           "operator": "IS",
-          "term": "deviceUserName",
-          "value": "clyde@example.com"
+          "term": "user.email",
+          "value": "jim.harper@example.com"
         }
       ]
     }
@@ -1156,16 +1277,25 @@ Modify this sample to fit your environment and then include it in a request (as 
 
 ```json
 {
-  "groups": [
-    {
-      "value": "Dropbox",
-      "docCount": 114
-    },
-    {
-      "value": "Google Drive",
-      "docCount": 8
-    }
-  ]
+    "groups": [
+        {
+            "value": "google drive",
+            "docCount": 52974
+        },
+        {
+            "value": "dropbox",
+            "docCount": 20
+        },
+        {
+            "value": "gmail",
+            "docCount": 14
+        },
+        {
+            "value": "uncategorized",
+            "docCount": 3
+        }
+    ],
+    "problems": null
 }
 ```
 
@@ -1174,7 +1304,7 @@ Modify this sample to fit your environment and then include it in a request (as 
 Some file events may not capture all metadata. Reasons for omitted metadata can include:
 
 * The file did not exist on disk long enough for Code42 to capture all the metadata.
-* Several values, including `deviceUserName` and `userUid`, are captured and reported from the Code42 cloud instead of directly from the user device. If those values haven't been reported yet, they may be blank or may display as `UNKNOWN` or `NAME_NOT_AVAILABLE`.
+* Several values, including `user.email` and `user.id`, are captured and reported from the Code42 cloud instead of directly from the user device. If those values haven't been reported yet, they may be blank or may display as `UNKNOWN` or `NAME_NOT_AVAILABLE`.
 
 ## Use case: Respond to an alert
 
@@ -1340,33 +1470,30 @@ A successful response returns full details about the alert notification, includi
 #### Look for the files involved in the alert
 
 Use the [File Events APIs](#tag/File-Events) to look for the files identified in the preceding alert query response.
-The following sample request using the [/v1/file-events](/api#operation/searchEventsUsingPOST) API command demonstrates a search for all files on all devices with the file extension **.docx** that exist anywhere in the file path **C:/Users**. Use this simple example as a starting point for your own searches and replace the content of the -d section with your specific search criteria.
+The following sample request using the [/v2/file-events](/api#operation/searchEventsUsingPOST_1) API command demonstrates a search for all files on all devices with the file extension **.docx** that exist anywhere in the file path **C:/Users**. Use this simple example as a starting point for your own searches and replace the content of the -d section with your specific search criteria.
 
 ```bash
-curl -X POST  <RequestURL>/v1/file-events \
+curl -X POST <RequestURL>/v2/file-events \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>" \
 -d '{
-  "groups": [
-    {
-      "filters": [
-        {
-          "operator": "IS",
-          "term": "fileName",
-          "value": "*.docx"
+    "groups": [{
+        "filters": [{
+            "operator": "IS",
+            "term": "file.name",
+            "value": "*.docx"
         },
         {
-          "operator": "IS",
-          "term": "filePath",
-          "value": "C:/Users*"
+            "operator": "IS",
+            "term": "file.directory",
+            "value": "C:/Users*"
         }
-      ],
-      "filterClause": "AND"
-    }
-  ],
-  "groupClause": "AND",
-  "pgNum": 1,
-  "pgSize": 100
+    ],
+    "filterClause": "AND"
+    }],
+    "groupClause": "AND",
+    "pgNum": 1,
+    "pgSize": 100
 }'
 ```
 
