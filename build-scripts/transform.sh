@@ -3,6 +3,9 @@
 main() {
   local docs="${1:?Missing param docs at index 1.}"
   TMP=.transform.tmp
+  ALERTS="${docs}/alerts"
+  RULES_V1="${docs}/alert-rules"
+  RULES_V2="${docs}/alert-rules-v2"
   TRUSTED_ACTIVITIES_V1="${docs}/trusted-activities"
   TRUSTED_ACTIVITIES_V2="${docs}/trusted-activities.json"
   WATCHLISTS="${docs}/watchlists.json"
@@ -14,6 +17,7 @@ main() {
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/audit-log.yaml > ${docs}/audit
   jq '.paths |= with_entries( .key |= gsub("/rpc/search/"; "/v1/audit/") )' < ${docs}/audit > $TMP && mv $TMP ${docs}/audit
   jq '.paths[][].tags |= [ "Audit Log" ]' < ${docs}/audit > $TMP && mv $TMP ${docs}/audit
+
   ### Trusted Activities v1
   # prefix summary fields with "v1"
   jq '.paths[][].summary |= "v1 - \(.)"' < $TRUSTED_ACTIVITIES_V1 > $TMP && mv $TMP $TRUSTED_ACTIVITIES_V1
@@ -38,6 +42,20 @@ main() {
 
   # order v2 events before v1
   jq '.paths |= (to_entries | [_nwise(.; 5)] | reverse | flatten | from_entries)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
+
+  ### Alert Rules v1
+  # prefix summary fields with "v1"
+  jq '.paths[][].summary |= "v1 - \(.)"' < $RULES_V1 > $TMP && mv $TMP $RULES_V1
+  # mark v1 endpoints as deprecated
+  jq '.paths[][].deprecated = true'< $RULES_V1 > $TMP && mv $TMP $RULES_V1
+  # deprecate alert API query rules endpoint
+  jq '.paths[][] |= if .tags == [ "Rules" ] then .deprecated = true else . end' < $ALERTS > $TMP && mv $TMP $ALERTS
+  jq '.paths[][].tags[] |= if . == "Rules" then "Alerts" else . end' < $ALERTS > $TMP && mv $TMP $ALERTS
+
+  ### Alert Rules v2
+  # mark rules summary fields with "v2"
+  jq '.paths[][].summary |= "v2 - \(.)"' < $RULES_V2 > $TMP && mv $TMP $RULES_V2
+
 
   ### Watchlists
   # convert openapi 3 yaml to swagger 2 json
