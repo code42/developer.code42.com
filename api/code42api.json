@@ -1141,6 +1141,403 @@
         "summary": "Download an exported search result"
       }
     },
+    "/v2/alert-rules/{id}": {
+      "get": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "v2 - Gets the details of a single rule.",
+        "operationId": "Rules_GetRule",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Id of the rule.",
+            "x-nullable": true,
+            "example": "c73b3f90-2fe7-4454-814b-c275c17fd9f0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "Success: Response containing rule details for given rule id",
+            "schema": {
+              "$ref": "#/definitions/RuleDetails-alert-rules-v2"
+            }
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      }
+    },
+    "/v2/alert-rules": {
+      "get": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "v2 - Gets all rules in the service.",
+        "operationId": "Rules_GetRules",
+        "parameters": [
+          {
+            "type": "integer",
+            "name": "PageNumber",
+            "in": "query",
+            "description": "Page number of results to return.",
+            "format": "int32",
+            "default": 0,
+            "x-nullable": false,
+            "example": 10
+          },
+          {
+            "type": "integer",
+            "name": "PageSize",
+            "in": "query",
+            "description": "Page size of results to return.",
+            "format": "int32",
+            "default": 10,
+            "x-nullable": false,
+            "example": 50
+          },
+          {
+            "type": "string",
+            "name": "WatchlistId",
+            "in": "query",
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "Success: Response containing rule details for given page of rules",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RuleDetails-alert-rules-v2"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      }
+    },
+    "/v2/alert-rules/{id}/enable": {
+      "post": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "v2 - Enables an individual rule by id.",
+        "operationId": "Rules_Enable",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the rule.",
+            "x-nullable": true,
+            "example": "506d2749-32ac-4966-8e14-418241ffd2d7"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Rule was enabled"
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      }
+    },
+    "/v2/alert-rules/enable": {
+      "post": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "v2 - Enables a set of rules.",
+        "operationId": "Rules_Enable2",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "body",
+            "required": true,
+            "description": "Array of rule ids.",
+            "schema": {
+              "type": "array",
+              "example": [
+                "0ade9a65-342a-464e-bc4e-49afbd0a522f"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Rules were enabled"
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      }
+    },
+    "/v2/alert-rules/{id}/disable": {
+      "post": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "v2 - Disables an individual rule by id.",
+        "operationId": "Rules_Disable",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the rule.",
+            "x-nullable": true,
+            "example": "54377391-0cf9-499d-9480-acb67747ebd0"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Rule was disabled"
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      }
+    },
+    "/v2/alert-rules/disable": {
+      "post": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "v2 - Disables a set of rules.",
+        "operationId": "Rules_Disable2",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "body",
+            "required": true,
+            "description": "Array of rule ids.",
+            "schema": {
+              "type": "array",
+              "example": [
+                "0454e277-ee38-42c5-ab5a-c020dc6a0b71"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Rules were disabled"
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      }
+    },
+    "/v2/alert-rules/{id}/users": {
+      "post": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "v2 - Adds users to a rule's username filter.",
+        "description": "Note that the added users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
+        "operationId": "Rules_AddUsers",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the rule.",
+            "x-nullable": true,
+            "example": "46ee8bc8-75db-4d6f-aef3-114cb97f8f02"
+          },
+          {
+            "name": "users",
+            "in": "body",
+            "required": true,
+            "description": "User aliases to add.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserAliases-alert-rules-v2"
+              }
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Users were added to the rule"
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "v2 - Removes all users from a rule's username filter.",
+        "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.",
+        "operationId": "Rules_RemoveAllUsers",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the rule.",
+            "x-nullable": true,
+            "example": "86072d2d-ca2a-4178-af9b-01dc81887c84"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: All users were removed from the rule"
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "v2 - Gets the username filter of a rule.",
+        "description": "Note that the retrieved users could become either included or excluded from the rule, depending on the rule's configuration.",
+        "operationId": "Rules_GetUsers",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the rule.",
+            "x-nullable": true,
+            "example": "241cec8d-ba99-4f86-aa84-741d6a2032b3"
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "Success: List of users on the rule",
+            "schema": {
+              "$ref": "#/definitions/RuleUsersResponse-alert-rules-v2"
+            }
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      }
+    },
+    "/v2/alert-rules/{id}/remove-user-aliases": {
+      "post": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "v2 - Removes user aliases from a rule's username filter.",
+        "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
+        "operationId": "Rules_RemoveUserAliases",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the rule.",
+            "x-nullable": true,
+            "example": "d449d1e2-94a6-4f8a-9d54-e657e7af6bab"
+          },
+          {
+            "name": "users",
+            "in": "body",
+            "required": true,
+            "description": "User aliases to remove.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/UserAliases-alert-rules-v2"
+              }
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Given user aliases were removed from the rule"
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      }
+    },
+    "/v2/alert-rules/{id}/remove-users": {
+      "post": {
+        "tags": [
+          "Rules"
+        ],
+        "summary": "v2 - Removes users from a rule's username filter.",
+        "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
+        "operationId": "Rules_RemoveUsers",
+        "parameters": [
+          {
+            "type": "string",
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "The id of the rule.",
+            "x-nullable": true,
+            "example": "8530a705-37a5-4e4b-82dc-b7b06ab0a84b"
+          },
+          {
+            "name": "userIds",
+            "in": "body",
+            "required": true,
+            "description": "User identifiers (issued from the authority) to remove.",
+            "schema": {
+              "type": "array",
+              "example": [
+                "aefb1681-7a0a-4af2-a923-2584a3118dff"
+              ],
+              "items": {
+                "type": "string"
+              }
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Given users were removed from the rule"
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      }
+    },
     "/v1/cases": {
       "get": {
         "tags": [
@@ -1986,7 +2383,7 @@
     "/v1/alerts/rules/query-rule-metadata": {
       "post": {
         "tags": [
-          "Rules"
+          "Alerts"
         ],
         "summary": "Query list of all rules in the alerting application.",
         "operationId": "Rules_QueryRuleMetadata",
@@ -2013,7 +2410,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v2/trusted-activities": {
@@ -2222,7 +2620,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Enable or disable a list of rules.",
+        "summary": "v1 - Enable or disable a list of rules.",
         "operationId": "Rules_UpdateIsEnabled",
         "parameters": [
           {
@@ -2243,7 +2641,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/alert-rules/add-users": {
@@ -2251,7 +2650,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Add users to a rule's watch list.",
+        "summary": "v1 - Add users to a rule's watch list.",
         "description": "Note that the added users could become either included included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
         "operationId": "Rules_AddUsersToRule",
         "parameters": [
@@ -2273,7 +2672,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/alert-rules/remove-users": {
@@ -2281,7 +2681,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Remove users from a rule's watch list.",
+        "summary": "v1 - Remove users from a rule's watch list.",
         "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
         "operationId": "Rules_RemoveUsersFromRule",
         "parameters": [
@@ -2303,7 +2703,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/alert-rules/remove-user-aliases": {
@@ -2311,7 +2712,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Remove user aliases from a rule's watch list.",
+        "summary": "v1 - Remove user aliases from a rule's watch list.",
         "description": "Note that the removed user aliases could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
         "operationId": "Rules_RemoveUserAliasesFromRule",
         "parameters": [
@@ -2333,7 +2734,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/alert-rules/remove-all-users": {
@@ -2341,7 +2743,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Remove all users from a rule's watch list.",
+        "summary": "v1 - Remove all users from a rule's watch list.",
         "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
         "operationId": "Rules_RemoveAllUsersFromRule",
         "parameters": [
@@ -2363,7 +2765,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/alert-rules/query-users": {
@@ -2371,7 +2774,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Get users assigned to a given rule.",
+        "summary": "v1 - Get users assigned to a given rule.",
         "operationId": "Rules_QueryUsersOnRule",
         "parameters": [
           {
@@ -2396,7 +2799,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/alert-rules/query-cloud-share-permissions-rule": {
@@ -2404,7 +2808,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Get details about a set of Cloud Share Permissions rules.",
+        "summary": "v1 - Get details about a set of Cloud Share Permissions rules.",
         "operationId": "Rules_QueryCloudSharePermissionsRule",
         "parameters": [
           {
@@ -2429,7 +2833,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/alert-rules/query-endpoint-exfiltration-rule": {
@@ -2437,7 +2842,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Get details about a set of Endpoint Exfiltration rules.",
+        "summary": "v1 - Get details about a set of Endpoint Exfiltration rules.",
         "operationId": "Rules_QueryEndpointExfiltrationRule",
         "parameters": [
           {
@@ -2462,7 +2867,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/alert-rules/query-file-type-mismatch-rule": {
@@ -2470,7 +2876,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Get details about a set of File Type Mismatch rules.",
+        "summary": "v1 - Get details about a set of File Type Mismatch rules.",
         "operationId": "Rules_QueryFileTypeMismatchRule",
         "parameters": [
           {
@@ -2495,7 +2901,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v1/alert-rules/query-file-name-rule": {
@@ -2503,7 +2910,7 @@
         "tags": [
           "Rules"
         ],
-        "summary": "Get details about a set of File Name rules.",
+        "summary": "v1 - Get details about a set of File Name rules.",
         "operationId": "Rules_QueryFileNameRule",
         "parameters": [
           {
@@ -2528,7 +2935,8 @@
           "400": {
             "description": "Bad Request: An invalid request model was provided."
           }
-        }
+        },
+        "deprecated": true
       }
     },
     "/v2/file-events": {
@@ -6320,6 +6728,745 @@
         "pageSize"
       ],
       "type": "object"
+    },
+    "RuleDetails-alert-rules-v2": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/Rule-alert-rules-v2"
+        },
+        {
+          "type": "object",
+          "required": [
+            "createdAt",
+            "modifiedAt",
+            "isSystemRule"
+          ],
+          "properties": {
+            "createdAt": {
+              "type": "string",
+              "description": "Time when the rule was created.",
+              "format": "date-time",
+              "example": "2022-10-05T18:45:51.6835849Z"
+            },
+            "createdBy": {
+              "type": "string",
+              "description": "Individual or service who created the rule.",
+              "example": "my-username@company.com"
+            },
+            "modifiedAt": {
+              "type": "string",
+              "description": "Time when the rule was last modified.",
+              "format": "date-time",
+              "example": "2022-10-05T18:45:51.6835902Z"
+            },
+            "modifiedBy": {
+              "type": "string",
+              "description": "Individual or service who last modified the rule.",
+              "example": "my-username@company.com"
+            },
+            "isSystemRule": {
+              "type": "boolean",
+              "description": "Boolean indicator of whether or not the rule is connected to a lens.",
+              "example": true
+            }
+          }
+        }
+      ]
+    },
+    "Rule-alert-rules-v2": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/RuleCriteria-alert-rules-v2"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "description": "Unique identifier of the rule.",
+              "example": "8c050a04-e618-4647-b6d1-0cbbb74330ad"
+            }
+          }
+        }
+      ]
+    },
+    "RuleCriteria-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "isEnabled"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Unique name of the rule.",
+          "example": "Suspicious File Mismatch Rule"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the rule.",
+          "example": "A rule created to trigger alerts on suspicious file mismatch exfiltration"
+        },
+        "severity": {
+          "description": "[Deprecated field] Indicates severity of rule.",
+          "x-deprecated": true,
+          "x-deprecatedMessage": "Severity rating is no longer important since risk severity is being used",
+          "example": "",
+          "allOf": [
+            {
+              "$ref": "#/definitions/Severity-alert-rules-v2"
+            }
+          ]
+        },
+        "isEnabled": {
+          "type": "boolean",
+          "description": "Indicates whether the rule is enabled or not.",
+          "example": true
+        },
+        "source": {
+          "type": "string",
+          "description": "[Deprecated field] Indicates source of rule creation.",
+          "example": ""
+        },
+        "notifications": {
+          "description": "Notifications configuration settings for this rule.",
+          "$ref": "#/definitions/NotificationSettings-alert-rules-v2"
+        },
+        "vectors": {
+          "description": "The exfiltration vectors to be watched.",
+          "$ref": "#/definitions/RuleVectors-alert-rules-v2"
+        },
+        "filters": {
+          "description": "The filters to limit the scope of activity to alert on.",
+          "$ref": "#/definitions/RuleFilters-alert-rules-v2"
+        }
+      }
+    },
+    "Severity-alert-rules-v2": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Low",
+        "Medium",
+        "High"
+      ],
+      "enum": [
+        "Low",
+        "Medium",
+        "High"
+      ]
+    },
+    "NotificationSettings-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "isEnabled"
+      ],
+      "properties": {
+        "isEnabled": {
+          "type": "boolean",
+          "description": "Indicates whether notifications are enabled.",
+          "example": true
+        },
+        "contacts": {
+          "type": "array",
+          "description": "List of notifications configured.",
+          "items": {
+            "$ref": "#/definitions/NotificationContact-alert-rules-v2"
+          }
+        }
+      }
+    },
+    "NotificationContact-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "isEnabled",
+        "type"
+      ],
+      "properties": {
+        "isEnabled": {
+          "type": "boolean",
+          "description": "Indicates whether the notifications for this contact are enabled.",
+          "example": true
+        },
+        "type": {
+          "description": "Type of notification.",
+          "$ref": "#/definitions/NotificationType-alert-rules-v2"
+        },
+        "address": {
+          "type": "string",
+          "description": "Address notifications are configured to send to.",
+          "example": "myUsername@company.com"
+        }
+      }
+    },
+    "NotificationType-alert-rules-v2": {
+      "type": "string",
+      "description": "Type of notification.",
+      "example": "EMAIL",
+      "x-enumNames": [
+        "Email"
+      ],
+      "enum": [
+        "EMAIL"
+      ]
+    },
+    "RuleVectors-alert-rules-v2": {
+      "type": "object",
+      "properties": {
+        "cloudSharing": {
+          "description": "Configuration for cloud sharing vectors to monitor.",
+          "$ref": "#/definitions/CloudSharingVector-alert-rules-v2"
+        },
+        "download": {
+          "$ref": "#/definitions/DownloadVector-alert-rules-v2"
+        },
+        "email": {
+          "$ref": "#/definitions/EmailVector-alert-rules-v2"
+        },
+        "fileUpload": {
+          "description": "Configuration for what file upload vectors to monitor.",
+          "$ref": "#/definitions/FileUploadVector-alert-rules-v2"
+        },
+        "removableMedia": {
+          "description": "Configuration for what removable media vectors to monitor.",
+          "$ref": "#/definitions/RemovableMediaVector-alert-rules-v2"
+        }
+      }
+    },
+    "CloudSharingVector-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "criteriaOrder"
+      ],
+      "properties": {
+        "observeAll": {
+          "type": "boolean",
+          "description": "Indicates whether to watch all cloud sharing connectors.",
+          "example": false
+        },
+        "box": {
+          "description": "Configuration for specific cloud sharing monitoring using the Box connector.",
+          "$ref": "#/definitions/CloudSharingMechanisms-alert-rules-v2"
+        },
+        "googleDrive": {
+          "description": "Configuration for specific cloud sharing monitoring using the Google Drive connector.",
+          "$ref": "#/definitions/CloudSharingMechanisms-alert-rules-v2"
+        },
+        "oneDrive": {
+          "description": "Configuration for specific cloud sharing monitoring using the Microsoft OneDrive connector.",
+          "$ref": "#/definitions/CloudSharingMechanisms-alert-rules-v2"
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "description": "Order in which this vector was added to the rule.",
+          "format": "int32",
+          "example": 3
+        }
+      }
+    },
+    "CloudSharingMechanisms-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "observeAll",
+        "publicLinkShare",
+        "directShare"
+      ],
+      "properties": {
+        "observeAll": {
+          "type": "boolean",
+          "description": "Indicates whether we are watching the cloud sharing connector or not.",
+          "example": true
+        },
+        "publicLinkShare": {
+          "type": "boolean"
+        },
+        "directShare": {
+          "type": "boolean"
+        }
+      }
+    },
+    "DownloadVector-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "criteriaOrder"
+      ],
+      "properties": {
+        "observeAll": {
+          "type": "boolean"
+        },
+        "salesforce": {
+          "type": "boolean"
+        },
+        "box": {
+          "type": "boolean"
+        },
+        "googleDrive": {
+          "type": "boolean"
+        },
+        "microsoftOneDrive": {
+          "type": "boolean"
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "EmailVector-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "criteriaOrder"
+      ],
+      "properties": {
+        "observeAll": {
+          "type": "boolean"
+        },
+        "gmail": {
+          "type": "boolean"
+        },
+        "microsoft365": {
+          "type": "boolean"
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "FileUploadVector-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "criteriaOrder"
+      ],
+      "properties": {
+        "cloudStorage": {
+          "description": "Configuration for which cloud storage destinations to monitor.",
+          "$ref": "#/definitions/FileUploadCategory-alert-rules-v2"
+        },
+        "email": {
+          "description": "Configuration for which email destinations to monitor.",
+          "$ref": "#/definitions/FileUploadCategory-alert-rules-v2"
+        },
+        "fileConversionTool": {
+          "description": "Configuration for which file conversion tool destinations to monitor.",
+          "$ref": "#/definitions/FileUploadCategory-alert-rules-v2"
+        },
+        "messaging": {
+          "description": "Configuration for which messaging destinations to monitor.",
+          "$ref": "#/definitions/FileUploadCategory-alert-rules-v2"
+        },
+        "pdfManager": {
+          "description": "Configuration for which PDF manager destinations to monitor.",
+          "$ref": "#/definitions/FileUploadCategory-alert-rules-v2"
+        },
+        "productivityTool": {
+          "description": "Configuration for which productivity tool destinations to monitor.",
+          "$ref": "#/definitions/FileUploadCategory-alert-rules-v2"
+        },
+        "socialMedia": {
+          "description": "Configuration for which social media destinations to monitor.",
+          "$ref": "#/definitions/FileUploadCategory-alert-rules-v2"
+        },
+        "sourceCodeRepository": {
+          "description": "Configuration for which source code repository destinations to monitor.",
+          "$ref": "#/definitions/FileUploadCategory-alert-rules-v2"
+        },
+        "webHosting": {
+          "description": "Configuration for which web hosting destinations to monitor.",
+          "$ref": "#/definitions/FileUploadCategory-alert-rules-v2"
+        },
+        "advancedSettings": {
+          "description": "Advanced settings around alerting off of unknown destinations.",
+          "$ref": "#/definitions/AdvancedSettings-alert-rules-v2"
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "description": "Order in which this vector was added to the rule.",
+          "format": "int32",
+          "example": 3
+        }
+      }
+    },
+    "FileUploadCategory-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "observeAll"
+      ],
+      "properties": {
+        "observeAll": {
+          "type": "boolean",
+          "description": "Indicates whether we are watching all of the destinations in the category.",
+          "example": true
+        },
+        "destinations": {
+          "type": "array",
+          "description": "A list of specific destinations to watch within the category.",
+          "example": [],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "AdvancedSettings-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "observeUncategorized"
+      ],
+      "properties": {
+        "observeUncategorized": {
+          "type": "boolean"
+        }
+      }
+    },
+    "RemovableMediaVector-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "isEnabled",
+        "criteriaOrder"
+      ],
+      "properties": {
+        "isEnabled": {
+          "type": "boolean",
+          "description": "Indicates whether to watch removable media destinations or not.",
+          "example": true
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "description": "Order in which this vector was added to the rule.",
+          "format": "int32",
+          "example": 3
+        }
+      }
+    },
+    "RuleFilters-alert-rules-v2": {
+      "type": "object",
+      "properties": {
+        "fileCategory": {
+          "description": "Configuration for what file categories to monitor.",
+          "$ref": "#/definitions/FileCategoryFilter-alert-rules-v2"
+        },
+        "fileName": {
+          "description": "Configuration for what file names to monitor.",
+          "$ref": "#/definitions/FileNameFilter-alert-rules-v2"
+        },
+        "fileTypeMismatch": {
+          "description": "Configuration for whether to only alert on file mismatches.",
+          "$ref": "#/definitions/FileTypeMismatchFilter-alert-rules-v2"
+        },
+        "fileVolume": {
+          "description": "Activity thresholds to exceed for an alert to be generated.",
+          "$ref": "#/definitions/FileVolumeFilter-alert-rules-v2"
+        },
+        "riskIndicator": {
+          "$ref": "#/definitions/RiskIndicatorFilter-alert-rules-v2"
+        },
+        "riskSeverity": {
+          "$ref": "#/definitions/RiskSeverityFilter-alert-rules-v2"
+        },
+        "username": {
+          "description": "Configuration for which users to monitor.",
+          "$ref": "#/definitions/UsernameFilter-alert-rules-v2"
+        },
+        "watchlist": {
+          "$ref": "#/definitions/WatchlistFilter-alert-rules-v2"
+        }
+      }
+    },
+    "FileCategoryFilter-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "criteriaOrder"
+      ],
+      "properties": {
+        "categories": {
+          "type": "array",
+          "description": "List of file categories to alert on.",
+          "example": [
+            "Archive",
+            "Pdf",
+            "SourceCode"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "description": "Order in which this vector was added to the rule.",
+          "format": "int32",
+          "example": 3
+        }
+      }
+    },
+    "FileNameFilter-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "criteriaOrder"
+      ],
+      "properties": {
+        "patterns": {
+          "type": "array",
+          "description": "List of file name patterns to alert on.",
+          "example": [
+            "*.cs",
+            "*.sh"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "description": "Order in which this vector was added to the rule.",
+          "format": "int32",
+          "example": 3
+        }
+      }
+    },
+    "FileTypeMismatchFilter-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "isEnabled",
+        "criteriaOrder"
+      ],
+      "properties": {
+        "isEnabled": {
+          "type": "boolean",
+          "description": "Indicates whether or not to alert on file type mismatches only.",
+          "example": true
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "description": "Order in which this vector was added to the rule.",
+          "format": "int32",
+          "example": 3
+        }
+      }
+    },
+    "FileVolumeFilter-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "countGreaterThan",
+        "operator",
+        "sizeGreaterThanInBytes",
+        "criteriaOrder"
+      ],
+      "properties": {
+        "countGreaterThan": {
+          "type": "integer",
+          "description": "File count threshold that must be exceeded to trigger an alert.",
+          "format": "int64",
+          "example": 125
+        },
+        "operator": {
+          "description": "Operator to use to combine size and count threshold.",
+          "$ref": "#/definitions/FileVolumeOperator-alert-rules-v2"
+        },
+        "sizeGreaterThanInBytes": {
+          "type": "integer",
+          "description": "File size threshold that must be exceeded to trigger an alert.",
+          "format": "int64",
+          "example": 1024
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "description": "Order in which this vector was added to the rule.",
+          "format": "int32",
+          "example": 3
+        }
+      }
+    },
+    "FileVolumeOperator-alert-rules-v2": {
+      "type": "string",
+      "description": "Operators to use in file size and count configuration.",
+      "example": "AND",
+      "x-enumNames": [
+        "And",
+        "Or"
+      ],
+      "enum": [
+        "AND",
+        "OR"
+      ]
+    },
+    "RiskIndicatorFilter-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "criteriaOrder"
+      ],
+      "properties": {
+        "categories": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "indicators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "RiskSeverityFilter-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "low",
+        "moderate",
+        "high",
+        "critical",
+        "criteriaOrder"
+      ],
+      "properties": {
+        "low": {
+          "type": "boolean"
+        },
+        "moderate": {
+          "type": "boolean"
+        },
+        "high": {
+          "type": "boolean"
+        },
+        "critical": {
+          "type": "boolean"
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "UsernameFilter-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "mode",
+        "criteriaOrder"
+      ],
+      "properties": {
+        "mode": {
+          "description": "Indicates how to filter on the user list.",
+          "$ref": "#/definitions/UsernameFilterMode-alert-rules-v2"
+        },
+        "usernames": {
+          "type": "array",
+          "description": "List of usernames.  Will either alert only on these users or on any user not in list.",
+          "example": [
+            "myUsername@company.com",
+            "anotherUsername@company.com"
+          ],
+          "items": {
+            "type": "string"
+          }
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "description": "Order in which this vector was added to the rule.",
+          "format": "int32",
+          "example": 3
+        }
+      }
+    },
+    "UsernameFilterMode-alert-rules-v2": {
+      "type": "string",
+      "description": "Indicates how to filter on the user list.",
+      "example": "INCLUDE",
+      "x-enumNames": [
+        "Include",
+        "Exclude"
+      ],
+      "enum": [
+        "INCLUDE",
+        "EXCLUDE"
+      ]
+    },
+    "WatchlistFilter-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "criteriaOrder"
+      ],
+      "properties": {
+        "watchlists": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Watchlist-alert-rules-v2"
+          }
+        },
+        "criteriaOrder": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "Watchlist-alert-rules-v2": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        }
+      }
+    },
+    "UserAliases-alert-rules-v2": {
+      "type": "object",
+      "properties": {
+        "userIdFromAuthority": {
+          "type": "string",
+          "description": "User id that matches internal user identifier for our product.",
+          "example": "71f260b5-1753-4fa0-bfc2-0b302b670cae"
+        },
+        "aliases": {
+          "type": "array",
+          "description": "A list of known aliases for the authority user id.",
+          "example": [
+            "myUsername@company.com",
+            "anotherUsername@company.com"
+          ],
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "RuleUsersResponse-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "mode"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "The id of the rule.",
+          "example": "ea40517d-0b68-4b5a-a890-2b2a5d28928c"
+        },
+        "users": {
+          "type": "array",
+          "description": "A list of users in the rule's username filter.",
+          "items": {
+            "$ref": "#/definitions/UserAliases-alert-rules-v2"
+          }
+        },
+        "mode": {
+          "description": "Indicates how to filter on the user list.",
+          "$ref": "#/definitions/UsernameFilterMode2-alert-rules-v2"
+        }
+      }
+    },
+    "UsernameFilterMode2-alert-rules-v2": {
+      "type": "integer",
+      "description": "Indicates how the rule is set to filter on the user list.",
+      "example": "INCLUDE",
+      "x-enumNames": [
+        "Include",
+        "Exclude"
+      ],
+      "enum": [
+        "INCLUDE",
+        "EXCLUDE"
+      ]
     },
     "CaseProblemResponse-cases": {
       "type": "object",
