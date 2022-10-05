@@ -1,0 +1,134 @@
+<h3 id='prepare-your-environment'>Prepare your environment:</h3>
+<ul>
+<li><a href="https://py42docs.code42.com/en/stable/userguides/gettingstarted.html#installation">Install py42 into your Python environment</a></li>
+<li><a href="https://support.code42.com/Incydr/Admin/Code42_console_reference/API_clients">Create a Code42 API Client</a> to authenticate py42. The <code>Alerts Read</code> permission is required to query alerts.</li>
+<li>Gather your Azure Log Analytics <code>Workspace ID</code> and either <code>Primary Key</code> or <code>Secondary Key</code> to authenticate requests pushing data into Sentinel.</li>
+</ul>
+
+<aside style="margin: 30px">
+<p style="margin-left: 30px">
+<b>NOTE:</b> Workspace ID and Keys can be found in your Log Analytics Workspace Settings under <b>Agents Management</b> > <b>Log Analytics agent instructions</b>.
+</aside>
+<h3 id='writing-the-script'>Writing the script:</h3>
+<p>First, import the py42 SDK client and required classes for building your Alert query:</p>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">py42.sdk</span>
+<span class="kn">from</span> <span class="nn">py42.sdk.queries.alerts.alert_query</span> <span class="kn">import</span> <span class="n">AlertQuery</span>
+<span class="kn">from</span> <span class="nn">py42.sdk.queries.alerts.filters</span> <span class="kn">import</span> <span class="n">DateObserved</span>
+</code></pre></div>
+<p>Then construct your query. This example will search for Alerts created within the past 3 days. See
+<a href="https://py42docs.code42.com/en/stable/userguides/searches.html#search-alerts">py42 documentation</a> for details on how
+to customize your own query.</p>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+
+<span class="n">date_filter</span> <span class="o">=</span> <span class="n">DateObserved</span><span class="p">.</span><span class="n">on_or_after</span><span class="p">(</span><span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">alert_query</span> <span class="o">=</span> <span class="n">AlertQuery</span><span class="p">(</span><span class="n">date_filter</span><span class="p">)</span>
+</code></pre></div>
+<aside style="margin: 30px">
+<p style="margin-left: 30px">
+<b>NOTE:</b> If you are scheduling this script to run regularly, you'll want to store the last retrieved alert's
+timestamp to use as the starting point for the next query, so you don't ingest duplicate alerts.
+</aside>
+
+<p>Initialize the py42 SDK object with your API client details:</p>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="n">sdk</span> <span class="o">=</span> <span class="n">py42</span><span class="p">.</span><span class="n">sdk</span><span class="p">.</span><span class="n">from_api_client</span><span class="p">(</span>
+    <span class="n">host_address</span><span class="o">=</span><span class="s">"https://console.us.code42.com"</span><span class="p">,</span>
+    <span class="n">client_id</span><span class="o">=</span><span class="s">"&lt;your_client_id&gt;"</span><span class="p">,</span>
+    <span class="n">client_secret</span><span class="o">=</span><span class="s">"&lt;your_secret&gt;"</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>Fetch the alerts with your query:</p>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="n">response</span> <span class="o">=</span> <span class="n">sdk</span><span class="p">.</span><span class="n">alerts</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+</code></pre></div>
+<aside style="margin: 30px">
+<p style="margin-left: 30px">
+<b>NOTE:</b> If you anticipate needing to ingest a large number of alerts, you may want to use the
+<a href=https://py42docs.code42.com/en/stable/methoddocs/alerts.html#py42.clients.alerts.AlertsClient.search_all_pages>search_all_pages()</a>
+method, which will yield a generator of pages that you can iterate over to get all the results in a single call.
+</aside>
+
+<p>The Sentinel HTTP endpoint accepts a list of JSON objects in the request body, to prepare the py42 response for sending
+to Sentinel, you just need to extract the <code>alerts</code> data from the py42 response and convert it to a JSON string:</p>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">json</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">sdk</span><span class="p">.</span><span class="n">alerts</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="s">"alerts"</span><span class="p">])</span>
+</code></pre></div>
+<p>Then we can use the <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/logs/data-collector-api#python-sample">Python example</a>
+from the Data Collector API documentation to authenticate and send the Incydr Alerts to Sentinel. The example is
+recreated here with the py42 code replacing the example data:</p>
+<div class="highlight"><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">hmac</span>
+<span class="kn">import</span> <span class="nn">base64</span>
+
+<span class="kn">import</span> <span class="nn">py42.sdk</span>
+<span class="kn">from</span> <span class="nn">py42.sdk.queries.alerts.alert_query</span> <span class="kn">import</span> <span class="n">AlertQuery</span>
+<span class="kn">from</span> <span class="nn">py42.sdk.queries.alerts.filters</span> <span class="kn">import</span> <span class="n">DateObserved</span>
+
+<span class="c1"># Update the customer ID to your Log Analytics workspace ID
+</span><span class="n">customer_id</span> <span class="o">=</span> <span class="s">'xxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'</span>
+
+<span class="c1"># For the shared key, use either the primary or the secondary Connected Sources client authentication key
+</span><span class="n">shared_key</span> <span class="o">=</span> <span class="s">"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"</span>
+
+<span class="c1"># This creates a new Custom Log type for Incydr Alerts
+</span><span class="n">log_type</span> <span class="o">=</span> <span class="s">'IncydrAlert'</span>
+
+
+<span class="c1">#####################
+##Incydr Alert Query#
+#####################
+</span>
+<span class="n">date_filter</span> <span class="o">=</span> <span class="n">DateObserved</span><span class="p">.</span><span class="n">on_or_after</span><span class="p">(</span><span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">()</span> <span class="o">-</span> <span class="n">datetime</span><span class="p">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">3</span><span class="p">))</span>
+<span class="n">alert_query</span> <span class="o">=</span> <span class="n">AlertQuery</span><span class="p">(</span><span class="n">date_filter</span><span class="p">)</span>
+
+<span class="n">sdk</span> <span class="o">=</span> <span class="n">py42</span><span class="p">.</span><span class="n">sdk</span><span class="p">.</span><span class="n">from_api_client</span><span class="p">(</span>
+    <span class="n">host_address</span><span class="o">=</span><span class="s">"https://console.us.code42.com"</span><span class="p">,</span>
+    <span class="n">client_id</span><span class="o">=</span><span class="s">"&lt;your_client_id&gt;"</span><span class="p">,</span>
+    <span class="n">client_secret</span><span class="o">=</span><span class="s">"&lt;your_secret&gt;"</span>
+<span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">sdk</span><span class="p">.</span><span class="n">alerts</span><span class="p">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+<span class="n">body</span> <span class="o">=</span> <span class="n">json</span><span class="p">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">data</span><span class="p">[</span><span class="s">"alerts"</span><span class="p">])</span>
+
+<span class="c1">#####################
+##Sentinel Functions#
+#####################
+</span>
+<span class="c1"># Build the API signature
+</span><span class="k">def</span> <span class="nf">build_signature</span><span class="p">(</span><span class="n">customer_id</span><span class="p">,</span> <span class="n">shared_key</span><span class="p">,</span> <span class="n">date</span><span class="p">,</span> <span class="n">content_length</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">content_type</span><span class="p">,</span> <span class="n">resource</span><span class="p">):</span>
+    <span class="n">x_headers</span> <span class="o">=</span> <span class="s">'x-ms-date:'</span> <span class="o">+</span> <span class="n">date</span>
+    <span class="n">string_to_hash</span> <span class="o">=</span> <span class="n">method</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">content_length</span><span class="p">)</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span> <span class="o">+</span> <span class="n">content_type</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span> <span class="o">+</span> <span class="n">x_headers</span> <span class="o">+</span> <span class="s">"</span><span class="se">\n</span><span class="s">"</span> <span class="o">+</span> <span class="n">resource</span>
+    <span class="n">bytes_to_hash</span> <span class="o">=</span> <span class="nb">bytes</span><span class="p">(</span><span class="n">string_to_hash</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s">"utf-8"</span><span class="p">)</span>
+    <span class="n">decoded_key</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">shared_key</span><span class="p">)</span>
+    <span class="n">encoded_hash</span> <span class="o">=</span> <span class="n">base64</span><span class="p">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">hmac</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">decoded_key</span><span class="p">,</span> <span class="n">bytes_to_hash</span><span class="p">,</span> <span class="n">digestmod</span><span class="o">=</span><span class="n">hashlib</span><span class="p">.</span><span class="n">sha256</span><span class="p">).</span><span class="n">digest</span><span class="p">()).</span><span class="n">decode</span><span class="p">()</span>
+    <span class="n">authorization</span> <span class="o">=</span> <span class="s">"SharedKey {}:{}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">customer_id</span><span class="p">,</span><span class="n">encoded_hash</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">authorization</span>
+
+<span class="c1"># Build and send a request to the POST API
+</span><span class="k">def</span> <span class="nf">post_data</span><span class="p">(</span><span class="n">customer_id</span><span class="p">,</span> <span class="n">shared_key</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">log_type</span><span class="p">):</span>
+    <span class="n">method</span> <span class="o">=</span> <span class="s">'POST'</span>
+    <span class="n">content_type</span> <span class="o">=</span> <span class="s">'application/json'</span>
+    <span class="n">resource</span> <span class="o">=</span> <span class="s">'/api/logs'</span>
+    <span class="n">rfc1123date</span> <span class="o">=</span> <span class="n">datetime</span><span class="p">.</span><span class="n">datetime</span><span class="p">.</span><span class="n">utcnow</span><span class="p">().</span><span class="n">strftime</span><span class="p">(</span><span class="s">'%a, %d %b %Y %H:%M:%S GMT'</span><span class="p">)</span>
+    <span class="n">content_length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">body</span><span class="p">)</span>
+    <span class="n">signature</span> <span class="o">=</span> <span class="n">build_signature</span><span class="p">(</span><span class="n">customer_id</span><span class="p">,</span> <span class="n">shared_key</span><span class="p">,</span> <span class="n">rfc1123date</span><span class="p">,</span> <span class="n">content_length</span><span class="p">,</span> <span class="n">method</span><span class="p">,</span> <span class="n">content_type</span><span class="p">,</span> <span class="n">resource</span><span class="p">)</span>
+    <span class="n">uri</span> <span class="o">=</span> <span class="s">'https://'</span> <span class="o">+</span> <span class="n">customer_id</span> <span class="o">+</span> <span class="s">'.ods.opinsights.azure.com'</span> <span class="o">+</span> <span class="n">resource</span> <span class="o">+</span> <span class="s">'?api-version=2016-04-01'</span>
+
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s">'content-type'</span><span class="p">:</span> <span class="n">content_type</span><span class="p">,</span>
+        <span class="s">'Authorization'</span><span class="p">:</span> <span class="n">signature</span><span class="p">,</span>
+        <span class="s">'Log-Type'</span><span class="p">:</span> <span class="n">log_type</span><span class="p">,</span>
+        <span class="s">'x-ms-date'</span><span class="p">:</span> <span class="n">rfc1123date</span>
+    <span class="p">}</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="n">post</span><span class="p">(</span><span class="n">uri</span><span class="p">,</span><span class="n">data</span><span class="o">=</span><span class="n">body</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">status_code</span> <span class="o">&gt;=</span> <span class="mi">200</span> <span class="ow">and</span> <span class="n">response</span><span class="p">.</span><span class="n">status_code</span> <span class="o">&lt;=</span> <span class="mi">299</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">'Accepted'</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">"Response code: {}"</span><span class="p">.</span><span class="nb">format</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="n">status_code</span><span class="p">))</span>
+
+<span class="n">post_data</span><span class="p">(</span><span class="n">customer_id</span><span class="p">,</span> <span class="n">shared_key</span><span class="p">,</span> <span class="n">body</span><span class="p">,</span> <span class="n">log_type</span><span class="p">)</span>
+</code></pre></div>
+<p>After the script is run, you should be able to query the <code>IncydrAlert_CL</code> log table and see the Incydr Alert data.</p>

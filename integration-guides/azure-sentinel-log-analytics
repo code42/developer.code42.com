@@ -1,0 +1,60 @@
+<h3 id='prepare-your-environment'>Prepare your environment:</h3>
+<ul>
+<li>Install the <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/agents/log-analytics-agent">Azure Log Analytics Agent</a></li>
+<li>Install the <a href="https://clidocs.code42.com/en/stable/userguides/gettingstarted.html">Code42 CLI</a></li>
+<li>Configure a Code42 CLI <a href="https://clidocs.code42.com/en/stable/userguides/profile.html">profile</a> for the <code>omsagent</code> user:
+
+<ol>
+<li>Become the <code>omsagent</code> user: <code>sudo su omsagent</code></li>
+<li>Create a new Code42 CLI profile: <code>code42 profile create-api-client --name sentinel --server &lt;code42_console_domain&gt; --api-client-id &lt;your_id&gt; --secret &lt;your_secret&gt;</code></li>
+<li>Test the command you&#39;ll be using to ingest Inycdr data, for example: <code>code42 alerts search --begin 3d --format raw-json</code></li>
+</ol></li>
+</ul>
+
+<aside style="margin: 30px">
+<p style="margin-left: 30px">
+<b>NOTE:</b> The Code42 CLI will use the <a href=https://keyring.readthedocs.io>keyring</a> python library to store the
+API client secret. If the profile creation command prompts <code>Please enter password for encrypted keyring:</code>,
+then the default keyring store is an encrypted file, which requires a password on every invocation. To store the secret
+in a plaintext flat file run the following commands as the <code>omsagent</code> user:<br>
+    - <code>mkdir -p $HOME/.local/share/python_keyring</code><br>
+    - <code>echo -e '[backend]\ndefault-keyring=keyrings.alt.file.PlaintextKeyring\n' > $HOME/.local/share/python_keyring/keyringrc.cfg</code>
+</aside>
+<h3 id='configure-the-log-analytics-agent-omsagent'>Configure the Log Analytics Agent (<code>omsagent</code>)</h3>
+<p>Following the steps from <a href="https://learn.microsoft.com/en-us/azure/azure-monitor/agents/data-sources-json">Azure Documentation</a>,
+below is an example config that ingests Incydr Alerts using the Code42 CLI. The configuration examples can be added to
+<code>/etc/opt/microsoft/omsagent/&lt;workspace id&gt;/conf/omsagent.conf</code> or in their own separate file in the
+<code>/etc/opt/microsoft/omsagent/&lt;workspace id&gt;/conf/omsagent.d/</code> folder.</p>
+<h4 id='the-input-configuration'>The input configuration</h4><div class="highlight"><pre class="highlight plaintext"><code>&lt;source&gt;
+  type exec
+  command code42 alerts search -b 1d --format raw-json --checkpoint sentinel
+  format json
+  tag oms.api.incydr
+  run_interval 1h
+&lt;/source&gt;
+</code></pre></div>
+<p>The <code>code42</code> command has two important options, the <code>--format raw-json</code> output causes the CLI to write each Alert JSON
+object to stdout on its own line, and the <code>--checkpoint sentinel</code> option tells the CLI to store the last retrieved alert
+timestamp in the CLI profile, and subsequent runs will use that checkpoint date as the starting point for the next query.
+This prevents duplicate alerts from being ingested, as the query will only search for alerts <em>after</em> the last seen one.</p>
+
+<p>The <code>tag</code> config value defines what Custom Log table the events will be written to. Whatever is after <code>oms.api.</code> in the
+tag will become a new Custom Log table (in this example the table name becomes <code>incydr_CL</code>).</p>
+<h4 id='the-output-configuration'>The output configuration</h4><div class="highlight"><pre class="highlight plaintext"><code>&lt;match oms.api.incydr&gt;
+  type out_oms_api
+  log_level info
+
+  buffer_chunk_limit 5m
+  buffer_type file
+  buffer_path /var/opt/microsoft/omsagent/&lt;workspace id&gt;/state/out_oms_api_incydr*.buffer
+  buffer_queue_limit 10
+  flush_interval 20s
+  retry_limit 10
+  retry_wait 30s
+&lt;/match&gt;
+</code></pre></div>
+<p>Once the configuration is saved, restart the <code>omsagent</code> by running: <code>/opt/microsoft/omsagent/bin/service_control restart</code>.</p>
+
+<p>You should start seeing Incydr alerts being populated in the <code>incydr_CL</code> table shortly.</p>
+
+<p>For issues troubleshooting ingest using the Log Analytics agent, see <a href="https://github.com/microsoft/OMS-Agent-for-Linux/blob/master/docs/Troubleshooting.md">Microsoft&#39;s Troubleshooting FAQ</a>.</p>
