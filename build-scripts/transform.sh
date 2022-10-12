@@ -55,7 +55,12 @@ main() {
   ### Alert Rules v2
   # mark rules summary fields with "v2"
   jq '.paths[][].summary |= "v2 - \(.)"' < $RULES_V2 > $TMP && mv $TMP $RULES_V2
-
+  # hide add-users
+  jq 'del(.paths."/v2/alert-rules/{id}/users".post)' < $RULES_V2 > $TMP && mv $TMP $RULES_V2
+  # hide remove-users
+  jq 'del(.paths."/v2/alert-rules/{id}/remove-users")' < $RULES_V2 > $TMP && mv $TMP $RULES_V2
+  # hide remove-user-aliases
+  jq 'del(.paths."/v2/alert-rules/{id}/remove-user-aliases")' < $RULES_V2 > $TMP && mv $TMP $RULES_V2
 
   ### Watchlists
   # convert openapi 3 yaml to swagger 2 json
