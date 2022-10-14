@@ -1156,7 +1156,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "de79f00e-bab3-43d4-9e95-f967f0c5f3b9"
+            "example": "618399db-abe1-4c42-9c92-901770d7fd62"
           }
         ],
         "responses": {
@@ -1240,7 +1240,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "c2f6680a-cb3d-41c4-a4e7-1be4fa20e0b1"
+            "example": "aa0aa077-f9bc-4050-a3cf-900fe2d3545e"
           }
         ],
         "responses": {
@@ -1269,7 +1269,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "b74b6a55-36ea-410f-a674-c0306971f1b3"
+                "db7799a9-d8e4-4eae-a03d-cdb0a8b568c4"
               ],
               "items": {
                 "type": "string"
@@ -1303,7 +1303,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "3774cbfc-8bff-4659-b349-49fbec85b736"
+            "example": "47ee122b-0efb-487d-a1fc-c5db80c035b6"
           }
         ],
         "responses": {
@@ -1332,7 +1332,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "82648422-9b8c-4331-bd3a-c92080a4aac1"
+                "f196bb95-64c9-46bd-8ffd-832bd857998a"
               ],
               "items": {
                 "type": "string"
@@ -1352,46 +1352,6 @@
       }
     },
     "/v2/alert-rules/{id}/users": {
-      "post": {
-        "tags": [
-          "Rules"
-        ],
-        "summary": "v2 - Adds users to a rule's username filter.",
-        "description": "Note that the added users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
-        "operationId": "Rules_AddUsers",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The id of the rule.",
-            "x-nullable": true,
-            "example": "51d17d01-c3b6-40af-a11b-5baed4319338"
-          },
-          {
-            "name": "users",
-            "in": "body",
-            "required": true,
-            "description": "User aliases to add.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/UserAliases-alert-rules-v2"
-              }
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Success: Users were added to the rule"
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided"
-          }
-        }
-      },
       "delete": {
         "tags": [
           "Rules"
@@ -1407,7 +1367,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "14c57578-5269-4ab1-9f92-8fb768c8e5a1"
+            "example": "d6e4c20f-7b96-4f7d-be3e-1bf1ac9b3f1e"
           }
         ],
         "responses": {
@@ -1434,7 +1394,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "309abf83-dfac-49ae-bdff-e18999416bb9"
+            "example": "708702bd-ac6b-4b70-91db-3e1f31ce16b3"
           }
         ],
         "responses": {
@@ -1444,93 +1404,6 @@
             "schema": {
               "$ref": "#/definitions/RuleUsersResponse-alert-rules-v2"
             }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided"
-          }
-        }
-      }
-    },
-    "/v2/alert-rules/{id}/remove-user-aliases": {
-      "post": {
-        "tags": [
-          "Rules"
-        ],
-        "summary": "v2 - Removes user aliases from a rule's username filter.",
-        "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
-        "operationId": "Rules_RemoveUserAliases",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The id of the rule.",
-            "x-nullable": true,
-            "example": "0bebb2b2-ea40-4895-828b-615a57fd44b9"
-          },
-          {
-            "name": "users",
-            "in": "body",
-            "required": true,
-            "description": "User aliases to remove.",
-            "schema": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/UserAliases-alert-rules-v2"
-              }
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Success: Given user aliases were removed from the rule"
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided"
-          }
-        }
-      }
-    },
-    "/v2/alert-rules/{id}/remove-users": {
-      "post": {
-        "tags": [
-          "Rules"
-        ],
-        "summary": "v2 - Removes users from a rule's username filter.",
-        "description": "Note that the removed users could become either included or excluded from the rule, depending on the rule's configuration.\nThis command requires a userIdFromAuthority to be associated with the user aliases for successful removal. Some users, such as ones added from the Code42 console or CLI do not have this id associated and cannot be removed with this API command.",
-        "operationId": "Rules_RemoveUsers",
-        "parameters": [
-          {
-            "type": "string",
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "The id of the rule.",
-            "x-nullable": true,
-            "example": "93f8043d-328c-4831-8d67-ddf91eeb63c0"
-          },
-          {
-            "name": "userIds",
-            "in": "body",
-            "required": true,
-            "description": "User identifiers (issued from the authority) to remove.",
-            "schema": {
-              "type": "array",
-              "example": [
-                "a00746b4-17a8-4fc4-82be-7ffd56f6ede9"
-              ],
-              "items": {
-                "type": "string"
-              }
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Success: Given users were removed from the rule"
           },
           "400": {
             "description": "Bad Request: An invalid request model was provided"
@@ -6746,7 +6619,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2022-10-14T00:21:46.5900643Z"
+              "example": "2022-10-14T16:01:38.0554338Z"
             },
             "createdBy": {
               "type": "string",
@@ -6757,7 +6630,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2022-10-14T00:21:46.5900869Z"
+              "example": "2022-10-14T16:01:38.0554383Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -6784,7 +6657,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "220177ea-3a9f-4024-bb1f-f18f2c87c7e2"
+              "example": "1efabad4-b8b3-46fc-83e9-d486f3ab5356"
             }
           }
         }
@@ -7416,7 +7289,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "e9772a66-255b-4b3e-b609-c56e40f86b82"
+          "example": "7993e255-4eaa-4d0c-b157-229b34a8fa9e"
         },
         "aliases": {
           "type": "array",
@@ -7440,7 +7313,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "f056328c-58b7-4828-a92a-fcf6cb353c44"
+          "example": "7727f4ec-396e-4760-bd99-e8d76ab1d406"
         },
         "users": {
           "type": "array",
