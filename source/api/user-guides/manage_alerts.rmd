@@ -171,10 +171,8 @@ curl -X GET "<RequestURL>/v2/alert-rules" \
 -H "accept: text/plain" \
 -H "Authorization: Bearer <AuthToken>" \
 -H "Content-Type: application/json" \
--d '{"PageSize": "20", "PageNumber": "0", "WatchlistId: "<watchlist_id>"}'
+-d '{"PageSize": "20", "PageNumber": "0"}'
 ```
-
-In the preceding example, replace `<watchlist_id>` with the ID of the watchlist.
 
 A successful response returns basic information about the alert notifications that match your search criteria, including the rule IDs of those notifications (look for the `"id"` entry):
 
