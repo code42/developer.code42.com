@@ -69,31 +69,11 @@ Do the following to add the user to alerts using the APIs.
 
 When the user is added to a watchlist they are automatically added to the the watchlist's default alert rules. There is no need to use the API to add the user to, or remove a user from, the default alert rules.
 
-To receive alerts from the watchlist, enable the watchlist's alert rules using the [/v1/alert-rules/update-is-enabled](/api#operation/Rules_UpdateIsEnabled) API command.
+To receive alerts from the watchlist, enable the watchlist's alert rules using the [POST /v2/alert-rules/enable](/api/#tag/Rules/operation/Rules_Enable2) API command.
 
 #### Add the user to other alert rules
 
 You can use the API to add the user to other existing [alert rules](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Manage_Rules) that monitor user file activity.
-
-To use the API to add the user to an alert rule, use the following [/v1/alert-rules/add-users](/api#operation/Rules_AddUsersToRule) API command.
-```bash
-curl -X POST "<RequestURL>/v1/alert-rules/add-users" \
--H "accept: application/json" \
--H "Authorization: Bearer <AuthToken>" \
--H "Content-Type: application/json" \
--d '{ "tenantId": "<SampleTenant>", "ruleId": "<SampleRuleId>", "userList": [ { "userIdFromAuthority": "<SampleUserUID>", "userAliasList": [ "<SampleAlias1>", "<SampleAlias2>" ] } ]}'
-```
-
-In the preceding example:
-
-* Replace `<SampleRuleID>` with the ID of the alert rule from which you want to remove users.
-* Replace `<SampleUserID>` with a value that uniquely identifies the user you want to add. As a best practice, use the user's userUID in Code42 for this value.
-* The `userAliasList` parameter identifies the list of email addresses or cloud aliases to associate with that `<SampleUserID>`. Replace `<SampleAlias1>` and `<SampleAlias2>` with the email addresses or cloud aliases you want to add to the rule's inclusion or exclusion list for that user ID.
-  * If you want to enter only one email address or cloud alias, use this construction: `"userAliasList": [ "<SampleAlias1>" ]`
-  * If you want to enter multiple email addresses or cloud aliases for that user ID, enclose each ID in quotation marks and separate them with commas.
-
-The aliases that you enter here become the values that are added to the rule's inclusion or exclusion list and used to trigger or filter alert notifications.
-
 
 
 ### Step 3: Search for alerts the user triggered
