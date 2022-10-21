@@ -75,8 +75,6 @@ To receive alerts from the watchlist, enable the watchlist's alert rules using t
 
 You can use the API to add the user to other existing [alert rules](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Manage_Rules) that monitor user file activity.
 
-To use the API to add the user to an alert rule, use the [POST /v2/alert-rules/{id}/users](/api/#tag/Rules/operation/Rules_AddUsers) API command.
-
 
 ### Step 3: Search for alerts the user triggered
 
