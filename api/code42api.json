@@ -1379,7 +1379,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "4a5857d1-a351-4fc5-a049-e76400ac0350"
+            "example": "f3ec5d8c-9182-4314-b188-2915e31931f5"
           }
         ],
         "responses": {
@@ -1463,7 +1463,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6baa78a4-87fa-4f9f-a676-260a5454f3e3"
+            "example": "11a2e936-97ae-486b-9965-e51fbe556f6c"
           }
         ],
         "responses": {
@@ -1492,7 +1492,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "1e26bf48-2641-4fbf-91c7-45c2f10f6a51"
+                "9399b05a-6666-420e-8baf-a0fb5ecbae61"
               ],
               "items": {
                 "type": "string"
@@ -1526,7 +1526,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "9a683e31-f53e-4148-87cd-6490add43917"
+            "example": "60ab7d31-9064-4374-8531-e0127126c07e"
           }
         ],
         "responses": {
@@ -1555,7 +1555,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "cadee9b0-525d-4f9e-87f8-23a16a600c6a"
+                "b407d044-9cd3-4722-b92e-d36ca01c1a6b"
               ],
               "items": {
                 "type": "string"
@@ -1590,7 +1590,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a21ef281-c8a1-4f7e-a6ea-89fb2bad35db"
+            "example": "df93afdb-96f1-4d37-9d06-bcb43e4875f4"
           }
         ],
         "responses": {
@@ -1617,7 +1617,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ceea74ac-97f6-46f5-868e-7fee16251e55"
+            "example": "09547b36-d2a6-4f3d-933c-b7154056cac8"
           }
         ],
         "responses": {
@@ -7819,7 +7819,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2022-10-20T12:06:12.3377098Z"
+              "example": "2022-10-21T00:20:01.4051475Z"
             },
             "createdBy": {
               "type": "string",
@@ -7830,7 +7830,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2022-10-20T12:06:12.3377328Z"
+              "example": "2022-10-21T00:20:01.4051694Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -7857,7 +7857,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "81099d93-ad14-4a3f-b395-c95eeab041fb"
+              "example": "7a0ebb90-3ed1-430f-a505-afcb0ebe2c6d"
             }
           }
         }
@@ -7903,6 +7903,9 @@
         "notifications": {
           "description": "Notifications configuration settings for this rule.",
           "$ref": "#/definitions/NotificationSettings-alert-rules-v2"
+        },
+        "education": {
+          "$ref": "#/definitions/EducateUsersSettings-alert-rules-v2"
         },
         "vectors": {
           "description": "The exfiltration vectors to be watched.",
@@ -7980,6 +7983,32 @@
       ],
       "enum": [
         "EMAIL"
+      ]
+    },
+    "EducateUsersSettings-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "messagingMethod"
+      ],
+      "properties": {
+        "lessonId": {
+          "type": "string"
+        },
+        "messagingMethod": {
+          "$ref": "#/definitions/MessagingMethod-alert-rules-v2"
+        }
+      }
+    },
+    "MessagingMethod-alert-rules-v2": {
+      "type": "string",
+      "description": "",
+      "x-enumNames": [
+        "Email",
+        "Slack"
+      ],
+      "enum": [
+        "Email",
+        "Slack"
       ]
     },
     "RuleVectors-alert-rules-v2": {
@@ -8489,7 +8518,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "6f743267-c63c-4953-bb6b-e083bf02a6c6"
+          "example": "daf518b1-0e65-448d-b5cf-346dfd172749"
         },
         "aliases": {
           "type": "array",
@@ -8513,7 +8542,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "45699a3e-26ab-46c7-bada-77d828bb276a"
+          "example": "cfa51b4c-ebca-4767-b6b0-8877d4a296a6"
         },
         "users": {
           "type": "array",
