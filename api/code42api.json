@@ -1379,7 +1379,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "9a13a35d-027c-4a7b-95f6-66e564b20e41"
+            "example": "e28af906-c197-4d67-af52-e7448ea3e357"
           }
         ],
         "responses": {
@@ -1463,7 +1463,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "39dd68fe-c34e-4015-8a40-aaf309de2dbd"
+            "example": "6069dc48-58e7-4b79-8d63-bed507426a10"
           }
         ],
         "responses": {
@@ -1492,7 +1492,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "af1630dd-c454-4092-8573-7534e8d37a71"
+                "b3f6220f-7435-42b2-af39-64bb9232b55c"
               ],
               "items": {
                 "type": "string"
@@ -1526,7 +1526,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "36ac3e5c-cf31-4535-9055-2b65bb64f545"
+            "example": "09051c40-53da-48d5-8ecb-5327c4417aaf"
           }
         ],
         "responses": {
@@ -1555,7 +1555,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "9b4b0c02-3fba-41da-a5b1-3b3c58d5a2d4"
+                "72f14fa0-0396-4ba9-8d9f-e3dec406673d"
               ],
               "items": {
                 "type": "string"
@@ -1590,7 +1590,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "f39f0477-8c0a-4ca7-9fad-78ba5568b9f1"
+            "example": "882423f2-2378-4c87-9553-e7e46631b455"
           }
         ],
         "responses": {
@@ -1617,7 +1617,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "5d788c45-cf76-4f6a-8b33-b7e87af68539"
+            "example": "c13e59c9-6045-4486-8954-9d32ce294323"
           }
         ],
         "responses": {
@@ -3166,6 +3166,29 @@
             }
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Legal Hold"
+        ],
+        "summary": "Create a policy",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldCreatePolicyRequest-core"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldPolicyResponse-core"
+            }
+          }
+        }
       }
     },
     "/v1/legal-hold/policies/{policyId}": {
@@ -3449,6 +3472,36 @@
             "schema": {
               "$ref": "#/definitions/LegalHoldCustodianMatterListResponse-core"
             }
+          }
+        }
+      }
+    },
+    "/v1/legal-hold/matters/{matterId}/custodians/remove": {
+      "post": {
+        "tags": [
+          "Legal Hold"
+        ],
+        "summary": "Remove a user from a matter",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "matterId",
+            "description": "The unique identifier of the legal hold matter to remove the user from.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The request containing the userID of the user to remove from a legal hold matter.",
+            "schema": {
+              "$ref": "#/definitions/LegalHoldRemoveCustodianRequest-core"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -7819,7 +7872,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2022-10-25T12:06:54.7369353Z"
+              "example": "2022-10-25T16:53:35.933291Z"
             },
             "createdBy": {
               "type": "string",
@@ -7830,7 +7883,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2022-10-25T12:06:54.736968Z"
+              "example": "2022-10-25T16:53:35.9333021Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -7857,7 +7910,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "76e32d67-35f5-4bf0-9542-5cc7bf99ddf7"
+              "example": "ffbed62a-f01a-4710-8fbe-91f41051d41f"
             }
           }
         }
@@ -8518,7 +8571,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "99c11b8a-2122-4943-9917-66e9b2a1d428"
+          "example": "a5ed9a8b-c81f-4e6a-859a-f0ec1bad1bee"
         },
         "aliases": {
           "type": "array",
@@ -8542,7 +8595,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "53a658d1-1bc4-4ee4-a224-fed45a28b570"
+          "example": "1ec55439-c8f9-4d50-8f1b-795c149a0581"
         },
         "users": {
           "type": "array",
@@ -8798,11 +8851,6 @@
           "items": {
             "type": "string"
           }
-        },
-        "vector": {
-          "type": "string",
-          "example": "GIT_PUSH",
-          "description": "The method of file movement. For example: UPLOADED, DOWNLOADED, EMAILED."
         }
       },
       "title": "Event"
@@ -9085,7 +9133,6 @@
               "event.inserted",
               "event.observer",
               "event.shareType",
-              "event.vector",
               "file.acquiredFrom.agentTimestamp",
               "file.acquiredFrom.eventAction",
               "file.acquiredFrom.eventId",
@@ -9102,7 +9149,6 @@
               "file.category",
               "file.categoryByBytes",
               "file.categoryByExtension",
-              "file.changeType",
               "file.classifications.value",
               "file.classifications.vendor",
               "file.cloudDriveId",
@@ -9233,7 +9279,6 @@
             "event.inserted",
             "event.observer",
             "event.shareType",
-            "event.vector",
             "file.acquiredFrom.agentTimestamp",
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
@@ -9250,7 +9295,6 @@
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
-            "file.changeType",
             "file.classifications.value",
             "file.classifications.vendor",
             "file.cloudDriveId",
@@ -9363,11 +9407,6 @@
           "type": "string",
           "example": "Document",
           "description": "A categorization of the file based on its extension."
-        },
-        "changeType": {
-          "type": "string",
-          "example": "CREATED",
-          "description": "The action that caused the event. For example: CREATED, MODIFIED, DELETED."
         },
         "classifications": {
           "type": "array",
@@ -10401,7 +10440,6 @@
             "event.inserted",
             "event.observer",
             "event.shareType",
-            "event.vector",
             "file.acquiredFrom.agentTimestamp",
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
@@ -10418,7 +10456,6 @@
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
-            "file.changeType",
             "file.classifications.value",
             "file.classifications.vendor",
             "file.cloudDriveId",
@@ -11147,7 +11184,6 @@
               "event.inserted",
               "event.observer",
               "event.shareType",
-              "event.vector",
               "file.acquiredFrom.agentTimestamp",
               "file.acquiredFrom.eventAction",
               "file.acquiredFrom.eventId",
@@ -11164,7 +11200,6 @@
               "file.category",
               "file.categoryByBytes",
               "file.categoryByExtension",
-              "file.changeType",
               "file.classifications.value",
               "file.classifications.vendor",
               "file.cloudDriveId",
@@ -11343,7 +11378,6 @@
             "event.inserted",
             "event.observer",
             "event.shareType",
-            "event.vector",
             "file.acquiredFrom.agentTimestamp",
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
@@ -11360,7 +11394,6 @@
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
-            "file.changeType",
             "file.classifications.value",
             "file.classifications.vendor",
             "file.cloudDriveId",
@@ -11770,7 +11803,6 @@
             "event.inserted",
             "event.observer",
             "event.shareType",
-            "event.vector",
             "file.acquiredFrom.agentTimestamp",
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
@@ -11787,7 +11819,6 @@
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
-            "file.changeType",
             "file.classifications.value",
             "file.classifications.vendor",
             "file.cloudDriveId",
@@ -11924,7 +11955,6 @@
             "event.inserted",
             "event.observer",
             "event.shareType",
-            "event.vector",
             "file.acquiredFrom.agentTimestamp",
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
@@ -11941,7 +11971,6 @@
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
-            "file.changeType",
             "file.classifications.value",
             "file.classifications.vendor",
             "file.cloudDriveId",
@@ -12249,7 +12278,6 @@
             "event.inserted",
             "event.observer",
             "event.shareType",
-            "event.vector",
             "file.acquiredFrom.agentTimestamp",
             "file.acquiredFrom.eventAction",
             "file.acquiredFrom.eventId",
@@ -12266,7 +12294,6 @@
             "file.category",
             "file.categoryByBytes",
             "file.categoryByExtension",
-            "file.changeType",
             "file.classifications.value",
             "file.classifications.vendor",
             "file.cloudDriveId",
@@ -13719,6 +13746,15 @@
         }
       }
     },
+    "LegalHoldCreatePolicyRequest-core": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The name to give to the policy.",
+          "type": "string"
+        }
+      }
+    },
     "LegalHoldCreatorUserResponse-core": {
       "type": "object",
       "properties": {
@@ -14028,6 +14064,15 @@
         "membershipsChanged": {
           "description": "Whether the memberships were changed upon reactivation.\r\nIf true, this means that there were custodians on the matter at the time the matter got deactivated,\r\nand when reactivating, these users were placed back in legal hold.",
           "type": "boolean"
+        }
+      }
+    },
+    "LegalHoldRemoveCustodianRequest-core": {
+      "type": "object",
+      "properties": {
+        "userId": {
+          "description": "The unique identifier of the user to remove from the legal hold matter.",
+          "type": "string"
         }
       }
     },
