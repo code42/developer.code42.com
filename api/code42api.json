@@ -1379,7 +1379,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "c70b3aac-9566-4a1f-aec7-0ffee5526521"
+            "example": "76d2457a-916e-481c-868f-b9a8fbf45643"
           }
         ],
         "responses": {
@@ -1463,7 +1463,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "181c2f25-a55b-485b-82a8-8d2d798a0fbe"
+            "example": "1da8a82d-031d-4433-9a21-ba06a9ba8fc1"
           }
         ],
         "responses": {
@@ -1492,7 +1492,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "3baaad21-4a77-4a82-9b47-e4cbb0966a99"
+                "b0ef6003-4346-4d4f-858e-a9957ce5702a"
               ],
               "items": {
                 "type": "string"
@@ -1526,7 +1526,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "4f0a8c59-a3a3-47d9-925e-c5f8ea3125fe"
+            "example": "db7750f3-29d5-491c-9e94-1890bc1af99d"
           }
         ],
         "responses": {
@@ -1555,7 +1555,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "cd35f0f1-812e-4cf0-831d-bc3460f6e080"
+                "39ede6a6-5848-475c-92e1-49e7e8717b58"
               ],
               "items": {
                 "type": "string"
@@ -1590,7 +1590,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "dfc1f345-e582-438a-89af-8bb1c9bd23fd"
+            "example": "a816bb5e-dc9b-49fe-ad62-4e59857afbde"
           }
         ],
         "responses": {
@@ -1617,7 +1617,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "d0feefd3-f7b4-43f3-8bca-9981e5fc6742"
+            "example": "fd590fd2-ea29-4b27-ac9c-9a4031cd8a30"
           }
         ],
         "responses": {
@@ -7872,7 +7872,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2022-10-28T12:05:49.7076828Z"
+              "example": "2022-10-29T00:14:23.3024336Z"
             },
             "createdBy": {
               "type": "string",
@@ -7883,7 +7883,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2022-10-28T12:05:49.7077056Z"
+              "example": "2022-10-29T00:14:23.3024564Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -7910,7 +7910,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "eb4e9321-7253-4e6d-8b05-3226842d1793"
+              "example": "b363ea64-5f22-4200-9804-9e8d5664cbe3"
             }
           }
         }
@@ -8571,7 +8571,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "155e84ea-bce5-4551-9705-815ab231ea52"
+          "example": "747eda24-ea2d-495e-af42-1beff85a11cd"
         },
         "aliases": {
           "type": "array",
@@ -8595,7 +8595,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "440a692d-05ea-40fc-b636-1654a5234a8e"
+          "example": "ac7f41b3-5891-4c5b-ae53-86f48ec09a7a"
         },
         "users": {
           "type": "array",
@@ -15466,6 +15466,9 @@
               "items": {
                 "$ref": "#/definitions/Watchlist-alerts"
               }
+            },
+            "userEducation": {
+              "$ref": "#/definitions/Education-alerts"
             }
           }
         }
@@ -15623,6 +15626,41 @@
         "POOR_SECURITY_PRACTICES",
         "SUSPICIOUS_SYSTEM_ACTIVITY",
         "WATCHLIST_TYPE_UNSPECIFIED"
+      ]
+    },
+    "Education-alerts": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DomainValue-alerts"
+        },
+        {
+          "type": "object",
+          "required": [
+            "messagingMethod"
+          ],
+          "properties": {
+            "lessonId": {
+              "type": "string"
+            },
+            "messagingMethod": {
+              "$ref": "#/definitions/MessagingMethod-alerts"
+            }
+          }
+        }
+      ]
+    },
+    "MessagingMethod-alerts": {
+      "type": "integer",
+      "description": "",
+      "x-enumNames": [
+        "Email",
+        "Slack",
+        "Teams"
+      ],
+      "enum": [
+        0,
+        1,
+        2
       ]
     },
     "QueryProblem-alerts": {
