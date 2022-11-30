@@ -45,12 +45,6 @@
       }
     },
     {
-      "name": "Detection Lists",
-      "description": {
-        "$ref": "./api-descriptions/detection_lists.rmd"
-      }
-    },
-    {
       "name": "Devices",
       "description": {
         "$ref": "./api-descriptions/device.rmd"
@@ -684,686 +678,6 @@
         "deprecated": true
       }
     },
-    "/v1/detection-lists/departingemployee/get": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Get a departing employee",
-        "operationId": "DepartingEmployeeControllerV2_GetEmployee",
-        "parameters": [
-          {
-            "name": "query",
-            "in": "body",
-            "required": true,
-            "description": "Parameters used to search for a specific departing employee.",
-            "schema": {
-              "$ref": "#/definitions/GetDepartingEmployeeV2Query-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/DepartingEmployeeV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/departingemployee/search": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Search for departing employees",
-        "operationId": "DepartingEmployeeControllerV2_Search",
-        "parameters": [
-          {
-            "name": "query",
-            "in": "body",
-            "required": true,
-            "description": "Parameters used to return a paginated list of departing employees.",
-            "schema": {
-              "$ref": "#/definitions/DepartingEmployeeSearchV2Query-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/DepartingEmployeeSearchResponseV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/departingemployee/add": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Add a departing employee",
-        "operationId": "DepartingEmployeeControllerV2_AddEmployee",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "The employee's departure details needed.",
-            "schema": {
-              "$ref": "#/definitions/AddDepartingEmployeeV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/DepartingEmployeeV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/departingemployee/update": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Update an employee's departure date",
-        "operationId": "DepartingEmployeeControllerV2_UpdateDepartureDate",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "Departing employee information.",
-            "schema": {
-              "$ref": "#/definitions/UpdateDepartureDateV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/DepartingEmployeeV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/departingemployee/setalertstate": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Set alert state for departing employees",
-        "operationId": "DepartingEmployeeControllerV2_SetAlertState",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "Desired alert settings for the tenant.",
-            "schema": {
-              "$ref": "#/definitions/DepartingEmployeeSetAlertStateV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/departingemployee/remove": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Remove a departing employee",
-        "operationId": "DepartingEmployeeControllerV2_RemoveUser",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "A RemoveDepartingEmployeeV2Command.",
-            "schema": {
-              "$ref": "#/definitions/RemoveDepartingEmployeeV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/highriskemployee/add": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Add a high risk employee",
-        "operationId": "HighRiskEmployeeControllerV2_AddEmployee",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "The employee's details.",
-            "schema": {
-              "$ref": "#/definitions/AddHighRiskEmployeeV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/HighRiskEmployeeV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/highriskemployee/get": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Get a high risk employee",
-        "operationId": "HighRiskEmployeeControllerV2_GetEmployee",
-        "parameters": [
-          {
-            "name": "query",
-            "in": "body",
-            "required": true,
-            "description": "Parameters used to search for a specific high risk employee.",
-            "schema": {
-              "$ref": "#/definitions/GetHighRiskEmployeeV2Query-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/HighRiskEmployeeV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/highriskemployee/search": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Search for high risk employees",
-        "operationId": "HighRiskEmployeeControllerV2_Search",
-        "parameters": [
-          {
-            "name": "query",
-            "in": "body",
-            "required": true,
-            "description": "Parameters used to return a paginated list of high risk employees.",
-            "schema": {
-              "$ref": "#/definitions/HighRiskEmployeeSearchV2Query-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/HighRiskSearchResponseV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/highriskemployee/setalertstate": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Set alert state for high risk employees",
-        "operationId": "HighRiskEmployeeControllerV2_SetAlertState",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "Desired alert settings for the tenant.",
-            "schema": {
-              "$ref": "#/definitions/HighRiskSetAlertStateV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/highriskemployee/remove": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Remove a high risk employee",
-        "operationId": "HighRiskEmployeeControllerV2_RemoveUser",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "A RemoveHighRiskEmployeeV2Command.",
-            "schema": {
-              "$ref": "#/definitions/RemoveHighRiskEmployeeV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/user/create": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Create a detection lists profile",
-        "operationId": "UserControllerV2_Create",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "A CreateUserV2Command.",
-            "schema": {
-              "$ref": "#/definitions/CreateUserV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/UserV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/user/getbyusername": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Get a user by username",
-        "operationId": "UserControllerV2_GetByUsername",
-        "parameters": [
-          {
-            "name": "query",
-            "in": "body",
-            "required": true,
-            "description": "A GetUserByUsernameV2Query.",
-            "schema": {
-              "$ref": "#/definitions/GetUserByUsernameV2Query-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/UserV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/user/getbyid": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Get a user by id",
-        "operationId": "UserControllerV2_GetByUserId",
-        "parameters": [
-          {
-            "name": "query",
-            "in": "body",
-            "required": true,
-            "description": "A GetUserByIdV2Query.",
-            "schema": {
-              "$ref": "#/definitions/GetUserByIdV2Query-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/UserV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/user/addriskfactors": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Add risk factors to a user",
-        "operationId": "UserControllerV2_AddRiskFactors",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "A AddRiskFactorsV2Command.",
-            "schema": {
-              "$ref": "#/definitions/AddRiskFactorsV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/UserV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/user/removeriskfactors": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Remove risk factors from a user",
-        "operationId": "UserControllerV2_RemoveRiskFactors",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "A RemoveRiskFactorsV2Command.",
-            "schema": {
-              "$ref": "#/definitions/RemoveRiskFactorsV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/UserV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/user/addcloudusernames": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Add cloud usernames to a user",
-        "operationId": "UserControllerV2_AddCloudUsernames",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "A AddCloudUsernamesV2Command.",
-            "schema": {
-              "$ref": "#/definitions/AddCloudUsernamesV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/UserV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/user/removecloudusernames": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Remove cloud usernames from a user",
-        "operationId": "UserControllerV2_RemoveCloudUsernames",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "A RemoveCloudUsernamesV2Command.",
-            "schema": {
-              "$ref": "#/definitions/RemoveCloudUsernamesV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/UserV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/user/updatenotes": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Update notes for a user",
-        "operationId": "UserControllerV2_UpdateNotes",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "A UpdateNotesV2Command.",
-            "schema": {
-              "$ref": "#/definitions/UpdateNotesV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/UserV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
-    "/v1/detection-lists/user/refresh": {
-      "post": {
-        "tags": [
-          "Detection Lists"
-        ],
-        "summary": "Refresh SCIM attributes for a user",
-        "operationId": "UserControllerV2_RefreshUser",
-        "parameters": [
-          {
-            "name": "command",
-            "in": "body",
-            "required": true,
-            "description": "A RefreshUserAttributesV2Command.",
-            "schema": {
-              "$ref": "#/definitions/RefreshUserAttributesV2Command-detection-lists"
-            },
-            "x-nullable": false
-          }
-        ],
-        "responses": {
-          "200": {
-            "x-nullable": false,
-            "description": "Success.",
-            "schema": {
-              "$ref": "#/definitions/UserV2-detection-lists"
-            }
-          },
-          "400": {
-            "description": "Bad Request: An invalid request model was provided."
-          }
-        },
-        "deprecated": true
-      }
-    },
     "/v2/alert-rules/{id}": {
       "get": {
         "tags": [
@@ -1379,7 +693,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "bfae660a-f3ee-406d-856d-94859ab71033"
+            "example": "40db9d26-8c01-46ed-98bd-6aa2dcf3d439"
           }
         ],
         "responses": {
@@ -1463,7 +777,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ac017c9d-6b05-456b-859b-9e37432b4d28"
+            "example": "0ae8c71a-7d8b-4566-8682-5c278879b86d"
           }
         ],
         "responses": {
@@ -1492,7 +806,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "6e0317f5-ad5a-4cc0-ac7f-1a99d568909f"
+                "7f7558ef-68b3-4235-a1a1-6d3328dc5b85"
               ],
               "items": {
                 "type": "string"
@@ -1526,7 +840,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "cb340d1a-7bc1-4656-b253-22debd8b5271"
+            "example": "8b3aa747-4236-4208-a80b-37fec08a6c65"
           }
         ],
         "responses": {
@@ -1555,7 +869,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "1cec6f4c-5be0-4c61-afee-384d302a59f7"
+                "97976cf1-800e-43e4-a9df-cb1b4c04223e"
               ],
               "items": {
                 "type": "string"
@@ -1590,7 +904,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "c511b93e-1525-4e18-afaa-eab6bad11174"
+            "example": "4dbc51dc-22c0-4b33-aa8b-a01e4df6cb72"
           }
         ],
         "responses": {
@@ -1617,7 +931,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a5708e11-a694-4a9b-8472-2ab27b95242b"
+            "example": "54a5f3c4-23b1-487d-b18d-7b89f00e45ac"
           }
         ],
         "responses": {
@@ -2049,7 +1363,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SearchAuditLogBody"
+              "$ref": "#/definitions/ExportRequest"
             }
           }
         ],
@@ -3815,7 +3129,7 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/RolesListResponse-core"
+              "$ref": "#/definitions/UserRolesListResponse-core"
             }
           }
         }
@@ -3922,6 +3236,50 @@
         "responses": {
           "200": {
             "description": "Success"
+          }
+        }
+      }
+    },
+    "/v1/users/roles": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get a list of available roles",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RolePreserveResponse-core"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/users/roles/{roleId}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get details for a single role",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "roleId",
+            "description": "The unique Code42 user ID of the user to return.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RoleResponse-core"
+            }
           }
         }
       }
@@ -6648,1213 +6006,6 @@
         }
       ]
     },
-    "DepartingEmployeeV2-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DetectionListItem-detection-lists"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "departureDate": {
-              "$ref": "#/definitions/DepartureDate-detection-lists"
-            }
-          }
-        }
-      ]
-    },
-    "DetectionListItem-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "createdAt",
-            "status"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant for the user.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.",
-              "example": "12345"
-            },
-            "userName": {
-              "type": "string",
-              "description": "The user's Code42 username.",
-              "example": "Sample.User1@samplecase.com"
-            },
-            "displayName": {
-              "type": "string",
-              "description": "Display friendly name of the user, if available.",
-              "example": "Sample User1"
-            },
-            "notes": {
-              "type": "string",
-              "description": "Optional notes about the user.",
-              "example": "This is an example of notes about Sample User1."
-            },
-            "createdAt": {
-              "type": "string",
-              "description": "When this item was created.",
-              "format": "date-time"
-            },
-            "status": {
-              "$ref": "#/definitions/ItemStatus-detection-lists"
-            },
-            "cloudUsernames": {
-              "type": "array",
-              "description": "Cloud usernames (aliases) for the user.",
-              "example": [
-                "Sample.User1@samplecase.com",
-                "Sample.User1@gmail.com"
-              ],
-              "items": {
-                "type": "string"
-              }
-            },
-            "managerUid": {
-              "type": "string",
-              "description": "The user's manager's Code42 user id.",
-              "example": "12345"
-            },
-            "managerUsername": {
-              "type": "string",
-              "description": "The user's manager's Code42 username.",
-              "example": "manager.user1@samplecase.com"
-            },
-            "managerDisplayName": {
-              "type": "string",
-              "description": "Display friendly name of the user's manager, if available.",
-              "example": "Manager Name"
-            },
-            "title": {
-              "type": "string",
-              "description": "The user's job title, if any.",
-              "example": "Software Engineer"
-            },
-            "division": {
-              "type": "string",
-              "description": "The user's division, if any.",
-              "example": "Engineering"
-            },
-            "department": {
-              "type": "string",
-              "description": "The user's department, if any.",
-              "example": "Research and Development"
-            },
-            "employmentType": {
-              "type": "string",
-              "description": "The user's employment type, if any.",
-              "example": "Full-time"
-            },
-            "city": {
-              "type": "string",
-              "description": "The user's city, if any.",
-              "example": "Anytown"
-            },
-            "state": {
-              "type": "string",
-              "description": "The user's state, if any.",
-              "example": "MN"
-            },
-            "country": {
-              "type": "string",
-              "description": "The user's country, if any.",
-              "example": "US"
-            },
-            "totalBytes": {
-              "type": "integer",
-              "description": "Total number of bytes.  Note: this field is only returned in the search action.",
-              "format": "int64",
-              "example": "4192"
-            },
-            "numEvents": {
-              "type": "integer",
-              "description": "Total number of events.  Note: this field is only returned in the search action.",
-              "format": "int64",
-              "example": "7"
-            }
-          }
-        }
-      ]
-    },
-    "ItemStatus-detection-lists": {
-      "type": "string",
-      "description": "Status of the item.",
-      "x-enumNames": [
-        "Open",
-        "Resolved"
-      ],
-      "enum": [
-        "OPEN",
-        "RESOLVED"
-      ]
-    },
-    "DomainValue-detection-lists": {
-      "type": "object",
-      "x-abstract": true
-    },
-    "GetDepartingEmployeeV2Query-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            }
-          }
-        }
-      ]
-    },
-    "DepartingEmployeeSearchResponseV2-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "totalCount",
-            "filterType",
-            "pgSize",
-            "pgNum",
-            "srtKey",
-            "srtDirection"
-          ],
-          "properties": {
-            "items": {
-              "type": "array",
-              "description": "A paginated list of departing employees.",
-              "items": {
-                "$ref": "#/definitions/DepartingEmployeeV2-detection-lists"
-              }
-            },
-            "totalCount": {
-              "type": "integer",
-              "description": "The total number of departing employees matching the search.",
-              "format": "int64",
-              "example": 25
-            },
-            "rollups": {
-              "type": "array",
-              "description": "Departing employee rollup totals.",
-              "items": {
-                "$ref": "#/definitions/DepartingEmployeeFilterRollupV2-detection-lists"
-              }
-            },
-            "filterType": {
-              "$ref": "#/definitions/DepartingEmployeeSearchFilterV2-detection-lists"
-            },
-            "pgSize": {
-              "type": "integer",
-              "description": "The number of items to return in one request.  Value must be between 0 and 100.",
-              "format": "int32",
-              "example": "20"
-            },
-            "pgNum": {
-              "type": "integer",
-              "description": "The page number to return.",
-              "format": "int32",
-              "example": "1"
-            },
-            "srtKey": {
-              "$ref": "#/definitions/DepartingEmployeeFilteredSortKeyV2-detection-lists"
-            },
-            "srtDirection": {
-              "$ref": "#/definitions/SortDirectionV2-detection-lists"
-            }
-          }
-        }
-      ]
-    },
-    "DepartingEmployeeFilterRollupV2-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "filterType",
-            "totalCount"
-          ],
-          "properties": {
-            "filterType": {
-              "$ref": "#/definitions/DepartingEmployeeSearchFilterV2-detection-lists"
-            },
-            "totalCount": {
-              "type": "integer",
-              "description": "Total number of departing employees meeting the filter criteria.",
-              "format": "int64",
-              "example": 246
-            }
-          }
-        }
-      ]
-    },
-    "DepartingEmployeeSearchFilterV2-detection-lists": {
-      "type": "string",
-      "description": "Type of departing employee to filter on.",
-      "x-enumNames": [
-        "Open",
-        "LeavingToday",
-        "Exfiltration24Hours",
-        "Exfiltration30Days"
-      ],
-      "enum": [
-        "OPEN",
-        "LEAVING_TODAY",
-        "EXFILTRATION_24_HOURS",
-        "EXFILTRATION_30_DAYS"
-      ]
-    },
-    "DepartingEmployeeFilteredSortKeyV2-detection-lists": {
-      "type": "string",
-      "description": "Field used for sorting list.",
-      "x-enumNames": [
-        "DisplayName",
-        "DepartureDate",
-        "CreatedAt",
-        "TotalBytes",
-        "NumEvents"
-      ],
-      "enum": [
-        "DISPLAY_NAME",
-        "DEPARTURE_DATE",
-        "CREATED_AT",
-        "TOTAL_BYTES",
-        "NUM_EVENTS"
-      ]
-    },
-    "SortDirectionV2-detection-lists": {
-      "type": "string",
-      "description": "Sorting direction.",
-      "x-enumNames": [
-        "Asc",
-        "Desc"
-      ],
-      "enum": [
-        "ASC",
-        "DESC"
-      ]
-    },
-    "DepartingEmployeeSearchV2Query-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "pgSize",
-            "pgNum",
-            "filterType"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "filterType": {
-              "description": "Criteria for filtering departing employees.",
-              "default": "OPEN",
-              "$ref": "#/definitions/DepartingEmployeeSearchFilterV2-detection-lists"
-            },
-            "pgSize": {
-              "type": "integer",
-              "description": "The number of items to return in one request.  Value must be between 0 and 100.",
-              "format": "int32",
-              "example": "20"
-            },
-            "pgNum": {
-              "type": "integer",
-              "description": "The page number to return.",
-              "format": "int32",
-              "example": "1"
-            },
-            "srtKey": {
-              "$ref": "#/definitions/DepartingEmployeeFilteredSortKeyV2-detection-lists"
-            },
-            "srtDirection": {
-              "$ref": "#/definitions/SortDirectionV2-detection-lists"
-            }
-          }
-        }
-      ]
-    },
-    "AddDepartingEmployeeV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            },
-            "departureDate": {
-              "$ref": "#/definitions/DepartureDate-detection-lists"
-            }
-          }
-        }
-      ]
-    },
-    "UpdateDepartureDateV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            },
-            "departureDate": {
-              "$ref": "#/definitions/DepartureDate-detection-lists"
-            }
-          }
-        }
-      ]
-    },
-    "DepartingEmployeeSetAlertStateV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "alertsEnabled"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant for which to toggle alerts."
-            },
-            "alertsEnabled": {
-              "type": "boolean",
-              "description": "Flag determining whether or not alerts should be enabled.",
-              "example": true
-            }
-          }
-        }
-      ]
-    },
-    "RemoveDepartingEmployeeV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            }
-          }
-        }
-      ]
-    },
-    "HighRiskEmployeeV2-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DetectionListItem-detection-lists"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "riskFactors": {
-              "type": "array",
-              "description": "Optional list of risk factors for the user.",
-              "items": {
-                "$ref": "#/definitions/RiskFactorV2-detection-lists"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "RiskFactorV2-detection-lists": {
-      "type": "string",
-      "description": "",
-      "x-enumNames": [
-        "FlightRisk",
-        "PerformanceConcerns",
-        "PoorSecurityPractices",
-        "SuspiciousSystemActivity",
-        "ElevatedAccessPrivileges",
-        "HighImpactEmployee",
-        "ContractEmployee"
-      ],
-      "enum": [
-        "FLIGHT_RISK",
-        "PERFORMANCE_CONCERNS",
-        "POOR_SECURITY_PRACTICES",
-        "SUSPICIOUS_SYSTEM_ACTIVITY",
-        "ELEVATED_ACCESS_PRIVILEGES",
-        "HIGH_IMPACT_EMPLOYEE",
-        "CONTRACT_EMPLOYEE"
-      ]
-    },
-    "AddHighRiskEmployeeV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            }
-          }
-        }
-      ]
-    },
-    "GetHighRiskEmployeeV2Query-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            }
-          }
-        }
-      ]
-    },
-    "HighRiskSearchResponseV2-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "totalCount",
-            "filterType",
-            "pgSize",
-            "pgNum",
-            "srtKey",
-            "srtDirection"
-          ],
-          "properties": {
-            "items": {
-              "type": "array",
-              "description": "A paginated list of high risk employees.",
-              "items": {
-                "$ref": "#/definitions/HighRiskEmployeeV2-detection-lists"
-              }
-            },
-            "totalCount": {
-              "type": "integer",
-              "description": "The total number of high risk employees matching the search.",
-              "format": "int64",
-              "example": 25
-            },
-            "rollups": {
-              "type": "array",
-              "description": "High risk rollup totals.",
-              "items": {
-                "$ref": "#/definitions/HighRiskFilterRollupV2-detection-lists"
-              }
-            },
-            "filterType": {
-              "$ref": "#/definitions/HighRiskSearchFilterV2-detection-lists"
-            },
-            "riskFactors": {
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/RiskFactorV2-detection-lists"
-              }
-            },
-            "pgSize": {
-              "type": "integer",
-              "description": "The number of items to return in one request.  Value must be between 0 and 100.",
-              "format": "int32",
-              "example": "20"
-            },
-            "pgNum": {
-              "type": "integer",
-              "description": "The page number to return.",
-              "format": "int32",
-              "example": "1"
-            },
-            "srtKey": {
-              "$ref": "#/definitions/HighRiskSortKeyV2-detection-lists"
-            },
-            "srtDirection": {
-              "$ref": "#/definitions/SortDirectionV2-detection-lists"
-            }
-          }
-        }
-      ]
-    },
-    "HighRiskFilterRollupV2-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "filterType",
-            "totalCount"
-          ],
-          "properties": {
-            "filterType": {
-              "$ref": "#/definitions/HighRiskSearchFilterV2-detection-lists"
-            },
-            "totalCount": {
-              "type": "integer",
-              "description": "Total number of high risk employees meeting the filter criteria.",
-              "format": "int64",
-              "example": 246
-            }
-          }
-        }
-      ]
-    },
-    "HighRiskSearchFilterV2-detection-lists": {
-      "type": "string",
-      "description": "Type of high risk employee to filter on.",
-      "x-enumNames": [
-        "Open",
-        "Exfiltration24Hours",
-        "Exfiltration30Days"
-      ],
-      "enum": [
-        "OPEN",
-        "EXFILTRATION_24_HOURS",
-        "EXFILTRATION_30_DAYS"
-      ]
-    },
-    "HighRiskSortKeyV2-detection-lists": {
-      "type": "string",
-      "description": "Field used for sorting list.",
-      "x-enumNames": [
-        "DisplayName",
-        "CreatedAt",
-        "TotalBytes",
-        "NumEvents"
-      ],
-      "enum": [
-        "DISPLAY_NAME",
-        "CREATED_AT",
-        "TOTAL_BYTES",
-        "NUM_EVENTS"
-      ]
-    },
-    "HighRiskEmployeeSearchV2Query-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "pgSize",
-            "pgNum",
-            "filterType"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "filterType": {
-              "description": "Criteria for filtering high risk employees.",
-              "default": "OPEN",
-              "$ref": "#/definitions/HighRiskSearchFilterV2-detection-lists"
-            },
-            "riskFactors": {
-              "type": "array",
-              "description": "Optional list of risk factors for filtering users.  If provided, users having any of the risk factors listed will be include.  If not provided all high risk users will be included.",
-              "items": {
-                "$ref": "#/definitions/RiskFactorV2-detection-lists"
-              }
-            },
-            "pgSize": {
-              "type": "integer",
-              "description": "The number of items to return in one request.  Value must be between 0 and 100.",
-              "format": "int32",
-              "example": "20"
-            },
-            "pgNum": {
-              "type": "integer",
-              "description": "The page number to return.",
-              "format": "int32",
-              "example": "1"
-            },
-            "srtKey": {
-              "$ref": "#/definitions/HighRiskSortKeyV2-detection-lists"
-            },
-            "srtDirection": {
-              "$ref": "#/definitions/SortDirectionV2-detection-lists"
-            }
-          }
-        }
-      ]
-    },
-    "HighRiskSetAlertStateV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "alertsEnabled"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant for which to toggle alerts."
-            },
-            "alertsEnabled": {
-              "type": "boolean",
-              "description": "Flag determining whether or not alerts should be enabled.",
-              "example": true
-            }
-          }
-        }
-      ]
-    },
-    "RemoveHighRiskEmployeeV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            }
-          }
-        }
-      ]
-    },
-    "UserV2-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant for the user.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.",
-              "example": "12345"
-            },
-            "userName": {
-              "type": "string",
-              "description": "The user's Code42 username.",
-              "example": "Sample.User1@samplecase.com"
-            },
-            "displayName": {
-              "type": "string",
-              "description": "Display friendly name of the user, if available.",
-              "example": "Sample User1"
-            },
-            "notes": {
-              "type": "string",
-              "description": "Optional notes about the user.",
-              "example": "This is an example of notes about Sample User1."
-            },
-            "cloudUsernames": {
-              "type": "array",
-              "description": "Cloud usernames (aliases) for the user.",
-              "example": [
-                "Sample.User1@samplecase.com",
-                "Sample.User1@gmail.com"
-              ],
-              "items": {
-                "type": "string"
-              }
-            },
-            "managerUid": {
-              "type": "string",
-              "description": "The user's manager's Code42 user id.",
-              "example": "12345"
-            },
-            "managerUsername": {
-              "type": "string",
-              "description": "The user's manager's Code42 username.",
-              "example": "manager.user1@samplecase.com"
-            },
-            "managerDisplayName": {
-              "type": "string",
-              "description": "Display friendly name of the user's manager, if available.",
-              "example": "Manager Name"
-            },
-            "title": {
-              "type": "string",
-              "description": "The user's job title, if any.",
-              "example": "Software Engineer"
-            },
-            "division": {
-              "type": "string",
-              "description": "The user's division, if any.",
-              "example": "Engineering"
-            },
-            "department": {
-              "type": "string",
-              "description": "The user's department, if any.",
-              "example": "Research and Development"
-            },
-            "employmentType": {
-              "type": "string",
-              "description": "The user's employment type, if any.",
-              "example": "Full-time"
-            },
-            "city": {
-              "type": "string",
-              "description": "The user's city, if any.",
-              "example": "Anytown"
-            },
-            "state": {
-              "type": "string",
-              "description": "The user's state, if any.",
-              "example": "MN"
-            },
-            "country": {
-              "type": "string",
-              "description": "The user's country, if any.",
-              "example": "US"
-            },
-            "riskFactors": {
-              "type": "array",
-              "description": "Optional list of risk factors for the user.",
-              "example": [
-                "FLIGHT_RISK",
-                "HIGH_IMPACT_EMPLOYEE"
-              ],
-              "items": {
-                "$ref": "#/definitions/RiskFactorV2-detection-lists"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "CreateUserV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userName"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userName": {
-              "type": "string",
-              "description": "The user's Code42 username.",
-              "maxLength": 512,
-              "example": "Sample.User1@samplecase.com"
-            },
-            "notes": {
-              "type": "string",
-              "description": "Optional notes about the user.",
-              "maxLength": 1000,
-              "example": "This is an example of notes about Sample User1'."
-            },
-            "riskFactors": {
-              "type": "array",
-              "description": "Optional list of risk factors for the user.",
-              "example": [
-                "FLIGHT_RISK",
-                "HIGH_IMPACT_EMPLOYEE"
-              ],
-              "items": {
-                "$ref": "#/definitions/RiskFactorV2-detection-lists"
-              }
-            },
-            "cloudUsernames": {
-              "type": "array",
-              "description": "Optional List of Cloud username (aliases) for the user. An additional cloudUsername will be created with the value of the userName parameter for users created if not provided.",
-              "maxLength": 2,
-              "example": [
-                "Sample.User1@gmail.com"
-              ],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "GetUserByUsernameV2Query-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "username"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "username": {
-              "type": "string",
-              "description": "The user's Code42 username.",
-              "maxLength": 512,
-              "example": "Sample.User1@samplecase.com"
-            }
-          }
-        }
-      ]
-    },
-    "GetUserByIdV2Query-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            }
-          }
-        }
-      ]
-    },
-    "AddRiskFactorsV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "riskFactors",
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            },
-            "riskFactors": {
-              "type": "array",
-              "description": "Risk factors to add to user.",
-              "items": {
-                "$ref": "#/definitions/RiskFactorV2-detection-lists"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "RemoveRiskFactorsV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "riskFactors",
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            },
-            "riskFactors": {
-              "type": "array",
-              "description": "Risk factors to remove from user.",
-              "items": {
-                "$ref": "#/definitions/RiskFactorV2-detection-lists"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "AddCloudUsernamesV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userId",
-            "cloudUsernames"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            },
-            "cloudUsernames": {
-              "type": "array",
-              "description": "List of Cloud usernames (aliases) to add to the user. The result of these additions cannot cause total count of aliases to exceed 2 for the user.",
-              "example": [
-                "Sample.User1@gmail.com"
-              ],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "RemoveCloudUsernamesV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "cloudUsernames",
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            },
-            "cloudUsernames": {
-              "type": "array",
-              "description": "List of Cloud usernames (aliases) to remove from the user.",
-              "example": [
-                "Sample.User1@gmail.com"
-              ],
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      ]
-    },
-    "UpdateNotesV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            },
-            "notes": {
-              "type": "string",
-              "description": "Optional notes about the user.",
-              "maxLength": 1000,
-              "example": "This is an example of notes about Sample User1'."
-            }
-          }
-        }
-      ]
-    },
-    "RefreshUserAttributesV2Command-detection-lists": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-detection-lists"
-        },
-        {
-          "type": "object",
-          "required": [
-            "tenantId",
-            "userId"
-          ],
-          "properties": {
-            "tenantId": {
-              "type": "string",
-              "description": "The tenant identifier.",
-              "example": "SampleTenant1"
-            },
-            "userId": {
-              "type": "string",
-              "description": "The user's Code42 user id.  This id must be known to detection list management.",
-              "example": "12345"
-            }
-          }
-        }
-      ]
-    },
-    "DepartureDate-detection-lists": {
-      "title": "DepartureDate",
-      "type": "string",
-      "description": "The date the employee departs.",
-      "format": "date",
-      "example": "2019-11-27"
-    },
     "RuleDetails-alert-rules-v2": {
       "allOf": [
         {
@@ -7872,7 +6023,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2022-10-31T12:06:39.6749887Z"
+              "example": "2022-11-30T16:17:44.4210396Z"
             },
             "createdBy": {
               "type": "string",
@@ -7883,7 +6034,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2022-10-31T12:06:39.6750091Z"
+              "example": "2022-11-30T16:17:44.4210449Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -7910,7 +6061,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "42679490-a73b-4965-88ce-87c2654d765e"
+              "example": "39d3ff1d-07fb-4862-b0da-c391bc63ca56"
             }
           }
         }
@@ -8041,7 +6192,8 @@
     "EducateUsersSettings-alert-rules-v2": {
       "type": "object",
       "required": [
-        "messagingMethod"
+        "messagingMethod",
+        "isAutoDismissAlertEnabled"
       ],
       "properties": {
         "lessonId": {
@@ -8049,6 +6201,9 @@
         },
         "messagingMethod": {
           "$ref": "#/definitions/MessagingMethod-alert-rules-v2"
+        },
+        "isAutoDismissAlertEnabled": {
+          "type": "boolean"
         }
       }
     },
@@ -8571,7 +6726,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "5026b28f-10e9-411d-8954-d388b1ce66a4"
+          "example": "805fa0e7-ed14-4423-8d7c-012f882e40ef"
         },
         "aliases": {
           "type": "array",
@@ -8595,7 +6750,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "b1a797c6-250c-4826-97f4-4780237b02eb"
+          "example": "cd701735-1107-4758-9a71-e69ab1c9ae54"
         },
         "users": {
           "type": "array",
@@ -12600,17 +10755,17 @@
           "type": "array"
         },
         "resourceIds": {
-          "description": "Filters export events that match resource_id",
+          "description": "Filters events that match resource_id",
           "example": 1523,
           "items": {
-            "description": "Filters export events that match resource_id",
+            "description": "Filters events that match resource_id",
             "example": "1523",
             "type": "string"
           },
           "type": "array"
         },
         "userTypes": {
-          "description": "Filters export events that match actor type",
+          "description": "Filters events that match actor type",
           "enum": [
             "User",
             "Support_User",
@@ -12620,7 +10775,7 @@
           ],
           "example": "User",
           "items": {
-            "description": "Filters export events that match actor type",
+            "description": "Filters events that match actor type",
             "enum": [
               "User",
               "Support_User",
@@ -12757,17 +10912,17 @@
           "type": "integer"
         },
         "resourceIds": {
-          "description": "Filters searchable events that match resource_id.",
+          "description": "Filters events that match resource_id.",
           "example": 1523,
           "items": {
-            "description": "Filters searchable events that match resource_id.",
+            "description": "Filters events that match resource_id.",
             "example": "1523",
             "type": "string"
           },
           "type": "array"
         },
         "userTypes": {
-          "description": "Filters searchable events that match actor type.",
+          "description": "Filters events that match actor type.",
           "enum": [
             "USER",
             "SUPPORT_USER",
@@ -12777,7 +10932,7 @@
           ],
           "example": "User",
           "items": {
-            "description": "Filters searchable events that match actor type.",
+            "description": "Filters events that match actor type.",
             "enum": [
               "USER",
               "SUPPORT_USER",
@@ -13000,6 +11155,9 @@
         "weight"
       ],
       "properties": {
+        "id": {
+          "type": "string"
+        },
         "name": {
           "type": "string"
         },
@@ -14290,6 +12448,19 @@
         }
       }
     },
+    "RolePermissionResponse-core": {
+      "type": "object",
+      "properties": {
+        "permission": {
+          "description": "A permission ID.",
+          "type": "string"
+        },
+        "description": {
+          "description": "Brief description of a permission.",
+          "type": "string"
+        }
+      }
+    },
     "RolePreserveResponse-core": {
       "type": "object",
       "properties": {
@@ -14301,33 +12472,48 @@
           "description": "A role name.",
           "type": "string"
         },
-        "modificationDate": {
-          "description": "The date and time this role was last modified.",
-          "type": "string"
-        },
         "creationDate": {
-          "description": "The date and time this role was created.",
+          "description": "The date and time the role was created.",
           "type": "string"
         },
-        "permissionIds": {
+        "modificationDate": {
+          "description": "The date and time the role was last modified.",
+          "type": "string"
+        },
+        "permissions": {
           "description": "The permissions given to this role.",
           "type": "array",
           "items": {
-            "type": "string"
+            "$ref": "#/definitions/RolePermissionResponse-core"
           }
         }
       }
     },
-    "RolesListResponse-core": {
+    "RoleResponse-core": {
       "type": "object",
       "properties": {
-        "roles": {
-          "description": "A list of a user's current roles.",
+        "roleId": {
+          "description": "A role ID.",
+          "type": "string"
+        },
+        "roleName": {
+          "description": "A role name.",
+          "type": "string"
+        },
+        "creationDate": {
+          "description": "The date and time the role was created.",
+          "type": "string"
+        },
+        "modificationDate": {
+          "description": "The date and time the role was last modified.",
+          "type": "string"
+        },
+        "permissions": {
+          "description": "The permissions given to this role.",
           "type": "array",
           "items": {
-            "$ref": "#/definitions/RolePreserveResponse-core"
-          },
-          "readOnly": true
+            "$ref": "#/definitions/RolePermissionResponse-core"
+          }
         }
       }
     },
@@ -14514,6 +12700,47 @@
         "modificationDate": {
           "description": "The date and time the user was last modified.",
           "type": "string"
+        }
+      }
+    },
+    "UserRolePreserveResponse-core": {
+      "type": "object",
+      "properties": {
+        "roleId": {
+          "description": "A role ID.",
+          "type": "string"
+        },
+        "roleName": {
+          "description": "A role name.",
+          "type": "string"
+        },
+        "modificationDate": {
+          "description": "The date and time this role was last modified.",
+          "type": "string"
+        },
+        "creationDate": {
+          "description": "The date and time this role was created.",
+          "type": "string"
+        },
+        "permissionIds": {
+          "description": "The permissions given to this role.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "UserRolesListResponse-core": {
+      "type": "object",
+      "properties": {
+        "roles": {
+          "description": "A list of a user's current roles.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/UserRolePreserveResponse-core"
+          },
+          "readOnly": true
         }
       }
     },
@@ -15636,7 +13863,8 @@
         {
           "type": "object",
           "required": [
-            "messagingMethod"
+            "messagingMethod",
+            "isAutoDismissAlertEnabled"
           ],
           "properties": {
             "lessonId": {
@@ -15644,6 +13872,9 @@
             },
             "messagingMethod": {
               "$ref": "#/definitions/MessagingMethod-alerts"
+            },
+            "isAutoDismissAlertEnabled": {
+              "type": "boolean"
             }
           }
         }
