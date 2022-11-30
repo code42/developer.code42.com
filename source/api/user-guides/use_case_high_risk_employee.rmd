@@ -32,7 +32,7 @@ Before attempting to write scripts using the Code42 API examples in this article
 
 * **Authentication token**
 
-[Authentication tokens](#authentication) are required to run the APIs. 
+[Authentication tokens](#authentication) are required to run the APIs.
 
 * **Tenant ID**
 
@@ -57,13 +57,13 @@ curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/add \
 In the preceding example:
 
 * Replace `<watchlist_id>` with the watchlist ID obtained from the [/v1/watchlists](/api#operation/ListWatchlists) API command.
-* Replace `<userUIDs>` with the user's userUID in Code42. 
+* Replace `<userUIDs>` with the user's userUID in Code42.
 
 
 
 ### Step 2: Add the user to an alert rule
 
-Do the following to add the user to alerts using the APIs. 
+Do the following to add the user to alerts using the APIs.
 
 #### Add the user to default watchlist rules
 
@@ -141,7 +141,7 @@ In addition to using alerts to identify file activity, you can use the [File Eve
 
 ### Step 4: Remove the user from the watchlist when tracking is no longer desired
 
-You can remove the user from the watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/delete](/api#operation/DeleteIncludedUsers) API.  
+You can remove the user from the watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/delete](/api#operation/DeleteIncludedUsers) API.
 
 ```bash
 curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/delete \
@@ -156,7 +156,7 @@ In the preceding example:
 * Replace `<WatchlistID>` with the watchlist ID.
 
 
-To verify that the user is removed, obtain a listing of all users in the detection list by running the [/v1/watchlists/\<watchlist_id\>/included-users](/api#operation/ListIncludedUsers) API command.
+To verify that the user is removed, obtain a listing of all users on the watchlist by running the [/v1/watchlists/\<watchlist_id\>/included-users](/api#operation/ListIncludedUsers) API command.
 
 
 
