@@ -693,7 +693,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "11f1ae3d-0f7a-4b4f-9c36-fe82cff21daf"
+            "example": "29b28a47-76f6-4cbd-ae6d-8fe7f28ef842"
           }
         ],
         "responses": {
@@ -777,7 +777,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b142c2a3-5b94-4036-8b03-5750a8bc20de"
+            "example": "e95f9932-1fff-476a-92dc-520dc0a058ba"
           }
         ],
         "responses": {
@@ -806,7 +806,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "30c84b9e-7bb4-4f3b-bfc5-5e7740282590"
+                "95c0b416-f3c7-415f-8c89-12f3bc6a49d2"
               ],
               "items": {
                 "type": "string"
@@ -840,7 +840,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "d0692b9e-9b2f-45d1-a2ba-8b151c82b00f"
+            "example": "ff7a5ef7-4fc8-4e7d-bd08-cebc1b602a4c"
           }
         ],
         "responses": {
@@ -869,7 +869,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "3fc7cc42-dc1f-4f0c-a404-e1fa3e2e5339"
+                "6576c289-e60c-44c6-aa7a-77b345ea59a2"
               ],
               "items": {
                 "type": "string"
@@ -904,7 +904,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "d49eb416-ab09-4a81-8f11-c927921ebeb7"
+            "example": "df814b1e-4af7-4655-9acd-b1938ae8f58b"
           }
         ],
         "responses": {
@@ -931,7 +931,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "31696171-7fb0-4b02-8182-f884d333906b"
+            "example": "c5a06b6a-a687-4ee5-9bd1-e8a8ff54738a"
           }
         ],
         "responses": {
@@ -2129,6 +2129,207 @@
             "description": "Not Found: Event not on case, or has no file."
           }
         }
+      }
+    },
+    "/v2/trusted-activities": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The type of the trusted activity.",
+            "enum": [
+              "DOMAIN",
+              "ACCOUNT_NAME",
+              "GIT_REPOSITORY_URI",
+              "URL_PATH",
+              "SLACK"
+            ],
+            "in": "query",
+            "name": "type",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "The desired page of trusted activity to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "number"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "number"
+          },
+          {
+            "description": "The key by which to sort the returned list.",
+            "enum": [
+              "ACTIVITY_ID",
+              "DESCRIPTION",
+              "TYPE",
+              "UPDATED_BY_PRINCIPAL_NAME",
+              "UPDATE_TIME",
+              "VALUE"
+            ],
+            "in": "query",
+            "name": "sort_key",
+            "type": "string"
+          },
+          {
+            "description": "The order in which to sort the returned list.",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "sort_direction",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ListTrustedActivitiesResponse"
+            }
+          }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "ListTrustedActivities",
+        "summary": "v2 - Get a list of trusted activities"
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/CreateTrustedActivityRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TrustedActivity"
+            }
+          }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "CreateTrustedActivity",
+        "summary": "v2 - Create a new trusted activity"
+      }
+    },
+    "/v2/trusted-activities/{activity_id}": {
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The id of the trusted activity.",
+            "format": "int64",
+            "in": "path",
+            "name": "activity_id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "additionalProperties": false,
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "DeleteTrustedActivity",
+        "summary": "v2 - Delete a trusted activity"
+      },
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The id of the trusted activity.",
+            "format": "int64",
+            "in": "path",
+            "name": "activity_id",
+            "required": true,
+            "type": "number"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TrustedActivity"
+            }
+          }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "GetTrustedActivity",
+        "summary": "v2 - Get a single trusted activity"
+      },
+      "patch": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The id of the trusted activity.",
+            "format": "int64",
+            "in": "path",
+            "name": "activity_id",
+            "required": true,
+            "type": "number"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/UpdatedTrustActivity"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TrustedActivity"
+            }
+          }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "UpdateTrustedActivity",
+        "summary": "v2 - Modify a trusted activity"
       }
     },
     "/v1/oauth": {
@@ -5822,7 +6023,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2022-12-06T12:05:01.2925907Z"
+              "example": "2022-12-07T00:13:38.6103004Z"
             },
             "createdBy": {
               "type": "string",
@@ -5833,7 +6034,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2022-12-06T12:05:01.2926112Z"
+              "example": "2022-12-07T00:13:38.6103248Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -5860,7 +6061,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "2b8f272e-2f27-462d-9b64-f5c28d8f1afb"
+              "example": "9b1cf0c6-d929-496f-a78a-c9f2caa6e72e"
             }
           }
         }
@@ -6525,7 +6726,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "d665fa7d-6b93-452f-b87f-4a7d9193d86a"
+          "example": "8cad8d67-2b1d-430f-bd5f-ebe3d8173d6f"
         },
         "aliases": {
           "type": "array",
@@ -6549,7 +6750,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "4b559dcc-4ca6-4a89-b7ee-2f3af81c212a"
+          "example": "158f240e-3441-4a3d-8d4a-10223bb97fcd"
         },
         "users": {
           "type": "array",
@@ -11179,6 +11380,220 @@
         }
       },
       "title": "UpdateCaseRequest"
+    },
+    "ActivityAction": {
+      "additionalProperties": false,
+      "properties": {
+        "providers": {
+          "description": "A list of enabled providers for the specified activity action.",
+          "items": {
+            "$ref": "#/definitions/ProviderObject"
+          },
+          "type": "array"
+        },
+        "type": {
+          "description": "The type of an activity action.\n### Supported trusted activity types for each activity action type\n\n- `CLOUD_SHARE` \n  - `DOMAIN`\n- `CLOUD_SYNC` \n  - `DOMAIN`\n  - `ACCOUNT_NAME`\n- `EMAIL` \n  - `DOMAIN`\n- `FILE_UPLOAD`\n  - `DOMAIN`\n- `GIT_PUSH`\n  - `DOMAIN`\n  - `GIT_REPOSITORY_URI`\n\nNote: `SLACK` and `URL_PATH` do not need any activity actions specified.\n",
+          "enum": [
+            "CLOUD_SHARE",
+            "CLOUD_SYNC",
+            "EMAIL",
+            "FILE_UPLOAD",
+            "GIT_PUSH"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ActivityActionGroup": {
+      "additionalProperties": false,
+      "properties": {
+        "activityActions": {
+          "description": "The list of activity actions for an activity action group.",
+          "items": {
+            "$ref": "#/definitions/ActivityAction"
+          },
+          "type": "array"
+        },
+        "name": {
+          "description": "The name of the activity action group. Currently, only `DEFAULT` activity action group is supported.",
+          "enum": [
+            "DEFAULT"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "CreateTrustedActivityRequest": {
+      "additionalProperties": false,
+      "properties": {
+        "activityActionGroups": {
+          "description": "The list of activity action groups for the trusted activity. \n- `DOMAIN` - If array is empty, all activity actions are enabled. \n- `ACCOUNT_NAME` - Atleast 1 activity action group is required.\n- `GIT_REPOSITORY_URI` - Atleast 1 activity action group is required.\n- `SLACK` - No activity action groups are allowed - array must be empty.\n- `URL_PATH` - No activity action groups are allowed - array must be empty.\n",
+          "items": {
+            "$ref": "#/definitions/ActivityActionGroup"
+          },
+          "type": "array"
+        },
+        "description": {
+          "description": "The description of the trusted activity.",
+          "type": "string"
+        },
+        "isHighValueSource": {
+          "description": "Indicates if the resource is a high value source of company information. If true, a source risk indicator is \napplied to events for files downloaded from this location and later uploaded to an untrusted destination.\n### Supported trusted activity types\n\n- `DOMAIN`\n- `SLACK`\n- `URL_PATH`\n- `ACCOUNT_NAME`\n\nNote: When creating a resource, if the isHighValueSource property is not explicitly set, the value of the \nproperty defaults to `true`\n",
+          "type": "boolean"
+        },
+        "type": {
+          "description": "The type of the trusted activity.\n\nThe `ACCOUNT_NAME` type requires agent version 1.5.0 or later (for `ONE_DRIVE`) and 1.6.0 or later \n(for `DROPBOX`) for Incydr Professional, Enterprise, Gov F2, and Horizon product plans. For Incydr Basic,\nAdvanced, and Gov F1 product plans, `ACCOUNT_NAME` requires Code42 app version 10.3.0 or later.\n\nThe `GIT_REPOSITORY_URI` and `DOMAIN` types with `GIT_PUSH` action require the Incydr Professional, \nEnterprise, Gov F2, or Horizon product plan.\n",
+          "enum": [
+            "DOMAIN",
+            "ACCOUNT_NAME",
+            "GIT_REPOSITORY_URI",
+            "URL_PATH",
+            "SLACK"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of the trusted activity.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ListTrustedActivitiesResponse": {
+      "additionalProperties": false,
+      "properties": {
+        "totalCount": {
+          "format": "int64",
+          "type": "number"
+        },
+        "trustedActivities": {
+          "description": "A list of TrustedActivityResponses",
+          "items": {
+            "$ref": "#/definitions/TrustedActivity"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "ProviderObject": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "description": "The name of a provider for a specified activity action.\n  ### Supported providers for trusted activity type and actions\n\n  - `DOMAIN`\n    - `CLOUD_SHARE`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ONE_DRIVE`\n    - `CLOUD_SYNC`\n      - `BOX`\n      - `GOOGLE_DRIVE` \n      - `ICLOUD` \n      - `ONE_DRIVE` \n    - `EMAIL` \n      - `GMAIL`\n      - `OFFICE_365`\n  - `ACCOUNT_NAME`\n    - `CLOUD_SYNC`\n      - `DROPBOX`\n      - `ONE_DRIVE`\n\nNote: `FILE_UPLOAD` and `GIT_PUSH` activity actions do not need any providers specified.\n",
+          "enum": [
+            "BOX",
+            "GOOGLE_DRIVE",
+            "ICLOUD",
+            "ONE_DRIVE",
+            "GMAIL",
+            "OFFICE_365"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "TrustedActivity": {
+      "additionalProperties": false,
+      "properties": {
+        "activityActionGroups": {
+          "description": "The list of activity actions associated with the activity.",
+          "items": {
+            "$ref": "#/definitions/ActivityActionGroup"
+          },
+          "type": "array"
+        },
+        "activityId": {
+          "description": "The unique identifier of the trusted activity.",
+          "type": "string"
+        },
+        "description": {
+          "description": "A description of the trusted activity.",
+          "type": "string"
+        },
+        "isHighValueSource": {
+          "description": "Indicates if the resource is a high value source of company information. If true, a source risk indicator is \napplied to events for files downloaded from this location and later uploaded to an untrusted destination.\n",
+          "type": "boolean"
+        },
+        "principalType": {
+          "enum": [
+            "USER",
+            "API_KEY",
+            "DEVICE",
+            "SERVICE"
+          ],
+          "type": "string"
+        },
+        "type": {
+          "description": "The type of the trusted activity.",
+          "enum": [
+            "DOMAIN",
+            "ACCOUNT_NAME",
+            "GIT_REPOSITORY_URI",
+            "URL_PATH",
+            "SLACK"
+          ],
+          "type": "string"
+        },
+        "updateTime": {
+          "description": "The time at which the trust activity was last created or modified.",
+          "format": "date-time",
+          "type": "string",
+          "x-nullable": true
+        },
+        "updatedByPrincipalId": {
+          "description": "The unique identifier of the user who last updated the trust activity.",
+          "type": "string"
+        },
+        "updatedByPrincipalName": {
+          "description": "The username of the user who last updated the trusted activity.",
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of the trusted activity.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "UpdatedTrustActivity": {
+      "additionalProperties": false,
+      "properties": {
+        "activityActionGroups": {
+          "description": "The list of activity action groups for the trusted activity. \n- `DOMAIN` - If array is empty, existing activity action groups are maintained. \n- `ACCOUNT_NAME` - Atleast 1 activity action group is required.\n- `GIT_REPOSITORY_URI` - Atleast 1 activity action group is required.\n- `SLACK` - No activity action groups are allowed - array must be empty.\n- `URL_PATH` - No activity action groups are allowed - array must be empty.\n",
+          "items": {
+            "$ref": "#/definitions/ActivityActionGroup"
+          },
+          "type": "array"
+        },
+        "description": {
+          "description": "The description of the trusted activity.",
+          "type": "string"
+        },
+        "isHighValueSource": {
+          "description": "Indicates if the resource is a high value source of company information. If true, a source risk indicator is \napplied to events for files downloaded from this location and later uploaded to an untrusted destination.\n### Supported trusted activity types\n\n- `DOMAIN`\n- `SLACK`\n- `URL_PATH`\n- `ACCOUNT_NAME`\n\nNote: When updating a resource, if the isHighValueSource property is not explicitly set, the existing value\nof the property remains unchanged.\n",
+          "type": "boolean"
+        },
+        "type": {
+          "description": "The type of the trusted activity.\n\nNote: The `ACCOUNT_NAME` trusted activity type requires agent version 1.5.0 or later for Incydr \nProfessional, Enterprise, Gov F2, and Horizon product plans, and Code42 app version 9.0.0 or later for \nIncydr Basic, Advanced, and Gov F1 product plans.\n",
+          "enum": [
+            "DOMAIN",
+            "ACCOUNT_NAME",
+            "GIT_REPOSITORY_URI",
+            "URL_PATH",
+            "SLACK"
+          ],
+          "type": "string"
+        },
+        "value": {
+          "description": "The value of the trusted activity.",
+          "type": "string"
+        }
+      },
+      "type": "object"
     },
     "BaseLegalHoldMatterResponse-core": {
       "type": "object",
