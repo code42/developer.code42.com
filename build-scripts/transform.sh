@@ -9,7 +9,7 @@ main() {
   TRUSTED_ACTIVITIES_V1="${docs}/trusted-activities"
   TRUSTED_ACTIVITIES_V2="${docs}/trusted-activities.json"
   WATCHLISTS="${docs}/watchlists.json"
-  FILE_EVENTS="${docs}/file-events"
+  FILE_EVENTS="${docs}/file-events.json"
 
   echo "Applying transformations..."
 
@@ -33,15 +33,16 @@ main() {
   jq '.paths[][].summary |= "v2 - \(.)"' < $TRUSTED_ACTIVITIES_V2 > $TMP && mv $TMP $TRUSTED_ACTIVITIES_V2
 
   ### File Events
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/file-events > $FILE_EVENTS
   # prefix v1 summary fields with "v1" and mark as deprecated
   jq '.paths |= with_entries( if .key | contains("v1") then .value[].summary  |= "v1 - \(.)" else . end)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
   jq '.paths |= with_entries( if .key | contains("v1") then .value[].deprecated |= true else . end)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
-
    # prefix v2 summary fields with "v2"
   jq '.paths |= with_entries( if .key | contains("v2") then (if .value.post? then .value.post.summary |= "v2 - \(.)" else .value.get.summary |= "v2 - \(.)" end) else . end)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
-
   # order v2 events before v1
   jq '.paths |= (to_entries | [_nwise(.; 5)] | reverse | flatten | from_entries)' < $FILE_EVENTS > $TMP && mv $TMP $FILE_EVENTS
+  rm ${docs}/file-events
+  mv $FILE_EVENTS ${docs}/file-events
 
   ### Alert Rules v1
   # prefix summary fields with "v1"
