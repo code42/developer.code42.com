@@ -693,7 +693,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "24a3d7f9-48e5-4c37-bbd8-04b337346432"
+            "example": "fa707a47-cf1a-4fbf-bcb6-0fad7acef0c5"
           }
         ],
         "responses": {
@@ -777,7 +777,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6ba95eac-78f6-4772-b06d-e29acc85f043"
+            "example": "8cac13ce-4889-482e-9fd8-7dce948b37d8"
           }
         ],
         "responses": {
@@ -806,7 +806,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "b10c9352-611e-4f91-b6a3-64a593b104b9"
+                "af007854-e8d5-4677-b382-621e0d73f9a7"
               ],
               "items": {
                 "type": "string"
@@ -840,7 +840,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "4d8a54fa-fff5-4dd1-9f00-3b01330173e8"
+            "example": "28d37eb7-6e46-4a7f-87be-bfab05e94c50"
           }
         ],
         "responses": {
@@ -869,7 +869,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "06e3bde7-bd50-4e2a-8fa0-8b02e5fc8c70"
+                "272ae067-a177-4148-b774-7d847798215e"
               ],
               "items": {
                 "type": "string"
@@ -904,7 +904,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b36ea59c-662c-4a48-8780-222542620d88"
+            "example": "d0d25543-927b-477c-aa3c-c6f6269abc4e"
           }
         ],
         "responses": {
@@ -931,7 +931,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "4354c810-cee8-48a9-9f8a-64fe57d44546"
+            "example": "cfcd13fd-2e17-4485-b903-b82449fbe072"
           }
         ],
         "responses": {
@@ -6095,7 +6095,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2022-12-09T12:04:57.5373806Z"
+              "example": "2022-12-10T00:12:35.3300872Z"
             },
             "createdBy": {
               "type": "string",
@@ -6106,7 +6106,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2022-12-09T12:04:57.5374042Z"
+              "example": "2022-12-10T00:12:35.3301087Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -6133,7 +6133,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "e458b8d0-5726-447b-9d54-8eaffaae60ba"
+              "example": "3d6229f7-b205-40d9-a8cb-8b52852b39c5"
             }
           }
         }
@@ -6798,7 +6798,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "23945d7c-767b-4c23-a471-2796ff8b9948"
+          "example": "e7d20fc7-da8d-4d3e-a825-804d8742caeb"
         },
         "aliases": {
           "type": "array",
@@ -6822,7 +6822,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "9364854a-5391-4de5-a07c-64c4b0a1fbba"
+          "example": "4b327084-30f2-4a32-8743-16ba56b2776e"
         },
         "users": {
           "type": "array",
@@ -14004,7 +14004,7 @@
             },
             "srtKey": {
               "type": "string",
-              "description": "The alert attribute to sort by.  Value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, Severity",
+              "description": "The alert attribute to sort by.  Value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, Education, Severity",
               "example": "CreatedAt"
             },
             "srtDirection": {
@@ -14055,7 +14055,7 @@
           "properties": {
             "term": {
               "type": "string",
-              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, Severity.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
+              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, Education, Severity.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
               "example": "Name"
             },
             "operator": {
