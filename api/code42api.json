@@ -693,7 +693,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "20e2eb4b-d70a-4efc-863e-4a7ad26e7c73"
+            "example": "50714f2b-c7f4-4a51-b3e8-43c2ae22b7dc"
           }
         ],
         "responses": {
@@ -777,7 +777,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "1056da2c-97af-4f5e-bb70-5ffae259c4a1"
+            "example": "e2f62ab4-f510-4ecc-b27e-148ede9c2cca"
           }
         ],
         "responses": {
@@ -806,7 +806,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "c9d46c4d-a5d1-45c6-bb57-5f25db013611"
+                "1ee569cd-5c33-4763-adc3-795695237fe0"
               ],
               "items": {
                 "type": "string"
@@ -840,7 +840,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "0b0682c4-ceaf-4004-859d-7e26faeb60cb"
+            "example": "0cab96e7-57d0-4e4b-a869-a09566a6d8bb"
           }
         ],
         "responses": {
@@ -869,7 +869,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "089f2c5c-e13e-42fb-8d05-73df83f1878a"
+                "97571e57-43bc-4efb-ac52-3bbb65c016bc"
               ],
               "items": {
                 "type": "string"
@@ -904,7 +904,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6c461848-bb79-4700-9c8f-e555d38d447e"
+            "example": "999ce0a1-6de8-40d5-a04c-e6614f97f49e"
           }
         ],
         "responses": {
@@ -931,7 +931,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "cf2b42b8-37f7-40db-b940-c9b12950ffcf"
+            "example": "c977d776-8f24-4f16-8ac1-e7c95a5529a7"
           }
         ],
         "responses": {
@@ -6095,7 +6095,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2022-12-13T12:05:13.6839558Z"
+              "example": "2022-12-14T00:13:57.2338899Z"
             },
             "createdBy": {
               "type": "string",
@@ -6106,7 +6106,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2022-12-13T12:05:13.6839761Z"
+              "example": "2022-12-14T00:13:57.2339154Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -6133,7 +6133,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "928e88f9-1400-4cb5-9359-5cb7303c124a"
+              "example": "9435cba6-2912-43b5-a24d-e2c4a7b72544"
             }
           }
         }
@@ -6798,7 +6798,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "d3f1e3e4-46ac-4348-8376-14b8d204a6c4"
+          "example": "0957befb-5ca9-4b64-9bce-faf7529bf0b0"
         },
         "aliases": {
           "type": "array",
@@ -6822,7 +6822,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "13858c7f-e10c-4888-9a6d-e2f65784d868"
+          "example": "3d61e534-88e7-4cd9-9787-09c217fcc7bc"
         },
         "users": {
           "type": "array",
@@ -6878,6 +6878,14 @@
           "title": "The MD5 hash of the file contents.",
           "type": "string"
         },
+        "sourceAccountName": {
+          "title": "For cloud sync apps installed on user devices, the name of the cloud account where the event was observed. This can help identify if the activity occurred in a business or personal account.",
+          "type": "string"
+        },
+        "sourceAccountType": {
+          "title": "For cloud sync apps installed on user devices, the type of account where the event was observed. For example, 'BUSINESS' or 'PERSONAL'.",
+          "type": "string"
+        },
         "sourceCategory": {
           "example": "Social Media",
           "title": "General category of where the file originated. For example: Cloud Storage, Email, Social Media.",
@@ -6898,6 +6906,9 @@
           "title": "The name reported by the device's operating system.  This may be different than the device name in the Code42 console.",
           "type": "string"
         },
+        "sourceUser": {
+          "$ref": "#/definitions/AcquiredFromSourceUser-file-events"
+        },
         "tabs": {
           "items": {
             "$ref": "#/definitions/Tab-file-events"
@@ -6912,9 +6923,32 @@
         }
       },
       "required": [
-        "sourceDomains"
+        "sourceDomains",
+        "sourceUser"
       ],
       "title": "List of other events associated with this file. This can help determine the origin of the file.",
+      "type": "object"
+    },
+    "AcquiredFromSourceUser-file-events": {
+      "properties": {
+        "email": {
+          "example": [
+            "first.last@example.com",
+            "first_last_example_com"
+          ],
+          "items": {
+            "example": "[\"first.last@example.com\",\"first_last_example_com\"]",
+            "title": "For endpoint events where a file in cloud storage is synced to a device, the email address of the user logged in to the cloud storage provider.",
+            "type": "string"
+          },
+          "title": "For endpoint events where a file in cloud storage is synced to a device, the email address of the user logged in to the cloud storage provider.",
+          "type": "array"
+        }
+      },
+      "required": [
+        "email"
+      ],
+      "title": "Metadata about the source user.",
       "type": "object"
     },
     "Destination-file-events": {
@@ -7452,8 +7486,11 @@
               "risk.trusted",
               "risk.trustReason",
               "file.acquiredFrom.eventId",
+              "file.acquiredFrom.sourceAccountName",
+              "file.acquiredFrom.sourceAccountType",
               "file.acquiredFrom.sourceCategory",
               "file.acquiredFrom.sourceName",
+              "file.acquiredFrom.sourceUser.email",
               "file.acquiredFrom.agentTimestamp",
               "file.acquiredFrom.userEmail",
               "file.acquiredFrom.eventAction",
@@ -7605,8 +7642,11 @@
             "risk.trusted",
             "risk.trustReason",
             "file.acquiredFrom.eventId",
+            "file.acquiredFrom.sourceAccountName",
+            "file.acquiredFrom.sourceAccountType",
             "file.acquiredFrom.sourceCategory",
             "file.acquiredFrom.sourceName",
+            "file.acquiredFrom.sourceUser.email",
             "file.acquiredFrom.agentTimestamp",
             "file.acquiredFrom.userEmail",
             "file.acquiredFrom.eventAction",
@@ -8830,8 +8870,11 @@
             "risk.trusted",
             "risk.trustReason",
             "file.acquiredFrom.eventId",
+            "file.acquiredFrom.sourceAccountName",
+            "file.acquiredFrom.sourceAccountType",
             "file.acquiredFrom.sourceCategory",
             "file.acquiredFrom.sourceName",
+            "file.acquiredFrom.sourceUser.email",
             "file.acquiredFrom.agentTimestamp",
             "file.acquiredFrom.userEmail",
             "file.acquiredFrom.eventAction",
@@ -9625,8 +9668,11 @@
               "risk.trusted",
               "risk.trustReason",
               "file.acquiredFrom.eventId",
+              "file.acquiredFrom.sourceAccountName",
+              "file.acquiredFrom.sourceAccountType",
               "file.acquiredFrom.sourceCategory",
               "file.acquiredFrom.sourceName",
+              "file.acquiredFrom.sourceUser.email",
               "file.acquiredFrom.agentTimestamp",
               "file.acquiredFrom.userEmail",
               "file.acquiredFrom.eventAction",
@@ -9825,8 +9871,11 @@
             "risk.trusted",
             "risk.trustReason",
             "file.acquiredFrom.eventId",
+            "file.acquiredFrom.sourceAccountName",
+            "file.acquiredFrom.sourceAccountType",
             "file.acquiredFrom.sourceCategory",
             "file.acquiredFrom.sourceName",
+            "file.acquiredFrom.sourceUser.email",
             "file.acquiredFrom.agentTimestamp",
             "file.acquiredFrom.userEmail",
             "file.acquiredFrom.eventAction",
@@ -10135,8 +10184,11 @@
             "risk.trusted",
             "risk.trustReason",
             "file.acquiredFrom.eventId",
+            "file.acquiredFrom.sourceAccountName",
+            "file.acquiredFrom.sourceAccountType",
             "file.acquiredFrom.sourceCategory",
             "file.acquiredFrom.sourceName",
+            "file.acquiredFrom.sourceUser.email",
             "file.acquiredFrom.agentTimestamp",
             "file.acquiredFrom.userEmail",
             "file.acquiredFrom.eventAction",
@@ -10465,8 +10517,11 @@
             "risk.trusted",
             "risk.trustReason",
             "file.acquiredFrom.eventId",
+            "file.acquiredFrom.sourceAccountName",
+            "file.acquiredFrom.sourceAccountType",
             "file.acquiredFrom.sourceCategory",
             "file.acquiredFrom.sourceName",
+            "file.acquiredFrom.sourceUser.email",
             "file.acquiredFrom.agentTimestamp",
             "file.acquiredFrom.userEmail",
             "file.acquiredFrom.eventAction",
@@ -10524,7 +10579,7 @@
           "type": "string"
         },
         "accountType": {
-          "title": "For cloud sync apps installed on user devices, the type of account where the event was observed. For example, ‘BUSINESS’ or ‘PERSONAL’.",
+          "title": "For cloud sync apps installed on user devices, the type of account where the event was observed. For example, 'BUSINESS' or 'PERSONAL'.",
           "type": "string"
         },
         "category": {
