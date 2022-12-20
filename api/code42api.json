@@ -693,7 +693,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "0a2c946e-b648-4892-a0fe-244c4cfdcd01"
+            "example": "977a120d-4d4f-474e-ac0c-2095dda24107"
           }
         ],
         "responses": {
@@ -777,7 +777,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6e84c85f-5f24-4cc3-932b-85bdd10ac389"
+            "example": "28c90ce4-bb00-4d7d-8432-1b3ad34712ef"
           }
         ],
         "responses": {
@@ -806,7 +806,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "2c596f68-22c7-40b9-ba23-e5d983bf3cdc"
+                "602bdf59-5812-4709-8493-7d2f0e4730fa"
               ],
               "items": {
                 "type": "string"
@@ -840,7 +840,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "54deb96d-6cb5-415e-aa0d-04aaf4d678b4"
+            "example": "ee4a825b-585f-4d74-8dbc-78cf5cdced5c"
           }
         ],
         "responses": {
@@ -869,7 +869,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "0f702165-5265-41e1-939c-b237a63cadb5"
+                "f43e5cda-8a3f-42c2-8596-bd77081583c5"
               ],
               "items": {
                 "type": "string"
@@ -904,7 +904,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "da3a13c5-719b-43b8-9330-8d7e869789f0"
+            "example": "514d0027-49af-4c84-a1df-99632e36c9c3"
           }
         ],
         "responses": {
@@ -931,7 +931,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "c9f38d88-ab9b-4f08-b4aa-256e1e7108c2"
+            "example": "089cafdc-8666-42b8-8870-074678285bb1"
           }
         ],
         "responses": {
@@ -6095,7 +6095,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2022-12-19T12:04:51.1739372Z"
+              "example": "2022-12-20T00:13:17.6038338Z"
             },
             "createdBy": {
               "type": "string",
@@ -6106,7 +6106,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2022-12-19T12:04:51.1739594Z"
+              "example": "2022-12-20T00:13:17.6038393Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -6133,7 +6133,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "189edbcd-fef0-4409-ba68-b1e5bb36fd69"
+              "example": "5f0442b3-8a3d-49d0-9860-602cec972c2d"
             }
           }
         }
@@ -6798,7 +6798,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "4cb1319e-46ed-490a-9ba1-69277c318c76"
+          "example": "8d181d3e-1837-44a8-99e0-e25dacf8e15d"
         },
         "aliases": {
           "type": "array",
@@ -6822,7 +6822,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "84a8d375-9844-4183-9157-3d398dda505c"
+          "example": "49041465-5e55-4a3f-8445-da11d5bf294d"
         },
         "users": {
           "type": "array",
@@ -7485,6 +7485,10 @@
               "risk.indicators.weight",
               "risk.trusted",
               "risk.trustReason",
+              "risk.untrustedValues.domains",
+              "risk.untrustedValues.urlPaths",
+              "risk.untrustedValues.accountNames",
+              "risk.untrustedValues.gitRepositoryUris",
               "file.acquiredFrom.eventId",
               "file.acquiredFrom.sourceAccountName",
               "file.acquiredFrom.sourceAccountType",
@@ -7641,6 +7645,10 @@
             "risk.indicators.weight",
             "risk.trusted",
             "risk.trustReason",
+            "risk.untrustedValues.domains",
+            "risk.untrustedValues.urlPaths",
+            "risk.untrustedValues.accountNames",
+            "risk.untrustedValues.gitRepositoryUris",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -8869,6 +8877,10 @@
             "risk.indicators.weight",
             "risk.trusted",
             "risk.trustReason",
+            "risk.untrustedValues.domains",
+            "risk.untrustedValues.urlPaths",
+            "risk.untrustedValues.accountNames",
+            "risk.untrustedValues.gitRepositoryUris",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -9225,11 +9237,15 @@
           "example": true,
           "title": "Indicates whether or not the file activity is trusted based on your Data Preferences settings.",
           "type": "boolean"
+        },
+        "untrustedValues": {
+          "$ref": "#/definitions/UntrustedValues-file-events"
         }
       },
       "required": [
         "indicators",
-        "trusted"
+        "trusted",
+        "untrustedValues"
       ],
       "title": "Risk factor metadata.",
       "type": "object"
@@ -9667,6 +9683,10 @@
               "risk.indicators.weight",
               "risk.trusted",
               "risk.trustReason",
+              "risk.untrustedValues.domains",
+              "risk.untrustedValues.urlPaths",
+              "risk.untrustedValues.accountNames",
+              "risk.untrustedValues.gitRepositoryUris",
               "file.acquiredFrom.eventId",
               "file.acquiredFrom.sourceAccountName",
               "file.acquiredFrom.sourceAccountType",
@@ -9870,6 +9890,10 @@
             "risk.indicators.weight",
             "risk.trusted",
             "risk.trustReason",
+            "risk.untrustedValues.domains",
+            "risk.untrustedValues.urlPaths",
+            "risk.untrustedValues.accountNames",
+            "risk.untrustedValues.gitRepositoryUris",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -10183,6 +10207,10 @@
             "risk.indicators.weight",
             "risk.trusted",
             "risk.trustReason",
+            "risk.untrustedValues.domains",
+            "risk.untrustedValues.urlPaths",
+            "risk.untrustedValues.accountNames",
+            "risk.untrustedValues.gitRepositoryUris",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -10516,6 +10544,10 @@
             "risk.indicators.weight",
             "risk.trusted",
             "risk.trustReason",
+            "risk.untrustedValues.domains",
+            "risk.untrustedValues.urlPaths",
+            "risk.untrustedValues.accountNames",
+            "risk.untrustedValues.gitRepositoryUris",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -10721,6 +10753,50 @@
         }
       },
       "title": "Metadata about the browser tab destination.",
+      "type": "object"
+    },
+    "UntrustedValues-file-events": {
+      "properties": {
+        "accountNames": {
+          "items": {
+            "title": "Account names that do not match an entry in your list of Trusted activity. Values are obtained from the account name metadata for the event. Only applies to event types that are evaluated for trust.",
+            "type": "string"
+          },
+          "title": "Account names that do not match an entry in your list of Trusted activity. Values are obtained from the account name metadata for the event. Only applies to event types that are evaluated for trust.",
+          "type": "array"
+        },
+        "domains": {
+          "items": {
+            "title": "Domains that do not match an entry in your list of Trusted activity. Values are obtained from the domain section of related metadata for the event. Only applies to event types that are evaluated for trust.",
+            "type": "string"
+          },
+          "title": "Domains that do not match an entry in your list of Trusted activity. Values are obtained from the domain section of related metadata for the event. Only applies to event types that are evaluated for trust.",
+          "type": "array"
+        },
+        "gitRepositoryUris": {
+          "items": {
+            "title": "Git URIs that do not match an entry in your list of Trusted activity. Values are obtained from the Git URI metadata for the event. Only applies to event types that are evaluated for trust.",
+            "type": "string"
+          },
+          "title": "Git URIs that do not match an entry in your list of Trusted activity. Values are obtained from the Git URI metadata for the event. Only applies to event types that are evaluated for trust.",
+          "type": "array"
+        },
+        "urlPaths": {
+          "items": {
+            "title": "URL paths that do not match an entry in your list of Trusted activity. Values are obtained from the URL metadata for the event. Only applies to event types that are evaluated for trust.",
+            "type": "string"
+          },
+          "title": "URL paths that do not match an entry in your list of Trusted activity. Values are obtained from the URL metadata for the event. Only applies to event types that are evaluated for trust.",
+          "type": "array"
+        }
+      },
+      "required": [
+        "accountNames",
+        "domains",
+        "gitRepositoryUris",
+        "urlPaths"
+      ],
+      "title": "Values that do not match an entry in your list of Trusted activity.",
       "type": "object"
     },
     "User-file-events": {
