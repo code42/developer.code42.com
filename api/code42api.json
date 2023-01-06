@@ -4494,7 +4494,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "0b02866a-d7fa-4b91-bbad-4477c28ab456"
+            "example": "e87f0b40-0529-484c-8a82-53989e195f82"
           }
         ],
         "responses": {
@@ -4578,7 +4578,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ec756316-13e8-4a3f-b0f5-98b21f80cb38"
+            "example": "c7971a8b-d751-4848-a174-7604c69a8487"
           }
         ],
         "responses": {
@@ -4607,7 +4607,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "a726ffff-4c0f-4fa9-9600-452ed77dc6e4"
+                "db62b364-6674-4347-b8f7-57422e0384cf"
               ],
               "items": {
                 "type": "string"
@@ -4641,7 +4641,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "8fd9abf5-33f4-4d16-9be1-918b6d4e4dac"
+            "example": "6d28ddd4-ffe2-4dac-9f81-5f16447e4496"
           }
         ],
         "responses": {
@@ -4670,7 +4670,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "c9be2507-dbe6-4755-874a-53b363a75f2a"
+                "bddf9cb1-a7fb-4d3b-904d-53fc7b210dcb"
               ],
               "items": {
                 "type": "string"
@@ -4705,7 +4705,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "4a8c32c7-335b-4406-b5f0-50ed65a82ba8"
+            "example": "e67e770f-438a-484e-b36a-716bfbbd3968"
           }
         ],
         "responses": {
@@ -4732,7 +4732,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a0015720-575e-4289-894a-9411d5112ca2"
+            "example": "b967d499-d4d6-4d4a-8140-1e944f20c613"
           }
         ],
         "responses": {
@@ -4823,10 +4823,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "sourceDomains",
-        "sourceUser"
-      ],
       "title": "List of other events associated with this file. This can help determine the origin of the file.",
       "type": "object"
     },
@@ -4846,9 +4842,6 @@
           "type": "array"
         }
       },
-      "required": [
-        "email"
-      ],
       "title": "Metadata about the source user.",
       "type": "object"
     },
@@ -4932,12 +4925,7 @@
         }
       },
       "required": [
-        "domains",
-        "email",
-        "privateIp",
-        "removableMedia",
-        "tabs",
-        "user"
+        "privateIp"
       ],
       "title": "Metadata about the destination of the file event.",
       "type": "object"
@@ -4982,9 +4970,6 @@
           "type": "array"
         }
       },
-      "required": [
-        "email"
-      ],
       "title": "Metadata about the destination user.",
       "type": "object"
     },
@@ -5038,9 +5023,7 @@
         }
       },
       "required": [
-        "id",
-        "ingested",
-        "shareType"
+        "id"
       ],
       "title": "Summary information about the event.",
       "type": "object"
@@ -5272,9 +5255,7 @@
         }
       },
       "required": [
-        "groupClause",
-        "groups",
-        "srtDir"
+        "groups"
       ],
       "type": "object"
     },
@@ -5579,9 +5560,7 @@
         }
       },
       "required": [
-        "groupClause",
-        "groups",
-        "srtDir"
+        "groups"
       ],
       "type": "object"
     },
@@ -5604,10 +5583,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "error",
-        "field"
-      ],
       "title": "List fields with errors indicating why they could not be determined.",
       "type": "object"
     },
@@ -5723,10 +5698,7 @@
         }
       },
       "required": [
-        "acquiredFrom",
-        "classifications",
-        "directoryId",
-        "hash"
+        "name"
       ],
       "title": "Metadata about the file for this event.",
       "type": "object"
@@ -5744,10 +5716,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "value",
-        "vendor"
-      ],
       "title": "Data provided by an external file classification vendor.",
       "type": "object"
     },
@@ -6370,24 +6338,12 @@
         }
       },
       "required": [
-        "directoryId",
         "eventId",
         "eventType",
         "exposure",
-        "fieldErrors",
-        "fileClassifications",
-        "privateIpAddresses",
-        "removableMediaPartitionId",
-        "removableMediaVolumeName",
-        "riskIndicators",
-        "sharedWith",
-        "sharingTypeAdded",
-        "source",
-        "sourceTabs",
-        "syncDestinationUsername",
-        "tabs",
-        "trusted",
-        "windowTitle"
+        "fileName",
+        "fileType",
+        "privateIpAddresses"
       ],
       "title": "List of file events in the response.",
       "type": "object"
@@ -6428,17 +6384,6 @@
           "$ref": "#/definitions/User-file-events"
         }
       },
-      "required": [
-        "destination",
-        "event",
-        "file",
-        "git",
-        "process",
-        "report",
-        "risk",
-        "source",
-        "user"
-      ],
       "title": "List of file events in the response.",
       "type": "object"
     },
@@ -6462,7 +6407,6 @@
         }
       },
       "required": [
-        "filterClause",
         "filters"
       ],
       "title": "One or more FilterGroups to be combined in a query.",
@@ -6488,7 +6432,6 @@
         }
       },
       "required": [
-        "filterClause",
         "filters"
       ],
       "title": "One or more FilterGroups to be combined in a query.",
@@ -6538,10 +6481,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "docCount",
-        "value"
-      ],
       "title": "The top groups based on the query and group by term.",
       "type": "object"
     },
@@ -6660,8 +6599,6 @@
         }
       },
       "required": [
-        "groupClause",
-        "groupingTerm",
         "groups"
       ],
       "type": "object"
@@ -6818,8 +6755,6 @@
         }
       },
       "required": [
-        "groupClause",
-        "groupingTerm",
         "groups"
       ],
       "type": "object"
@@ -7039,10 +6974,6 @@
           "type": "array"
         }
       },
-      "required": [
-        "partitionId",
-        "volumeName"
-      ],
       "title": "Metadata about the removable media destination.",
       "type": "object"
     },
@@ -7096,9 +7027,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "headers"
-      ],
       "title": "Metadata for reports from 3rd party sources, such Salesforce downloads.",
       "type": "object"
     },
@@ -7143,11 +7071,6 @@
           "$ref": "#/definitions/UntrustedValues-file-events"
         }
       },
-      "required": [
-        "indicators",
-        "trusted",
-        "untrustedValues"
-      ],
       "title": "Risk factor metadata.",
       "type": "object"
     },
@@ -7169,10 +7092,6 @@
           "type": "integer"
         }
       },
-      "required": [
-        "name",
-        "weight"
-      ],
       "title": "List of risk indicators identified for this event. If more than one risk indicator applies to this event, the sum of all indicators determines the total risk score.",
       "type": "object"
     },
@@ -7455,18 +7374,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "apiVersion",
-        "createdByUID",
-        "createdByUsername",
-        "creationTimestamp",
-        "groups",
-        "id",
-        "modifiedByUID",
-        "modifiedByUsername",
-        "modifiedTimestamp",
-        "name"
-      ],
       "title": "List of saved searches in the response.",
       "type": "object"
     },
@@ -7823,18 +7730,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "apiVersion",
-        "createdByUID",
-        "createdByUsername",
-        "creationTimestamp",
-        "groups",
-        "id",
-        "modifiedByUID",
-        "modifiedByUsername",
-        "modifiedTimestamp",
-        "name"
-      ],
       "title": "List of saved searches in the response.",
       "type": "object"
     },
@@ -7983,7 +7878,7 @@
         }
       },
       "required": [
-        "operator"
+        "value"
       ],
       "title": "One or more SearchFilters to be combined in a query.",
       "type": "object"
@@ -8146,7 +8041,7 @@
         }
       },
       "required": [
-        "operator"
+        "value"
       ],
       "title": "One or more SearchFilters to be combined in a query.",
       "type": "object"
@@ -8292,11 +8187,7 @@
         }
       },
       "required": [
-        "groupClause",
-        "groups",
-        "pgNum",
-        "pgSize",
-        "srtDir"
+        "groups"
       ],
       "type": "object"
     },
@@ -8478,11 +8369,7 @@
         }
       },
       "required": [
-        "groupClause",
-        "groups",
-        "pgNum",
-        "pgSize",
-        "srtDir"
+        "groups"
       ],
       "type": "object"
     },
@@ -8499,9 +8386,6 @@
           "type": "string"
         }
       },
-      "required": [
-        "cloudUsername"
-      ],
       "title": "A list of users who have been granted explicit rights to the file at the time the event occurred.",
       "type": "object"
     },
@@ -8579,12 +8463,7 @@
         }
       },
       "required": [
-        "domains",
-        "email",
-        "privateIp",
-        "removableMedia",
-        "tabs",
-        "user"
+        "privateIp"
       ],
       "title": "Metadata about the source of the file event.",
       "type": "object"
@@ -8621,9 +8500,6 @@
           "type": "array"
         }
       },
-      "required": [
-        "email"
-      ],
       "title": "Metadata about the source user.",
       "type": "object"
     },
@@ -8691,12 +8567,6 @@
           "type": "array"
         }
       },
-      "required": [
-        "accountNames",
-        "domains",
-        "gitRepositoryUris",
-        "urlPaths"
-      ],
       "title": "Values that do not match an entry in your list of Trusted activity.",
       "type": "object"
     },
@@ -13873,7 +13743,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-01-05T00:13:31.4266623Z"
+              "example": "2023-01-06T00:12:45.8812814Z"
             },
             "createdBy": {
               "type": "string",
@@ -13884,7 +13754,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-01-05T00:13:31.426698Z"
+              "example": "2023-01-06T00:12:45.8813022Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -13911,7 +13781,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "2f934a20-fb47-492f-8065-21a052c7a7d2"
+              "example": "9d7e082f-779a-4e02-aa9e-9cbb6b7bf676"
             }
           }
         }
@@ -14576,7 +14446,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "316079ad-fdff-47c4-bb97-c4015643a754"
+          "example": "f1f432b3-ff4e-4ec6-b649-8a57a6dca28a"
         },
         "aliases": {
           "type": "array",
@@ -14600,7 +14470,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "b98b323d-58e0-4d7d-8e32-25877834c98b"
+          "example": "78555d0b-77f0-4d6a-b3ed-7dd9f5f71a29"
         },
         "users": {
           "type": "array",
