@@ -2248,10 +2248,13 @@
             "default": "type",
             "allowEmptyValue": false,
             "enum": [
+              "ACTIVITY_ID",
               "RESOURCE_ID",
               "DESCRIPTION",
               "TYPE",
+              "UPDATED_BY_PRINCIPAL_NAME",
               "UPDATED_BY_USERNAME",
+              "UPDATE_TIME",
               "UPDATED_AT",
               "VALUE"
             ]
@@ -2401,8 +2404,26 @@
               "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
           "404": {
             "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "500": {
+            "description": "Unknown Error Occured",
             "schema": {
               "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
@@ -3173,7 +3194,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "c2cf9bc8-1150-457c-bc54-8c0047040665"
+            "example": "d93866da-2c2f-4705-a1cf-146655da8aa0"
           }
         ],
         "responses": {
@@ -3257,7 +3278,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a4199042-16e6-458d-86a6-a3e77ced1805"
+            "example": "9e849ed8-beb0-4262-916f-08030bfc6456"
           }
         ],
         "responses": {
@@ -3286,7 +3307,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "440204cd-f1d5-4184-966e-18f8eb2d4e17"
+                "8d011dc0-b7ba-4720-a711-d466e5e1bf92"
               ],
               "items": {
                 "type": "string"
@@ -3320,7 +3341,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "305fc52b-58ee-4be0-b55f-4eec0b661f46"
+            "example": "aa953336-8e39-4a52-8aeb-52bdf33e9a42"
           }
         ],
         "responses": {
@@ -3349,7 +3370,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "278e270b-d189-40b0-be9c-9254f5d52179"
+                "1d042e5d-5076-4ff9-b6bd-e8b8c7e1d319"
               ],
               "items": {
                 "type": "string"
@@ -3384,7 +3405,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "c9ba5f8e-625b-4afa-bd81-019651099202"
+            "example": "21136847-9b62-4a52-8376-147a0b3e0cd4"
           }
         ],
         "responses": {
@@ -3411,7 +3432,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "27d4fa67-42fd-4667-b01f-43f0e36bcb77"
+            "example": "3da87c03-c5b5-47d2-a354-dc939c0dd3a0"
           }
         ],
         "responses": {
@@ -8239,13 +8260,21 @@
       ],
       "properties": {
         "description": {
-          "type": "string"
+          "type": "string",
+          "description": "A description of the trusted resource."
         },
         "type": {
-          "type": "string"
+          "type": "string",
+          "description": "The type of the trusted resource.",
+          "enum": [
+            "DOMAIN",
+            "SLACK",
+            "URL_PATH"
+          ]
         },
         "value": {
-          "type": "string"
+          "type": "string",
+          "description": "The value of the trusted resource."
         }
       },
       "title": "TrustResourceRequest"
@@ -8273,7 +8302,7 @@
         },
         "type": {
           "type": "string",
-          "description": "The type of the trusted resource. eg: SLACK, DOMAIN, IP_ADDRESS."
+          "description": "The type of the trusted resource. eg: DOMAIN, SLACK, URL_PATH."
         },
         "updatedAt": {
           "type": "string",
@@ -8741,7 +8770,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-01-25T12:04:38.573275Z"
+              "example": "2023-01-26T00:13:56.3154391Z"
             },
             "createdBy": {
               "type": "string",
@@ -8752,7 +8781,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-01-25T12:04:38.5732961Z"
+              "example": "2023-01-26T00:13:56.3154711Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -8779,7 +8808,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "142be4ba-1648-407a-9afc-69ce8eec72fd"
+              "example": "c7397574-b62a-41f3-92be-58b6b5f0d1a2"
             }
           }
         }
@@ -9444,7 +9473,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "b9538a0c-dff2-45bb-ab4a-c41a87e635a2"
+          "example": "8f62bfc8-cfe7-4b0a-9e70-837600ea4d3e"
         },
         "aliases": {
           "type": "array",
@@ -9468,7 +9497,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "ea269575-34a3-42f4-9ce2-dec0047da496"
+          "example": "24909ba3-2cff-40da-bfcb-0592e77661ac"
         },
         "users": {
           "type": "array",
