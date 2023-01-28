@@ -3194,7 +3194,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "36ef83a0-b7cd-47ac-9926-c8ae0d98aeff"
+            "example": "8b034fe4-9649-4666-b898-34911cb0749e"
           }
         ],
         "responses": {
@@ -3278,7 +3278,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "7b59ca11-1ed5-4cd7-b36e-cd178640faa1"
+            "example": "460a183c-a5c6-4b47-ab10-0e1d41a6d2e2"
           }
         ],
         "responses": {
@@ -3307,7 +3307,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "48464544-acaa-42d0-88a3-1bc2471f53f4"
+                "f999dd16-f7a3-4e5e-ad27-5f73969e2c52"
               ],
               "items": {
                 "type": "string"
@@ -3341,7 +3341,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "84002b85-d2a5-4ffc-935f-feb2fccabd29"
+            "example": "48c2c5a5-b1d1-4a58-9c1b-ee131b73f755"
           }
         ],
         "responses": {
@@ -3370,7 +3370,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "50995f1f-71ce-45e1-b9e9-00fa9637023e"
+                "e39c5b2f-0f2d-4228-89a6-cb05aa01e488"
               ],
               "items": {
                 "type": "string"
@@ -3405,7 +3405,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "fec2168c-cac5-4518-809a-1d9ebe694c78"
+            "example": "cef608b6-d438-4d49-8e9c-9645f636ece4"
           }
         ],
         "responses": {
@@ -3432,7 +3432,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "9d3842f4-6699-44f6-a3fc-4605710b274c"
+            "example": "f99dfe3e-72cd-41ba-a8da-95ab30463f66"
           }
         ],
         "responses": {
@@ -8770,7 +8770,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-01-27T12:05:03.3152551Z"
+              "example": "2023-01-28T00:12:53.5736496Z"
             },
             "createdBy": {
               "type": "string",
@@ -8781,7 +8781,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-01-27T12:05:03.3152806Z"
+              "example": "2023-01-28T00:12:53.5736713Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -8808,7 +8808,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "c46f40fc-423d-4d45-afae-787faf9c82f0"
+              "example": "480d7cda-a80e-4973-8235-0ad2fb628f1b"
             }
           }
         }
@@ -8959,11 +8959,13 @@
       "description": "",
       "x-enumNames": [
         "Email",
-        "Slack"
+        "Slack",
+        "Teams"
       ],
       "enum": [
         "Email",
-        "Slack"
+        "Slack",
+        "Teams"
       ]
     },
     "RuleVectors-alert-rules-v2": {
@@ -9473,7 +9475,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "8d00e1cb-2707-4845-8144-4991d18dd73e"
+          "example": "2352bf96-56ea-4a5d-8796-eeced787a878"
         },
         "aliases": {
           "type": "array",
@@ -9497,7 +9499,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "f5a329ad-e13d-48c4-ac6d-529bbc3b294d"
+          "example": "77b51aad-563f-4953-82fe-f157931220be"
         },
         "users": {
           "type": "array",
