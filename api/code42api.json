@@ -465,6 +465,35 @@
         }
       }
     },
+    "/v1/alerts/update-all-state": {
+      "post": {
+        "tags": [
+          "Alerts"
+        ],
+        "summary": "Change the state of a set of all alerts.",
+        "operationId": "Alerts_UpdateAllAlertState",
+        "parameters": [
+          {
+            "name": "command",
+            "in": "body",
+            "required": true,
+            "description": "The command to change the state of the given alerts.",
+            "schema": {
+              "$ref": "#/definitions/UpdateAllStateCommand-alerts"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Given alerts are updated to the indicated status."
+          },
+          "400": {
+            "description": "Bad Request: An invalid request model was provided."
+          }
+        }
+      }
+    },
     "/v1/alerts/add-note": {
       "post": {
         "tags": [
@@ -3194,7 +3223,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "927a65d1-f659-4138-8666-270898ee59d6"
+            "example": "b99477ff-c9e6-43f2-9e82-8827afdcca7f"
           }
         ],
         "responses": {
@@ -3278,7 +3307,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "e7f86f2b-4188-48bd-a6ab-9d9c7f3142a6"
+            "example": "db1f7551-41cc-4fcd-a79d-61a69aec8e51"
           }
         ],
         "responses": {
@@ -3307,7 +3336,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "ff6f41e4-16af-4541-8e06-30449e691a78"
+                "dfa587a4-25c6-488d-a70f-e7253ae376cc"
               ],
               "items": {
                 "type": "string"
@@ -3341,7 +3370,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "2ee8cff0-0ee0-4291-8af6-395c6cb2c25f"
+            "example": "5b98f61c-998e-4bb3-9c65-e0cb02fe051c"
           }
         ],
         "responses": {
@@ -3370,7 +3399,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "2c82bdc1-78fc-4d25-9767-0d8a1994f76f"
+                "440ba4ee-99f5-4993-a329-30b4045ac06d"
               ],
               "items": {
                 "type": "string"
@@ -3405,7 +3434,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "01e99913-ab9a-4ce9-9a45-7153abc542ea"
+            "example": "4ac78377-f8e3-4fe1-9cdb-18ffa157746e"
           }
         ],
         "responses": {
@@ -3432,7 +3461,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "683fcfdb-b1cd-4a85-b299-25c28a672e85"
+            "example": "aa4d43b4-b710-4462-9801-4f9317e96e9c"
           }
         ],
         "responses": {
@@ -6087,6 +6116,136 @@
       "type": "object",
       "x-abstract": true
     },
+    "UpdateAllStateCommand-alerts": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DomainValue-alerts"
+        },
+        {
+          "type": "object",
+          "required": [
+            "state"
+          ],
+          "properties": {
+            "tenantId": {
+              "type": "string"
+            },
+            "groups": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/FilterGroup-alerts"
+              }
+            },
+            "groupClause": {
+              "type": "string"
+            },
+            "state": {
+              "$ref": "#/definitions/AlertState-alerts"
+            },
+            "continuationToken": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "FilterGroup-alerts": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DomainValue-alerts"
+        },
+        {
+          "type": "object",
+          "required": [
+            "filterClause",
+            "filters"
+          ],
+          "properties": {
+            "filters": {
+              "type": "array",
+              "description": "The list of search filters to query on.",
+              "items": {
+                "$ref": "#/definitions/SearchFilter-alerts"
+              }
+            },
+            "filterClause": {
+              "$ref": "#/definitions/SearchClause-alerts"
+            }
+          }
+        }
+      ]
+    },
+    "SearchFilter-alerts": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DomainValue-alerts"
+        },
+        {
+          "type": "object",
+          "required": [
+            "operator",
+            "term",
+            "value"
+          ],
+          "properties": {
+            "term": {
+              "type": "string",
+              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, Education, Severity.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
+              "example": "Name"
+            },
+            "operator": {
+              "example": "IS",
+              "$ref": "#/definitions/FilterOperator-alerts"
+            },
+            "value": {
+              "type": "string",
+              "description": "The value you want to use in the filter.",
+              "example": "This is a name."
+            }
+          }
+        }
+      ]
+    },
+    "FilterOperator-alerts": {
+      "type": "string",
+      "description": "The filter operator to use.",
+      "example": "IS",
+      "x-enumNames": [
+        "Is",
+        "IsNot",
+        "OnOrBefore",
+        "OnOrAfter",
+        "On",
+        "LessThan",
+        "GreaterThan",
+        "Contains",
+        "DoesNotContain"
+      ],
+      "enum": [
+        "IS",
+        "IS_NOT",
+        "ON_OR_BEFORE",
+        "ON_OR_AFTER",
+        "ON",
+        "LESS_THAN",
+        "GREATER_THAN",
+        "CONTAINS",
+        "DOES_NOT_CONTAIN"
+      ]
+    },
+    "SearchClause-alerts": {
+      "type": "string",
+      "description": "The filter clause to use when combining the search filters.  Must be AND/OR.s",
+      "example": "AND",
+      "x-enumNames": [
+        "And",
+        "Or"
+      ],
+      "enum": [
+        "AND",
+        "OR"
+      ]
+    },
     "AddNoteCommand-alerts": {
       "allOf": [
         {
@@ -6585,103 +6744,6 @@
             }
           }
         }
-      ]
-    },
-    "FilterGroup-alerts": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-alerts"
-        },
-        {
-          "type": "object",
-          "required": [
-            "filterClause",
-            "filters"
-          ],
-          "properties": {
-            "filters": {
-              "type": "array",
-              "description": "The list of search filters to query on.",
-              "items": {
-                "$ref": "#/definitions/SearchFilter-alerts"
-              }
-            },
-            "filterClause": {
-              "$ref": "#/definitions/SearchClause-alerts"
-            }
-          }
-        }
-      ]
-    },
-    "SearchFilter-alerts": {
-      "allOf": [
-        {
-          "$ref": "#/definitions/DomainValue-alerts"
-        },
-        {
-          "type": "object",
-          "required": [
-            "operator",
-            "term",
-            "value"
-          ],
-          "properties": {
-            "term": {
-              "type": "string",
-              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, Education, Severity.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
-              "example": "Name"
-            },
-            "operator": {
-              "example": "IS",
-              "$ref": "#/definitions/FilterOperator-alerts"
-            },
-            "value": {
-              "type": "string",
-              "description": "The value you want to use in the filter.",
-              "example": "This is a name."
-            }
-          }
-        }
-      ]
-    },
-    "FilterOperator-alerts": {
-      "type": "string",
-      "description": "The filter operator to use.",
-      "example": "IS",
-      "x-enumNames": [
-        "Is",
-        "IsNot",
-        "OnOrBefore",
-        "OnOrAfter",
-        "On",
-        "LessThan",
-        "GreaterThan",
-        "Contains",
-        "DoesNotContain"
-      ],
-      "enum": [
-        "IS",
-        "IS_NOT",
-        "ON_OR_BEFORE",
-        "ON_OR_AFTER",
-        "ON",
-        "LESS_THAN",
-        "GREATER_THAN",
-        "CONTAINS",
-        "DOES_NOT_CONTAIN"
-      ]
-    },
-    "SearchClause-alerts": {
-      "type": "string",
-      "description": "The filter clause to use when combining the search filters.  Must be AND/OR.s",
-      "example": "AND",
-      "x-enumNames": [
-        "And",
-        "Or"
-      ],
-      "enum": [
-        "AND",
-        "OR"
       ]
     },
     "SortDirection-alerts": {
@@ -8770,7 +8832,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-02-13T12:05:18.9298239Z"
+              "example": "2023-02-14T00:14:07.3939919Z"
             },
             "createdBy": {
               "type": "string",
@@ -8781,7 +8843,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-02-13T12:05:18.9298451Z"
+              "example": "2023-02-14T00:14:07.3940164Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -8808,7 +8870,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "80889ddc-ab5e-4ba3-ba62-7a91403030de"
+              "example": "6234ac70-ed21-4c30-8339-523a952375a9"
             }
           }
         }
@@ -9475,7 +9537,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "3d58c5ce-22c9-404f-9958-ce21c3e0c8a4"
+          "example": "873de217-dfcb-454a-94d4-7e78e61092cd"
         },
         "aliases": {
           "type": "array",
@@ -9499,7 +9561,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "bbf74d49-43a0-4faf-8b3a-3d50367df5bb"
+          "example": "5efd7894-30e7-4995-80a4-d859d3e3df33"
         },
         "users": {
           "type": "array",
