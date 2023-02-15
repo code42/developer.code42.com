@@ -6,7 +6,6 @@ main() {
   ALERTS="${docs}/alerts"
   RULES_V1="${docs}/alert-rules"
   RULES_V2="${docs}/alert-rules-v2"
-  TRUSTED_ACTIVITIES_V1="${docs}/trusted-activities"
   TRUSTED_ACTIVITIES_V2="${docs}/trusted-activities.json"
   WATCHLISTS="${docs}/watchlists.json"
   FILE_EVENTS="${docs}/file-events.json"
@@ -18,15 +17,11 @@ main() {
   jq '.paths |= with_entries( .key |= gsub("/rpc/search/"; "/v1/audit/") )' < ${docs}/audit > $TMP && mv $TMP ${docs}/audit
   jq '.paths[][].tags |= [ "Audit Log" ]' < ${docs}/audit > $TMP && mv $TMP ${docs}/audit
 
-  ### Trusted Activities v1
-  # prefix summary fields with "v1"
-  jq '.paths[][].summary |= "v1 - \(.)"' < $TRUSTED_ACTIVITIES_V1 > $TMP && mv $TMP $TRUSTED_ACTIVITIES_V1
-  # mark v1 endpoints as deprecated
-  jq '.paths[][].deprecated = true'< $TRUSTED_ACTIVITIES_V1 > $TMP && mv $TMP $TRUSTED_ACTIVITIES_V1
-
   ### Trusted Activities v2
+  # Remove static TA v2 docs until we can swap over baldur
+  rm "${docs}/trusted-activities.yaml"
   # convert openapi 3 yaml to swagger 2 json
-  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/trusted-activities.yaml > $TRUSTED_ACTIVITIES_V2
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/trusted-activities > $TRUSTED_ACTIVITIES_V2
   # rename tags
   jq '.paths[][].tags |= [ "Trusted Activities" ]' < $TRUSTED_ACTIVITIES_V2 > $TMP && mv $TMP $TRUSTED_ACTIVITIES_V2
   # mark trusted-activities summary fields with "v1" and "v2" accordingly
