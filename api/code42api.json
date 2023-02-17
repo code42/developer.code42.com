@@ -3206,7 +3206,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "2eed2355-4675-42b2-976a-cb1597c2ab13"
+            "example": "acad99ba-36ba-4838-8405-64a36f3e7954"
           }
         ],
         "responses": {
@@ -3290,7 +3290,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6ca99e90-533d-479b-ab7e-a1391d872656"
+            "example": "cf55d267-b0c1-4162-89ad-dadd75def149"
           }
         ],
         "responses": {
@@ -3319,7 +3319,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "76aad30b-a9bd-4dc4-a2bb-f7276c921058"
+                "c73632bc-1541-4f43-b03b-2d419e2eb9e1"
               ],
               "items": {
                 "type": "string"
@@ -3353,7 +3353,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "c5b5c824-46fb-42a6-baab-50d142af6961"
+            "example": "a52c6023-bf41-478c-86f5-b8569ee2e97f"
           }
         ],
         "responses": {
@@ -3382,7 +3382,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "9e654aef-f34c-4590-bb5b-e40123493dc9"
+                "0b140534-32ab-49bc-bf6a-2e5bd397ad52"
               ],
               "items": {
                 "type": "string"
@@ -3417,7 +3417,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "0ca5cbe3-cde0-417f-83d9-0ee26486d14a"
+            "example": "70001d87-3ea8-451f-afa4-a4f7f1209724"
           }
         ],
         "responses": {
@@ -3444,7 +3444,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "be9ca0dd-0b93-4acd-b297-ddb995554863"
+            "example": "7435becf-0666-4b28-bc26-41676b9a55de"
           }
         ],
         "responses": {
@@ -8740,7 +8740,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-02-16T22:39:52.9617951Z"
+              "example": "2023-02-17T00:14:56.1426097Z"
             },
             "createdBy": {
               "type": "string",
@@ -8751,7 +8751,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-02-16T22:39:52.9618187Z"
+              "example": "2023-02-17T00:14:56.1426327Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -8778,7 +8778,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "803f0e9e-50e8-4de9-b731-8dc8802fc346"
+              "example": "698fc179-d3e2-41c0-93c1-2108675a77e4"
             }
           }
         }
@@ -9445,7 +9445,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "03d4fd86-4cce-47db-8f77-14e24e1f0d71"
+          "example": "51875bdc-421b-40b7-a9f2-a50c7be918b0"
         },
         "aliases": {
           "type": "array",
@@ -9469,7 +9469,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "51cb7464-0073-4224-a824-04582a1c91b3"
+          "example": "b13e3f17-c5b2-419d-abae-1653454351d7"
         },
         "users": {
           "type": "array",
@@ -9721,12 +9721,9 @@
     },
     "Event-file-events": {
       "properties": {
-        "The data source that captured the file event. For example: GoogleDrive, Office365, Salesforce.": {
-          "example": "Endpoint",
-          "type": "string"
-        },
-        "The type of file event observed. For example: file-modified, application-read, removable-media-created.": {
+        "action": {
           "example": "file-downloaded",
+          "title": "The type of file event observed. For example: file-modified, application-read, removable-media-created.",
           "type": "string"
         },
         "detectorDisplayName": {
@@ -9748,6 +9745,11 @@
           "example": "2020-10-27T15:16:05.369203Z",
           "format": "date-time",
           "title": "Date and time the event processing is completed by Code42; timestamp is based on the Code42 server system clock and reported in Coordinated Universal Time (UTC). Typically occurs very soon after the event.ingested time.",
+          "type": "string"
+        },
+        "observer": {
+          "example": "Endpoint",
+          "title": "The data source that captured the file event. For example: GoogleDrive, Office365, Salesforce.",
           "type": "string"
         },
         "shareType": {
