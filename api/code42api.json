@@ -1552,7 +1552,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "ab1d3b80-9693-4ff9-88b6-02ae4600124e"
+            "example": "1c4d34d4-c3c3-41bc-b820-ba83681e346a"
           }
         ],
         "responses": {
@@ -1636,7 +1636,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "bc81e923-ae1c-47e7-9376-5f389450c863"
+            "example": "85d5dc16-479d-4f56-bccf-9103aabf7cda"
           }
         ],
         "responses": {
@@ -1665,7 +1665,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "dbe0f8dc-ef8c-467b-826b-b1a4dde318f3"
+                "a16aad2c-9e94-4c96-ae0b-c7ada062004d"
               ],
               "items": {
                 "type": "string"
@@ -1699,7 +1699,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "25b07db9-dbe7-4f45-ba00-cdda950f6030"
+            "example": "5d23555d-6a81-426f-b512-34fb4ea60bf5"
           }
         ],
         "responses": {
@@ -1728,7 +1728,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "b6903b20-e1dc-4802-852b-ce533e1b411d"
+                "c18d2b69-f4ad-4ce4-be40-b9caac52bf53"
               ],
               "items": {
                 "type": "string"
@@ -1763,7 +1763,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "782b4720-e8f4-4621-8198-9a8ad67f4b40"
+            "example": "21418552-db97-4427-96ec-d6db6a9a79fd"
           }
         ],
         "responses": {
@@ -1790,7 +1790,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "20bed89d-729c-4a83-a41e-ee11b9635ab6"
+            "example": "79d428c8-de33-48c2-be09-7feed99b33dc"
           }
         ],
         "responses": {
@@ -5127,6 +5127,9 @@
           "title": "The name of the file, including the file extension.",
           "type": "string"
         },
+        "git": {
+          "$ref": "#/definitions/AcquiredFromGit-file-events"
+        },
         "md5": {
           "example": "6123bbce7f3937667a368bbb9f3d79ce",
           "title": "The MD5 hash of the file contents.",
@@ -5177,6 +5180,24 @@
         }
       },
       "title": "List of other events associated with this file. This can help determine the origin of the file.",
+      "type": "object"
+    },
+    "AcquiredFromGit-file-events": {
+      "properties": {
+        "repositoryEmail": {
+          "title": "The email address specified by the user who performed the Git event. This is a user-defined value and may differ from the credentials used to sign in to Git.",
+          "type": "string"
+        },
+        "repositoryUri": {
+          "title": "Uniform Resource Identifier (URI) for the Git repository.",
+          "type": "string"
+        },
+        "repositoryUser": {
+          "title": "The username specified by the user who performed the Git event. This is a user-defined value and may differ from the credentials used to sign in to Git.",
+          "type": "string"
+        }
+      },
+      "title": "Metadata about the Git activity associated with this event.",
       "type": "object"
     },
     "AcquiredFromSourceUser-file-events": {
@@ -5742,6 +5763,9 @@
               "file.acquiredFrom.sourceDomains",
               "file.acquiredFrom.fileName",
               "file.acquiredFrom.md5",
+              "file.acquiredFrom.git.repositoryEmail",
+              "file.acquiredFrom.git.repositoryUri",
+              "file.acquiredFrom.git.repositoryUser",
               "git.eventId",
               "git.lastCommitHash",
               "git.repositoryUri",
@@ -5902,6 +5926,9 @@
             "file.acquiredFrom.sourceDomains",
             "file.acquiredFrom.fileName",
             "file.acquiredFrom.md5",
+            "file.acquiredFrom.git.repositoryEmail",
+            "file.acquiredFrom.git.repositoryUri",
+            "file.acquiredFrom.git.repositoryUser",
             "git.eventId",
             "git.lastCommitHash",
             "git.repositoryUri",
@@ -7090,6 +7117,9 @@
             "file.acquiredFrom.sourceDomains",
             "file.acquiredFrom.fileName",
             "file.acquiredFrom.md5",
+            "file.acquiredFrom.git.repositoryEmail",
+            "file.acquiredFrom.git.repositoryUri",
+            "file.acquiredFrom.git.repositoryUser",
             "git.eventId",
             "git.lastCommitHash",
             "git.repositoryUri",
@@ -7868,6 +7898,9 @@
               "file.acquiredFrom.sourceDomains",
               "file.acquiredFrom.fileName",
               "file.acquiredFrom.md5",
+              "file.acquiredFrom.git.repositoryEmail",
+              "file.acquiredFrom.git.repositoryUri",
+              "file.acquiredFrom.git.repositoryUser",
               "git.eventId",
               "git.lastCommitHash",
               "git.repositoryUri",
@@ -8075,6 +8108,9 @@
             "file.acquiredFrom.sourceDomains",
             "file.acquiredFrom.fileName",
             "file.acquiredFrom.md5",
+            "file.acquiredFrom.git.repositoryEmail",
+            "file.acquiredFrom.git.repositoryUri",
+            "file.acquiredFrom.git.repositoryUser",
             "git.eventId",
             "git.lastCommitHash",
             "git.repositoryUri",
@@ -8384,6 +8420,9 @@
             "file.acquiredFrom.sourceDomains",
             "file.acquiredFrom.fileName",
             "file.acquiredFrom.md5",
+            "file.acquiredFrom.git.repositoryEmail",
+            "file.acquiredFrom.git.repositoryUri",
+            "file.acquiredFrom.git.repositoryUser",
             "git.eventId",
             "git.lastCommitHash",
             "git.repositoryUri",
@@ -8717,6 +8756,9 @@
             "file.acquiredFrom.sourceDomains",
             "file.acquiredFrom.fileName",
             "file.acquiredFrom.md5",
+            "file.acquiredFrom.git.repositoryEmail",
+            "file.acquiredFrom.git.repositoryUri",
+            "file.acquiredFrom.git.repositoryUser",
             "git.eventId",
             "git.lastCommitHash",
             "git.repositoryUri",
@@ -8969,7 +9011,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-02-23T12:05:39.4024394Z"
+              "example": "2023-02-24T00:13:32.1159947Z"
             },
             "createdBy": {
               "type": "string",
@@ -8980,7 +9022,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-02-23T12:05:39.402463Z"
+              "example": "2023-02-24T00:13:32.1160172Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -9007,7 +9049,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "c82589f3-d316-483f-bf87-f5f8dbbbb904"
+              "example": "f0738d66-7ff7-48d5-8aba-11059183f4b7"
             }
           }
         }
@@ -9674,7 +9716,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "cf843af9-adb6-4d8c-8c95-7ceada3d0123"
+          "example": "c97d3f8f-2e8c-4db6-91b2-cd9831d02226"
         },
         "aliases": {
           "type": "array",
@@ -9698,7 +9740,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "5e0ec2e3-8262-4812-ac61-97580c68c9a3"
+          "example": "43f6d6c4-2bc6-4e7f-8ce5-b3452610eab2"
         },
         "users": {
           "type": "array",
