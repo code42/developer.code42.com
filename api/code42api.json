@@ -1552,7 +1552,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "007d41a7-fe34-4ee9-82a3-78968c92d59e"
+            "example": "1b001db9-e8d4-4cca-b31a-7fea7af6241c"
           }
         ],
         "responses": {
@@ -1636,7 +1636,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "8ccd7ff4-5786-41fd-b208-3434da48d44d"
+            "example": "5a6ae422-b32e-4bee-818f-3759c590d5ed"
           }
         ],
         "responses": {
@@ -1665,7 +1665,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "5529ac21-f856-4564-8103-cf72e08f34e4"
+                "c837916c-14a3-4874-9167-d30a28e24201"
               ],
               "items": {
                 "type": "string"
@@ -1699,7 +1699,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6aa1d4b6-4ed7-4aa3-8247-348a8e5b7187"
+            "example": "75abd21b-ce52-4488-9e86-b24c1eb72ccb"
           }
         ],
         "responses": {
@@ -1728,7 +1728,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "e523c192-fef9-4d39-859c-38f6f80dfb68"
+                "c61319eb-1f4d-4d77-af32-c6f8f46fc13a"
               ],
               "items": {
                 "type": "string"
@@ -1763,7 +1763,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "912fcac3-2064-4954-8a57-165006e046d8"
+            "example": "02265a07-da05-446b-8380-4fffee87b1ee"
           }
         ],
         "responses": {
@@ -1790,7 +1790,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "1aec14c7-3040-43cc-916f-6d8b13c10101"
+            "example": "b1cc7074-596c-4e14-abde-9e5c508c0dbf"
           }
         ],
         "responses": {
@@ -9011,7 +9011,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-02-27T12:05:41.0735041Z"
+              "example": "2023-03-04T00:12:46.9540232Z"
             },
             "createdBy": {
               "type": "string",
@@ -9022,7 +9022,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-02-27T12:05:41.0735246Z"
+              "example": "2023-03-04T00:12:46.9540601Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -9049,7 +9049,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "7d9ebf77-8dde-4eec-a635-506ae04f1c84"
+              "example": "51e5f285-e821-4f41-944c-c0f2e0a1c765"
             }
           }
         }
@@ -9716,7 +9716,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "7953c3f8-9390-41a9-bd72-a4182a2d6e22"
+          "example": "415c2a9c-a134-4665-882d-246a02d45624"
         },
         "aliases": {
           "type": "array",
@@ -9740,7 +9740,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "4cfc07e9-21de-4b6a-9c21-0eeb17fecfff"
+          "example": "bb256b3a-5afc-4cff-9e42-edd1362dcbaa"
         },
         "users": {
           "type": "array",
@@ -13085,7 +13085,7 @@
           "type": "string"
         },
         "isHighValueSource": {
-          "description": "Indicates if the resource is a high value source of company information. If true, a source risk indicator is \napplied to events for files downloaded from this location and later uploaded to an untrusted destination.\n### Supported trusted activity types\n\n- `DOMAIN`\n- `SLACK`\n- `URL_PATH`\n- `ACCOUNT_NAME`\n\nNote: When updating a resource, if the `isHighValueSource` property is not explicitly set, the existing value\nof the property remains unchanged.",
+          "description": "Indicates if the resource is a high value source of company information. If true, a source risk indicator is \napplied to events for files downloaded from this location and later uploaded to an untrusted destination.\n### Supported trusted activity types\n\n- `DOMAIN`\n- `SLACK`\n- `URL_PATH`\n- `ACCOUNT_NAME`\n- `GIT_REPOSITORY_URI`\n\nNote: When updating a resource, if the `isHighValueSource` property is not explicitly set, the existing value\nof the property remains unchanged.",
           "example": true,
           "type": "boolean"
         },
