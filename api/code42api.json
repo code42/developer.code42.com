@@ -1552,7 +1552,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "44060d6a-6bd3-45c7-ab94-acb14c8845be"
+            "example": "b9dbb6bb-ff32-4bca-bd5c-16602071b1ea"
           }
         ],
         "responses": {
@@ -1636,7 +1636,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "c35453fd-56e5-443c-bc31-51a42cfbd0f0"
+            "example": "d4eb169b-8ee5-4a80-b201-2ee86b9c38db"
           }
         ],
         "responses": {
@@ -1665,7 +1665,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "f16a460a-9ae3-4e0a-b753-f8c5ccdad0d4"
+                "cc5f5349-258a-489b-94f4-f26b07171b13"
               ],
               "items": {
                 "type": "string"
@@ -1699,7 +1699,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "4c5ba489-9be3-41c2-904a-f01ac127a5b0"
+            "example": "0ec6135f-51a2-4aee-b3bc-ca477d9654d6"
           }
         ],
         "responses": {
@@ -1728,7 +1728,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "79397edc-a619-42d4-a663-d671701f8ac9"
+                "854b4da2-6806-40c3-872d-5b876ff33bc3"
               ],
               "items": {
                 "type": "string"
@@ -1763,7 +1763,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "28f601a1-b69e-4a98-8e88-6e175199eaeb"
+            "example": "8a8736a3-018c-4ebe-9b3f-78b25f3cef6f"
           }
         ],
         "responses": {
@@ -1790,7 +1790,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "249fe7b9-89e1-444e-b715-f40a15c4be2a"
+            "example": "f438fc8a-1d82-4437-836f-62eca7a32d07"
           }
         ],
         "responses": {
@@ -1841,7 +1841,8 @@
         "tags": [
           "Alerts"
         ],
-        "summary": "Change the state of a set of all alerts.",
+        "summary": "Change the state of a batch alerts matching the given query filters.",
+        "description": "Uses the given filters and updates a batch of matching alerts to the given state.\nThis query uses batching, so the initial command can be sent with no continuation token but all subsequent commands\nshould supply the continuation token provided in the response of the previous request.",
         "operationId": "Alerts_UpdateAllAlertState",
         "parameters": [
           {
@@ -1857,7 +1858,11 @@
         ],
         "responses": {
           "200": {
-            "description": "Success: Given alerts are updated to the indicated status."
+            "x-nullable": false,
+            "description": "Success: Batch of alerts updated.  If continuation token is populated, send another request using that token to continue updating alert states.",
+            "schema": {
+              "$ref": "#/definitions/UpdateAllStateResponse-alerts"
+            }
           },
           "400": {
             "description": "Bad Request: An invalid request model was provided."
@@ -9011,7 +9016,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-03-06T12:05:49.1519383Z"
+              "example": "2023-03-07T00:14:45.6846923Z"
             },
             "createdBy": {
               "type": "string",
@@ -9022,7 +9027,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-03-06T12:05:49.1519621Z"
+              "example": "2023-03-07T00:14:45.6847149Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -9049,7 +9054,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "57dd452d-fd87-4a50-802d-e1fc3d94989f"
+              "example": "9e6a4bc4-fffc-499e-aab5-37ef836ca96f"
             }
           }
         }
@@ -9716,7 +9721,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "42cfd452-b0f4-4832-88d6-ca6bb03fd2e8"
+          "example": "a7bdf2a5-4e88-4193-ab7b-48dc7e942750"
         },
         "aliases": {
           "type": "array",
@@ -9740,7 +9745,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "55e4a083-3bd1-4d41-8c1b-a16425088f82"
+          "example": "6a1f1ae6-5601-41bb-a2bd-2b8a41c8a2fd"
         },
         "users": {
           "type": "array",
@@ -9816,7 +9821,7 @@
     "AlertState-alerts": {
       "type": "string",
       "description": "Enum indicating possible alert states.",
-      "example": "OPEN",
+      "example": "RESOLVED",
       "x-enumNames": [
         "Open",
         "Resolved",
@@ -9834,6 +9839,23 @@
       "type": "object",
       "x-abstract": true
     },
+    "UpdateAllStateResponse-alerts": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/DomainValue-alerts"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "continuationToken": {
+              "type": "string",
+              "description": "The continuation token to be used if there are more alerts to update.  Provide this in the next request in the 'continuationToken' field.  This will be null if all alerts matching the given filters have been updated.",
+              "example": "362bb430-4a16-4450-a853-b961421d4132"
+            }
+          }
+        }
+      ]
+    },
     "UpdateAllStateCommand-alerts": {
       "allOf": [
         {
@@ -9842,11 +9864,16 @@
         {
           "type": "object",
           "required": [
-            "state"
+            "state",
+            "tenantId",
+            "groupClause"
           ],
           "properties": {
             "tenantId": {
-              "type": "string"
+              "type": "string",
+              "description": "The unique identifier representing the tenant.",
+              "maxLength": 40,
+              "example": "MyExampleTenant"
             },
             "groups": {
               "type": "array",
@@ -9855,13 +9882,18 @@
               }
             },
             "groupClause": {
-              "type": "string"
+              "type": "string",
+              "description": "The clause to use when combining group filters.  Must be AND/OR.",
+              "example": "OR"
             },
             "state": {
+              "description": "The state to update the given alerts to.",
               "$ref": "#/definitions/AlertState-alerts"
             },
             "continuationToken": {
-              "type": "string"
+              "type": "string",
+              "description": "The continuation token provided by the prior update all request.  This should be a guid id. If it is your first call, this can be null.",
+              "example": "362bb430-4a16-4450-a853-b961421d4132"
             }
           }
         }
@@ -9909,7 +9941,7 @@
             "term": {
               "type": "string",
               "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, Education, Severity.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
-              "example": "Name"
+              "example": "State"
             },
             "operator": {
               "example": "IS",
@@ -9918,7 +9950,7 @@
             "value": {
               "type": "string",
               "description": "The value you want to use in the filter.",
-              "example": "This is a name."
+              "example": "OPEN"
             }
           }
         }
