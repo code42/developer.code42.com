@@ -1323,8 +1323,9 @@
         ],
         "parameters": [
           {
+            "description": "Unique identifier for a saved search.",
             "in": "path",
-            "name": "Unique identifier for a saved search.",
+            "name": "id",
             "required": true,
             "type": "string"
           }
@@ -1509,8 +1510,9 @@
         ],
         "parameters": [
           {
+            "description": "Unique identifier for a saved search.",
             "in": "path",
-            "name": "Unique identifier for a saved search.",
+            "name": "id",
             "required": true,
             "type": "string"
           }
@@ -1552,7 +1554,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "d19d0c4c-fe53-4ddf-9d0e-5b664648eac9"
+            "example": "17a363b8-f33d-4146-8364-53b5344cc1f0"
           }
         ],
         "responses": {
@@ -1636,7 +1638,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "9ee21e21-8130-4bbd-b140-b81bab2ea290"
+            "example": "cba178a9-23b2-45dc-951b-f523755f0825"
           }
         ],
         "responses": {
@@ -1665,7 +1667,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "6d8e0058-4877-4338-94fa-eede82fcb9da"
+                "60167443-a575-41f1-9ceb-7b5f7adc8d92"
               ],
               "items": {
                 "type": "string"
@@ -1699,7 +1701,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "112ae9ff-2ebf-4ee9-bd4b-430793deb341"
+            "example": "de7cb2c8-e51b-4862-a27a-14212929d962"
           }
         ],
         "responses": {
@@ -1728,7 +1730,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "d3e895a3-c4af-4729-8542-0183d6376971"
+                "1e6774f0-da89-42d3-a1c5-da5c205b6c1d"
               ],
               "items": {
                 "type": "string"
@@ -1763,7 +1765,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6a64af53-fb2c-477a-ac05-90dc3672c65a"
+            "example": "67d51309-86f5-4174-b50c-4f10a0c8b0cd"
           }
         ],
         "responses": {
@@ -1790,7 +1792,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "7eafb3a5-368f-4e42-96b2-3a18cd5d82a2"
+            "example": "db92002f-641f-48fb-a855-e7df052e2e98"
           }
         ],
         "responses": {
@@ -5304,7 +5306,12 @@
         }
       },
       "required": [
-        "privateIp"
+        "domains",
+        "email",
+        "privateIp",
+        "removableMedia",
+        "tabs",
+        "user"
       ],
       "title": "Metadata about the destination of the file event.",
       "type": "object"
@@ -5349,6 +5356,9 @@
           "type": "array"
         }
       },
+      "required": [
+        "email"
+      ],
       "title": "Metadata about the destination user.",
       "type": "object"
     },
@@ -5404,7 +5414,9 @@
         }
       },
       "required": [
-        "id"
+        "id",
+        "ingested",
+        "shareType"
       ],
       "title": "Summary information about the event.",
       "type": "object"
@@ -6085,6 +6097,10 @@
         }
       },
       "required": [
+        "acquiredFrom",
+        "classifications",
+        "directoryId",
+        "hash",
         "name"
       ],
       "title": "Metadata about the file for this event.",
@@ -6771,6 +6787,17 @@
           "$ref": "#/definitions/User-file-events"
         }
       },
+      "required": [
+        "destination",
+        "event",
+        "file",
+        "git",
+        "process",
+        "report",
+        "risk",
+        "source",
+        "user"
+      ],
       "title": "List of file events in the response.",
       "type": "object"
     },
@@ -7366,6 +7393,10 @@
           "type": "array"
         }
       },
+      "required": [
+        "partitionId",
+        "volumeName"
+      ],
       "title": "Metadata about the removable media destination.",
       "type": "object"
     },
@@ -7419,6 +7450,9 @@
           "type": "string"
         }
       },
+      "required": [
+        "headers"
+      ],
       "title": "Metadata for reports from 3rd party sources, such Salesforce downloads.",
       "type": "object"
     },
@@ -7463,6 +7497,10 @@
           "$ref": "#/definitions/UntrustedValues-file-events"
         }
       },
+      "required": [
+        "indicators",
+        "untrustedValues"
+      ],
       "title": "Risk factor metadata.",
       "type": "object"
     },
@@ -8871,7 +8909,12 @@
         }
       },
       "required": [
-        "privateIp"
+        "domains",
+        "email",
+        "privateIp",
+        "removableMedia",
+        "tabs",
+        "user"
       ],
       "title": "Metadata about the source of the file event.",
       "type": "object"
@@ -8908,6 +8951,9 @@
           "type": "array"
         }
       },
+      "required": [
+        "email"
+      ],
       "title": "Metadata about the source user.",
       "type": "object"
     },
@@ -8975,6 +9021,12 @@
           "type": "array"
         }
       },
+      "required": [
+        "accountNames",
+        "domains",
+        "gitRepositoryUris",
+        "urlPaths"
+      ],
       "title": "Values that do not match an entry in your list of Trusted activity.",
       "type": "object"
     },
@@ -9016,7 +9068,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-03-07T12:05:35.6112315Z"
+              "example": "2023-03-08T00:17:11.6227474Z"
             },
             "createdBy": {
               "type": "string",
@@ -9027,7 +9079,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-03-07T12:05:35.611255Z"
+              "example": "2023-03-08T00:17:11.6227705Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -9054,7 +9106,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "55c6bc69-ccd6-4bc2-9dab-9632f68fa75e"
+              "example": "750e2f0b-1d05-45a0-9380-62cdce97d634"
             }
           }
         }
@@ -9721,7 +9773,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "74a95a18-02fa-4940-8d99-4b55698af229"
+          "example": "e3f7518a-e600-425e-b1da-2aa0783f37e3"
         },
         "aliases": {
           "type": "array",
@@ -9745,7 +9797,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "501df45a-60c6-44a8-9bad-a7aacea044b8"
+          "example": "0a8d88ad-64b3-4937-83a0-5791f89e2402"
         },
         "users": {
           "type": "array",
