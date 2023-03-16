@@ -1554,7 +1554,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "4782b121-d878-493c-8669-475fc197481a"
+            "example": "b5456f48-640b-4ea5-9af6-54286ca825a7"
           }
         ],
         "responses": {
@@ -1638,7 +1638,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "205cf255-8235-4448-9a0a-81ad7c8e6897"
+            "example": "d75e719b-9ccb-49a8-b69f-72c51a40fd1d"
           }
         ],
         "responses": {
@@ -1667,7 +1667,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "92bf72ad-ae0d-4047-8c6d-396ddffb03b9"
+                "45d3ce70-b1b5-4243-9032-1c5110495354"
               ],
               "items": {
                 "type": "string"
@@ -1701,7 +1701,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "520d126a-bd78-410a-8648-cb4be3efdbdb"
+            "example": "1516119e-3181-47e5-aa31-be2537cda4cb"
           }
         ],
         "responses": {
@@ -1730,7 +1730,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "5bfbb99f-84b8-469e-8c3f-dcbf79e8edc9"
+                "505b0942-8650-4bb4-8c4d-284498729a77"
               ],
               "items": {
                 "type": "string"
@@ -1765,7 +1765,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "8d3dd190-a6f5-46a7-bf64-a097fb8ed50d"
+            "example": "d519a1f9-0fa9-4228-86f0-52f2c81b96a9"
           }
         ],
         "responses": {
@@ -1792,7 +1792,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "43ecdf33-5e19-4686-a7c4-e1053ce2dd7f"
+            "example": "f054f8a8-505a-4c75-af07-d6ef99a8895a"
           }
         ],
         "responses": {
@@ -5674,7 +5674,9 @@
               "user.id",
               "user.deviceUid",
               "file.name",
+              "file.originalName",
               "file.directory",
+              "file.originalDirectory",
               "file.category",
               "file.mimeTypeByBytes",
               "file.categoryByBytes",
@@ -5837,7 +5839,9 @@
             "user.id",
             "user.deviceUid",
             "file.name",
+            "file.originalName",
             "file.directory",
+            "file.originalDirectory",
             "file.category",
             "file.mimeTypeByBytes",
             "file.categoryByBytes",
@@ -6077,6 +6081,16 @@
         "name": {
           "example": "ReadMe.md",
           "title": "The name of the file, including the file extension.",
+          "type": "string"
+        },
+        "originalDirectory": {
+          "example": "/Users/alix/Documents/",
+          "title": "The original file location on the user’s device or cloud service location; a forward or backslash must be included at the end of the filepath. Possibly null if the file event occurred on a cloud provider.",
+          "type": "string"
+        },
+        "originalName": {
+          "example": "ReadMe.md",
+          "title": "The original name of the file, including the file extension.",
           "type": "string"
         },
         "owner": {
@@ -7043,7 +7057,9 @@
             "user.id",
             "user.deviceUid",
             "file.name",
+            "file.originalName",
             "file.directory",
+            "file.originalDirectory",
             "file.category",
             "file.mimeTypeByBytes",
             "file.categoryByBytes",
@@ -7835,7 +7851,9 @@
               "user.id",
               "user.deviceUid",
               "file.name",
+              "file.originalName",
               "file.directory",
+              "file.originalDirectory",
               "file.category",
               "file.mimeTypeByBytes",
               "file.categoryByBytes",
@@ -8045,7 +8063,9 @@
             "user.id",
             "user.deviceUid",
             "file.name",
+            "file.originalName",
             "file.directory",
+            "file.originalDirectory",
             "file.category",
             "file.mimeTypeByBytes",
             "file.categoryByBytes",
@@ -8357,7 +8377,9 @@
             "user.id",
             "user.deviceUid",
             "file.name",
+            "file.originalName",
             "file.directory",
+            "file.originalDirectory",
             "file.category",
             "file.mimeTypeByBytes",
             "file.categoryByBytes",
@@ -8693,7 +8715,9 @@
             "user.id",
             "user.deviceUid",
             "file.name",
+            "file.originalName",
             "file.directory",
+            "file.originalDirectory",
             "file.category",
             "file.mimeTypeByBytes",
             "file.categoryByBytes",
@@ -9068,7 +9092,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-03-15T12:05:13.447859Z"
+              "example": "2023-03-16T00:14:41.0507502Z"
             },
             "createdBy": {
               "type": "string",
@@ -9079,7 +9103,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-03-15T12:05:13.4478831Z"
+              "example": "2023-03-16T00:14:41.0507728Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -9106,7 +9130,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "33919eec-3538-4118-8428-83a9d7ac6285"
+              "example": "7e6c1e25-357c-4710-9985-b449892fd168"
             }
           }
         }
@@ -9773,7 +9797,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "5c61d2e0-f1c2-4ec0-945a-7c3074626f06"
+          "example": "0fb3a524-f7dc-4ed7-bcae-14bb11f6a15a"
         },
         "aliases": {
           "type": "array",
@@ -9797,7 +9821,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "76ce4629-eeb6-41d3-8421-48d5f39d0874"
+          "example": "a5f2b141-17db-4389-89c3-93c514554cc5"
         },
         "users": {
           "type": "array",
