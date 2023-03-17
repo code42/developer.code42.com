@@ -1554,7 +1554,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "37ea7936-b4dd-4dba-9d62-5cb3da0d4499"
+            "example": "ed6e1fa6-fa4e-4281-b94b-75a3fb6bf47f"
           }
         ],
         "responses": {
@@ -1638,7 +1638,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a32cf542-c8aa-4715-b619-2c231ed46b46"
+            "example": "6a3f3d8c-7f1a-44de-b1c3-14181f4ecc51"
           }
         ],
         "responses": {
@@ -1667,7 +1667,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "5b0293f3-85d1-450c-a9bc-10a386e7f89d"
+                "a6904688-dcd5-4854-97da-c407008884e1"
               ],
               "items": {
                 "type": "string"
@@ -1701,7 +1701,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "badaf3ed-ca69-437a-bd8d-7ea1a8c85f5f"
+            "example": "09f4411b-a793-4825-8a78-44db5331df7f"
           }
         ],
         "responses": {
@@ -1730,7 +1730,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "ac8367c4-ba91-4759-8d46-4e214d01a3d5"
+                "6fdd16de-c49b-4e34-8ac0-8ab93f8f35c2"
               ],
               "items": {
                 "type": "string"
@@ -1765,7 +1765,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a69c2004-0746-4ffc-a3df-3f1a05da97d9"
+            "example": "3cab77d5-137a-422a-ae5b-f4b1845e547c"
           }
         ],
         "responses": {
@@ -1792,7 +1792,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "c5031b71-62ba-4fbd-bc7b-7012a66ea7f8"
+            "example": "9fd144a5-7101-4164-9cff-fc6b21e1b159"
           }
         ],
         "responses": {
@@ -5762,10 +5762,11 @@
               "risk.indicators.weight",
               "risk.trusted",
               "risk.trustReason",
-              "risk.untrustedValues.domains",
-              "risk.untrustedValues.urlPaths",
               "risk.untrustedValues.accountNames",
+              "risk.untrustedValues.domains",
               "risk.untrustedValues.gitRepositoryUris",
+              "risk.untrustedValues.slackWorkspaces",
+              "risk.untrustedValues.urlPaths",
               "file.acquiredFrom.eventId",
               "file.acquiredFrom.sourceAccountName",
               "file.acquiredFrom.sourceAccountType",
@@ -5927,10 +5928,11 @@
             "risk.indicators.weight",
             "risk.trusted",
             "risk.trustReason",
-            "risk.untrustedValues.domains",
-            "risk.untrustedValues.urlPaths",
             "risk.untrustedValues.accountNames",
+            "risk.untrustedValues.domains",
             "risk.untrustedValues.gitRepositoryUris",
+            "risk.untrustedValues.slackWorkspaces",
+            "risk.untrustedValues.urlPaths",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -7145,10 +7147,11 @@
             "risk.indicators.weight",
             "risk.trusted",
             "risk.trustReason",
-            "risk.untrustedValues.domains",
-            "risk.untrustedValues.urlPaths",
             "risk.untrustedValues.accountNames",
+            "risk.untrustedValues.domains",
             "risk.untrustedValues.gitRepositoryUris",
+            "risk.untrustedValues.slackWorkspaces",
+            "risk.untrustedValues.urlPaths",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -7939,10 +7942,11 @@
               "risk.indicators.weight",
               "risk.trusted",
               "risk.trustReason",
-              "risk.untrustedValues.domains",
-              "risk.untrustedValues.urlPaths",
               "risk.untrustedValues.accountNames",
+              "risk.untrustedValues.domains",
               "risk.untrustedValues.gitRepositoryUris",
+              "risk.untrustedValues.slackWorkspaces",
+              "risk.untrustedValues.urlPaths",
               "file.acquiredFrom.eventId",
               "file.acquiredFrom.sourceAccountName",
               "file.acquiredFrom.sourceAccountType",
@@ -8151,10 +8155,11 @@
             "risk.indicators.weight",
             "risk.trusted",
             "risk.trustReason",
-            "risk.untrustedValues.domains",
-            "risk.untrustedValues.urlPaths",
             "risk.untrustedValues.accountNames",
+            "risk.untrustedValues.domains",
             "risk.untrustedValues.gitRepositoryUris",
+            "risk.untrustedValues.slackWorkspaces",
+            "risk.untrustedValues.urlPaths",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -8332,7 +8337,8 @@
         "value": {
           "example": "ari@example.com",
           "title": "The input for the search. This is a string in most cases. For the IS_ANY or IS_NONE operator, use an array of strings.",
-          "type": "object"
+          "type": "object",
+          "x-nullable": true
         }
       },
       "required": [
@@ -8465,10 +8471,11 @@
             "risk.indicators.weight",
             "risk.trusted",
             "risk.trustReason",
-            "risk.untrustedValues.domains",
-            "risk.untrustedValues.urlPaths",
             "risk.untrustedValues.accountNames",
+            "risk.untrustedValues.domains",
             "risk.untrustedValues.gitRepositoryUris",
+            "risk.untrustedValues.slackWorkspaces",
+            "risk.untrustedValues.urlPaths",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -8502,7 +8509,8 @@
         "value": {
           "example": "ari@example.com",
           "title": "The input for the search. This is a string in most cases. For the IS_ANY or IS_NONE operator, use an array of strings.",
-          "type": "object"
+          "type": "object",
+          "x-nullable": true
         }
       },
       "required": [
@@ -8803,10 +8811,11 @@
             "risk.indicators.weight",
             "risk.trusted",
             "risk.trustReason",
-            "risk.untrustedValues.domains",
-            "risk.untrustedValues.urlPaths",
             "risk.untrustedValues.accountNames",
+            "risk.untrustedValues.domains",
             "risk.untrustedValues.gitRepositoryUris",
+            "risk.untrustedValues.slackWorkspaces",
+            "risk.untrustedValues.urlPaths",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -9036,6 +9045,14 @@
           "title": "Git URIs that do not match an entry in your list of Trusted activity. Values are obtained from the Git URI metadata for the event. Only applies to event types that are evaluated for trust.",
           "type": "array"
         },
+        "slackWorkspaces": {
+          "items": {
+            "title": "Slack workspaces that do not match an entry in your list of Trusted activity. Values are obtained from the Slack metadata for the event. Only applies to event types that are evaluated for trust.",
+            "type": "string"
+          },
+          "title": "Slack workspaces that do not match an entry in your list of Trusted activity. Values are obtained from the Slack metadata for the event. Only applies to event types that are evaluated for trust.",
+          "type": "array"
+        },
         "urlPaths": {
           "items": {
             "title": "URL paths that do not match an entry in your list of Trusted activity. Values are obtained from the URL metadata for the event. Only applies to event types that are evaluated for trust.",
@@ -9049,6 +9066,7 @@
         "accountNames",
         "domains",
         "gitRepositoryUris",
+        "slackWorkspaces",
         "urlPaths"
       ],
       "title": "Values that do not match an entry in your list of Trusted activity.",
@@ -9092,7 +9110,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-03-16T12:05:23.2884968Z"
+              "example": "2023-03-17T00:13:50.88218Z"
             },
             "createdBy": {
               "type": "string",
@@ -9103,7 +9121,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-03-16T12:05:23.2885217Z"
+              "example": "2023-03-17T00:13:50.8822026Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -9130,7 +9148,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "409931c6-3451-42eb-85c0-24a94ab63682"
+              "example": "b55cc729-3dbc-4db3-af3a-8362ddc027f4"
             }
           }
         }
@@ -9797,7 +9815,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "82fc956c-5143-4db2-9545-97f9ba970bc3"
+          "example": "289d5787-2445-4b06-99dd-d32e21704470"
         },
         "aliases": {
           "type": "array",
@@ -9821,7 +9839,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "8d414598-c2d7-477a-b054-f0e35fdc3b3f"
+          "example": "1b46c383-360e-4273-a2c3-6b625325d956"
         },
         "users": {
           "type": "array",
