@@ -1554,7 +1554,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "76151fb7-dce3-4bad-b8c4-8c56d3cd31ba"
+            "example": "09a9a99b-42ca-455a-880a-f872636fe7a6"
           }
         ],
         "responses": {
@@ -1638,7 +1638,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "11d83550-8570-498b-b06c-4f33f26fbc0a"
+            "example": "e1b3e229-4bd7-4ee2-a4b0-aa6acd0522e1"
           }
         ],
         "responses": {
@@ -1667,7 +1667,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "5d0e889e-297f-4c4b-8a61-e3c48356e7b5"
+                "b4d3cea4-46e4-4921-9daf-beaf70ae4be4"
               ],
               "items": {
                 "type": "string"
@@ -1701,7 +1701,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "8bdbab3a-352e-4d1b-9d36-56d9a173499d"
+            "example": "bad1a150-f6b8-4849-b836-6cfffbc8decc"
           }
         ],
         "responses": {
@@ -1730,7 +1730,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "805c9199-bf06-4f99-b7a4-70305f5a5300"
+                "1a13543a-f5e0-4b18-bfd9-7e4199f0d8b3"
               ],
               "items": {
                 "type": "string"
@@ -1765,7 +1765,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b4d38644-e67e-44a0-ab2b-22fe51a16f9b"
+            "example": "4e454349-5c5a-4dc2-b71c-691115340e7c"
           }
         ],
         "responses": {
@@ -1792,7 +1792,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "397549bd-316d-42dc-b8cd-72686a57c762"
+            "example": "d410d6b6-3437-429a-ac40-17b53050526a"
           }
         ],
         "responses": {
@@ -5291,6 +5291,10 @@
           "title": "The IP address of the user's device on your internal network, including Network interfaces, Virtual Network Interface controllers (NICs), and Loopback/non-routable addresses.",
           "type": "array"
         },
+        "remoteHostname": {
+          "title": "For events where a file transfer tool was used, the destination hostname.",
+          "type": "string"
+        },
         "removableMedia": {
           "$ref": "#/definitions/RemovableMedia-file-events"
         },
@@ -5753,6 +5757,7 @@
               "destination.accountName",
               "destination.accountType",
               "destination.domains",
+              "destination.remoteHostname",
               "process.executable",
               "process.owner",
               "risk.score",
@@ -5919,6 +5924,7 @@
             "destination.accountName",
             "destination.accountType",
             "destination.domains",
+            "destination.remoteHostname",
             "process.executable",
             "process.owner",
             "risk.score",
@@ -7138,6 +7144,7 @@
             "destination.accountName",
             "destination.accountType",
             "destination.domains",
+            "destination.remoteHostname",
             "process.executable",
             "process.owner",
             "risk.score",
@@ -7933,6 +7940,7 @@
               "destination.accountName",
               "destination.accountType",
               "destination.domains",
+              "destination.remoteHostname",
               "process.executable",
               "process.owner",
               "risk.score",
@@ -8146,6 +8154,7 @@
             "destination.accountName",
             "destination.accountType",
             "destination.domains",
+            "destination.remoteHostname",
             "process.executable",
             "process.owner",
             "risk.score",
@@ -8462,6 +8471,7 @@
             "destination.accountName",
             "destination.accountType",
             "destination.domains",
+            "destination.remoteHostname",
             "process.executable",
             "process.owner",
             "risk.score",
@@ -8802,6 +8812,7 @@
             "destination.accountName",
             "destination.accountType",
             "destination.domains",
+            "destination.remoteHostname",
             "process.executable",
             "process.owner",
             "risk.score",
@@ -9110,7 +9121,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-03-31T12:05:12.3096164Z"
+              "example": "2023-04-01T00:13:12.1562926Z"
             },
             "createdBy": {
               "type": "string",
@@ -9121,7 +9132,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-03-31T12:05:12.3096539Z"
+              "example": "2023-04-01T00:13:12.1563174Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -9148,7 +9159,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "0821cd10-e530-4ae1-8eb6-d07b6509b001"
+              "example": "7f1cd27f-fc16-4970-8158-0e6cd8811249"
             }
           }
         }
@@ -9819,7 +9830,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "381b9e17-b0b3-4f35-a1d4-61d03cfcdc85"
+          "example": "be0efa70-9ab0-45f0-bb28-9114cb68c9c9"
         },
         "aliases": {
           "type": "array",
@@ -9843,7 +9854,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "c5b08e9b-e1ea-49eb-8025-859af220b9d6"
+          "example": "69727362-7bf0-47a1-a8af-2883aff1aa93"
         },
         "users": {
           "type": "array",
