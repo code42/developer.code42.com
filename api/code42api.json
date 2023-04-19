@@ -1766,7 +1766,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "107b672b-0cde-4e52-ac06-6d24299bcbf3"
+            "example": "ebf134ae-0690-44d2-ad49-a5bb5f969406"
           }
         ],
         "responses": {
@@ -1850,7 +1850,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "8e7fa789-6058-46c5-b67e-be5c10a907d5"
+            "example": "fc86087a-4843-4b09-b0a0-4d59cd29ad38"
           }
         ],
         "responses": {
@@ -1879,7 +1879,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "64b75fc1-cad3-42a6-9daa-9156dd1f681c"
+                "9df68eb1-10ab-4344-b884-ae44c81ceaf9"
               ],
               "items": {
                 "type": "string"
@@ -1913,7 +1913,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "cc9825cc-1d24-44c3-82e0-7447e6ec9c2f"
+            "example": "f0ecbf9d-bdd6-4b51-acdd-5467761f539b"
           }
         ],
         "responses": {
@@ -1942,7 +1942,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "8eaa7863-01bd-4767-930b-7196c0fb6d44"
+                "cabdfcf8-081b-4206-91ac-8820c9789708"
               ],
               "items": {
                 "type": "string"
@@ -1977,7 +1977,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "cba66e2f-1f49-4de5-8020-d779178a829e"
+            "example": "64993f0f-ac8e-4cb5-aa15-aeb042b421ba"
           }
         ],
         "responses": {
@@ -2004,7 +2004,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6775033d-fe05-4684-b40c-2d9fd660de68"
+            "example": "8f11add0-ea50-4c61-b68a-4f054caf9d7f"
           }
         ],
         "responses": {
@@ -6016,7 +6016,7 @@
           "description": "Updated name for agent.",
           "type": "string"
         },
-        "extRef": {
+        "externalReference": {
           "description": "Updated external reference data for agent.",
           "type": "string"
         }
@@ -8624,7 +8624,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-04-18T12:04:56.5995894Z"
+              "example": "2023-04-19T00:13:27.712406Z"
             },
             "createdBy": {
               "type": "string",
@@ -8635,7 +8635,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-04-18T12:04:56.5996139Z"
+              "example": "2023-04-19T00:13:27.7124294Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -8662,7 +8662,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "ea6751c4-35d1-4ef7-9ea6-d25d5291cd1d"
+              "example": "4014f097-c2c9-4d51-b8a4-152a4b8c78d9"
             }
           }
         }
@@ -9333,7 +9333,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "23eaae8a-8431-4139-b205-65a229fe1401"
+          "example": "d6196a8b-3b81-4894-a8f6-9ba12801b86c"
         },
         "aliases": {
           "type": "array",
@@ -9357,7 +9357,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "525979ce-56a5-4a90-ba19-21a86843ea55"
+          "example": "9c4945e4-3f3f-4f40-bfc6-82443ffc4cb5"
         },
         "users": {
           "type": "array",
