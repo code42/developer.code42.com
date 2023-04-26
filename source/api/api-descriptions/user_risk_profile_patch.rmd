@@ -1,0 +1,21 @@
+HTTP PATCH methods support partially updating a resource. To accomplish this, each request must specify exactly which
+fields are to be updated. This is commonly called the "field mask", and in this endpoint is provided by the `paths` query
+param. Any keys in the request body that aren't in the field mask paths are ignored. This enables one to request an
+object via a GET request, change the desired fields, then send back the same full object, without the possibility of
+overwriting some other request that had happened in the meantime that had modified a different, unrelated field.
+
+For example:
+
+To update the `notes` and `endDate` fields for a user risk profile, make a `PATCH` request to
+`/v1/user-risk-profiles/{user_id}?paths=notes,endDate` with a request body of:
+
+```json
+{
+  "notes": "note_update",
+  "endDate": {
+    "year": 2023,
+    "month": 3,
+    "day": 18
+  }
+}
+```

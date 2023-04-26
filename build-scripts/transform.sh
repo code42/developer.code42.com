@@ -69,6 +69,10 @@ main() {
   elif . == "DirectoryGroupsService" then "Directory Groups"
   else .
   end' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
+  # set update-risk-profile PATCH description
+  jq '.paths[][] |=
+  if .operationId == "UpdateUserRiskProfile" then .description = {"$ref": "./api-descriptions/user_risk_profile_patch.rmd"}
+  else . end' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
 }
 
 main "$@"
