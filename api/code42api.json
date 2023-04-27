@@ -582,7 +582,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "bb14f2ab-3735-4bf5-9bb7-f23a15c2014c"
+            "example": "8ef89100-8356-4092-985e-f212d2c99103"
           }
         ],
         "responses": {
@@ -666,7 +666,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "db691270-d223-4490-958e-7ccb6ecca116"
+            "example": "5a847dd6-6c06-452e-ad53-ca633c9fb517"
           }
         ],
         "responses": {
@@ -695,7 +695,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "98fdbb0a-45d7-459b-bedd-920eae56bc7a"
+                "5fae2ac8-1db1-42bf-bdc0-4ac365ddf582"
               ],
               "items": {
                 "type": "string"
@@ -729,7 +729,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ef4907f4-5e72-407c-a7de-2a307ccbd48d"
+            "example": "4d7c4773-5361-4218-8b26-06a8a966afee"
           }
         ],
         "responses": {
@@ -758,7 +758,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "17aa9349-b2f8-4de6-b280-03b75ebb0a19"
+                "d32804b2-d09d-4587-9be5-69796801fc77"
               ],
               "items": {
                 "type": "string"
@@ -793,7 +793,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "d26accc3-f426-4bc1-a978-23ca564d79f4"
+            "example": "1ee202f3-d294-4871-b6df-c2528d00a1bb"
           }
         ],
         "responses": {
@@ -820,7 +820,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "267ade77-7f35-41bc-9eb5-9785de18afe8"
+            "example": "6ffa170d-a654-4071-b89a-aa8d01aaf13b"
           }
         ],
         "responses": {
@@ -3987,7 +3987,10 @@
           "User Risk Profiles"
         ],
         "operationId": "UpdateUserRiskProfile",
-        "summary": "Update a user risk profile"
+        "summary": "Update a user risk profile",
+        "description": {
+          "$ref": "./api-descriptions/user_risk_profile_patch.rmd"
+        }
       }
     },
     "/v1/user-risk-profiles/{user_id}/add-cloud-aliases": {
@@ -5208,7 +5211,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-04-27T12:04:32.7157599Z"
+              "example": "2023-04-27T14:24:28.3303986Z"
             },
             "createdBy": {
               "type": "string",
@@ -5219,7 +5222,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-04-27T12:04:32.715782Z"
+              "example": "2023-04-27T14:24:28.330424Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -5246,7 +5249,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "500f2053-ea84-4baa-b452-572cef8315c2"
+              "example": "65327797-42e2-4cf2-a448-1670ef223cd7"
             }
           }
         }
@@ -5917,7 +5920,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "a5b55e85-6530-471d-9479-8e6ba0bd6585"
+          "example": "90c92495-13b4-49b2-94bf-9eb5bc0129cc"
         },
         "aliases": {
           "type": "array",
@@ -5941,7 +5944,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "3c83ce1e-1c86-48da-99b9-4a15af42df7e"
+          "example": "4d458687-98dc-45aa-90bb-8277b5ff9033"
         },
         "users": {
           "type": "array",
