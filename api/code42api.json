@@ -1250,7 +1250,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "bc3a90df-5ce5-49c6-9b96-825922407ba6"
+            "example": "d81f006c-b4de-4005-8ae0-61ec481a58eb"
           }
         ],
         "responses": {
@@ -1334,7 +1334,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b9b50475-f5c1-45b5-a88a-e313d75421f6"
+            "example": "fa6cac77-45bf-40f3-b405-6aa909886373"
           }
         ],
         "responses": {
@@ -1363,7 +1363,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "346906ce-2ed5-4731-a319-9bbca075628f"
+                "a74f4fa4-8d70-46a4-8c95-f07c555729dc"
               ],
               "items": {
                 "type": "string"
@@ -1397,7 +1397,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "5177d228-88a3-4037-afeb-ae9e8af3282e"
+            "example": "07003caf-b81c-429e-8533-6b4b45abdb9b"
           }
         ],
         "responses": {
@@ -1426,7 +1426,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "7b45a51a-b3dc-4c94-aa3f-f42ef43f0e2e"
+                "3f1b29e0-30ab-4ae4-90b5-cb968e3650bf"
               ],
               "items": {
                 "type": "string"
@@ -1461,7 +1461,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "2caeb951-36cb-41bc-8ac2-2a7d40316c91"
+            "example": "53829130-34da-40db-94cf-aae40502f9fc"
           }
         ],
         "responses": {
@@ -1488,7 +1488,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "7bb4dffb-a6ae-481a-b7c3-67205fe89fe2"
+            "example": "9523c66d-1ab3-45bc-9282-678e43d2e0f4"
           }
         ],
         "responses": {
@@ -6269,7 +6269,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-05-16T12:05:12.0055445Z"
+              "example": "2023-05-17T00:13:59.5492089Z"
             },
             "createdBy": {
               "type": "string",
@@ -6280,7 +6280,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-05-16T12:05:12.0055676Z"
+              "example": "2023-05-17T00:13:59.5492335Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -6307,7 +6307,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "4796b910-a506-4947-aacd-f283dbd34a96"
+              "example": "4a83e007-cdc7-46be-8c22-1e3472108747"
             }
           }
         }
@@ -6978,7 +6978,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "0f83095c-b2f2-4fce-abb5-d192e4958ee8"
+          "example": "8dfd179b-2a8c-4fe0-8d00-3842ed1131d7"
         },
         "aliases": {
           "type": "array",
@@ -7002,7 +7002,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "be1f0ab0-b603-4841-9051-ef47242e0d74"
+          "example": "95a83e76-f841-4af0-97f2-1faf8a462f3c"
         },
         "users": {
           "type": "array",
@@ -8434,13 +8434,17 @@
         "Open",
         "Resolved",
         "InProgress",
-        "Pending"
+        "Pending",
+        "ResolvedTp",
+        "ResolvedFp"
       ],
       "enum": [
         "OPEN",
         "RESOLVED",
         "IN_PROGRESS",
-        "PENDING"
+        "PENDING",
+        "RESOLVED_TP",
+        "RESOLVED_FP"
       ]
     },
     "DomainValue-alerts": {
@@ -8794,6 +8798,7 @@
               }
             },
             "userEducation": {
+              "description": "User education will be populated if the alert is configured to send a response.",
               "$ref": "#/definitions/Education-alerts"
             }
           }
@@ -8967,30 +8972,37 @@
           ],
           "properties": {
             "lessonId": {
-              "type": "string"
+              "type": "string",
+              "description": "Unique id of this response lesson.",
+              "example": "guid"
             },
             "messagingMethod": {
+              "description": "Type of messaging method.",
+              "example": "EMAIL",
               "$ref": "#/definitions/MessagingMethod-alerts"
             },
             "isAutoDismissAlertEnabled": {
-              "type": "boolean"
+              "type": "boolean",
+              "description": "True if the alert is configured to auto-dismiss upon response.",
+              "example": "true"
             }
           }
         }
       ]
     },
     "MessagingMethod-alerts": {
-      "type": "integer",
-      "description": "",
+      "type": "string",
+      "description": "Type of messaging method.",
+      "example": "EMAIL",
       "x-enumNames": [
         "Email",
         "Slack",
         "Teams"
       ],
       "enum": [
-        0,
-        1,
-        2
+        "EMAIL",
+        "SLACK",
+        "TEAMS"
       ]
     },
     "QueryProblem-alerts": {
