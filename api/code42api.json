@@ -1250,7 +1250,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "9b051167-eb71-4805-83ff-11fbf611e661"
+            "example": "2af1a273-8cb3-4819-9a09-e3ba70171843"
           }
         ],
         "responses": {
@@ -1334,7 +1334,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "95fe89e3-47a5-482a-9ad4-2e7de68890bc"
+            "example": "ed8ff259-9043-4a84-b74c-83a9ea4b74bb"
           }
         ],
         "responses": {
@@ -1363,7 +1363,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "cfc1e40b-cebf-4f4d-ad8d-fd0fcb892c1e"
+                "05b63340-facb-4753-82f7-e2fa1169259b"
               ],
               "items": {
                 "type": "string"
@@ -1397,7 +1397,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a000590b-0a45-45a7-9115-5d49c775af6d"
+            "example": "eb4e7aec-b11f-4a7d-a958-9582b77a8d31"
           }
         ],
         "responses": {
@@ -1426,7 +1426,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "2e7a7430-c420-427b-9988-720581609c11"
+                "b09e7856-1a8f-4dd5-b1cb-e5c778510304"
               ],
               "items": {
                 "type": "string"
@@ -1461,7 +1461,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ffc2da48-46d9-43c5-8c8c-f403d1d8a31a"
+            "example": "c83c8775-6d82-4988-8f81-5f77c014cea7"
           }
         ],
         "responses": {
@@ -1488,7 +1488,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "2b3c4398-7709-4c04-a611-83eb29089896"
+            "example": "9fcfb482-ecb7-48d4-8c77-5301fe8b98ef"
           }
         ],
         "responses": {
@@ -6269,7 +6269,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-06-01T00:17:37.6727262Z"
+              "example": "2023-06-01T12:05:33.6207036Z"
             },
             "createdBy": {
               "type": "string",
@@ -6280,7 +6280,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-06-01T00:17:37.6728163Z"
+              "example": "2023-06-01T12:05:33.6207265Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -6307,7 +6307,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "875654e7-cb52-465a-b3a7-941cfe47b176"
+              "example": "bfec53f4-ed63-434c-9ed8-d1663c266b53"
             }
           }
         }
@@ -6978,7 +6978,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "d5a7535a-e49e-4ace-9a39-eb9d3c4d7585"
+          "example": "5e4dee6f-278d-49c3-88ff-6980e3c24ccb"
         },
         "aliases": {
           "type": "array",
@@ -7002,7 +7002,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "56b89f74-b10b-46b7-8aa7-370d60127bee"
+          "example": "90437a2c-d1bb-4094-8c0f-fe737d91e3ee"
         },
         "users": {
           "type": "array",
