@@ -1984,7 +1984,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "46a9e038-bcd8-467f-89f3-17e4d9da5674"
+            "example": "de948590-1bb1-42e8-b39b-18a3b0f5a334"
           }
         ],
         "responses": {
@@ -2068,7 +2068,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "91088e8e-e861-4661-ba8f-d6de7269316e"
+            "example": "6d34f6d9-601d-49cd-b07f-61209f7e57b6"
           }
         ],
         "responses": {
@@ -2097,7 +2097,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "e92fc14b-3c71-4710-9f45-807003da52ba"
+                "371bffe9-d9b8-4d44-a4d9-2aacb91d96a9"
               ],
               "items": {
                 "type": "string"
@@ -2131,7 +2131,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ac176475-e914-4da5-a292-c1158c517e73"
+            "example": "0d7bb8b0-0566-4f2f-be5b-583fd191b251"
           }
         ],
         "responses": {
@@ -2160,7 +2160,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "be358cd1-d770-463a-bf10-1564677e0d1d"
+                "22924f76-567a-4c22-ba1c-578f9c0f45cb"
               ],
               "items": {
                 "type": "string"
@@ -2195,7 +2195,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "9bc3dbe5-bb1f-4f12-9a65-d4ac8aaf0bfb"
+            "example": "9c345913-913a-42dd-887f-182b21577cda"
           }
         ],
         "responses": {
@@ -2222,7 +2222,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a57f6389-6bc7-4995-bb8d-563784d83dbf"
+            "example": "4f3966bf-de1f-40f6-973e-b431564b0860"
           }
         ],
         "responses": {
@@ -5138,7 +5138,7 @@
           "properties": {
             "term": {
               "type": "string",
-              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, Education, Severity.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString. ",
+              "description": "The alert or rule metadata attribute to search on.\n\nFor alert queries, value must be one of: AlertId, TenantId, Type, Name, Description, Actor, ActorId, Target, RiskSeverity, RuleSource, CreatedAt, Observations, Notes, Watchlists, HasAuthSignificantWatchlist, State, StateLastModifiedAt, StateLastModifiedBy, LastModifiedTime, LastModifiedBy, RuleId, Education, Severity.\n\nFor rule queries, value must be one of RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, RuleWarning, LogString. ",
               "example": "State"
             },
             "operator": {
@@ -6000,9 +6000,24 @@
               "type": "string",
               "description": "The source of the rule.  Will be one of [DepartingEmployee, Alerting, HighRiskEmployee]",
               "example": "Alerting"
+            },
+            "ruleWarning": {
+              "description": "Enum flag indicating there is a warning associated with the given rule.",
+              "$ref": "#/definitions/RuleWarning-alerts"
             }
           }
         }
+      ]
+    },
+    "RuleWarning-alerts": {
+      "type": "string",
+      "description": "Enum flag indicating there is a warning associated with the given rule.",
+      "example": "DISABLED_DUE_TO_LAST_INDICATOR_REMOVED",
+      "x-enumNames": [
+        "DisabledDueToLastIndicatorRemoved"
+      ],
+      "enum": [
+        "DISABLED_DUE_TO_LAST_INDICATOR_REMOVED"
       ]
     },
     "AuditInfo-alerts": {
@@ -6078,7 +6093,7 @@
             },
             "srtKey": {
               "type": "string",
-              "description": "The rule metadata attribute to sort by.  Value must be one of: RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, LogString",
+              "description": "The rule metadata attribute to sort by.  Value must be one of: RuleMetadataId, TenantId, ObserverRuleId, Type, Name, Description, IsEnabled, ModifiedAt, ModifiedBy, CreatedAt, CreatedBy, RuleWarning, LogString",
               "example": "CreatedAt"
             },
             "srtDirection": {
@@ -8269,7 +8284,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-06-02T12:05:09.7373714Z"
+              "example": "2023-06-03T00:13:29.9330987Z"
             },
             "createdBy": {
               "type": "string",
@@ -8280,7 +8295,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-06-02T12:05:09.7373919Z"
+              "example": "2023-06-03T00:13:29.9331233Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -8307,7 +8322,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "3230198b-68ab-4daf-9d71-20e503612b95"
+              "example": "693d6952-d060-42d3-ba60-e63fc04d4f8a"
             }
           }
         }
@@ -8978,7 +8993,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "4be1e515-0a31-4c7d-b254-bab1d1373cb9"
+          "example": "a149e3b3-5573-42f1-91b0-ba07ba459cc6"
         },
         "aliases": {
           "type": "array",
@@ -9002,7 +9017,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "b1d7b75d-e4b9-4dc6-9f53-f7d124b01da5"
+          "example": "1b906023-60ed-4418-8f7a-583572d2ce81"
         },
         "users": {
           "type": "array",
