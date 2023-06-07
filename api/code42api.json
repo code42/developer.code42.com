@@ -1984,7 +1984,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "066f878a-41c1-4af2-accb-950dd68d1d4a"
+            "example": "49fc784d-c079-48f1-8459-03b534b9f211"
           }
         ],
         "responses": {
@@ -2068,7 +2068,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "91354d65-bf00-49c4-ac33-b27a678f396c"
+            "example": "8036b8d4-8bd9-4932-9386-2fda28b07576"
           }
         ],
         "responses": {
@@ -2097,7 +2097,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "cd5c51fd-34ad-4a22-9e5c-fae49276dd31"
+                "cf010971-0d6a-4ce3-8372-1a25ef37550e"
               ],
               "items": {
                 "type": "string"
@@ -2131,7 +2131,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a30a5f97-d375-4fe2-8cd6-5a46a21cc057"
+            "example": "9e0e1454-9432-4a6f-bd38-619ceec880ec"
           }
         ],
         "responses": {
@@ -2160,7 +2160,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "dcc0577f-6b6e-43b7-a989-6c04b38c21d4"
+                "118f4fd2-f3f8-4ec8-b537-ee5d6086713c"
               ],
               "items": {
                 "type": "string"
@@ -2195,7 +2195,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "7c0a3f30-d30d-4ee6-b4b1-0f818655e7bc"
+            "example": "86523003-50ed-449b-8f2c-75719b0f1c71"
           }
         ],
         "responses": {
@@ -2222,7 +2222,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "f719c182-1aa1-4092-bc25-5f062f338961"
+            "example": "d58b357d-b047-4894-b383-49b7f7722636"
           }
         ],
         "responses": {
@@ -8284,7 +8284,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-06-06T12:05:03.4443052Z"
+              "example": "2023-06-07T00:13:44.5655707Z"
             },
             "createdBy": {
               "type": "string",
@@ -8295,7 +8295,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-06-06T12:05:03.4443387Z"
+              "example": "2023-06-07T00:13:44.5656057Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -8306,10 +8306,40 @@
               "type": "boolean",
               "description": "Boolean indicator of whether or not the rule is connected to a lens.",
               "example": true
+            },
+            "systemRemovedRiskIndicators": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/RiskIndicator-alert-rules-v2"
+              }
             }
           }
         }
       ]
+    },
+    "RiskIndicator-alert-rules-v2": {
+      "type": "object",
+      "required": [
+        "timestamp"
+      ],
+      "properties": {
+        "indicatorId": {
+          "type": "string"
+        },
+        "indicatorName": {
+          "type": "string"
+        },
+        "categoryId": {
+          "type": "string"
+        },
+        "subCategoryId": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
     },
     "Rule-alert-rules-v2": {
       "allOf": [
@@ -8322,7 +8352,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "f0090755-7bb8-4447-98db-59ac54b5acf8"
+              "example": "47bc1726-a067-4906-9a24-9b08b3446a19"
             }
           }
         }
@@ -8737,6 +8767,9 @@
         "riskIndicator": {
           "$ref": "#/definitions/RiskIndicatorFilter-alert-rules-v2"
         },
+        "riskIndicatorExcludes": {
+          "$ref": "#/definitions/RiskIndicatorFilter-alert-rules-v2"
+        },
         "riskSeverity": {
           "$ref": "#/definitions/RiskSeverityFilter-alert-rules-v2"
         },
@@ -8993,7 +9026,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "4ab2bf43-b31a-4f5f-9422-99662daac29d"
+          "example": "db065f8b-b86a-4338-992e-ad6f2c703f5e"
         },
         "aliases": {
           "type": "array",
@@ -9017,7 +9050,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "0641fb2b-611d-4a13-8b1c-7fbdf02399cf"
+          "example": "91aebe5a-ec0b-40d4-9747-c980a83a1514"
         },
         "users": {
           "type": "array",
