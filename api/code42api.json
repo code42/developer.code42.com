@@ -4518,7 +4518,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "210c5fcf-4ddd-40d5-af27-3d1467b26c71"
+            "example": "7698ad01-0c75-41f0-b6af-82f9c36fec82"
           }
         ],
         "responses": {
@@ -4602,7 +4602,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b33e9445-441e-460b-883c-61548034f3cd"
+            "example": "c3043a73-a1b5-4896-a134-a5446dae03b1"
           }
         ],
         "responses": {
@@ -4631,7 +4631,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "cbf7ca80-59b8-40c4-94da-dd0efd9f8459"
+                "601daa51-0ce9-4647-9dc0-342e2b4533bf"
               ],
               "items": {
                 "type": "string"
@@ -4665,7 +4665,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b0d2af8c-7db4-4061-ac8e-ae45becaf701"
+            "example": "0d782017-b129-44d3-b688-fd6811df726b"
           }
         ],
         "responses": {
@@ -4694,7 +4694,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "67e979ea-fb55-4b29-b86b-aa9cc9403b9b"
+                "18179a32-0251-43ef-8ad2-839a355a4a84"
               ],
               "items": {
                 "type": "string"
@@ -4729,7 +4729,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "0e6775ba-972e-403e-b9f5-a672fec0f07a"
+            "example": "b7676826-a11e-4330-9fb7-a9f13d2a3ee9"
           }
         ],
         "responses": {
@@ -4756,7 +4756,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "443fcc74-8905-4e81-acae-d9306733dbbb"
+            "example": "51ab9946-dc98-41d2-9d6f-1fde3e3a96f3"
           }
         ],
         "responses": {
@@ -9752,6 +9752,7 @@
               "source.operatingSystem",
               "source.email.sender",
               "source.email.from",
+              "source.remoteHostname",
               "source.removableMedia.vendor",
               "source.removableMedia.mediaName",
               "source.removableMedia.serialNumber",
@@ -9922,6 +9923,7 @@
             "source.operatingSystem",
             "source.email.sender",
             "source.email.from",
+            "source.remoteHostname",
             "source.removableMedia.vendor",
             "source.removableMedia.mediaName",
             "source.removableMedia.serialNumber",
@@ -11262,6 +11264,7 @@
             "source.operatingSystem",
             "source.email.sender",
             "source.email.from",
+            "source.remoteHostname",
             "source.removableMedia.vendor",
             "source.removableMedia.mediaName",
             "source.removableMedia.serialNumber",
@@ -12105,6 +12108,7 @@
               "source.operatingSystem",
               "source.email.sender",
               "source.email.from",
+              "source.remoteHostname",
               "source.removableMedia.vendor",
               "source.removableMedia.mediaName",
               "source.removableMedia.serialNumber",
@@ -12332,6 +12336,7 @@
             "source.operatingSystem",
             "source.email.sender",
             "source.email.from",
+            "source.remoteHostname",
             "source.removableMedia.vendor",
             "source.removableMedia.mediaName",
             "source.removableMedia.serialNumber",
@@ -12655,6 +12660,7 @@
             "source.operatingSystem",
             "source.email.sender",
             "source.email.from",
+            "source.remoteHostname",
             "source.removableMedia.vendor",
             "source.removableMedia.mediaName",
             "source.removableMedia.serialNumber",
@@ -13008,6 +13014,7 @@
             "source.operatingSystem",
             "source.email.sender",
             "source.email.from",
+            "source.remoteHostname",
             "source.removableMedia.vendor",
             "source.removableMedia.mediaName",
             "source.removableMedia.serialNumber",
@@ -13183,6 +13190,11 @@
           },
           "title": "The IP address of the user's device on your internal network, including Network interfaces, Virtual Network Interface controllers (NICs), and Loopback/non-routable addresses.",
           "type": "array"
+        },
+        "remoteHostname": {
+          "title": "For events where a file transfer tool was used, the source hostname.",
+          "type": "string",
+          "x-nullable": true
         },
         "removableMedia": {
           "$ref": "#/definitions/RemovableMedia-file-events"
@@ -13376,7 +13388,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-06-20T12:05:22.0352617Z"
+              "example": "2023-06-21T00:13:39.1899853Z"
             },
             "createdBy": {
               "type": "string",
@@ -13387,7 +13399,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-06-20T12:05:22.0352974Z"
+              "example": "2023-06-21T00:13:39.1900078Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -13444,7 +13456,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "aa5656f3-ee64-43ba-8026-cdad24eae20c"
+              "example": "2fd4de84-84a5-4d82-a00e-5bcfad649a70"
             }
           }
         }
@@ -14118,7 +14130,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "a963444e-49fe-438e-a32d-65c309dd3683"
+          "example": "4ee67afa-e033-4618-a203-42a1c6719573"
         },
         "aliases": {
           "type": "array",
@@ -14142,7 +14154,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "c7a7d227-3969-42ac-84a1-9da780024143"
+          "example": "c3403397-f264-4e04-99ef-2966a878f020"
         },
         "users": {
           "type": "array",
