@@ -4518,7 +4518,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "31a82056-5c16-44eb-a647-2c794df8f886"
+            "example": "8d705250-fffb-4569-bb80-c9420873b09d"
           }
         ],
         "responses": {
@@ -4602,7 +4602,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6ea9cb4a-b826-4468-8dd8-40de97372070"
+            "example": "80e93b3c-5980-4dff-a08b-bdd3f64a6a5e"
           }
         ],
         "responses": {
@@ -4631,7 +4631,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "42c19020-2342-4b9c-87ae-55fb1c121b5b"
+                "50c0652f-2b74-4e29-9fa3-50975ec429d6"
               ],
               "items": {
                 "type": "string"
@@ -4665,7 +4665,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "0ea15fa4-ba5d-4e9c-9185-6fe41e13516e"
+            "example": "09a2f89e-2f16-4116-9cdf-8fbcf137aa3a"
           }
         ],
         "responses": {
@@ -4694,7 +4694,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "a85ca2b1-45b3-41bc-879b-98a180dc9eab"
+                "109e4b39-3b6c-4d32-92ff-be76585a5804"
               ],
               "items": {
                 "type": "string"
@@ -4729,7 +4729,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "266dc7ff-a508-42be-9231-f29a429a6693"
+            "example": "50fd4706-3656-4b1d-9332-b038fa1e2ec0"
           }
         ],
         "responses": {
@@ -4756,7 +4756,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "dd1045d3-0289-479a-b01d-ae077513cb3c"
+            "example": "fecda1c6-20b9-4f0e-ac79-b3eddf5a369e"
           }
         ],
         "responses": {
@@ -9406,6 +9406,9 @@
           "type": "string",
           "x-nullable": true
         },
+        "extension": {
+          "$ref": "#/definitions/Extension-file-events"
+        },
         "id": {
           "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
           "title": "The unique identifier for the event.",
@@ -9710,6 +9713,9 @@
               "event.observer",
               "event.detectorDisplayName",
               "event.vector",
+              "event.extension.browser",
+              "event.extension.version",
+              "event.extension.loggedInUser",
               "user.email",
               "user.id",
               "user.deviceUid",
@@ -9881,6 +9887,9 @@
             "event.observer",
             "event.detectorDisplayName",
             "event.vector",
+            "event.extension.browser",
+            "event.extension.version",
+            "event.extension.loggedInUser",
             "user.email",
             "user.id",
             "user.deviceUid",
@@ -10015,6 +10024,27 @@
       "required": [
         "groups"
       ],
+      "type": "object"
+    },
+    "Extension-file-events": {
+      "properties": {
+        "browser": {
+          "title": "The web browser in which the event occurred.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "loggedInUser": {
+          "title": "The user logged in to the web browser when the event occurred.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "version": {
+          "title": "The version of the Code42 Incydr extension installed when the event occurred.",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "title": "Metadata about the Code42 browser extension to facilitate troubleshooting.",
       "type": "object"
     },
     "FieldError-file-events": {
@@ -11222,6 +11252,9 @@
             "event.observer",
             "event.detectorDisplayName",
             "event.vector",
+            "event.extension.browser",
+            "event.extension.version",
+            "event.extension.loggedInUser",
             "user.email",
             "user.id",
             "user.deviceUid",
@@ -12066,6 +12099,9 @@
               "event.observer",
               "event.detectorDisplayName",
               "event.vector",
+              "event.extension.browser",
+              "event.extension.version",
+              "event.extension.loggedInUser",
               "user.email",
               "user.id",
               "user.deviceUid",
@@ -12294,6 +12330,9 @@
             "event.observer",
             "event.detectorDisplayName",
             "event.vector",
+            "event.extension.browser",
+            "event.extension.version",
+            "event.extension.loggedInUser",
             "user.email",
             "user.id",
             "user.deviceUid",
@@ -12618,6 +12657,9 @@
             "event.observer",
             "event.detectorDisplayName",
             "event.vector",
+            "event.extension.browser",
+            "event.extension.version",
+            "event.extension.loggedInUser",
             "user.email",
             "user.id",
             "user.deviceUid",
@@ -12972,6 +13014,9 @@
             "event.observer",
             "event.detectorDisplayName",
             "event.vector",
+            "event.extension.browser",
+            "event.extension.version",
+            "event.extension.loggedInUser",
             "user.email",
             "user.id",
             "user.deviceUid",
@@ -13388,7 +13433,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-06-21T12:05:16.0012922Z"
+              "example": "2023-06-22T00:14:03.7592729Z"
             },
             "createdBy": {
               "type": "string",
@@ -13399,7 +13444,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-06-21T12:05:16.0013144Z"
+              "example": "2023-06-22T00:14:03.7592977Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -13456,7 +13501,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "01958d57-6f75-44b9-a5e4-97712d300966"
+              "example": "65181379-19d3-40b7-b546-46f036076f42"
             }
           }
         }
@@ -14130,7 +14175,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "5176be02-92b1-43df-a29c-769e4a620780"
+          "example": "72eff293-a26a-40c3-9ccc-d79d9111e9c3"
         },
         "aliases": {
           "type": "array",
@@ -14154,7 +14199,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "38e36af0-2f38-455b-852d-a0d715ea9cfd"
+          "example": "065c49a2-1481-4a7d-a67e-4ad828a83322"
         },
         "users": {
           "type": "array",
