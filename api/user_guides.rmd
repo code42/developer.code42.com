@@ -5,13 +5,13 @@ Review the user guides to learn how to perform tasks using the Code42 APIs.
 
 ## Release notes
 
-For release notes, see the [Code42 API release notes](https://support.code42.com/Release_Notes/Incydr_release_notes/API_release_notes).
+For release notes, see the [Code42 API release notes](https://support.code42.com/hc/en-us/articles/14827738522007).
 
 ## Get started
 
 ### Licensing
 
-To use all the APIs you must have [full API access](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_API_resources/API_access).
+To use all the APIs you must have [full API access](https://support.code42.com/hc/en-us/articles/14827740809239).
 
 ### Request URLs
 
@@ -26,7 +26,7 @@ The domain used for making API requests can be determined using the domain you u
 
 ### Authentication
 
-API calls require an authentication token in the header of the request. To obtain an authentication token, [create an API client](https://support.code42.com/Administrator/Cloud/Code42_console_reference/API_clients) and then submit its ID and secret in a request to the /v1/oauth API. 
+API calls require an authentication token in the header of the request. To obtain an authentication token, [create an API client](https://support.code42.com/hc/en-us/articles/14827617150231) and then submit its ID and secret in a request to the /v1/oauth API.
 
 In the following example (using curl), replace `<ClientID>` with the API client ID, replace `<Secret>` with the API client secret, and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance (also known as the base URL):
 
@@ -58,7 +58,7 @@ curl -X GET https://api.us.code42.com/v1/users \
 ### Token considerations
 
 * Authentication tokens expire after 15 minutes.
-* Authentication tokens provide the API permissions defined in the API client. 
+* Authentication tokens provide the API permissions defined in the API client.
 
 
 [API clients](#tag/Auth/paths/~1v1~1oauth/post) are the preferred method for authentication. Basic authentication methods are deprecated:
@@ -79,7 +79,7 @@ curl -X GET -u "<username>:<password>" https://<RequestURL>/v1/auth
 **Basic authentication to obtain a User authentication token when a second factor (TOTP) token is required:**
 
 ```bash
-curl -X -H "totp-auth: <totp_token" GET -u "<username>:<password>" https://<RequestURL>/v1/auth 
+curl -X -H "totp-auth: <totp_token" GET -u "<username>:<password>" https://<RequestURL>/v1/auth
 ```
 
 ### Get a tenant ID
@@ -318,12 +318,12 @@ Use the [GET /v2/alert-rules/{id}/users](/api#operation/Rules_GetUsers) API comm
 curl -X GET "<RequestURL>/v2/alert-rules/<id>/users" \
 -H "accept: text/plain" \
 -H "Authorization: Bearer <AuthToken>" \
--H "Content-Type: application/json" 
+-H "Content-Type: application/json"
 ```
 
 In the preceding example, replace `<id>` with the ID of the alert rule for which you want to view users.
 
-A successful response lists the email addresses and cloud aliases of the users in the alert rule's inclusion or exclusion list, grouped by the user ID value (identified by the "userIdFromAuthority" label) associated with that information. 
+A successful response lists the email addresses and cloud aliases of the users in the alert rule's inclusion or exclusion list, grouped by the user ID value (identified by the "userIdFromAuthority" label) associated with that information.
 
 ```json
 {
@@ -342,13 +342,13 @@ A successful response lists the email addresses and cloud aliases of the users i
 
 ```
 
-If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference)), the results note that the "userIdFromAuthority" value is null. To work with an alert rule's inclusion or exclusion list if the user ID value is null, use the [Alerts screens in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Review_Alerts) to manually add and remove users. Alternately, you can use the [DELETE /v2/alert-rules/{id}/users](/api/#tag/Rules/operation/Rules_RemoveAllUsers) API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the [POST /v2/alert-rules/{id}/users](/api/#tag/Rules/operation/Rules_AddUsers) using the users' userUID in Code42.
+If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/hc/en-us/articles/14827687892375)), the results note that the "userIdFromAuthority" value is null. To work with an alert rule's inclusion or exclusion list if the user ID value is null, use the [Alerts screens in the Code42 console](https://support.code42.com/hc/en-us/articles/14827687892375) to manually add and remove users. Alternately, you can use the [DELETE /v2/alert-rules/{id}/users](/api/#tag/Rules/operation/Rules_RemoveAllUsers) API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the [POST /v2/alert-rules/{id}/users](/api/#tag/Rules/operation/Rules_AddUsers) using the users' userUID in Code42.
 
 
 ## Manage cases
-Use the Case APIs to create and manage cases for security investigations. A case is used to record results of an investigation into suspicious file activity. For information about creating and managing cases in the Code42 console, see our [support article](https://support.code42.com/Incydr/Admin/Code42_console_reference/Cases_reference).
+Use the Case APIs to create and manage cases for security investigations. A case is used to record results of an investigation into suspicious file activity. For information about creating and managing cases in the Code42 console, see our [support article](https://support.code42.com/hc/en-us/articles/14827658933527.
 
-Typically, a security analyst will create a case based on an investigation that shows unauthorized file activity, and will add file events from Forensic Search to the case as evidence. The case can have additional file events added to it if needed, and can be routed in a CSV or PDF file as necessary for resolution. Although cases are specific to Code42, you can integrate cases into your SIEM, SOAR, or other incident management system. For integration resources, see our [support article](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_integrations_resources).
+Typically, a security analyst will create a case based on an investigation that shows unauthorized file activity, and will add file events from Forensic Search to the case as evidence. The case can have additional file events added to it if needed, and can be routed in a CSV or PDF file as necessary for resolution. Although cases are specific to Code42, you can integrate cases into your SIEM, SOAR, or other incident management system. For integration resources, see our [support article](https://support.code42.com/hc/en-us/articles/14827687363351).
 
 ### Create a case
 
@@ -370,7 +370,7 @@ In the preceding example:
 
 ### Download case summary as a PDF
 
-The PDF contains the case subject, details, and findings. Detailed file activity is not included. You can route the resulting PDF to interested parties, such as a security team, members of an insider risk working group, or company executives. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line. 
+The PDF contains the case subject, details, and findings. Detailed file activity is not included. You can route the resulting PDF to interested parties, such as a security team, members of an insider risk working group, or company executives. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line.
 
 The following example demonstrates how to download a case summary with a PDF using the [/v1/cases/\<caseNumber\>/export](/api#operation/pdfExportUsingGET) API.
 
@@ -385,9 +385,9 @@ In the preceding example, replace `<caseID>` with the ID of the case.
 
 ### Export file events for a case as a CSV file
 
-The comma-separated value (CSV) file contains the case subject, details, and findings, as well as the file events associated with the case. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line. 
+The comma-separated value (CSV) file contains the case subject, details, and findings, as well as the file events associated with the case. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line.
 
-You can integrate the resulting CSV file into your SOAR, SIEM, or other incident management system. For integration resources, see our [support article](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_integrations_resources). For field definitions of the file events shown in the CSV file, see our [support article](https://support.code42.com/Incydr/Admin/Code42_console_reference/File_event_metadata_reference). 
+You can integrate the resulting CSV file into your SOAR, SIEM, or other incident management system. For integration resources, see our [support article](https://support.code42.com/hc/en-us/articles/14827687363351). For field definitions of the file events shown in the CSV file, see our [support article](https://support.code42.com/hc/en-us/articles/14827723634327).
 
 The following example demonstrates how to export file events for a case as a CSV file using the [/v1/cases/\<caseNumber\>/fileevent/export](/api#operation/csvExportUsingGET) API.
 
@@ -401,14 +401,14 @@ In the preceding example, replace `<caseID>` with the ID of the case.
 
 ### Get all cases for a tenant
 
-You can get a paginated list of all cases in your company's instance in the Code42 cloud, also known as your "tenant". The returned information does not include the file event details. This API can be used for verification purposes, such as to check whether cases have been successfully added or successfully updated. 
+You can get a paginated list of all cases in your company's instance in the Code42 cloud, also known as your "tenant". The returned information does not include the file event details. This API can be used for verification purposes, such as to check whether cases have been successfully added or successfully updated.
 
 The following example demonstrates how to get all cases for a tenant using the [/v1/cases](/api#operation/getCasesUsingGET) API.
 
 ```bash
 curl -X GET '<requestURL>/v1/cases' \
 -H 'content-type: application/json' \
--H "authorization: Bearer <AuthToken>" 
+-H "authorization: Bearer <AuthToken>"
 ```
 
 
@@ -1146,13 +1146,13 @@ This use case shows how to run different APIs in sequence to respond to a high-v
 
 Before you can receive alerts about users' file activity, do the following:
 
-* [Enable endpoint monitoring](https://support.code42.com/Administrator/Cloud/Configuring/Endpoint_monitoring).
-* [Create rules to alert you when suspicious file activity occurs](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/How_to_create_a_security_alert).
+* [Enable endpoint monitoring](https://support.code42.com/hc/en-us/articles/14827636319767).
+* [Create rules to alert you when suspicious file activity occurs](https://support.code42.com/hc/en-us/articles/14827739445271).
 * (Optional) Set up additional monitoring to capture file activity.
 See the following articles:
-    * [Detect and respond to insider threats](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Detect_and_respond_to_insider_threats#Part_1:_Capture_file_activity)
-    * [Data Preferences reference](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Data_Preferences_reference)
-    * [Introduction to adding data connections](https://support.code42.com/Administrator/Cloud/Configuring/Introduction_to_adding_data_connections)
+    * [Detect and respond to insider threats](https://support.code42.com/hc/en-us/articles/14827657334807#part-1-capture-file-activity-0-3)
+    * [Trusted activity reference](https://support.code42.com/hc/en-us/articles/14827632437655-Trusted-activity)
+    * [Introduction to adding data connections](https://support.code42.com/hc/en-us/articles/14827711938199)
 
 #### Plan your work
 
@@ -1160,11 +1160,11 @@ Before you start writing scripts to handle alerts using the Code42 APIs, conside
 
 **Why do you want to automate responding to alerts?**
 
-Using APIs to automatically respond to alerts provides economies of scale. If you monitor insider risk at a small company, you could [use the the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference) to receive notifications about suspicious file activity. But for larger companies with many more employees to track, automating the process with the Code42 APIs provides a faster and more efficient method. As an added benefit, you can [integrate the Code42 APIs](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_integrations_resources) with other systems such as your company's security tools. Planning and implementing Code42 APIs can take some time. Before you begin using Code42 APIs to manage alerts, consider the effort involved to set them up against the time savings provided when they run.
+Using APIs to automatically respond to alerts provides economies of scale. If you monitor insider risk at a small company, you could [use the the Code42 console](https://support.code42.com/hc/en-us/articles/14827687892375) to receive notifications about suspicious file activity. But for larger companies with many more employees to track, automating the process with the Code42 APIs provides a faster and more efficient method. As an added benefit, you can [integrate the Code42 APIs](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_integrations_resources) with other systems such as your company's security tools. Planning and implementing Code42 APIs can take some time. Before you begin using Code42 APIs to manage alerts, consider the effort involved to set them up against the time savings provided when they run.
 
 **What are the kinds of alerts you want to receive?**
 
-You want to receive alerts when users perform actions that are considered high risk. Determine the kinds of actions that you want to receive alerts about and then [create alerts](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/How_to_create_a_security_alert) that will be triggered by those actions. Creating the right kinds of alerts provides the best monitoring possible of high risk file activity.
+You want to receive alerts when users perform actions that are considered high risk. Determine the kinds of actions that you want to receive alerts about and then [create alerts](https://support.code42.com/hc/en-us/articles/14827739445271) that will be triggered by those actions. Creating the right kinds of alerts provides the best monitoring possible of high risk file activity.
 
 #### Gather your inputs
 
@@ -1172,7 +1172,7 @@ Before attempting to write scripts using the Code42 API examples in this article
 
 - **Authentication token**
 
-[Authentication tokens](#authentication) are required to run the APIs. 
+[Authentication tokens](#authentication) are required to run the APIs.
 
 - **Tenant ID**
 
@@ -1180,7 +1180,7 @@ Your company's entity in the Code42 cloud is known as a "tenant". To obtain your
 
 - **Code42 usernames for the people you want to add to alert rules**
 
-You need the Code42 usernames of employees to add them to alerts. The Code42 username is assigned when the user is [added to Code42](https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually). You can obtain usernames via [CSV export](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Users_reference#CSV_export), [user reports](https://support.code42.com/Administrator/Cloud/Code42_console_reference/User_Backup_report_reference#User_Backup_report), or the [Users API](#tag/User).
+You need the Code42 usernames of employees to add them to alerts. The Code42 username is assigned when the user is [added to Code42](https://support.code42.com/hc/en-us/articles/14827696671127). You can obtain usernames via [CSV export](https://support.code42.com/hc/en-us/articles/14827660096407#csv-export-field-definitions-0-6), [user reports](https://support.code42.com/hc/en-us/articles/14827682476183#user-backup-report-0-2), or the [Users API](#tag/User).
 
 
 ### Step 1: Search alerts to find one of interest
@@ -1401,11 +1401,11 @@ Before you start writing scripts using the Code42 APIs, consider the following q
 
 **Why do you want to automate adding users to watchlists?**
 
-Adding users to watchlists automatically provides economies of scale. If you monitor insider risk at a small company, you could use the [watchlists in the Code42 console](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Manage_watchlists) to track file activity for high risk employees. But for larger companies with many more employees to track, automating the process with the Code42 API provides a much faster and efficient method. As an added benefit, you can [integrate the Code42 APIs](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_integrations_resources) with other systems such as your company's security tools. Planning and implementing Code42 APIs can take some time. Before you begin using Code42 APIs to manage high risk employees, consider the effort involved to set them up against the time savings provided when they run.
+Adding users to watchlists automatically provides economies of scale. If you monitor insider risk at a small company, you could use the [watchlists in the Code42 console](https://support.code42.com/hc/en-us/articles/14827687477143) to track file activity for high risk employees. But for larger companies with many more employees to track, automating the process with the Code42 API provides a much faster and efficient method. As an added benefit, you can [integrate the Code42 APIs](https://support.code42.com/hc/en-us/articles/14827687363351) with other systems such as your company's security tools. Planning and implementing Code42 APIs can take some time. Before you begin using Code42 APIs to manage high risk employees, consider the effort involved to set them up against the time savings provided when they run.
 
 **What are the kinds of alerts you want to receive?**
 
-The primary reason to add users to watchlists is to receive alerts when those users perform actions that are considered high risk. Before you start adding users, determine the kinds of actions that you want to receive alerts about and then [create alerts](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/How_to_create_a_security_alert) that will be triggered by those actions. Creating the right kinds of alerts provides the best monitoring possible of your the file activity of high risk employees.
+The primary reason to add users to watchlists is to receive alerts when those users perform actions that are considered high risk. Before you start adding users, determine the kinds of actions that you want to receive alerts about and then [create alerts](https://support.code42.com/hc/en-us/articles/14827739445271) that will be triggered by those actions. Creating the right kinds of alerts provides the best monitoring possible of your the file activity of high risk employees.
 
 **What other systems with data about risk factors should you consider?**
 
@@ -1425,7 +1425,7 @@ Your company's entity in the Code42 cloud is known as a "tenant". To obtain your
 
 * **Code42 usernames for the people you want to add to the watchlists**
 
-You need the Code42 usernames of employees to add them to watchlists. The Code42 username is assigned when the user is [added to Code42](https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually). You can obtain usernames via [CSV export](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Users_reference#CSV_export), [user reports](https://support.code42.com/Administrator/Cloud/Code42_console_reference/User_Backup_report_reference#User_Backup_report), or the [Users API](#tag/User).
+You need the Code42 usernames of employees to add them to watchlists. The Code42 username is assigned when the user is [added to Code42](https://support.code42.com/hc/en-us/articles/14827696671127#add-users-manually-0-2). You can obtain usernames via [CSV export](https://support.code42.com/hc/en-us/articles/14827660096407#csv-export-field-definitions-0-6), [user reports](https://support.code42.com/hc/en-us/articles/14827682476183#user-backup-report-0-2), or the [Users API](#tag/User).
 
 
 ### Step 1: Add the user to a watchlist
@@ -1458,7 +1458,7 @@ To receive alerts from the watchlist, enable the watchlist's alert rules using t
 
 #### Add the user to other alert rules
 
-You can use the API to add the user to other existing [alert rules](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Manage_Rules) that monitor user file activity.
+You can use the API to add the user to other existing [alert rules](https://support.code42.com/hc/en-us/articles/14827730038935-Manage-Rules-reference) that monitor user file activity.
 
 
 ### Step 3: Search for alerts the user triggered

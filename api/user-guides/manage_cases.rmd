@@ -1,7 +1,7 @@
 ## Manage cases
-Use the Case APIs to create and manage cases for security investigations. A case is used to record results of an investigation into suspicious file activity. For information about creating and managing cases in the Code42 console, see our [support article](https://support.code42.com/Incydr/Admin/Code42_console_reference/Cases_reference).
+Use the Case APIs to create and manage cases for security investigations. A case is used to record results of an investigation into suspicious file activity. For information about creating and managing cases in the Code42 console, see our [support article](https://support.code42.com/hc/en-us/articles/14827658933527.
 
-Typically, a security analyst will create a case based on an investigation that shows unauthorized file activity, and will add file events from Forensic Search to the case as evidence. The case can have additional file events added to it if needed, and can be routed in a CSV or PDF file as necessary for resolution. Although cases are specific to Code42, you can integrate cases into your SIEM, SOAR, or other incident management system. For integration resources, see our [support article](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_integrations_resources).
+Typically, a security analyst will create a case based on an investigation that shows unauthorized file activity, and will add file events from Forensic Search to the case as evidence. The case can have additional file events added to it if needed, and can be routed in a CSV or PDF file as necessary for resolution. Although cases are specific to Code42, you can integrate cases into your SIEM, SOAR, or other incident management system. For integration resources, see our [support article](https://support.code42.com/hc/en-us/articles/14827687363351).
 
 ### Create a case
 
@@ -23,7 +23,7 @@ In the preceding example:
 
 ### Download case summary as a PDF
 
-The PDF contains the case subject, details, and findings. Detailed file activity is not included. You can route the resulting PDF to interested parties, such as a security team, members of an insider risk working group, or company executives. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line. 
+The PDF contains the case subject, details, and findings. Detailed file activity is not included. You can route the resulting PDF to interested parties, such as a security team, members of an insider risk working group, or company executives. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line.
 
 The following example demonstrates how to download a case summary with a PDF using the [/v1/cases/\<caseNumber\>/export](/api#operation/pdfExportUsingGET) API.
 
@@ -38,9 +38,9 @@ In the preceding example, replace `<caseID>` with the ID of the case.
 
 ### Export file events for a case as a CSV file
 
-The comma-separated value (CSV) file contains the case subject, details, and findings, as well as the file events associated with the case. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line. 
+The comma-separated value (CSV) file contains the case subject, details, and findings, as well as the file events associated with the case. Use the -o argument to specify a unique filename. The resulting file is saved in the directory from which you issue the request in the command line.
 
-You can integrate the resulting CSV file into your SOAR, SIEM, or other incident management system. For integration resources, see our [support article](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_integrations_resources). For field definitions of the file events shown in the CSV file, see our [support article](https://support.code42.com/Incydr/Admin/Code42_console_reference/File_event_metadata_reference). 
+You can integrate the resulting CSV file into your SOAR, SIEM, or other incident management system. For integration resources, see our [support article](https://support.code42.com/hc/en-us/articles/14827687363351). For field definitions of the file events shown in the CSV file, see our [support article](https://support.code42.com/hc/en-us/articles/14827723634327).
 
 The following example demonstrates how to export file events for a case as a CSV file using the [/v1/cases/\<caseNumber\>/fileevent/export](/api#operation/csvExportUsingGET) API.
 
@@ -54,13 +54,13 @@ In the preceding example, replace `<caseID>` with the ID of the case.
 
 ### Get all cases for a tenant
 
-You can get a paginated list of all cases in your company's instance in the Code42 cloud, also known as your "tenant". The returned information does not include the file event details. This API can be used for verification purposes, such as to check whether cases have been successfully added or successfully updated. 
+You can get a paginated list of all cases in your company's instance in the Code42 cloud, also known as your "tenant". The returned information does not include the file event details. This API can be used for verification purposes, such as to check whether cases have been successfully added or successfully updated.
 
 The following example demonstrates how to get all cases for a tenant using the [/v1/cases](/api#operation/getCasesUsingGET) API.
 
 ```bash
 curl -X GET '<requestURL>/v1/cases' \
 -H 'content-type: application/json' \
--H "authorization: Bearer <AuthToken>" 
+-H "authorization: Bearer <AuthToken>"
 ```
 
