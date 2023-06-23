@@ -3823,7 +3823,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "b860725b-68e0-4e05-ab84-62d1308ee118"
+            "example": "82e05b7d-4348-441b-80ff-d0a76abc60cc"
           }
         ],
         "responses": {
@@ -3907,7 +3907,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "12565cbc-4083-4fd7-bca0-ed9ec28c0d39"
+            "example": "c3099e35-1e21-4969-8771-b0fa6983c938"
           }
         ],
         "responses": {
@@ -3936,7 +3936,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "dca796d0-db46-4109-83c8-d447c392731b"
+                "eea85715-2a9c-46ff-9096-a97be79c96fd"
               ],
               "items": {
                 "type": "string"
@@ -3970,7 +3970,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a32ca2ac-ea76-471a-b8b1-509a007b0462"
+            "example": "2e77cb96-e631-42a2-9d99-cbdb2e80b8a4"
           }
         ],
         "responses": {
@@ -3999,7 +3999,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "cf85146b-868b-4d68-9825-55ece23b2648"
+                "791891c1-27b9-4cdb-b664-a006226aae22"
               ],
               "items": {
                 "type": "string"
@@ -4034,7 +4034,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "89c15d17-8fd9-4cff-a9d9-25c7f9dddbcc"
+            "example": "8bcff4fe-e229-4ec8-9d67-fac3338de0b5"
           }
         ],
         "responses": {
@@ -4061,7 +4061,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b2d406d2-1fba-4176-8b2a-38d75a933401"
+            "example": "4f37582d-26d7-4c31-b1f8-aac715cfdc0f"
           }
         ],
         "responses": {
@@ -6158,7 +6158,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "AgentListResponse-core": {
       "type": "object",
@@ -6187,7 +6188,8 @@
           "description": "The maximum number of result elements returned per page.",
           "type": "integer"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "AgentResponse-core": {
       "type": "object",
@@ -6244,7 +6246,8 @@
           "description": "Time when the agent's database record was last updated.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "BaseLegalHoldMatterResponse-core": {
       "type": "object",
@@ -6258,7 +6261,8 @@
           "description": "The name of the matter.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "CustodianResponse-core": {
       "type": "object",
@@ -6276,7 +6280,8 @@
           "description": "The email of the custodian.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "CustomerResponse-core": {
       "type": "object",
@@ -6293,7 +6298,8 @@
           "description": "The customer's unique ID identifying it within Code42.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "DeactivateAgentsRequest-core": {
       "type": "object",
@@ -6305,7 +6311,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "DeviceListResponse-core": {
       "type": "object",
@@ -6323,7 +6330,8 @@
           },
           "readOnly": true
         }
-      }
+      },
+      "additionalProperties": false
     },
     "DevicePreserveResponse-core": {
       "type": "object",
@@ -6441,7 +6449,8 @@
           "description": "Date and time this device was last logged in.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "DeviceResponse-core": {
       "type": "object",
@@ -6559,7 +6568,8 @@
           "description": "Date and time this device was last logged in.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "JwtResponse-core": {
       "type": "object",
@@ -6569,7 +6579,8 @@
           "type": "string",
           "readOnly": true
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldAddCustodianRequest-core": {
       "type": "object",
@@ -6578,7 +6589,8 @@
           "description": "The unique identifier of the user to add to the legal hold matter.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldCreatePolicyRequest-core": {
       "type": "object",
@@ -6587,7 +6599,8 @@
           "description": "The name to give to the policy.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldCreatorUserResponse-core": {
       "type": "object",
@@ -6600,7 +6613,8 @@
           "description": "The name the user uses to log in to Code42.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldCustodianMatterListResponse-core": {
       "type": "object",
@@ -6613,7 +6627,8 @@
           },
           "readOnly": true
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldCustodianMatterPreserveResponse-core": {
       "type": "object",
@@ -6637,7 +6652,8 @@
           "description": "The name of the matter.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldMatterCustodianListResponse-core": {
       "type": "object",
@@ -6650,7 +6666,8 @@
           },
           "readOnly": true
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldMatterCustodianPreserveResponse-core": {
       "type": "object",
@@ -6678,7 +6695,8 @@
           "description": "The email of the custodian.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldMatterListResponse-core": {
       "type": "object",
@@ -6691,7 +6709,8 @@
           },
           "readOnly": true
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldMatterPreserveResponse-core": {
       "type": "object",
@@ -6735,7 +6754,8 @@
           "description": "The ID of the policy containing the matter.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldMatterRequest-core": {
       "type": "object",
@@ -6756,7 +6776,8 @@
           "description": "Optional notes to give to the matter",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldMatterResponse-core": {
       "type": "object",
@@ -6800,7 +6821,8 @@
           "description": "The ID of the policy containing the matter.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldMembershipResponse-core": {
       "type": "object",
@@ -6821,7 +6843,8 @@
         "custodian": {
           "$ref": "#/definitions/CustodianResponse-core"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldPolicyListResponse-core": {
       "type": "object",
@@ -6834,7 +6857,8 @@
           },
           "readOnly": true
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldPolicyPreserveResponse-core": {
       "type": "object",
@@ -6862,7 +6886,8 @@
           "description": "The date the policy was last modified.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldPolicyResponse-core": {
       "type": "object",
@@ -6890,7 +6915,8 @@
           "description": "The date the policy was last modified.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldReactivateMatterResponse-core": {
       "type": "object",
@@ -6899,7 +6925,8 @@
           "description": "Whether the memberships were changed upon reactivation.\r\nIf true, this means that there were custodians on the matter at the time the matter got deactivated,\r\nand when reactivating, these users were placed back in legal hold.",
           "type": "boolean"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "LegalHoldRemoveCustodianRequest-core": {
       "type": "object",
@@ -6908,7 +6935,8 @@
           "description": "The unique identifier of the user to remove from the legal hold matter.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "MoveUserRequest-core": {
       "type": "object",
@@ -6917,7 +6945,8 @@
           "description": "The org GUID of the org to move the user to.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "OAuthResponse-core": {
       "type": "object",
@@ -6935,7 +6964,8 @@
           "description": "Lifespan of the token.",
           "type": "integer"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "OrgCreateRequest-core": {
       "type": "object",
@@ -6956,7 +6986,8 @@
           "description": "The notes of the org to create.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "OrgListResponse-core": {
       "type": "object",
@@ -6971,7 +7002,8 @@
             "$ref": "#/definitions/OrgPreserveResponse-core"
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "OrgPreserveResponse-core": {
       "type": "object",
@@ -7031,7 +7063,8 @@
           "description": "The count of child orgs for this org.",
           "type": "integer"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "OrgResponse-core": {
       "type": "object",
@@ -7091,7 +7124,8 @@
           "description": "The count of child orgs for this org.",
           "type": "integer"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "OrgUpdateRequest-core": {
       "type": "object",
@@ -7108,7 +7142,8 @@
           "description": "The updated notes for the org.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "PrincipalInfoResponse-core": {
       "type": "object",
@@ -7122,7 +7157,8 @@
         "displayName": {
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "RolePermissionResponse-core": {
       "type": "object",
@@ -7135,7 +7171,8 @@
           "description": "Brief description of a permission.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "RolePreserveResponse-core": {
       "type": "object",
@@ -7163,7 +7200,8 @@
             "$ref": "#/definitions/RolePermissionResponse-core"
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "RoleResponse-core": {
       "type": "object",
@@ -7191,7 +7229,8 @@
             "$ref": "#/definitions/RolePermissionResponse-core"
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "UpdateAgentRequest-core": {
       "type": "object",
@@ -7204,7 +7243,8 @@
           "description": "Updated external reference data for agent.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "UpdateRolesRequest-core": {
       "type": "object",
@@ -7216,7 +7256,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "UpdateRolesResponse-core": {
       "type": "object",
@@ -7249,7 +7290,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "UserListResponse-core": {
       "type": "object",
@@ -7264,7 +7306,8 @@
             "$ref": "#/definitions/UserPreserveResponse-core"
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "UserPreserveResponse-core": {
       "type": "object",
@@ -7327,7 +7370,8 @@
           "description": "The date and time the user was last modified.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "UserResponse-core": {
       "type": "object",
@@ -7390,7 +7434,8 @@
           "description": "The date and time the user was last modified.",
           "type": "string"
         }
-      }
+      },
+      "additionalProperties": false
     },
     "UserRolePreserveResponse-core": {
       "type": "object",
@@ -7418,7 +7463,8 @@
             "type": "string"
           }
         }
-      }
+      },
+      "additionalProperties": false
     },
     "UserRolesListResponse-core": {
       "type": "object",
@@ -7431,7 +7477,8 @@
           },
           "readOnly": true
         }
-      }
+      },
+      "additionalProperties": false
     },
     "CaseProblemResponse-cases": {
       "type": "object",
@@ -7879,7 +7926,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-06-22T12:05:21.9018639Z"
+              "example": "2023-06-23T00:16:24.7177136Z"
             },
             "createdBy": {
               "type": "string",
@@ -7890,7 +7937,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-06-22T12:05:21.9018847Z"
+              "example": "2023-06-23T00:16:24.7177344Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -7947,7 +7994,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "224c8cba-c8d3-48a6-b990-da62e76e4996"
+              "example": "10d8490e-3cee-4d19-8e7b-d00fb2b898cc"
             }
           }
         }
@@ -8621,7 +8668,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "71af76cd-b735-4719-9381-fce23d1b46ec"
+          "example": "42025a19-7ea9-43ff-9f8c-bc83b5e810fb"
         },
         "aliases": {
           "type": "array",
@@ -8645,7 +8692,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "6673170a-4130-42a4-a051-f3798334694e"
+          "example": "43d61d3b-085f-4c71-9a24-935f70cc1864"
         },
         "users": {
           "type": "array",
