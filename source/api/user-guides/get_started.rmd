@@ -2,7 +2,7 @@
 
 ### Licensing
 
-To use all the APIs you must have [full API access](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_API_resources/API_access).
+To use all the APIs you must have [full API access](https://support.code42.com/hc/en-us/articles/14827740809239).
 
 ### Request URLs
 
@@ -17,7 +17,7 @@ The domain used for making API requests can be determined using the domain you u
 
 ### Authentication
 
-API calls require an authentication token in the header of the request. To obtain an authentication token, [create an API client](https://support.code42.com/Administrator/Cloud/Code42_console_reference/API_clients) and then submit its ID and secret in a request to the /v1/oauth API. 
+API calls require an authentication token in the header of the request. To obtain an authentication token, [create an API client](https://support.code42.com/hc/en-us/articles/14827617150231) and then submit its ID and secret in a request to the /v1/oauth API.
 
 In the following example (using curl), replace `<ClientID>` with the API client ID, replace `<Secret>` with the API client secret, and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance (also known as the base URL):
 
@@ -49,7 +49,7 @@ curl -X GET https://api.us.code42.com/v1/users \
 ### Token considerations
 
 * Authentication tokens expire after 15 minutes.
-* Authentication tokens provide the API permissions defined in the API client. 
+* Authentication tokens provide the API permissions defined in the API client.
 
 
 [API clients](#tag/Auth/paths/~1v1~1oauth/post) are the preferred method for authentication. Basic authentication methods are deprecated:
@@ -70,7 +70,7 @@ curl -X GET -u "<username>:<password>" https://<RequestURL>/v1/auth
 **Basic authentication to obtain a User authentication token when a second factor (TOTP) token is required:**
 
 ```bash
-curl -X -H "totp-auth: <totp_token" GET -u "<username>:<password>" https://<RequestURL>/v1/auth 
+curl -X -H "totp-auth: <totp_token" GET -u "<username>:<password>" https://<RequestURL>/v1/auth
 ```
 
 ### Get a tenant ID

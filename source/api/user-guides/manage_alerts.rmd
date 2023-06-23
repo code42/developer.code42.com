@@ -202,12 +202,12 @@ Use the [GET /v2/alert-rules/{id}/users](/api#operation/Rules_GetUsers) API comm
 curl -X GET "<RequestURL>/v2/alert-rules/<id>/users" \
 -H "accept: text/plain" \
 -H "Authorization: Bearer <AuthToken>" \
--H "Content-Type: application/json" 
+-H "Content-Type: application/json"
 ```
 
 In the preceding example, replace `<id>` with the ID of the alert rule for which you want to view users.
 
-A successful response lists the email addresses and cloud aliases of the users in the alert rule's inclusion or exclusion list, grouped by the user ID value (identified by the "userIdFromAuthority" label) associated with that information. 
+A successful response lists the email addresses and cloud aliases of the users in the alert rule's inclusion or exclusion list, grouped by the user ID value (identified by the "userIdFromAuthority" label) associated with that information.
 
 ```json
 {
@@ -226,5 +226,5 @@ A successful response lists the email addresses and cloud aliases of the users i
 
 ```
 
-If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference)), the results note that the "userIdFromAuthority" value is null. To work with an alert rule's inclusion or exclusion list if the user ID value is null, use the [Alerts screens in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Review_Alerts) to manually add and remove users. Alternately, you can use the [DELETE /v2/alert-rules/{id}/users](/api/#tag/Rules/operation/Rules_RemoveAllUsers) API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the [POST /v2/alert-rules/{id}/users](/api/#tag/Rules/operation/Rules_AddUsers) using the users' userUID in Code42.
+If a user ID was not provided when users were added to the alert rule (as is common when users are added using the Code42 command-line interface or manually with [Alerts in the Code42 console](https://support.code42.com/hc/en-us/articles/14827687892375)), the results note that the "userIdFromAuthority" value is null. To work with an alert rule's inclusion or exclusion list if the user ID value is null, use the [Alerts screens in the Code42 console](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Review_Alerts) to manually add and remove users. Alternately, you can use the [DELETE /v2/alert-rules/{id}/users](/api/#tag/Rules/operation/Rules_RemoveAllUsers) API command to remove all email addresses and aliases from a rule, and then re-add user information to that rule using the [POST /v2/alert-rules/{id}/users](/api/#tag/Rules/operation/Rules_AddUsers) using the users' userUID in Code42.
 
