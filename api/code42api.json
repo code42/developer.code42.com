@@ -3823,7 +3823,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "b1a76eff-2aa1-4065-9124-cae1b330bc6b"
+            "example": "8473daa3-3e3a-4611-91a5-d49c438040a0"
           }
         ],
         "responses": {
@@ -3907,7 +3907,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ad50dcf5-92f8-4404-ba8d-d6f40ae73d50"
+            "example": "c49eece3-48ac-414d-8696-960a0ab6ed82"
           }
         ],
         "responses": {
@@ -3936,7 +3936,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "18e445ba-a49a-4cf4-92db-c6e0c9ce963d"
+                "6cd4f3dd-0761-4f0f-b80e-3a7379c23163"
               ],
               "items": {
                 "type": "string"
@@ -3970,7 +3970,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "9bc2fe91-b692-42a1-ae8c-82803c57cc96"
+            "example": "e3f7cd19-64ef-4657-81d5-0467bd1685e1"
           }
         ],
         "responses": {
@@ -3999,7 +3999,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "3c6965e0-c642-4ab5-852d-b3b5a307d50c"
+                "e184cd47-5d0b-409d-982b-96c4db09429e"
               ],
               "items": {
                 "type": "string"
@@ -4034,7 +4034,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "e4d970b2-89e7-4539-9059-9002708ddc33"
+            "example": "41d31ff5-a1b3-436e-8025-b1d84a8b5c6b"
           }
         ],
         "responses": {
@@ -4061,7 +4061,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "d6da14b1-48d4-41b8-bb2f-67c61bae26de"
+            "example": "cd9ca36b-34d8-4530-9ceb-23f575f80bf9"
           }
         ],
         "responses": {
@@ -7926,7 +7926,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-06-23T15:55:50.4069691Z"
+              "example": "2023-06-24T00:15:31.7746152Z"
             },
             "createdBy": {
               "type": "string",
@@ -7937,7 +7937,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-06-23T15:55:50.4070366Z"
+              "example": "2023-06-24T00:15:31.7746368Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -7994,7 +7994,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "9f66834c-2d9b-44ea-b793-da7bdfda5df6"
+              "example": "d30673cf-9d89-4e9d-b2e4-6ac4c7c8decb"
             }
           }
         }
@@ -8668,7 +8668,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "6eeeaecb-5d85-4d44-bc89-49068ecda0fc"
+          "example": "1d639873-2145-421f-ac38-e34701e93090"
         },
         "aliases": {
           "type": "array",
@@ -8692,7 +8692,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "ef380b36-52c6-4453-8032-492b8e78791d"
+          "example": "e004dd77-c49c-4937-9880-5e529392c2db"
         },
         "users": {
           "type": "array",
@@ -10601,6 +10601,9 @@
               "file.classifications.value",
               "file.classifications.vendor",
               "file.changeType",
+              "file.archiveId",
+              "file.parentArchiveId",
+              "file.passwordProtected",
               "report.id",
               "report.name",
               "report.description",
@@ -10775,6 +10778,9 @@
             "file.classifications.value",
             "file.classifications.vendor",
             "file.changeType",
+            "file.archiveId",
+            "file.parentArchiveId",
+            "file.passwordProtected",
             "report.id",
             "report.name",
             "report.description",
@@ -10938,6 +10944,11 @@
           "title": "List of other events associated with this file. This can help determine the origin of the file.",
           "type": "array"
         },
+        "archiveId": {
+          "title": "Unique identifier for files identified as an archive, such as .zip files.",
+          "type": "string",
+          "x-nullable": true
+        },
         "category": {
           "example": "Audio",
           "title": "A categorization of the file that is inferred from MIME type.",
@@ -11052,6 +11063,16 @@
           "example": "ari.example",
           "title": "The name of the user who owns the file as reported by the device's file system.",
           "type": "string",
+          "x-nullable": true
+        },
+        "parentArchiveId": {
+          "title": "For files contained within an archive (such as a .zip file), the unique identifier for that archive; searching on parentArchiveID returns events for all files contained within that archive",
+          "type": "string",
+          "x-nullable": true
+        },
+        "passwordProtected": {
+          "title": "Indicates if this file is password protected.",
+          "type": "boolean",
           "x-nullable": true
         },
         "sizeInBytes": {
@@ -12140,6 +12161,9 @@
             "file.classifications.value",
             "file.classifications.vendor",
             "file.changeType",
+            "file.archiveId",
+            "file.parentArchiveId",
+            "file.passwordProtected",
             "report.id",
             "report.name",
             "report.description",
@@ -12987,6 +13011,9 @@
               "file.classifications.value",
               "file.classifications.vendor",
               "file.changeType",
+              "file.archiveId",
+              "file.parentArchiveId",
+              "file.passwordProtected",
               "report.id",
               "report.name",
               "report.description",
@@ -13218,6 +13245,9 @@
             "file.classifications.value",
             "file.classifications.vendor",
             "file.changeType",
+            "file.archiveId",
+            "file.parentArchiveId",
+            "file.passwordProtected",
             "report.id",
             "report.name",
             "report.description",
@@ -13545,6 +13575,9 @@
             "file.classifications.value",
             "file.classifications.vendor",
             "file.changeType",
+            "file.archiveId",
+            "file.parentArchiveId",
+            "file.passwordProtected",
             "report.id",
             "report.name",
             "report.description",
@@ -13902,6 +13935,9 @@
             "file.classifications.value",
             "file.classifications.vendor",
             "file.changeType",
+            "file.archiveId",
+            "file.parentArchiveId",
+            "file.passwordProtected",
             "report.id",
             "report.name",
             "report.description",
