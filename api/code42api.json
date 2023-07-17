@@ -3369,7 +3369,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "0ca2b21c-0976-4814-b73f-cb18d4ef066b"
+            "example": "114a435f-847b-4545-afe0-e08b6d5fead0"
           }
         ],
         "responses": {
@@ -3453,7 +3453,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "55e7b5df-723d-4e56-8aa9-465bbfb249ac"
+            "example": "93d08ea9-8934-4c91-a6bd-e9cb8f3a6bdd"
           }
         ],
         "responses": {
@@ -3482,7 +3482,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "90e64610-b18f-4771-86f5-23b20e3ca1bf"
+                "5f11973d-6dc7-4367-b98c-cb36f95a5f66"
               ],
               "items": {
                 "type": "string"
@@ -3516,7 +3516,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b2e9dd60-99c7-49dc-9f24-481e017c92e8"
+            "example": "68847b16-585a-4a3d-9933-4220e7edc07e"
           }
         ],
         "responses": {
@@ -3545,7 +3545,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "2ab1ba1a-2dc1-4b73-8a43-3abd822d71d7"
+                "fd001df9-9f58-479b-a9a1-056b8e66cb07"
               ],
               "items": {
                 "type": "string"
@@ -3580,7 +3580,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "069edfa6-6994-42d8-bf91-b2a273d9baa9"
+            "example": "69632b04-ee36-4b37-aba6-6ef1bf76a6a2"
           }
         ],
         "responses": {
@@ -3607,7 +3607,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "f075ef7d-7a88-4cc9-8b22-8ac1c7cbdd98"
+            "example": "0f72b0db-bd70-411c-a38f-b62e3874d782"
           }
         ],
         "responses": {
@@ -6554,9 +6554,6 @@
           "type": "string",
           "x-nullable": true
         },
-        "extension": {
-          "$ref": "#/definitions/Extension-file-events"
-        },
         "id": {
           "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
           "title": "The unique identifier for the event.",
@@ -6861,9 +6858,6 @@
               "event.observer",
               "event.detectorDisplayName",
               "event.vector",
-              "event.extension.browser",
-              "event.extension.version",
-              "event.extension.loggedInUser",
               "user.email",
               "user.id",
               "user.deviceUid",
@@ -6954,6 +6948,9 @@
               "destination.remoteHostname",
               "process.executable",
               "process.owner",
+              "process.extension.browser",
+              "process.extension.version",
+              "process.extension.loggedInUser",
               "risk.score",
               "risk.severity",
               "risk.indicators.name",
@@ -7038,9 +7035,6 @@
             "event.observer",
             "event.detectorDisplayName",
             "event.vector",
-            "event.extension.browser",
-            "event.extension.version",
-            "event.extension.loggedInUser",
             "user.email",
             "user.id",
             "user.deviceUid",
@@ -7131,6 +7125,9 @@
             "destination.remoteHostname",
             "process.executable",
             "process.owner",
+            "process.extension.browser",
+            "process.extension.version",
+            "process.extension.loggedInUser",
             "risk.score",
             "risk.severity",
             "risk.indicators.name",
@@ -8421,9 +8418,6 @@
             "event.observer",
             "event.detectorDisplayName",
             "event.vector",
-            "event.extension.browser",
-            "event.extension.version",
-            "event.extension.loggedInUser",
             "user.email",
             "user.id",
             "user.deviceUid",
@@ -8514,6 +8508,9 @@
             "destination.remoteHostname",
             "process.executable",
             "process.owner",
+            "process.extension.browser",
+            "process.extension.version",
+            "process.extension.loggedInUser",
             "risk.score",
             "risk.severity",
             "risk.indicators.name",
@@ -8647,6 +8644,9 @@
           "title": "The name of the process that accessed the file, as reported by the device’s operating system. Depending on your Code42 product plan, this value may be null for some event types.",
           "type": "string",
           "x-nullable": true
+        },
+        "extension": {
+          "$ref": "#/definitions/Extension-file-events"
         },
         "owner": {
           "example": "root",
@@ -9271,9 +9271,6 @@
               "event.observer",
               "event.detectorDisplayName",
               "event.vector",
-              "event.extension.browser",
-              "event.extension.version",
-              "event.extension.loggedInUser",
               "user.email",
               "user.id",
               "user.deviceUid",
@@ -9364,6 +9361,9 @@
               "destination.remoteHostname",
               "process.executable",
               "process.owner",
+              "process.extension.browser",
+              "process.extension.version",
+              "process.extension.loggedInUser",
               "risk.score",
               "risk.severity",
               "risk.indicators.name",
@@ -9505,9 +9505,6 @@
             "event.observer",
             "event.detectorDisplayName",
             "event.vector",
-            "event.extension.browser",
-            "event.extension.version",
-            "event.extension.loggedInUser",
             "user.email",
             "user.id",
             "user.deviceUid",
@@ -9598,6 +9595,9 @@
             "destination.remoteHostname",
             "process.executable",
             "process.owner",
+            "process.extension.browser",
+            "process.extension.version",
+            "process.extension.loggedInUser",
             "risk.score",
             "risk.severity",
             "risk.indicators.name",
@@ -9835,9 +9835,6 @@
             "event.observer",
             "event.detectorDisplayName",
             "event.vector",
-            "event.extension.browser",
-            "event.extension.version",
-            "event.extension.loggedInUser",
             "user.email",
             "user.id",
             "user.deviceUid",
@@ -9928,6 +9925,9 @@
             "destination.remoteHostname",
             "process.executable",
             "process.owner",
+            "process.extension.browser",
+            "process.extension.version",
+            "process.extension.loggedInUser",
             "risk.score",
             "risk.severity",
             "risk.indicators.name",
@@ -10195,9 +10195,6 @@
             "event.observer",
             "event.detectorDisplayName",
             "event.vector",
-            "event.extension.browser",
-            "event.extension.version",
-            "event.extension.loggedInUser",
             "user.email",
             "user.id",
             "user.deviceUid",
@@ -10288,6 +10285,9 @@
             "destination.remoteHostname",
             "process.executable",
             "process.owner",
+            "process.extension.browser",
+            "process.extension.version",
+            "process.extension.loggedInUser",
             "risk.score",
             "risk.severity",
             "risk.indicators.name",
@@ -13854,7 +13854,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-07-17T00:16:53.7537575Z"
+              "example": "2023-07-17T12:05:38.3177674Z"
             },
             "createdBy": {
               "type": "string",
@@ -13865,7 +13865,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-07-17T00:16:53.7537795Z"
+              "example": "2023-07-17T12:05:38.3177878Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -13922,7 +13922,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "caa7a7fa-bcb9-4b6e-96a1-3debf85b0f02"
+              "example": "27771b52-1434-4a42-b4eb-efa9de3d5c26"
             }
           }
         }
@@ -14596,7 +14596,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "4ac272c5-3a70-43b2-a8db-49a3044c54c5"
+          "example": "3fb01ea0-0fe3-417c-a7c4-434cfc34275a"
         },
         "aliases": {
           "type": "array",
@@ -14620,7 +14620,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "6e1b06fc-9714-451e-a7af-999d6e295e65"
+          "example": "926bb758-2653-49da-bac4-7c524400868b"
         },
         "users": {
           "type": "array",
