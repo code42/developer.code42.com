@@ -2,7 +2,7 @@
 
 ### Licensing
 
-To use all the APIs you must have [full API access](https://support.code42.com/Incydr/Admin/Monitoring_and_managing/Code42_API_resources/API_access).
+To use all the APIs you must have [full API access](https://support.code42.com/hc/en-us/articles/14827740809239).
 
 ### Request URLs
 
@@ -17,7 +17,7 @@ The domain used for making API requests can be determined using the domain you u
 
 ### Authentication
 
-API calls require an authentication token in the header of the request. To obtain an authentication token, [create an API client](https://support.code42.com/Administrator/Cloud/Code42_console_reference/API_clients) and then submit its ID and secret in a request to the /v1/oauth API.
+API calls require an authentication token in the header of the request. To obtain an authentication token, [create an API client](https://support.code42.com/hc/en-us/articles/14827617150231) and then submit its ID and secret in a request to the /v1/oauth API.
 The /v1/oauth API supports the OAuth client credentials grant type as described in RFC 6749. It is recommended to use HTTP basic auth header to pass in the client credentials, but the request body is also supported for OAuth clients that do not support basic auth.
 
 In the following examples (using curl), replace `<ClientID>` with the API client ID, replace `<Secret>` with the API client secret, and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance (also known as the base URL).

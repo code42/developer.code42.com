@@ -16,11 +16,11 @@ Before you start writing scripts using the Code42 APIs, consider the following q
 
 **Why do you want to automate adding users to watchlists?**
 
-Adding users to watchlists automatically provides economies of scale. If you monitor insider risk at a small company, you could use the [watchlists in the Code42 console](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Manage_watchlists) to track file activity for high risk employees. But for larger companies with many more employees to track, automating the process with the Code42 API provides a much faster and efficient method. As an added benefit, you can [integrate the Code42 APIs](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_integrations_resources) with other systems such as your company's security tools. Planning and implementing Code42 APIs can take some time. Before you begin using Code42 APIs to manage high risk employees, consider the effort involved to set them up against the time savings provided when they run.
+Adding users to watchlists automatically provides economies of scale. If you monitor insider risk at a small company, you could use the [watchlists in the Code42 console](https://support.code42.com/hc/en-us/articles/14827687477143) to track file activity for high risk employees. But for larger companies with many more employees to track, automating the process with the Code42 API provides a much faster and efficient method. As an added benefit, you can [integrate the Code42 APIs](https://support.code42.com/hc/en-us/articles/14827687363351) with other systems such as your company's security tools. Planning and implementing Code42 APIs can take some time. Before you begin using Code42 APIs to manage high risk employees, consider the effort involved to set them up against the time savings provided when they run.
 
 **What are the kinds of alerts you want to receive?**
 
-The primary reason to add users to watchlists is to receive alerts when those users perform actions that are considered high risk. Before you start adding users, determine the kinds of actions that you want to receive alerts about and then [create alerts](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/How_to_create_a_security_alert) that will be triggered by those actions. Creating the right kinds of alerts provides the best monitoring possible of your the file activity of high risk employees.
+The primary reason to add users to watchlists is to receive alerts when those users perform actions that are considered high risk. Before you start adding users, determine the kinds of actions that you want to receive alerts about and then [create alerts](https://support.code42.com/hc/en-us/articles/14827739445271) that will be triggered by those actions. Creating the right kinds of alerts provides the best monitoring possible of your the file activity of high risk employees.
 
 **What other systems with data about risk factors should you consider?**
 
@@ -40,7 +40,7 @@ Your company's entity in the Code42 cloud is known as a "tenant". To obtain your
 
 * **Code42 usernames for the people you want to add to the watchlists**
 
-You need the Code42 usernames of employees to add them to watchlists. The Code42 username is assigned when the user is [added to Code42](https://support.code42.com/Administrator/Cloud/Configuring/Add_users_from_the_Code42_console#Add_users_manually). You can obtain usernames via [CSV export](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Users_reference#CSV_export), [user reports](https://support.code42.com/Administrator/Cloud/Code42_console_reference/User_Backup_report_reference#User_Backup_report), or the [Users API](#tag/User).
+You need the Code42 usernames of employees to add them to watchlists. The Code42 username is assigned when the user is [added to Code42](https://support.code42.com/hc/en-us/articles/14827696671127#add-users-manually-0-2). You can obtain usernames via [CSV export](https://support.code42.com/hc/en-us/articles/14827660096407#csv-export-field-definitions-0-6), [user reports](https://support.code42.com/hc/en-us/articles/14827682476183#user-backup-report-0-2), or the [Users API](#tag/User).
 
 
 ### Step 1: Add the user to a watchlist
@@ -73,7 +73,7 @@ To receive alerts from the watchlist, enable the watchlist's alert rules using t
 
 #### Add the user to other alert rules
 
-You can use the API to add the user to other existing [alert rules](https://support.code42.com/Administrator/Cloud/Code42_console_reference/Alerts_reference#Manage_Rules) that monitor user file activity.
+You can use the API to add the user to other existing [alert rules](https://support.code42.com/hc/en-us/articles/14827730038935-Manage-Rules-reference) that monitor user file activity.
 
 
 ### Step 3: Search for alerts the user triggered
