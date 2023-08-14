@@ -8,27 +8,46 @@ To use all the APIs you must have [full API access](https://support.code42.com/h
 
 The domain used for making API requests can be determined using the domain you use to log in to the Code42 console. All API requests should be made using https.
 
-| Console Domain            | API Domain         |
-| ------------------------- | ------------------ |
-| console.us.code42.com     | api.us.code42.com  |
-| console.us2.code42.com    | api.us2.code42.com |
-| console.ie.code42.com     | api.ie.code42.com  |
-| console.gov.code42.com    | api.gov.code42.com |
+| Console Domain         | API Domain         |
+| ---------------------- | ------------------ |
+| console.us.code42.com  | api.us.code42.com  |
+| console.us2.code42.com | api.us2.code42.com |
+| console.ie.code42.com  | api.ie.code42.com  |
+| console.gov.code42.com | api.gov.code42.com |
 
 ### Authentication
 
 API calls require an authentication token in the header of the request. To obtain an authentication token, [create an API client](https://support.code42.com/hc/en-us/articles/14827617150231) and then submit its ID and secret in a request to the /v1/oauth API.
+The /v1/oauth API supports the OAuth client credentials grant type as described in RFC 6749. It is recommended to use HTTP basic auth header to pass in the client credentials, but the request body is also supported for OAuth clients that do not support basic auth.
 
-In the following example (using curl), replace `<ClientID>` with the API client ID, replace `<Secret>` with the API client secret, and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance (also known as the base URL):
+In the following examples (using curl), replace `<ClientID>` with the API client ID, replace `<Secret>` with the API client secret, and replace `<RequestURL>` with the [request URL](#request-urls) of your Code42 cloud instance (also known as the base URL).
+
+Using HTTP basic auth:
 
 ```bash
-curl -X POST -u '<ClientID>:<Secret>' -d "" https://<RequestURL>/v1/oauth
+curl -X POST -u '<ClientID>:<Secret>' -d "" 'https://<RequestURL>/v1/oauth?grant_type=client_credentials'
 ```
 
 For example:
 
 ```bash
-curl -X POST -u 'key-79muGw9i424:DWL-mPQ' -d "" https://api.us.code42.com/v1/oauth
+curl -X POST -u 'key-79muGw9i424:DWL-mPQ' -d "" 'https://api.us.code42.com/v1/oauth?grant_type=client_credentials'
+```
+
+Using the request body:
+
+```bash
+curl -X POST  https://<RequestURL>/v1/oauth \
+-H 'Content-Type: application/x-www-form-urlencoded' \
+-d 'grant_type=client_credentials&client_id=<ClientID>&client_secret=<Secret>'
+```
+
+For example:
+
+```bash
+curl -X POST  https://api.us.code42.com/v1/oauth \
+-H 'Content-Type: application/x-www-form-urlencoded' \
+-d 'grant_type=client_credentials&client_id=key-79muGw9i424&client_secret=DWL-mPQ'
 ```
 
 A successful request returns an authentication token. For example:
