@@ -9,6 +9,7 @@ main() {
   TRUSTED_ACTIVITIES_V2="${docs}/trusted-activities.json"
   WATCHLISTS="${docs}/watchlists.json"
   FILE_EVENTS="${docs}/file-events.json"
+  CASES="${docs}/cases.json"
 
   echo "Applying transformations..."
 
@@ -73,6 +74,12 @@ main() {
   jq '.paths[][] |=
   if .operationId == "UpdateUserRiskProfile" then .description = {"$ref": "./api-descriptions/user_risk_profile_patch.rmd"}
   else . end' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
+
+  ### Cases
+  # convert openapi 3 yaml to swagger 2 json
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/cases > $CASES
+  rm ${docs}/cases
+  mv $CASES ${docs}/cases
 }
 
 main "$@"
