@@ -2413,7 +2413,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "07d7be7e-0ee2-468f-9d77-b577ec44a305"
+            "example": "cfc3655b-3fb6-420c-9414-902e8b171701"
           }
         ],
         "responses": {
@@ -2497,7 +2497,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "2289a5db-5e7c-42e0-bbb8-018644bca827"
+            "example": "c70ab40a-01b2-4be6-b20c-a32b8bebc7f5"
           }
         ],
         "responses": {
@@ -2526,7 +2526,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "08d15068-8913-4aed-ac1a-2c1b4b6ca8fc"
+                "6b0dec4c-64b1-4365-92c4-27962f2a92fa"
               ],
               "items": {
                 "type": "string"
@@ -2560,7 +2560,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6c562092-77ae-4f48-8374-a3e860507ed7"
+            "example": "756f99df-b992-4667-89c5-bef76087f28f"
           }
         ],
         "responses": {
@@ -2589,7 +2589,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "a745f37c-8f25-4633-b79d-f93eaa89580d"
+                "4d328f4d-785d-4a9d-a80f-e5c1f8b3785f"
               ],
               "items": {
                 "type": "string"
@@ -2624,7 +2624,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "74ee3a9c-13d0-4b23-b491-8807cf45addf"
+            "example": "fb154dfa-96a7-427c-805d-1a910c0d0adf"
           }
         ],
         "responses": {
@@ -2651,7 +2651,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a1e6ebdc-6126-4ae1-8748-f0b2fecd19f7"
+            "example": "90b00a35-a81c-4597-8ed1-18c9723fb0fa"
           }
         ],
         "responses": {
@@ -2668,934 +2668,772 @@
         }
       }
     },
-    "/v1/cases/{caseNumber}": {
+    "/v1/cases": {
       "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "collectionFormat": "multi",
+            "default": "",
+            "description": "One or more case statuses on which to filter.",
+            "in": "query",
+            "items": {
+              "enum": [
+                "OPEN",
+                "CLOSED",
+                "ARCHIVED"
+              ],
+              "type": "string"
+            },
+            "name": "status",
+            "required": false,
+            "type": "array"
+          },
+          {
+            "description": "User UID of an assignee of a case on which to filter.",
+            "in": "query",
+            "name": "assignee",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter cases with an assignee (true) or without (false)",
+            "in": "query",
+            "name": "isAssigned",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "description": "Name of a case on which to filter; will include partial matches",
+            "in": "query",
+            "name": "name",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "User UID of a subject of a case on which to filter.",
+            "in": "query",
+            "name": "subject",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "User UID of the user who most recently modified the case.",
+            "in": "query",
+            "name": "lastModifiedBy",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter cases created between the supplied start and end times. Must use ISO time interval, for example: 2020-08-31T11:00:00Z/2020-09-01T15:30:00Z",
+            "in": "query",
+            "name": "createdAt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Filter cases last updated between the supplied start and end times. Must use ISO time interval, for example: 2020-08-31T11:00:00Z/2020-09-01T15:30:00Z",
+            "in": "query",
+            "name": "updatedAt",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "default": 2147483647,
+            "description": "Max number of results to return for a page.",
+            "format": "int32",
+            "in": "query",
+            "name": "pgSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 1,
+            "description": "Page number for results, starting at 1.",
+            "format": "int32",
+            "in": "query",
+            "name": "pgNum",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "collectionFormat": "multi",
+            "default": "number",
+            "description": "One or more values on which the response will be sorted.",
+            "in": "query",
+            "items": {
+              "enum": [
+                "name",
+                "number",
+                "createdAt",
+                "updatedAt",
+                "status",
+                "assigneeUsername",
+                "subjectUsername",
+                "archivalTime"
+              ],
+              "type": "string"
+            },
+            "name": "srtKey",
+            "required": false,
+            "type": "array"
+          },
+          {
+            "collectionFormat": "multi",
+            "default": "asc",
+            "description": "The direction on which to sort the response, based on the corresponding key.",
+            "in": "query",
+            "items": {
+              "enum": [
+                "asc",
+                "desc"
+              ],
+              "type": "string"
+            },
+            "name": "srtDir",
+            "required": false,
+            "type": "array"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Response containing cases matching provided filters.",
+            "schema": {
+              "$ref": "#/definitions/MultiCaseResponse-cases"
+            }
+          },
+          "400": {
+            "description": "Bad Request: An invalid value was provided for a filter.",
+            "schema": {
+              "$ref": "#/definitions/CaseProblemResponse-cases"
+            }
+          }
+        },
         "tags": [
           "Cases"
         ],
-        "summary": "Get a single case for a tenant",
-        "operationId": "getCase",
+        "operationId": "getCases",
+        "summary": "Get all cases for a tenant"
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
         "parameters": [
           {
-            "name": "caseNumber",
-            "in": "path",
-            "description": "Unique numeric identifier for the case.",
+            "in": "body",
+            "name": "body",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "$ref": "#/definitions/CreateCaseRequest-cases"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "Success: Response containing the matching case.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/SingleCaseResponse-cases"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found: Case does not exist.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "Cases"
-        ],
-        "summary": "Update a case",
-        "operationId": "updateCase",
-        "parameters": [
-          {
-            "name": "caseNumber",
-            "in": "path",
-            "description": "Unique numeric identifier for the case.",
-            "required": true,
+            "description": "Success: Response containing created case.",
             "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/UpdateCaseRequest-cases"
-              }
+              "$ref": "#/definitions/SingleCaseResponse-cases"
             }
           },
-          "required": true
-        },
-        "responses": {
           "400": {
             "description": "Bad Request: An invalid request model was provided.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CaseProblemResponse-cases"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/CaseProblemResponse-cases"
             }
           },
           "403": {
             "description": "Forbidden: Forbidden by user validation.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CaseProblemResponse-cases"
-                }
-              }
-            }
-          },
-          "200": {
-            "description": "Success: Response containing updated case.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/SingleCaseResponse-cases"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found: Case does not exist.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/CaseProblemResponse-cases"
             }
           }
-        }
-      },
-      "delete": {
+        },
         "tags": [
           "Cases"
         ],
-        "summary": "Delete a case",
-        "operationId": "deleteCase",
+        "operationId": "createCase",
+        "summary": "Create a case"
+      }
+    },
+    "/v1/cases/{caseNumber}": {
+      "delete": {
+        "produces": [
+          "application/octet-stream"
+        ],
         "parameters": [
           {
-            "name": "caseNumber",
-            "in": "path",
             "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "type": "integer"
           }
         ],
         "responses": {
           "204": {
             "description": "Success: Case deleted.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
+            "schema": {
+              "type": "object"
             }
           },
           "404": {
             "description": "Not Found: Case does not exist.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
+            "schema": {
+              "type": "object"
             }
           }
-        }
-      }
-    },
-    "/v1/cases": {
-      "get": {
+        },
         "tags": [
           "Cases"
         ],
-        "summary": "Get all cases for a tenant",
-        "operationId": "getCases",
+        "operationId": "deleteCase",
+        "summary": "Delete a case"
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
         "parameters": [
           {
-            "name": "status",
-            "in": "query",
-            "description": "One or more case statuses on which to filter.",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "OPEN",
-                  "CLOSED",
-                  "ARCHIVED"
-                ]
-              },
-              "default": ""
-            }
-          },
-          {
-            "name": "assignee",
-            "in": "query",
-            "description": "User UID of an assignee of a case on which to filter.",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "isAssigned",
-            "in": "query",
-            "description": "Filter cases with an assignee (true) or without (false)",
-            "required": false,
-            "schema": {
-              "type": "boolean"
-            }
-          },
-          {
-            "name": "name",
-            "in": "query",
-            "description": "Name of a case on which to filter; will include partial matches",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "subject",
-            "in": "query",
-            "description": "User UID of a subject of a case on which to filter.",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "lastModifiedBy",
-            "in": "query",
-            "description": "User UID of the user who most recently modified the case.",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "createdAt",
-            "in": "query",
-            "description": "Filter cases created between the supplied start and end times. Must use ISO time interval, for example: 2020-08-31T11:00:00Z/2020-09-01T15:30:00Z",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "updatedAt",
-            "in": "query",
-            "description": "Filter cases last updated between the supplied start and end times. Must use ISO time interval, for example: 2020-08-31T11:00:00Z/2020-09-01T15:30:00Z",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "pgSize",
-            "in": "query",
-            "description": "Max number of results to return for a page.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 2147483647
-            }
-          },
-          {
-            "name": "pgNum",
-            "in": "query",
-            "description": "Page number for results, starting at 1.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
-          },
-          {
-            "name": "srtKey",
-            "in": "query",
-            "description": "One or more values on which the response will be sorted.",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "name",
-                  "number",
-                  "createdAt",
-                  "updatedAt",
-                  "status",
-                  "assigneeUsername",
-                  "subjectUsername",
-                  "archivalTime"
-                ]
-              },
-              "default": "number"
-            }
-          },
-          {
-            "name": "srtDir",
-            "in": "query",
-            "description": "The direction on which to sort the response, based on the corresponding key.",
-            "required": false,
-            "schema": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "enum": [
-                  "asc",
-                  "desc"
-                ]
-              },
-              "default": "asc"
-            }
+            "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
+            "required": true,
+            "type": "integer"
           }
         ],
         "responses": {
-          "400": {
-            "description": "Bad Request: An invalid value was provided for a filter.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CaseProblemResponse-cases"
-                }
-              }
+          "200": {
+            "description": "Success: Response containing the matching case.",
+            "schema": {
+              "$ref": "#/definitions/SingleCaseResponse-cases"
             }
           },
-          "200": {
-            "description": "Success: Response containing cases matching provided filters.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/MultiCaseResponse-cases"
-                }
-              }
+          "404": {
+            "description": "Not Found: Case does not exist.",
+            "schema": {
+              "type": "object"
             }
           }
-        }
-      },
-      "post": {
+        },
         "tags": [
           "Cases"
         ],
-        "summary": "Create a case",
-        "operationId": "createCase",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/CreateCaseRequest-cases"
-              }
-            }
+        "operationId": "getCase",
+        "summary": "Get a single case for a tenant"
+      },
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
+            "required": true,
+            "type": "integer"
           },
-          "required": true
-        },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateCaseRequest-cases"
+            }
+          }
+        ],
         "responses": {
           "200": {
-            "description": "Success: Response containing created case.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/SingleCaseResponse-cases"
-                }
-              }
+            "description": "Success: Response containing updated case.",
+            "schema": {
+              "$ref": "#/definitions/SingleCaseResponse-cases"
             }
           },
           "400": {
             "description": "Bad Request: An invalid request model was provided.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CaseProblemResponse-cases"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/CaseProblemResponse-cases"
             }
           },
           "403": {
             "description": "Forbidden: Forbidden by user validation.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/CaseProblemResponse-cases"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/cases/{caseNumber}/fileevent": {
-      "get": {
-        "tags": [
-          "Cases"
-        ],
-        "description": "Get all events associated with a case (abbreviated view)",
-        "operationId": "getEventsByCase",
-        "parameters": [
-          {
-            "name": "caseNumber",
-            "in": "path",
-            "description": "Unique numeric identifier for the case.",
-            "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "pgSize",
-            "in": "query",
-            "description": "Max number of results to return for a page.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 10000
-            }
-          },
-          {
-            "name": "pgNum",
-            "in": "query",
-            "description": "Page number for results, starting at 1.",
-            "required": false,
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 1
-            }
-          },
-          {
-            "name": "archiveId",
-            "in": "query",
-            "description": "Archive ID on which to filter",
-            "required": false,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success: Response containing abbreviated view of events associated with the case.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/MultipleEventsResponse-cases"
-                }
-              }
+              "$ref": "#/definitions/CaseProblemResponse-cases"
             }
           },
           "404": {
             "description": "Not Found: Case does not exist.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Cases"
-        ],
-        "summary": "Add multiple events to a case",
-        "operationId": "addEventsToCase",
-        "parameters": [
-          {
-            "name": "caseNumber",
-            "in": "path",
-            "description": "Unique numeric identifier for the case.",
-            "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int64"
+              "type": "object"
             }
           }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MultiEventRequest-cases"
-              }
-            }
-          },
-          "required": true
         },
-        "responses": {
-          "204": {
-            "description": "Success: Events added to the case.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request: Too many events in request, case or events do not exist, case is closed, or the maximum events per case has been reached.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/EventProblemResponse-cases"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden: Forbidden by events.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/EventProblemResponse-cases"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/cases/{caseNumber}/fileevent/{eventId}": {
-      "get": {
         "tags": [
           "Cases"
         ],
-        "description": "Get the full JSON for a single event",
-        "operationId": "getEvent",
-        "parameters": [
-          {
-            "name": "caseNumber",
-            "in": "path",
-            "description": "Unique numeric identifier for the case.",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "eventId",
-            "in": "path",
-            "description": "The unique identifier for the event.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success: Response containing the full JSON for the event.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found: Case or event do not exist.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Cases"
-        ],
-        "summary": "Add an event to a case",
-        "operationId": "addEventToCase",
-        "parameters": [
-          {
-            "name": "caseNumber",
-            "in": "path",
-            "description": "Unique numeric identifier for the case.",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "eventId",
-            "in": "path",
-            "description": "The unique identifier for the event.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Success: Event added to the case.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request: Case or event do not exist, the case already has the event, case is closed, or the maximum events per case has been reached.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/EventProblemResponse-cases"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden: Forbidden by events.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/EventProblemResponse-cases"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Cases"
-        ],
-        "summary": "Delete an event from a case",
-        "operationId": "deleteEvent",
-        "parameters": [
-          {
-            "name": "caseNumber",
-            "in": "path",
-            "description": "Unique numeric identifier for the case.",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "eventId",
-            "in": "path",
-            "description": "The unique identifier for the event.",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Success: Event deleted from the case.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request: Case has been closed.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/EventProblemResponse-cases"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found: Case or event do not exist.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/cases/{caseNumber}/fileevent/{eventId}/file": {
-      "get": {
-        "tags": [
-          "Cases"
-        ],
-        "description": "Download the file associated with an event, if present",
-        "operationId": "download",
-        "parameters": [
-          {
-            "name": "caseNumber",
-            "in": "path",
-            "description": "Unique numeric identifier for the case.",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          },
-          {
-            "name": "eventId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success: Streaming response containing file data.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/StreamingResponseBody-cases"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found: Event not on case, or has no file.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/StreamingResponseBody-cases"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/cases/{caseNumber}/fileevent/export": {
-      "get": {
-        "tags": [
-          "Cases"
-        ],
-        "description": "Export file events for a case as a CSV file",
-        "operationId": "csvExport",
-        "parameters": [
-          {
-            "name": "caseNumber",
-            "in": "path",
-            "description": "Unique numeric identifier for the case.",
-            "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success: Streaming response containing CSV file.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/StreamingResponseBody-cases"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found: Case does not exist.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/StreamingResponseBody-cases"
-                }
-              }
-            }
-          }
-        }
+        "operationId": "updateCase",
+        "summary": "Update a case"
       }
     },
     "/v1/cases/{caseNumber}/export": {
       "get": {
-        "tags": [
-          "Cases"
+        "produces": [
+          "application/octet-stream"
         ],
-        "description": "Download case summary as a PDF file",
-        "operationId": "pdfExport",
         "parameters": [
           {
-            "name": "caseNumber",
-            "in": "path",
             "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "type": "integer"
           },
           {
-            "name": "language",
-            "in": "query",
             "description": "Specifies the locale for the PDF export. Defaults to English if no value is supplied.",
+            "in": "query",
+            "name": "language",
             "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "example": "de"
+            "type": "string",
+            "x-example": "de"
           }
         ],
         "responses": {
           "200": {
             "description": "Success: Streaming response containing PDF file.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/StreamingResponseBody-cases"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
             }
           },
           "404": {
             "description": "Not Found: Case does not exist.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/StreamingResponseBody-cases"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
             }
           }
-        }
+        },
+        "tags": [
+          "Cases"
+        ],
+        "description": "Download case summary as a PDF file",
+        "operationId": "pdfExport"
       }
     },
     "/v1/cases/{caseNumber}/export/full": {
       "get": {
-        "tags": [
-          "Cases"
+        "produces": [
+          "application/octet-stream"
         ],
-        "description": "Export some or all components of a case",
-        "operationId": "caseExport",
         "parameters": [
           {
-            "name": "caseNumber",
-            "in": "path",
             "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int64"
-            }
+            "type": "integer"
           },
           {
-            "name": "language",
-            "in": "query",
             "description": "Specifies the locale for the summary PDF export. Defaults to English if no value is supplied.",
+            "in": "query",
+            "name": "language",
             "required": false,
-            "schema": {
-              "type": "string"
-            },
-            "example": "de"
+            "type": "string",
+            "x-example": "de"
           },
           {
-            "name": "summary",
-            "in": "query",
+            "default": true,
             "description": "Specifies inclusion of the summary PDF in the zip. Defaults to true if no value is supplied.",
+            "in": "query",
+            "name": "summary",
             "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": true
-            },
-            "example": true
+            "type": "boolean",
+            "x-example": true
           },
           {
-            "name": "fileEvents",
-            "in": "query",
+            "default": true,
             "description": "Specifies inclusion of the file events CSV in the zip. Defaults to true if no value is supplied.",
+            "in": "query",
+            "name": "fileEvents",
             "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": true
-            },
-            "example": true
+            "type": "boolean",
+            "x-example": true
           },
           {
-            "name": "files",
-            "in": "query",
+            "default": true,
             "description": "Specifies inclusion of the files in the zip. Defaults to true if no value is supplied.",
+            "in": "query",
+            "name": "files",
             "required": false,
-            "schema": {
-              "type": "boolean",
-              "default": true
-            },
-            "example": true
+            "type": "boolean",
+            "x-example": true
           }
         ],
         "responses": {
           "200": {
             "description": "Success: Streaming response.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/StreamingResponseBody-cases"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
             }
           },
           "400": {
             "description": "Bad Request: Must include at least one export type.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/StreamingResponseBody-cases"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
             }
           },
           "404": {
             "description": "Not Found: Case does not exist.",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/StreamingResponseBody-cases"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
             }
           }
-        }
+        },
+        "tags": [
+          "Cases"
+        ],
+        "description": "Export some or all components of a case",
+        "operationId": "caseExport"
+      }
+    },
+    "/v1/cases/{caseNumber}/fileevent": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "default": 10000,
+            "description": "Max number of results to return for a page.",
+            "format": "int32",
+            "in": "query",
+            "name": "pgSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 1,
+            "description": "Page number for results, starting at 1.",
+            "format": "int32",
+            "in": "query",
+            "name": "pgNum",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "description": "Archive ID on which to filter",
+            "in": "query",
+            "name": "archiveId",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Response containing abbreviated view of events associated with the case.",
+            "schema": {
+              "$ref": "#/definitions/MultipleEventsResponse-cases"
+            }
+          },
+          "404": {
+            "description": "Not Found: Case does not exist.",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Cases"
+        ],
+        "description": "Get all events associated with a case (abbreviated view)",
+        "operationId": "getEventsByCase"
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/MultiEventRequest-cases"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Events added to the case.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad Request: Too many events in request, case or events do not exist, case is closed, or the maximum events per case has been reached.",
+            "schema": {
+              "$ref": "#/definitions/EventProblemResponse-cases"
+            }
+          },
+          "403": {
+            "description": "Forbidden: Forbidden by events.",
+            "schema": {
+              "$ref": "#/definitions/EventProblemResponse-cases"
+            }
+          }
+        },
+        "tags": [
+          "Cases"
+        ],
+        "operationId": "addEventsToCase",
+        "summary": "Add multiple events to a case"
+      }
+    },
+    "/v1/cases/{caseNumber}/fileevent/export": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Streaming response containing CSV file.",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
+            }
+          },
+          "404": {
+            "description": "Not Found: Case does not exist.",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
+            }
+          }
+        },
+        "tags": [
+          "Cases"
+        ],
+        "description": "Export file events for a case as a CSV file",
+        "operationId": "csvExport"
+      }
+    },
+    "/v1/cases/{caseNumber}/fileevent/{eventId}": {
+      "delete": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "description": "The unique identifier for the event.",
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Event deleted from the case.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad Request: Case has been closed.",
+            "schema": {
+              "$ref": "#/definitions/EventProblemResponse-cases"
+            }
+          },
+          "404": {
+            "description": "Not Found: Case or event do not exist.",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Cases"
+        ],
+        "operationId": "deleteEvent",
+        "summary": "Delete an event from a case"
+      },
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "description": "The unique identifier for the event.",
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Response containing the full JSON for the event.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "404": {
+            "description": "Not Found: Case or event do not exist.",
+            "schema": {
+              "type": "object"
+            }
+          }
+        },
+        "tags": [
+          "Cases"
+        ],
+        "description": "Get the full JSON for a single event",
+        "operationId": "getEvent"
+      },
+      "post": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "description": "The unique identifier for the event.",
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success: Event added to the case.",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "400": {
+            "description": "Bad Request: Case or event do not exist, the case already has the event, case is closed, or the maximum events per case has been reached.",
+            "schema": {
+              "$ref": "#/definitions/EventProblemResponse-cases"
+            }
+          },
+          "403": {
+            "description": "Forbidden: Forbidden by events.",
+            "schema": {
+              "$ref": "#/definitions/EventProblemResponse-cases"
+            }
+          }
+        },
+        "tags": [
+          "Cases"
+        ],
+        "operationId": "addEventToCase",
+        "summary": "Add an event to a case"
+      }
+    },
+    "/v1/cases/{caseNumber}/fileevent/{eventId}/file": {
+      "get": {
+        "produces": [
+          "application/octet-stream"
+        ],
+        "parameters": [
+          {
+            "description": "Unique numeric identifier for the case.",
+            "format": "int64",
+            "in": "path",
+            "name": "caseNumber",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success: Streaming response containing file data.",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
+            }
+          },
+          "404": {
+            "description": "Not Found: Event not on case, or has no file.",
+            "schema": {
+              "$ref": "#/definitions/StreamingResponseBody-cases"
+            }
+          }
+        },
+        "tags": [
+          "Cases"
+        ],
+        "description": "Download the file associated with an event, if present",
+        "operationId": "download"
       }
     },
     "/v1/audit/export": {
@@ -12378,7 +12216,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-08-14T15:50:25.942746Z"
+              "example": "2023-08-14T17:56:32.1356684Z"
             },
             "createdBy": {
               "type": "string",
@@ -12389,7 +12227,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-08-14T15:50:25.9427696Z"
+              "example": "2023-08-14T17:56:32.1356877Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -12446,7 +12284,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "e4a67414-87c2-4ee2-98c2-008e4084f1a6"
+              "example": "7c17e481-f9c1-4b39-acde-9f397c8a0848"
             }
           }
         }
@@ -13120,7 +12958,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "b6211937-8f79-47a4-b04a-f8daec68696e"
+          "example": "a7344109-bc7a-4b61-b184-41d5556cdc88"
         },
         "aliases": {
           "type": "array",
@@ -13144,7 +12982,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "48a152e4-710d-40d5-93f7-b5038d132e90"
+          "example": "7e63eaed-a5ac-4125-a97e-b3374a13c02f"
         },
         "users": {
           "type": "array",
@@ -13171,6 +13009,474 @@
         "INCLUDE",
         "EXCLUDE"
       ]
+    },
+    "CaseProblemResponse-cases": {
+      "properties": {
+        "description": {
+          "example": "subject validation failed",
+          "title": "Additional description of the problem",
+          "type": "string"
+        },
+        "problem": {
+          "enum": [
+            "NAME_EMPTY",
+            "NAME_EXISTS",
+            "NAME_TOO_LONG",
+            "NO_EDITS_ONCE_CLOSED",
+            "NO_EDITS_ONCE_ARCHIVED",
+            "DESCRIPTION_TOO_LONG",
+            "FINDINGS_TOO_LONG",
+            "INVALID_CHAR_IN_REQUEST",
+            "INVALID_PAGE_NUMBER",
+            "INVALID_PAGE_SIZE",
+            "INVALID_TIME_INTERVAL",
+            "INVALID_USER",
+            "USER_VALIDATION_UNAVAILABLE",
+            "USER_VALIDATION_FORBIDDEN"
+          ],
+          "example": "INVALID_USER",
+          "title": "The type of problem that occured",
+          "type": "string"
+        }
+      },
+      "required": [
+        "problem"
+      ],
+      "type": "object"
+    },
+    "CreateCaseRequest-cases": {
+      "properties": {
+        "assignee": {
+          "example": "273411254592236331",
+          "title": "The user UID of the administrator assigned to investigate the case.",
+          "type": "string"
+        },
+        "description": {
+          "example": "Sample description",
+          "title": "Brief description providing context for a case.",
+          "type": "string"
+        },
+        "findings": {
+          "example": "Sample findings",
+          "title": "Markdown formatted text summarizing the findings for a case.",
+          "type": "string"
+        },
+        "name": {
+          "example": "Sample case name",
+          "title": "The unique name given to the case.",
+          "type": "string"
+        },
+        "subject": {
+          "example": "421380797518239242",
+          "title": "The user UID of the subject being investigated in this case.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "type": "object"
+    },
+    "EventProblemResponse-cases": {
+      "properties": {
+        "problem": {
+          "title": "The type of problem that occured.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "problem"
+      ],
+      "type": "object"
+    },
+    "EventResponse-cases": {
+      "properties": {
+        "eventId": {
+          "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
+          "title": "The unique identifier for the event.",
+          "type": "string"
+        },
+        "eventTimestamp": {
+          "example": "2020-12-23T14:24:44.593Z",
+          "format": "date-time",
+          "title": "Date and time that the Code42 service on the device detected an event; based on the device’s system clock and reported in Coordinated Universal Time (UTC).",
+          "type": "string"
+        },
+        "exposure": {
+          "example": [
+            "OutsideTrustedDomains",
+            "IsPublic"
+          ],
+          "items": {
+            "example": "[\"OutsideTrustedDomains\",\"IsPublic\"]",
+            "title": "Lists indicators that the data may be exposed.",
+            "type": "string"
+          },
+          "title": "Lists indicators that the data may be exposed.",
+          "type": "array"
+        },
+        "fileAvailability": {
+          "enum": [
+            "EXACT_FILE_AVAILABLE",
+            "RECENT_FILE_AVAILABLE",
+            "PENDING",
+            "NO_FILE_AVAILABLE",
+            "ERROR"
+          ],
+          "example": "EXACT_FILE_AVAILABLE",
+          "title": "The download availability status of the file associated with the event.",
+          "type": "string"
+        },
+        "fileName": {
+          "example": "example.docx",
+          "title": "The name of the file, including the file extension.",
+          "type": "string"
+        },
+        "filePath": {
+          "example": "/Users/casey/Documents/",
+          "title": "The file location on the user's device; a path forward or backslash should be included at the end of the filepath. Possibly null if the file event occurred on a cloud provider.",
+          "type": "string"
+        },
+        "riskIndicators": {
+          "items": {
+            "$ref": "#/definitions/RiskIndicator-cases"
+          },
+          "title": "List of risk indicators identified for this event. If more than one risk indicator applies to this event, the sum of all indicators determines the total risk score.",
+          "type": "array"
+        },
+        "riskScore": {
+          "example": 12,
+          "format": "int32",
+          "title": "Sum of the weights for each risk indicator. This score is used to determine the overall risk severity of the event.",
+          "type": "integer"
+        },
+        "riskSeverity": {
+          "example": "CRITICAL",
+          "title": "The general risk assessment of the event, based on the numeric score.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "eventId",
+        "exposure",
+        "fileAvailability",
+        "riskIndicators"
+      ],
+      "title": "List of events in the response.",
+      "type": "object"
+    },
+    "MultiCaseResponse-cases": {
+      "properties": {
+        "cases": {
+          "items": {
+            "$ref": "#/definitions/SingleSlimCaseResponse-cases"
+          },
+          "title": "List of cases in the response",
+          "type": "array"
+        },
+        "totalCount": {
+          "example": 42,
+          "format": "int64",
+          "title": "Total number of cases matching the provided filters",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "cases",
+        "totalCount"
+      ],
+      "type": "object"
+    },
+    "MultiEventRequest-cases": {
+      "properties": {
+        "events": {
+          "example": [
+            "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
+            "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_164"
+          ],
+          "items": {
+            "example": "[\"0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163\",\"0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_164\"]",
+            "title": "List of event IDs corresponding to events to be added to the case.",
+            "type": "string"
+          },
+          "title": "List of event IDs corresponding to events to be added to the case.",
+          "type": "array"
+        }
+      },
+      "required": [
+        "events"
+      ],
+      "type": "object"
+    },
+    "MultipleEventsResponse-cases": {
+      "properties": {
+        "events": {
+          "items": {
+            "$ref": "#/definitions/EventResponse-cases"
+          },
+          "title": "List of events in the response.",
+          "type": "array"
+        },
+        "totalCount": {
+          "example": 42,
+          "format": "int64",
+          "title": "Total number of events associated with the case.",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "events",
+        "totalCount"
+      ],
+      "type": "object"
+    },
+    "RiskIndicator-cases": {
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "weight": {
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "weight"
+      ],
+      "title": "List of risk indicators identified for this event. If more than one risk indicator applies to this event, the sum of all indicators determines the total risk score.",
+      "type": "object"
+    },
+    "SingleCaseResponse-cases": {
+      "properties": {
+        "assignee": {
+          "example": "273411254592236331",
+          "title": "The user UID of the administrator assigned to investigate the case.",
+          "type": "string"
+        },
+        "assigneeUsername": {
+          "example": "admin@example.com",
+          "title": "The username of the administrator assigned to investigate the case.",
+          "type": "string"
+        },
+        "createdAt": {
+          "example": "2020-10-27T15:16:05.369203Z",
+          "format": "date-time",
+          "title": "Time at which the case was created.",
+          "type": "string"
+        },
+        "createdByUserUid": {
+          "example": "806150685834341101",
+          "title": "User UID of the user who created the case.",
+          "type": "string"
+        },
+        "createdByUsername": {
+          "example": "adrian@example.com",
+          "title": "Username of the user who created the case.",
+          "type": "string"
+        },
+        "description": {
+          "example": "Sample description",
+          "title": "Brief description providing context for a case.",
+          "type": "string"
+        },
+        "findings": {
+          "example": "Sample findings",
+          "title": "Markdown formatted text summarizing the findings for a case.",
+          "type": "string"
+        },
+        "lastModifiedByUserUid": {
+          "example": "806150685834341101",
+          "title": "User UID of the user who last modified the case.",
+          "type": "string"
+        },
+        "lastModifiedByUsername": {
+          "example": "adrian@example.com",
+          "title": "Username of the user who last modified the case.",
+          "type": "string"
+        },
+        "name": {
+          "example": "Sample case name",
+          "title": "The unique name given to the case.",
+          "type": "string"
+        },
+        "number": {
+          "example": 1,
+          "format": "int64",
+          "title": "Unique numeric identifier for the case.",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "OPEN",
+            "CLOSED",
+            "ARCHIVED"
+          ],
+          "example": "OPEN",
+          "title": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.\nARCHIVED: The case is no longer active. File events and file contents are permanently deleted and no longer accessible. Archived cases cannot be un-archived or modified.",
+          "type": "string"
+        },
+        "subject": {
+          "example": "421380797518239242",
+          "title": "The user UID of the subject being investigated in this case.",
+          "type": "string"
+        },
+        "subjectUsername": {
+          "example": "casey@example.com",
+          "title": "The username of the subject being investigated in this case.",
+          "type": "string"
+        },
+        "updatedAt": {
+          "example": "2020-10-27T15:20:26.311894Z",
+          "format": "date-time",
+          "title": "Time at which the case was last updated.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdAt",
+        "name",
+        "number",
+        "status",
+        "updatedAt"
+      ],
+      "type": "object"
+    },
+    "SingleSlimCaseResponse-cases": {
+      "properties": {
+        "assignee": {
+          "example": "273411254592236331",
+          "title": "The user UID of the administrator assigned to investigate the case.",
+          "type": "string"
+        },
+        "assigneeUsername": {
+          "example": "admin@example.com",
+          "title": "The username of the administrator assigned to investigate the case.",
+          "type": "string"
+        },
+        "createdAt": {
+          "example": "2020-10-27T15:16:05.369203Z",
+          "format": "date-time",
+          "title": "Time at which the case was created.",
+          "type": "string"
+        },
+        "createdByUserUid": {
+          "example": "806150685834341101",
+          "title": "User UID of the user who created the case.",
+          "type": "string"
+        },
+        "createdByUsername": {
+          "example": "adrian@example.com",
+          "title": "Username of the user who created the case.",
+          "type": "string"
+        },
+        "lastModifiedByUserUid": {
+          "example": "806150685834341101",
+          "title": "User UID of the user who last modified the case.",
+          "type": "string"
+        },
+        "lastModifiedByUsername": {
+          "example": "adrian@example.com",
+          "title": "Username of the user who last modified the case.",
+          "type": "string"
+        },
+        "name": {
+          "example": "Sample case name",
+          "title": "The unique name given to the case.",
+          "type": "string"
+        },
+        "number": {
+          "example": 1,
+          "format": "int64",
+          "title": "Unique numeric identifier for the case.",
+          "type": "integer"
+        },
+        "status": {
+          "enum": [
+            "OPEN",
+            "CLOSED",
+            "ARCHIVED"
+          ],
+          "example": "OPEN",
+          "title": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.\nARCHIVED: The case is no longer active. File events and file contents are permanently deleted and no longer accessible. Archived cases cannot be un-archived or modified.",
+          "type": "string"
+        },
+        "subject": {
+          "example": "421380797518239242",
+          "title": "The user UID of the subject being investigated in this case.",
+          "type": "string"
+        },
+        "subjectUsername": {
+          "example": "casey@example.com",
+          "title": "The username of the subject being investigated in this case.",
+          "type": "string"
+        },
+        "updatedAt": {
+          "example": "2020-10-27T15:20:26.311894Z",
+          "format": "date-time",
+          "title": "Time at which the case was last updated.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdAt",
+        "name",
+        "number",
+        "status",
+        "updatedAt"
+      ],
+      "title": "List of cases in the response",
+      "type": "object"
+    },
+    "StreamingResponseBody-cases": {
+      "type": "object"
+    },
+    "UpdateCaseRequest-cases": {
+      "properties": {
+        "assignee": {
+          "example": "273411254592236331",
+          "title": "The user UID of the administrator assigned to investigate the case.",
+          "type": "string"
+        },
+        "description": {
+          "example": "Sample description",
+          "title": "Brief description providing context for a case.",
+          "type": "string"
+        },
+        "findings": {
+          "example": "Sample findings",
+          "title": "Markdown formatted text summarizing the findings for a case.",
+          "type": "string"
+        },
+        "name": {
+          "example": "Sample case name",
+          "title": "The unique name given to the case.",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "OPEN",
+            "CLOSED",
+            "ARCHIVED"
+          ],
+          "example": "OPEN",
+          "title": "Indicates the status of the case.\nOPEN: The case is active and all aspects of the case are editable.\nCLOSED: The case is resolved. Closed cases cannot be re-opened or modified. Case data for closed cases is retained indefinitely.\nARCHIVED: The case is no longer active. File events and file contents are permanently deleted and no longer accessible. Archived cases cannot be un-archived or modified.",
+          "type": "string"
+        },
+        "subject": {
+          "example": "421380797518239242",
+          "title": "The user UID of the subject being investigated in this case.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "status"
+      ],
+      "type": "object"
     },
     "DateRange": {
       "description": "Finds events whose timestamp is within the given range, inclusive of endpoints.",
