@@ -2413,7 +2413,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "cfc3655b-3fb6-420c-9414-902e8b171701"
+            "example": "da2fd5a4-30f7-42f2-aae1-f6a3d469969a"
           }
         ],
         "responses": {
@@ -2497,7 +2497,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "c70ab40a-01b2-4be6-b20c-a32b8bebc7f5"
+            "example": "25ea1d23-0d88-4a44-b76d-bb6e3a099ea6"
           }
         ],
         "responses": {
@@ -2526,7 +2526,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "6b0dec4c-64b1-4365-92c4-27962f2a92fa"
+                "a4b917dd-2f7e-4acc-be1d-fe602ce14124"
               ],
               "items": {
                 "type": "string"
@@ -2560,7 +2560,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "756f99df-b992-4667-89c5-bef76087f28f"
+            "example": "ea44e79a-bf47-4fe2-9d4b-3a4185b42812"
           }
         ],
         "responses": {
@@ -2589,7 +2589,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "4d328f4d-785d-4a9d-a80f-e5c1f8b3785f"
+                "cb98ede5-faf9-4e34-b762-bfb58188e9e8"
               ],
               "items": {
                 "type": "string"
@@ -2624,7 +2624,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "fb154dfa-96a7-427c-805d-1a910c0d0adf"
+            "example": "7b6b797b-623a-4303-b42c-ab74b3965ff3"
           }
         ],
         "responses": {
@@ -2651,7 +2651,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "90b00a35-a81c-4597-8ed1-18c9723fb0fa"
+            "example": "8db8064c-a6bc-43e9-879b-3aa2865e9c37"
           }
         ],
         "responses": {
@@ -3028,8 +3028,8 @@
         "tags": [
           "Cases"
         ],
-        "description": "Download case summary as a PDF file",
-        "operationId": "pdfExport"
+        "operationId": "pdfExport",
+        "summary": "Download case summary as a PDF file"
       }
     },
     "/v1/cases/{caseNumber}/export/full": {
@@ -3105,8 +3105,8 @@
         "tags": [
           "Cases"
         ],
-        "description": "Export some or all components of a case",
-        "operationId": "caseExport"
+        "operationId": "caseExport",
+        "summary": "Export some or all components of a case"
       }
     },
     "/v1/cases/{caseNumber}/fileevent": {
@@ -3166,8 +3166,8 @@
         "tags": [
           "Cases"
         ],
-        "description": "Get all events associated with a case (abbreviated view)",
-        "operationId": "getEventsByCase"
+        "operationId": "getEventsByCase",
+        "summary": "Get all events associated with a case (abbreviated view)"
       },
       "post": {
         "consumes": [
@@ -3253,8 +3253,8 @@
         "tags": [
           "Cases"
         ],
-        "description": "Export file events for a case as a CSV file",
-        "operationId": "csvExport"
+        "operationId": "csvExport",
+        "summary": "Export file events for a case as a CSV file"
       }
     },
     "/v1/cases/{caseNumber}/fileevent/{eventId}": {
@@ -3343,8 +3343,8 @@
         "tags": [
           "Cases"
         ],
-        "description": "Get the full JSON for a single event",
-        "operationId": "getEvent"
+        "operationId": "getEvent",
+        "summary": "Get the full JSON for a single event"
       },
       "post": {
         "produces": [
@@ -3432,8 +3432,8 @@
         "tags": [
           "Cases"
         ],
-        "description": "Download the file associated with an event, if present",
-        "operationId": "download"
+        "operationId": "download",
+        "summary": "Download the file associated with an event, if present"
       }
     },
     "/v1/audit/export": {
@@ -12216,7 +12216,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-08-14T17:56:32.1356684Z"
+              "example": "2023-08-15T00:12:06.9591901Z"
             },
             "createdBy": {
               "type": "string",
@@ -12227,7 +12227,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-08-14T17:56:32.1356877Z"
+              "example": "2023-08-15T00:12:06.9592166Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -12284,7 +12284,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "7c17e481-f9c1-4b39-acde-9f397c8a0848"
+              "example": "23e9502a-0864-439c-9cf3-8c52e14a572e"
             }
           }
         }
@@ -12958,7 +12958,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "a7344109-bc7a-4b61-b184-41d5556cdc88"
+          "example": "85510bcc-d305-49eb-9fee-2b454a654b95"
         },
         "aliases": {
           "type": "array",
@@ -12982,7 +12982,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "7e63eaed-a5ac-4125-a97e-b3374a13c02f"
+          "example": "a3ef8375-a12e-473c-abaf-877bcfcdd017"
         },
         "users": {
           "type": "array",
