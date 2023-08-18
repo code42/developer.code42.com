@@ -2413,7 +2413,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "f89214be-93cb-4834-9763-b39c7000a206"
+            "example": "9d4556b9-e689-47ec-afc4-2a6b32cc9c1b"
           }
         ],
         "responses": {
@@ -2497,7 +2497,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "d221470b-dd06-406d-95b2-56bd39a02aa9"
+            "example": "7f1ac7c6-779c-4804-9264-3232292eb1ba"
           }
         ],
         "responses": {
@@ -2526,7 +2526,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "8428fe2c-3424-418f-9f46-f383ff739b2e"
+                "9a322287-bc20-4a80-ab8a-b533113d4fcb"
               ],
               "items": {
                 "type": "string"
@@ -2560,7 +2560,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "4847796b-5f8d-42ad-8cfd-107256ee78ff"
+            "example": "551a8a71-a9b3-4734-8560-9314321d2cf9"
           }
         ],
         "responses": {
@@ -2589,7 +2589,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "773306ab-0b78-4b26-ad64-9677b327092e"
+                "8d7f63dd-8d0f-4ccc-9a3f-67332e1aa223"
               ],
               "items": {
                 "type": "string"
@@ -2624,7 +2624,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "5ccfc17c-df14-44e9-b4dc-dc1479a5f454"
+            "example": "5040456c-5ebc-435f-86fe-52b22b9b59f9"
           }
         ],
         "responses": {
@@ -2651,7 +2651,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "423e9e0e-d043-4ac1-809e-67fc3e0f6000"
+            "example": "f65e4633-2a90-475c-8fec-fe508d48afcd"
           }
         ],
         "responses": {
@@ -6531,7 +6531,7 @@
         "agentTimestamp": {
           "example": "2020-10-27T15:16:05.369203Z",
           "format": "date-time",
-          "title": "Date and time that the Code42 service on the device detected an event; based on the device’s system clock and reported in Coordinated Universal Time (UTC).",
+          "title": "Date and time that the Code42 service on the device detected an event; based on the device's system clock and reported in Coordinated Universal Time (UTC).",
           "type": "string",
           "x-nullable": true
         },
@@ -6586,8 +6586,7 @@
             "type": "string"
           },
           "title": "The domain section of the URLs reported in file.acquiredFrom.tabs.url.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "sourceName": {
           "example": "Mari's MacBook",
@@ -6603,8 +6602,7 @@
             "$ref": "#/definitions/Tab-file-events"
           },
           "title": "Metadata about the browser tab source.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "userEmail": {
           "example": "cody@example.com",
@@ -6613,6 +6611,12 @@
           "x-nullable": true
         }
       },
+      "required": [
+        "git",
+        "sourceDomains",
+        "sourceUser",
+        "tabs"
+      ],
       "title": "List of other events associated with this file. This can help determine the origin of the file.",
       "type": "object"
     },
@@ -6650,10 +6654,12 @@
             "type": "string"
           },
           "title": "For endpoint events where a file in cloud storage is synced to a device, the email address of the user logged in to the cloud storage provider.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         }
       },
+      "required": [
+        "email"
+      ],
       "title": "Metadata about the source user.",
       "type": "object"
     },
@@ -6773,8 +6779,7 @@
             "type": "string"
           },
           "title": "The email addresses of those who received the email. Includes the To, Cc, and Bcc recipients.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "subject": {
           "example": "Important business documents",
@@ -6783,6 +6788,9 @@
           "x-nullable": true
         }
       },
+      "required": [
+        "recipients"
+      ],
       "title": "Metadata about the destination email.",
       "type": "object"
     },
@@ -7476,16 +7484,18 @@
         "error": {
           "example": "Hash unavailable. Locked file.",
           "title": "Error indicating why the field could not be determined.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "field": {
           "example": "md5Checksum",
           "title": "FileEvent field that could not be determined.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         }
       },
+      "required": [
+        "error",
+        "field"
+      ],
       "title": "List fields with errors indicating why they could not be determined.",
       "type": "object"
     },
@@ -7599,11 +7609,12 @@
         "name": {
           "example": "ReadMe.md",
           "title": "The name of the file, including the file extension.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "originalDirectory": {
           "example": "/Users/alix/Documents/",
-          "title": "The original file location on the user’s device or cloud service location; a forward or backslash must be included at the end of the filepath. Possibly null if the file event occurred on a cloud provider.",
+          "title": "The original file location on the user's device or cloud service location; a forward or backslash must be included at the end of the filepath. Possibly null if the file event occurred on a cloud provider.",
           "type": "string",
           "x-nullable": true
         },
@@ -7647,8 +7658,7 @@
         "acquiredFrom",
         "classifications",
         "directoryId",
-        "hash",
-        "name"
+        "hash"
       ],
       "title": "Metadata about the file for this event.",
       "type": "object"
@@ -7658,16 +7668,18 @@
         "value": {
           "example": "Classified",
           "title": "The classification value applied to the file.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "vendor": {
           "example": "MICROSOFT INFORMATION PROTECTION",
           "title": "The name of the vendor that classified the file.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         }
       },
+      "required": [
+        "value",
+        "vendor"
+      ],
       "title": "Data provided by an external file classification vendor.",
       "type": "object"
     },
@@ -7863,7 +7875,7 @@
         "eventTimestamp": {
           "example": "2020-10-27T15:16:05.369203Z",
           "format": "date-time",
-          "title": "Date and time that the Code42 service on the device detected an event; based on the device’s system clock and reported in Coordinated Universal Time (UTC).",
+          "title": "Date and time that the Code42 service on the device detected an event; based on the device's system clock and reported in Coordinated Universal Time (UTC).",
           "type": "string",
           "x-nullable": true
         },
@@ -7910,8 +7922,7 @@
             "$ref": "#/definitions/FieldError-file-events"
           },
           "title": "List fields with errors indicating why they could not be determined.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "fileCategory": {
           "example": "Audio",
@@ -7938,8 +7949,7 @@
             "$ref": "#/definitions/FileClassification-file-events"
           },
           "title": "Data provided by an external file classification vendor.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "fileId": {
           "example": "PUL5zWLRrdudiJZ1OCWw",
@@ -7950,7 +7960,8 @@
         "fileName": {
           "example": "ReadMe.md",
           "title": "The name of the file, including the file extension.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "fileOwner": {
           "example": "ari.example",
@@ -7986,7 +7997,8 @@
           ],
           "example": "FILE",
           "title": "The type of file detected; only FILE types are searchable.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "insertionTimestamp": {
           "example": "2020-10-27T15:16:05.369203Z",
@@ -8028,7 +8040,7 @@
         },
         "operatingSystemUser": {
           "example": "ari.example",
-          "title": "The username logged in to the device when the file activity was observed, as reported by the device’s operating system.",
+          "title": "The username logged in to the device when the file activity was observed, as reported by the device's operating system.",
           "type": "string",
           "x-nullable": true
         },
@@ -8071,13 +8083,13 @@
         },
         "processName": {
           "example": "bash",
-          "title": "The name of the process that accessed the file, as reported by the device’s operating system. Depending on your Code42 product plan, this value may be null for some event types.",
+          "title": "The name of the process that accessed the file, as reported by the device's operating system. Depending on your Code42 product plan, this value may be null for some event types.",
           "type": "string",
           "x-nullable": true
         },
         "processOwner": {
           "example": "root",
-          "title": "The username of the process owner, as reported by the device’s operating system. Depending on your Code42 product plan, this value may be null for some event types.",
+          "title": "The username of the process owner, as reported by the device's operating system. Depending on your Code42 product plan, this value may be null for some event types.",
           "type": "string",
           "x-nullable": true
         },
@@ -8134,8 +8146,7 @@
             "type": "string"
           },
           "title": "For events detected on removable media, a unique identifier assigned to the volume/partition when it was formatted. Windows devices refer to this as the VolumeGuid. On Mac devices, this is the Disk / Partition UUID, which appears when running the Terminal command diskUtil info.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "removableMediaSerialNumber": {
           "example": "4C531001550407108465",
@@ -8159,8 +8170,7 @@
             "type": "string"
           },
           "title": "For events detected on removable media, the name assigned to the volume when it was formatted, as reported by the device's operating system. This is also frequently called the \"partition\" name.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "reportColumnHeaders": {
           "example": [
@@ -8177,8 +8187,7 @@
             "type": "string"
           },
           "title": "The list of column headers that are in the report.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "reportDescription": {
           "example": "Top 20 accounts based on annual revenue",
@@ -8220,8 +8229,7 @@
             "$ref": "#/definitions/RiskIndicator-file-events"
           },
           "title": "List of risk indicators identified for this event. If more than one risk indicator applies to this event, the sum of all indicators determines the total risk score.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "riskScore": {
           "example": 12,
@@ -8272,8 +8280,7 @@
             "type": "string"
           },
           "title": "Public sharing types that were added by this event.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "source": {
           "example": "OneDrive",
@@ -8298,8 +8305,7 @@
             "$ref": "#/definitions/Tab-file-events"
           },
           "title": "For events generated when a file is downloaded via a browser or other app, the tabs that had activity at the time of the event.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "syncDestination": {
           "example": "Dropbox",
@@ -8317,8 +8323,7 @@
             "type": "string"
           },
           "title": "For events detected within a cloud storage sync destination on a device, lists the usernames logged into the cloud storage provider when the file activity was observed.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "tabUrl": {
           "example": "https://example.com",
@@ -8331,8 +8336,7 @@
             "$ref": "#/definitions/Tab-file-events"
           },
           "title": "For events generated when a file is uploaded via a browser or other app, the tabs that had activity at the time of the event.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "trustReason": {
           "example": "TRUSTED_DOMAIN_BROWSER_URL",
@@ -8368,27 +8372,37 @@
             "type": "string"
           },
           "title": "For events generated when a file is read in a browser or other app, the tab or window title(s) that had activity at the time of the event. 'tabs' field is recommended for use instead.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         }
       },
       "required": [
         "eventId",
         "eventType",
         "exposure",
-        "fileName",
-        "fileType",
-        "privateIpAddresses"
+        "fieldErrors",
+        "fileClassifications",
+        "privateIpAddresses",
+        "removableMediaPartitionId",
+        "removableMediaVolumeName",
+        "reportColumnHeaders",
+        "riskIndicators",
+        "sharedWith",
+        "sharingTypeAdded",
+        "sourceTabs",
+        "syncDestinationUsername",
+        "tabs",
+        "windowTitle"
       ],
       "title": "List of file events in the response.",
-      "type": "object"
+      "type": "object",
+      "x-nullable": true
     },
     "FileEventV2-file-events": {
       "properties": {
         "@timestamp": {
           "example": "2020-10-27T15:16:05.369203Z",
           "format": "date-time",
-          "title": "Date and time that the Code42 service on the device detected an event; based on the device’s system clock and reported in Coordinated Universal Time (UTC).",
+          "title": "Date and time that the Code42 service on the device detected an event; based on the device's system clock and reported in Coordinated Universal Time (UTC).",
           "type": "string",
           "x-nullable": true
         },
@@ -8432,7 +8446,8 @@
         "user"
       ],
       "title": "List of file events in the response.",
-      "type": "object"
+      "type": "object",
+      "x-nullable": true
     },
     "FilterGroupSearchTermV1-file-events": {
       "properties": {
@@ -8504,7 +8519,7 @@
           "x-nullable": true
         },
         "repositoryEndpointPath": {
-          "title": "File path of the local Git repository on the user’s endpoint.",
+          "title": "File path of the local Git repository on the user's endpoint.",
           "type": "string",
           "x-nullable": true
         },
@@ -8528,18 +8543,21 @@
           "example": 3,
           "format": "int64",
           "title": "The approximate count of hits matching this value for your query.",
-          "type": "integer",
-          "x-nullable": true
+          "type": "integer"
         },
         "value": {
           "example": "readme.md",
           "title": "The value of the term for this group.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         }
       },
+      "required": [
+        "docCount",
+        "value"
+      ],
       "title": "The top groups based on the query and group by term.",
-      "type": "object"
+      "type": "object",
+      "x-nullable": true
     },
     "GroupingRequestSearchTermV1-file-events": {
       "properties": {
@@ -8646,8 +8664,7 @@
           ],
           "example": "eventId",
           "title": "The search term to use to form the groups.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "groups": {
           "items": {
@@ -8658,6 +8675,7 @@
         }
       },
       "required": [
+        "groupingTerm",
         "groups"
       ],
       "type": "object"
@@ -8818,8 +8836,7 @@
           ],
           "example": "@timestamp",
           "title": "The search term to use to form the groups.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "groups": {
           "items": {
@@ -8830,6 +8847,7 @@
         }
       },
       "required": [
+        "groupingTerm",
         "groups"
       ],
       "type": "object"
@@ -8908,7 +8926,7 @@
       "properties": {
         "executable": {
           "example": "bash",
-          "title": "The name of the process that accessed the file, as reported by the device’s operating system. Depending on your Code42 product plan, this value may be null for some event types.",
+          "title": "The name of the process that accessed the file, as reported by the device's operating system. Depending on your Code42 product plan, this value may be null for some event types.",
           "type": "string",
           "x-nullable": true
         },
@@ -8917,11 +8935,14 @@
         },
         "owner": {
           "example": "root",
-          "title": "The username of the process owner, as reported by the device’s operating system. Depending on your Code42 product plan, this value may be null for some event types.",
+          "title": "The username of the process owner, as reported by the device's operating system. Depending on your Code42 product plan, this value may be null for some event types.",
           "type": "string",
           "x-nullable": true
         }
       },
+      "required": [
+        "extension"
+      ],
       "title": "Metadata about the process associated with the event.",
       "type": "object"
     },
@@ -8961,10 +8982,12 @@
         }
       },
       "required": [
+        "badFilter",
         "type"
       ],
       "title": "List of problems in the request.  A problem with a search request could be an invalid filter value, an operator that can't be used on a term, etc.",
-      "type": "object"
+      "type": "object",
+      "x-nullable": true
     },
     "QueryProblemSearchTermV2-file-events": {
       "properties": {
@@ -9002,10 +9025,12 @@
         }
       },
       "required": [
+        "badFilter",
         "type"
       ],
       "title": "List of problems in the request.  A problem with a search request could be an invalid filter value, an operator that can't be used on a term, etc.",
-      "type": "object"
+      "type": "object",
+      "x-nullable": true
     },
     "RemovableMedia-file-events": {
       "properties": {
@@ -9178,8 +9203,7 @@
         "trusted": {
           "example": true,
           "title": "Indicates whether or not the file activity is trusted based on your Data Preferences settings.",
-          "type": "boolean",
-          "x-nullable": true
+          "type": "boolean"
         },
         "untrustedValues": {
           "$ref": "#/definitions/UntrustedValues-file-events"
@@ -9187,6 +9211,7 @@
       },
       "required": [
         "indicators",
+        "trusted",
         "untrustedValues"
       ],
       "title": "Risk factor metadata.",
@@ -9196,23 +9221,25 @@
       "properties": {
         "id": {
           "title": "The unique identifier for the risk indicator.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "name": {
           "example": "Browser upload",
           "title": "Name of the risk indicator at the time of the event. If the name has changed, use the id to obtain the current name.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "weight": {
           "example": 5,
           "format": "int32",
           "title": "Configured weight of the risk indicator at the time this event was seen.",
-          "type": "integer",
-          "x-nullable": true
+          "type": "integer"
         }
       },
+      "required": [
+        "id",
+        "name",
+        "weight"
+      ],
       "title": "List of risk indicators identified for this event. If more than one risk indicator applies to this event, the sum of all indicators determines the total risk score.",
       "type": "object"
     },
@@ -9222,8 +9249,7 @@
           "example": 1,
           "format": "int32",
           "title": "Version of the API used to create the search.",
-          "type": "integer",
-          "x-nullable": true
+          "type": "integer"
         },
         "columns": {
           "example": [
@@ -9332,21 +9358,18 @@
         "createdByUID": {
           "example": "806150685834341101",
           "title": "User UID of the user who created the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "createdByUsername": {
           "example": "adrian@example.com",
           "title": "Username of the user who created the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "creationTimestamp": {
           "example": "2020-10-27T15:16:05.369203Z",
           "format": "date-time",
           "title": "Time at which the saved search was created.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "groupClause": {
           "enum": [
@@ -9363,39 +9386,33 @@
             "$ref": "#/definitions/FilterGroupSearchTermV1-file-events"
           },
           "title": "One or more FilterGroups to be combined in a query.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "id": {
           "example": "cde979fa-d551-4be9-b242-39e75b824089",
           "title": "Unique identifier for the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "modifiedByUID": {
           "example": "421380797518239242",
           "title": "User UID of the user who last modified the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "modifiedByUsername": {
           "example": "ari@example.com",
           "title": "Username of the user who last modified the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "modifiedTimestamp": {
           "example": "2020-10-27T15:20:26.311894Z",
           "format": "date-time",
           "title": "Time at which the saved search was last modified.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "name": {
           "example": "Example saved search",
           "title": "Name given to the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "notes": {
           "example": "This search returns all events.",
@@ -9510,8 +9527,21 @@
           "x-nullable": true
         }
       },
+      "required": [
+        "apiVersion",
+        "createdByUID",
+        "createdByUsername",
+        "creationTimestamp",
+        "groups",
+        "id",
+        "modifiedByUID",
+        "modifiedByUsername",
+        "modifiedTimestamp",
+        "name"
+      ],
       "title": "List of saved searches in the response.",
-      "type": "object"
+      "type": "object",
+      "x-nullable": true
     },
     "SavedSearchDetailSearchTermV2-file-events": {
       "properties": {
@@ -9519,8 +9549,7 @@
           "example": 1,
           "format": "int32",
           "title": "Version of the API used to create the search.",
-          "type": "integer",
-          "x-nullable": true
+          "type": "integer"
         },
         "columns": {
           "example": [
@@ -9680,21 +9709,18 @@
         "createdByUID": {
           "example": "806150685834341101",
           "title": "User UID of the user who created the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "createdByUsername": {
           "example": "adrian@example.com",
           "title": "Username of the user who created the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "creationTimestamp": {
           "example": "2020-10-27T15:16:05.369203Z",
           "format": "date-time",
           "title": "Time at which the saved search was created.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "groupClause": {
           "enum": [
@@ -9711,39 +9737,33 @@
             "$ref": "#/definitions/FilterGroupSearchTermV2-file-events"
           },
           "title": "One or more FilterGroups to be combined in a query.",
-          "type": "array",
-          "x-nullable": true
+          "type": "array"
         },
         "id": {
           "example": "cde979fa-d551-4be9-b242-39e75b824089",
           "title": "Unique identifier for the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "modifiedByUID": {
           "example": "421380797518239242",
           "title": "User UID of the user who last modified the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "modifiedByUsername": {
           "example": "ari@example.com",
           "title": "Username of the user who last modified the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "modifiedTimestamp": {
           "example": "2020-10-27T15:20:26.311894Z",
           "format": "date-time",
           "title": "Time at which the saved search was last modified.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "name": {
           "example": "Example saved search",
           "title": "Name given to the saved search.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         },
         "notes": {
           "example": "This search returns all events.",
@@ -9909,8 +9929,21 @@
           "x-nullable": true
         }
       },
+      "required": [
+        "apiVersion",
+        "createdByUID",
+        "createdByUsername",
+        "creationTimestamp",
+        "groups",
+        "id",
+        "modifiedByUID",
+        "modifiedByUsername",
+        "modifiedTimestamp",
+        "name"
+      ],
       "title": "List of saved searches in the response.",
-      "type": "object"
+      "type": "object",
+      "x-nullable": true
     },
     "SavedSearchResponseSearchTermV1-file-events": {
       "properties": {
@@ -10063,9 +10096,6 @@
           "x-nullable": true
         }
       },
-      "required": [
-        "value"
-      ],
       "title": "One or more SearchFilters to be combined in a query.",
       "type": "object"
     },
@@ -10245,9 +10275,6 @@
           "x-nullable": true
         }
       },
-      "required": [
-        "value"
-      ],
       "title": "One or more SearchFilters to be combined in a query.",
       "type": "object"
     },
@@ -10614,10 +10641,12 @@
         "cloudUsername": {
           "example": "alix@example.com",
           "title": "Name of the user reported by the cloud provider with whom the file was shared.",
-          "type": "string",
-          "x-nullable": true
+          "type": "string"
         }
       },
+      "required": [
+        "cloudUsername"
+      ],
       "title": "A list of users who have been granted explicit rights to the file at the time the event occurred.",
       "type": "object"
     },
@@ -10647,10 +10676,10 @@
         },
         "domains": {
           "items": {
-            "title": "The domain section of the URLs reported in source.tabs.url. (Note: Although similar in name, this field has no relation to source.domain, which reports the FQDN or IP address of the user’s device.)",
+            "title": "The domain section of the URLs reported in source.tabs.url. (Note: Although similar in name, this field has no relation to source.domain, which reports the FQDN or IP address of the user's device.)",
             "type": "string"
           },
-          "title": "The domain section of the URLs reported in source.tabs.url. (Note: Although similar in name, this field has no relation to source.domain, which reports the FQDN or IP address of the user’s device.)",
+          "title": "The domain section of the URLs reported in source.tabs.url. (Note: Although similar in name, this field has no relation to source.domain, which reports the FQDN or IP address of the user's device.)",
           "type": "array"
         },
         "email": {
@@ -12216,7 +12245,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-08-17T12:05:06.8384883Z"
+              "example": "2023-08-18T00:12:02.6204674Z"
             },
             "createdBy": {
               "type": "string",
@@ -12227,7 +12256,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-08-17T12:05:06.8385154Z"
+              "example": "2023-08-18T00:12:02.6205004Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -12284,7 +12313,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "d613dfc4-4912-483f-a9a6-f08d42fa43f3"
+              "example": "8bb8bfd1-a749-4a49-baf1-42a3bb3cdf72"
             }
           }
         }
@@ -12958,7 +12987,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "12d23fa4-e3be-470e-a28d-2952ffc4de9a"
+          "example": "66aab051-2d03-422d-9f10-fc6ac840e248"
         },
         "aliases": {
           "type": "array",
@@ -12982,7 +13011,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "3cb1e462-ad88-4b15-a9cf-2b16abe23415"
+          "example": "8f42ec8a-4a50-453f-9aab-ac2a010f3827"
         },
         "users": {
           "type": "array",
