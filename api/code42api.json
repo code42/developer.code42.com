@@ -3576,7 +3576,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "5bcea0e9-2370-4c37-9531-8b915d3a2056"
+            "example": "123f889a-cb1c-418b-8bb5-8dcf0bf89f5f"
           }
         ],
         "responses": {
@@ -3660,7 +3660,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "7cea459f-75c1-459f-bceb-1a2cd4e14d2e"
+            "example": "22514b53-878f-4528-8626-2dc426b8a178"
           }
         ],
         "responses": {
@@ -3689,7 +3689,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "7d9e54db-e84f-4adc-ba14-edb96684799b"
+                "791925a7-4ad7-41d4-9a3c-67a3f60b169e"
               ],
               "items": {
                 "type": "string"
@@ -3723,7 +3723,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "21f7253d-d6e6-4079-966e-24bb54973383"
+            "example": "85aff23c-c32e-400a-b2ff-47eaf0b515ac"
           }
         ],
         "responses": {
@@ -3752,7 +3752,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "2c62b496-25cd-4f86-a814-fddb4b580013"
+                "e7765c96-7cd9-4b03-8831-ab4a9f262051"
               ],
               "items": {
                 "type": "string"
@@ -3787,7 +3787,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "7db82e1a-688c-4a1c-a456-8c5dbcdd38e9"
+            "example": "81704f78-8663-4581-a728-5b9186663256"
           }
         ],
         "responses": {
@@ -3814,7 +3814,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "cd455d1a-8fe9-478f-928e-58d76f2991c8"
+            "example": "95e230ad-3d06-4d44-80c7-1df2e9c9457c"
           }
         ],
         "responses": {
@@ -5799,6 +5799,7 @@
               "file.directory",
               "file.originalDirectory",
               "file.category",
+              "file.mimeType",
               "file.mimeTypeByBytes",
               "file.categoryByBytes",
               "file.mimeTypeByExtension",
@@ -5896,6 +5897,9 @@
               "risk.untrustedValues.gitRepositoryUris",
               "risk.untrustedValues.slackWorkspaces",
               "risk.untrustedValues.urlPaths",
+              "responseControls.preventativeControl",
+              "responseControls.userJustification.reason",
+              "responseControls.userJustification.text",
               "file.acquiredFrom.eventId",
               "file.acquiredFrom.sourceAccountName",
               "file.acquiredFrom.sourceAccountType",
@@ -5976,6 +5980,7 @@
             "file.directory",
             "file.originalDirectory",
             "file.category",
+            "file.mimeType",
             "file.mimeTypeByBytes",
             "file.categoryByBytes",
             "file.mimeTypeByExtension",
@@ -6073,6 +6078,9 @@
             "risk.untrustedValues.gitRepositoryUris",
             "risk.untrustedValues.slackWorkspaces",
             "risk.untrustedValues.urlPaths",
+            "responseControls.preventativeControl",
+            "responseControls.userJustification.reason",
+            "responseControls.userJustification.text",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -6245,6 +6253,10 @@
           "type": "string",
           "x-nullable": true
         },
+        "mimeType": {
+          "title": "The MIME type of the file. For endpoint events, if the mimeTypeByBytes differs from mimeTypeByExtension, this indicates the most likely MIME type for the file. For activity observed by a web browser, this is the only MIME type reported.",
+          "type": "string"
+        },
         "mimeTypeByBytes": {
           "example": "text/csv",
           "title": "The MIME type of the file based on its contents.",
@@ -6316,7 +6328,8 @@
         "acquiredFrom",
         "classifications",
         "directoryId",
-        "hash"
+        "hash",
+        "mimeType"
       ],
       "title": "Metadata about the file for this event.",
       "type": "object"
@@ -7082,6 +7095,9 @@
         "report": {
           "$ref": "#/definitions/Report-file-events"
         },
+        "responseControls": {
+          "$ref": "#/definitions/ResponseControls-file-events"
+        },
         "risk": {
           "$ref": "#/definitions/Risk-file-events"
         },
@@ -7099,6 +7115,7 @@
         "git",
         "process",
         "report",
+        "responseControls",
         "risk",
         "source",
         "user"
@@ -7369,6 +7386,7 @@
             "file.directory",
             "file.originalDirectory",
             "file.category",
+            "file.mimeType",
             "file.mimeTypeByBytes",
             "file.categoryByBytes",
             "file.mimeTypeByExtension",
@@ -7466,6 +7484,9 @@
             "risk.untrustedValues.gitRepositoryUris",
             "risk.untrustedValues.slackWorkspaces",
             "risk.untrustedValues.urlPaths",
+            "responseControls.preventativeControl",
+            "responseControls.userJustification.reason",
+            "responseControls.userJustification.text",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -7821,6 +7842,23 @@
         "headers"
       ],
       "title": "Metadata for reports from 3rd party sources, such Salesforce downloads.",
+      "type": "object"
+    },
+    "ResponseControls-file-events": {
+      "properties": {
+        "preventativeControl": {
+          "title": "The preventative action applied to this event. For example, \"ALLOWED_TRUSTED_ACTIVITY\" or \"BLOCKED\".",
+          "type": "string"
+        },
+        "userJustification": {
+          "$ref": "#/definitions/UserJustification-file-events"
+        }
+      },
+      "required": [
+        "preventativeControl",
+        "userJustification"
+      ],
+      "title": "Metadata about preventative actions applied to file activity. Only applies to events for users on a preventative watchlist.",
       "type": "object"
     },
     "Risk-file-events": {
@@ -8233,6 +8271,7 @@
               "file.directory",
               "file.originalDirectory",
               "file.category",
+              "file.mimeType",
               "file.mimeTypeByBytes",
               "file.categoryByBytes",
               "file.mimeTypeByExtension",
@@ -8330,6 +8369,9 @@
               "risk.untrustedValues.gitRepositoryUris",
               "risk.untrustedValues.slackWorkspaces",
               "risk.untrustedValues.urlPaths",
+              "responseControls.preventativeControl",
+              "responseControls.userJustification.reason",
+              "responseControls.userJustification.text",
               "file.acquiredFrom.eventId",
               "file.acquiredFrom.sourceAccountName",
               "file.acquiredFrom.sourceAccountType",
@@ -8458,6 +8500,7 @@
             "file.directory",
             "file.originalDirectory",
             "file.category",
+            "file.mimeType",
             "file.mimeTypeByBytes",
             "file.categoryByBytes",
             "file.mimeTypeByExtension",
@@ -8555,6 +8598,9 @@
             "risk.untrustedValues.gitRepositoryUris",
             "risk.untrustedValues.slackWorkspaces",
             "risk.untrustedValues.urlPaths",
+            "responseControls.preventativeControl",
+            "responseControls.userJustification.reason",
+            "responseControls.userJustification.text",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -8798,6 +8844,7 @@
             "file.directory",
             "file.originalDirectory",
             "file.category",
+            "file.mimeType",
             "file.mimeTypeByBytes",
             "file.categoryByBytes",
             "file.mimeTypeByExtension",
@@ -8895,6 +8942,9 @@
             "risk.untrustedValues.gitRepositoryUris",
             "risk.untrustedValues.slackWorkspaces",
             "risk.untrustedValues.urlPaths",
+            "responseControls.preventativeControl",
+            "responseControls.userJustification.reason",
+            "responseControls.userJustification.text",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -9155,6 +9205,7 @@
             "file.directory",
             "file.originalDirectory",
             "file.category",
+            "file.mimeType",
             "file.mimeTypeByBytes",
             "file.categoryByBytes",
             "file.mimeTypeByExtension",
@@ -9252,6 +9303,9 @@
             "risk.untrustedValues.gitRepositoryUris",
             "risk.untrustedValues.slackWorkspaces",
             "risk.untrustedValues.urlPaths",
+            "responseControls.preventativeControl",
+            "responseControls.userJustification.reason",
+            "responseControls.userJustification.text",
             "file.acquiredFrom.eventId",
             "file.acquiredFrom.sourceAccountName",
             "file.acquiredFrom.sourceAccountType",
@@ -9552,6 +9606,24 @@
         }
       },
       "title": "Attributes of the the Code42 username signed in to the Code42 app on the device.",
+      "type": "object"
+    },
+    "UserJustification-file-events": {
+      "properties": {
+        "reason": {
+          "example": "Other",
+          "title": "User-selected justification for temporarily allowing this action.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "text": {
+          "example": "POV data for client",
+          "title": "User-entered justification for temporarily allowing this action. Only applies when reason is \"Other\".",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "title": "Metadata about the user-selected reason for allowing the file activity.",
       "type": "object"
     },
     "ActivateAgentsRequest-core": {
@@ -12734,7 +12806,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-09-12T12:05:28.7437307Z"
+              "example": "2023-09-13T00:12:27.1186613Z"
             },
             "createdBy": {
               "type": "string",
@@ -12745,7 +12817,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-09-12T12:05:28.7437659Z"
+              "example": "2023-09-13T00:12:27.1186884Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -12802,7 +12874,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "053cb53f-78c4-4e7e-b9b0-70b9942dc227"
+              "example": "00cdd281-ede7-43f4-a7c8-4cfdc3801786"
             }
           }
         }
@@ -13476,7 +13548,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "26c5907c-d2cc-47b3-ae4a-14e1720aa201"
+          "example": "29b41c32-5163-47e8-b935-7a8d4ec8b8b3"
         },
         "aliases": {
           "type": "array",
@@ -13500,7 +13572,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "554f16d8-f25b-4303-a7f4-fa7fb759a995"
+          "example": "1622c34a-44d8-48fe-844c-f05a92defc07"
         },
         "users": {
           "type": "array",
