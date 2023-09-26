@@ -365,7 +365,7 @@ If a user ID was not provided when users were added to the alert rule (as is com
 
 
 ## Manage cases
-Use the Case APIs to create and manage cases for security investigations. A case is used to record results of an investigation into suspicious file activity. For information about creating and managing cases in the Code42 console, see our [support article](https://support.code42.com/hc/en-us/articles/14827658933527.
+Use the Case APIs to create and manage cases for security investigations. A case is used to record results of an investigation into suspicious file activity. For information about creating and managing cases in the Code42 console, see our [support article](https://support.code42.com/hc/en-us/articles/14827658933527).
 
 Typically, a security analyst will create a case based on an investigation that shows unauthorized file activity, and will add file events from Forensic Search to the case as evidence. The case can have additional file events added to it if needed, and can be routed in a CSV or PDF file as necessary for resolution. Although cases are specific to Code42, you can integrate cases into your SIEM, SOAR, or other incident management system. For integration resources, see our [support article](https://support.code42.com/hc/en-us/articles/14827687363351).
 
@@ -1179,7 +1179,7 @@ Before you start writing scripts to handle alerts using the Code42 APIs, conside
 
 **Why do you want to automate responding to alerts?**
 
-Using APIs to automatically respond to alerts provides economies of scale. If you monitor insider risk at a small company, you could [use the the Code42 console](https://support.code42.com/hc/en-us/articles/14827687892375) to receive notifications about suspicious file activity. But for larger companies with many more employees to track, automating the process with the Code42 APIs provides a faster and more efficient method. As an added benefit, you can [integrate the Code42 APIs](https://support.code42.com/Administrator/Cloud/Monitoring_and_managing/Code42_integrations_resources) with other systems such as your company's security tools. Planning and implementing Code42 APIs can take some time. Before you begin using Code42 APIs to manage alerts, consider the effort involved to set them up against the time savings provided when they run.
+Using APIs to automatically respond to alerts provides economies of scale. If you monitor insider risk at a small company, you could [use the the Code42 console](https://support.code42.com/hc/en-us/articles/14827687892375) to receive notifications about suspicious file activity. But for larger companies with many more employees to track, automating the process with the Code42 APIs provides a faster and more efficient method. As an added benefit, you can [integrate the Code42 APIs](https://support.code42.com/hc/en-us/articles/14827687363351) with other systems such as your company's security tools. Planning and implementing Code42 APIs can take some time. Before you begin using Code42 APIs to manage alerts, consider the effort involved to set them up against the time savings provided when they run.
 
 **What are the kinds of alerts you want to receive?**
 
