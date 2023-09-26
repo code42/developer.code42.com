@@ -20,8 +20,6 @@ We offer several different approaches to integrate into Code42 so you can choose
 | [Py42](#py42) | Python library | Custom scripting | Moderate | Moderate
 | [Code42 CLI](#code42-command-line-interface) | Command Line | Prebuilt, out-of-the-box scripts | Least | Least
 
-
-
 ## REST API
 
 The Code42 REST API is available for a wide variety of use cases, from performing automated actions to integrating with existing systems. The Code42 API is accessible through many tools, such as web browsers, scripting tools, and programming languages.
