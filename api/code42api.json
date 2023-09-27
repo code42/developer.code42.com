@@ -2191,7 +2191,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "4bfaa4a1-599d-4b48-8c90-769606c6d81d"
+            "example": "663a0fd6-9d53-48df-9f57-5bd6f83834ae"
           }
         ],
         "responses": {
@@ -2275,7 +2275,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ecc4d6ca-5913-4670-b0a4-355f4ed6cb99"
+            "example": "2a86bc41-e126-4882-9bec-5f8dd27edb17"
           }
         ],
         "responses": {
@@ -2304,7 +2304,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "0b1a4810-85fd-4f10-8828-4c7ad4b02e49"
+                "cb407b9b-9815-447b-955c-07b05466fa2c"
               ],
               "items": {
                 "type": "string"
@@ -2338,7 +2338,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b2ec5b82-bed4-4556-bb13-6255450ed32d"
+            "example": "b3a3e513-2f92-4f08-abc4-fe9574b183e7"
           }
         ],
         "responses": {
@@ -2367,7 +2367,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "74092553-1494-466f-8273-9f7f12188db6"
+                "77443f0c-7efb-4430-b19e-7e49ba6e17e7"
               ],
               "items": {
                 "type": "string"
@@ -2402,7 +2402,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "8e1394f6-47f0-4087-a7c4-f4b390cead85"
+            "example": "480088fc-4b63-4cdf-b12a-a965af5a04a4"
           }
         ],
         "responses": {
@@ -2429,7 +2429,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "c123a6df-7715-4c84-97e7-cee8523cd2a8"
+            "example": "6fa4cce0-b40f-4178-b975-f6e05dfc0fa7"
           }
         ],
         "responses": {
@@ -2442,6 +2442,182 @@
           },
           "400": {
             "description": "Bad Request: An invalid request model was provided"
+          }
+        }
+      }
+    },
+    "/v1/actors/adoption": {
+      "post": {
+        "tags": [
+          "actor-api-controller"
+        ],
+        "summary": "Creates adoption between an Actor and a requested parent by the actor's actorId and the parent's actorId.",
+        "operationId": "addParent",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdoptionCreationRequest-actor-enrichment-service"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "413": {
+            "description": "Payload Too Large"
+          },
+          "400": {
+            "description": "A bad request error stating the failure reason",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdoptionError-actor-enrichment-service"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor adoption not authorized"
+          },
+          "200": {
+            "description": "Actor adoption created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdoptionResponse-actor-enrichment-service"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Actor not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActorNotFoundError-actor-enrichment-service"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/actors/actor/{actorId}": {
+      "get": {
+        "tags": [
+          "actor-api-controller"
+        ],
+        "summary": "Retrieve information about an Actor by its actorId.",
+        "operationId": "getByActorId",
+        "parameters": [
+          {
+            "name": "actorId",
+            "in": "path",
+            "description": "actorId of the actor to be retrieved",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "413": {
+            "description": "Payload Too Large"
+          },
+          "200": {
+            "description": "Actor found and retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActorResponse-actor-enrichment-service"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Actor not found"
+          }
+        }
+      }
+    },
+    "/v1/actors/actor/{actorId}/parent": {
+      "get": {
+        "tags": [
+          "actor-api-controller"
+        ],
+        "summary": "Retrieve information about an Actor (or its parent) by the actor's actorId.",
+        "operationId": "getParentByActorId",
+        "parameters": [
+          {
+            "name": "actorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "413": {
+            "description": "Payload Too Large"
+          },
+          "200": {
+            "description": "Actor (or parent) found and retrieved",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ActorResponse-actor-enrichment-service"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Actor not found"
+          }
+        }
+      }
+    },
+    "/v1/actors/adoption/{childActorId}": {
+      "delete": {
+        "tags": [
+          "actor-api-controller"
+        ],
+        "summary": "Removes adoption from a child Actor by the actor's actorId.",
+        "operationId": "removeParent",
+        "parameters": [
+          {
+            "name": "childActorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "413": {
+            "description": "Payload Too Large"
+          },
+          "400": {
+            "description": "Actor adoption deletion not executed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdoptionError-actor-enrichment-service"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Actor adoption deletion not authorized"
+          },
+          "404": {
+            "description": "Actor not found"
+          },
+          "200": {
+            "description": "Actor adoption deleted"
           }
         }
       }
@@ -10447,7 +10623,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-09-27T00:12:50.8834926Z"
+              "example": "2023-09-27T12:05:47.2697352Z"
             },
             "createdBy": {
               "type": "string",
@@ -10458,7 +10634,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-09-27T00:12:50.8835162Z"
+              "example": "2023-09-27T12:05:47.2697611Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -10515,7 +10691,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "b1ebddff-2db4-4557-aa9d-f98e737d8a31"
+              "example": "57ec9a65-89e7-472f-b682-9a5fcb324963"
             }
           }
         }
@@ -11189,7 +11365,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "2c91e07d-526e-4f39-a928-f9307cdfcadb"
+          "example": "7cc43b64-2ef0-4861-b639-3f7c0a8aceea"
         },
         "aliases": {
           "type": "array",
@@ -11213,7 +11389,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "7428a6c0-5d31-4425-a605-11a82883b31f"
+          "example": "0ce8210e-8c96-481e-ae9b-3b043d76b858"
         },
         "users": {
           "type": "array",
