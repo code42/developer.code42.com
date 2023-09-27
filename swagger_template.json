@@ -6,6 +6,7 @@
       "description": {"$ref": "./user_guides.rmd"}
     },
     "tags": [
+        {"name": "Actors", "description":  {"$ref": "./api-descriptions/actors.rmd"}},
         {"name": "Agents", "description":  {"$ref": "./api-descriptions/agents.rmd"}},
         {"name": "Alerts", "description": {"$ref": "./api-descriptions/alerts.rmd"}},
         {"name": "Audit Log", "description": {"$ref": "./api-descriptions/audit_log.rmd"}},

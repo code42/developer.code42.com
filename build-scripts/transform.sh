@@ -10,6 +10,7 @@ main() {
   WATCHLISTS="${docs}/watchlists.json"
   FILE_EVENTS="${docs}/file-events.json"
   CASES="${docs}/cases.json"
+  ACTORS="${docs}/actors.json"
 
   echo "Applying transformations..."
 
@@ -80,6 +81,16 @@ main() {
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/cases > $CASES
   rm ${docs}/cases
   mv $CASES ${docs}/cases
+
+  ### Actors
+  # convert openapi 3 yaml to swagger 2 json
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/actor-enrichment-service > $ACTORS
+  rm ${docs}/actor-enrichment-service
+  # rename tags
+  jq '.paths[][].tags[] |=
+  if . == "actor-api-controller" then "Actors"  else .
+  end' < $ACTORS > $TMP && mv $TMP $ACTORS
+  mv $ACTORS ${docs}/actors
 }
 
 main "$@"
