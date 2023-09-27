@@ -9,6 +9,12 @@
   },
   "tags": [
     {
+      "name": "Actors",
+      "description": {
+        "$ref": "./api-descriptions/actors.rmd"
+      }
+    },
+    {
       "name": "Agents",
       "description": {
         "$ref": "./api-descriptions/agents.rmd"
@@ -2191,7 +2197,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "663a0fd6-9d53-48df-9f57-5bd6f83834ae"
+            "example": "e2db262f-b22b-4f79-8391-c5aafc70a141"
           }
         ],
         "responses": {
@@ -2275,7 +2281,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "2a86bc41-e126-4882-9bec-5f8dd27edb17"
+            "example": "a2893d30-0dc1-483a-a123-f2ab86bb90fa"
           }
         ],
         "responses": {
@@ -2304,7 +2310,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "cb407b9b-9815-447b-955c-07b05466fa2c"
+                "3be02b2e-4f44-4d2f-ae40-177ba8cc01d5"
               ],
               "items": {
                 "type": "string"
@@ -2338,7 +2344,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b3a3e513-2f92-4f08-abc4-fe9574b183e7"
+            "example": "ee5c3376-ecbf-47f1-9013-40bb90382973"
           }
         ],
         "responses": {
@@ -2367,7 +2373,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "77443f0c-7efb-4430-b19e-7e49ba6e17e7"
+                "0f5a2a56-beaf-4e36-be60-f3d3451b186d"
               ],
               "items": {
                 "type": "string"
@@ -2402,7 +2408,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "480088fc-4b63-4cdf-b12a-a965af5a04a4"
+            "example": "01f70190-765d-4e8d-bfb4-4c9f8f932bab"
           }
         ],
         "responses": {
@@ -2429,7 +2435,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6fa4cce0-b40f-4178-b975-f6e05dfc0fa7"
+            "example": "63710461-e946-4659-bc4b-d23156babac5"
           }
         ],
         "responses": {
@@ -2442,182 +2448,6 @@
           },
           "400": {
             "description": "Bad Request: An invalid request model was provided"
-          }
-        }
-      }
-    },
-    "/v1/actors/adoption": {
-      "post": {
-        "tags": [
-          "actor-api-controller"
-        ],
-        "summary": "Creates adoption between an Actor and a requested parent by the actor's actorId and the parent's actorId.",
-        "operationId": "addParent",
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AdoptionCreationRequest-actor-enrichment-service"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "413": {
-            "description": "Payload Too Large"
-          },
-          "400": {
-            "description": "A bad request error stating the failure reason",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AdoptionError-actor-enrichment-service"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Actor adoption not authorized"
-          },
-          "200": {
-            "description": "Actor adoption created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AdoptionResponse-actor-enrichment-service"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Actor not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ActorNotFoundError-actor-enrichment-service"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/v1/actors/actor/{actorId}": {
-      "get": {
-        "tags": [
-          "actor-api-controller"
-        ],
-        "summary": "Retrieve information about an Actor by its actorId.",
-        "operationId": "getByActorId",
-        "parameters": [
-          {
-            "name": "actorId",
-            "in": "path",
-            "description": "actorId of the actor to be retrieved",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "413": {
-            "description": "Payload Too Large"
-          },
-          "200": {
-            "description": "Actor found and retrieved",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ActorResponse-actor-enrichment-service"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Actor not found"
-          }
-        }
-      }
-    },
-    "/v1/actors/actor/{actorId}/parent": {
-      "get": {
-        "tags": [
-          "actor-api-controller"
-        ],
-        "summary": "Retrieve information about an Actor (or its parent) by the actor's actorId.",
-        "operationId": "getParentByActorId",
-        "parameters": [
-          {
-            "name": "actorId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "413": {
-            "description": "Payload Too Large"
-          },
-          "200": {
-            "description": "Actor (or parent) found and retrieved",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ActorResponse-actor-enrichment-service"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Actor not found"
-          }
-        }
-      }
-    },
-    "/v1/actors/adoption/{childActorId}": {
-      "delete": {
-        "tags": [
-          "actor-api-controller"
-        ],
-        "summary": "Removes adoption from a child Actor by the actor's actorId.",
-        "operationId": "removeParent",
-        "parameters": [
-          {
-            "name": "childActorId",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "413": {
-            "description": "Payload Too Large"
-          },
-          "400": {
-            "description": "Actor adoption deletion not executed",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AdoptionError-actor-enrichment-service"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Actor adoption deletion not authorized"
-          },
-          "404": {
-            "description": "Actor not found"
-          },
-          "200": {
-            "description": "Actor adoption deleted"
           }
         }
       }
@@ -3756,6 +3586,166 @@
             }
           }
         }
+      }
+    },
+    "/v1/actors/actor/{actorId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "actorId of the actor to be retrieved",
+            "in": "path",
+            "name": "actorId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Actor found and retrieved",
+            "schema": {
+              "$ref": "#/definitions/ActorResponse-actor-enrichment-service"
+            }
+          },
+          "404": {
+            "description": "Actor not found"
+          },
+          "413": {
+            "description": "Payload Too Large"
+          }
+        },
+        "tags": [
+          "Actors"
+        ],
+        "operationId": "getByActorId",
+        "summary": "Retrieve information about an Actor by its actorId."
+      }
+    },
+    "/v1/actors/actor/{actorId}/parent": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "actorId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Actor (or parent) found and retrieved",
+            "schema": {
+              "$ref": "#/definitions/ActorResponse-actor-enrichment-service"
+            }
+          },
+          "404": {
+            "description": "Actor not found"
+          },
+          "413": {
+            "description": "Payload Too Large"
+          }
+        },
+        "tags": [
+          "Actors"
+        ],
+        "operationId": "getParentByActorId",
+        "summary": "Retrieve information about an Actor (or its parent) by the actor's actorId."
+      }
+    },
+    "/v1/actors/adoption": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AdoptionCreationRequest-actor-enrichment-service"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Actor adoption created",
+            "schema": {
+              "$ref": "#/definitions/AdoptionResponse-actor-enrichment-service"
+            }
+          },
+          "400": {
+            "description": "A bad request error stating the failure reason",
+            "schema": {
+              "$ref": "#/definitions/AdoptionError-actor-enrichment-service"
+            }
+          },
+          "403": {
+            "description": "Actor adoption not authorized"
+          },
+          "404": {
+            "description": "Actor not found",
+            "schema": {
+              "$ref": "#/definitions/ActorNotFoundError-actor-enrichment-service"
+            }
+          },
+          "413": {
+            "description": "Payload Too Large"
+          }
+        },
+        "tags": [
+          "Actors"
+        ],
+        "operationId": "addParent",
+        "summary": "Creates adoption between an Actor and a requested parent by the actor's actorId and the parent's actorId."
+      }
+    },
+    "/v1/actors/adoption/{childActorId}": {
+      "delete": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "childActorId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Actor adoption deleted"
+          },
+          "400": {
+            "description": "Actor adoption deletion not executed",
+            "schema": {
+              "$ref": "#/definitions/AdoptionError-actor-enrichment-service"
+            }
+          },
+          "403": {
+            "description": "Actor adoption deletion not authorized"
+          },
+          "404": {
+            "description": "Actor not found"
+          },
+          "413": {
+            "description": "Payload Too Large"
+          }
+        },
+        "tags": [
+          "Actors"
+        ],
+        "operationId": "removeParent",
+        "summary": "Removes adoption from a child Actor by the actor's actorId."
       }
     },
     "/v1/audit/export": {
@@ -10623,7 +10613,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-09-27T12:05:47.2697352Z"
+              "example": "2023-09-27T16:12:04.3532599Z"
             },
             "createdBy": {
               "type": "string",
@@ -10634,7 +10624,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-09-27T12:05:47.2697611Z"
+              "example": "2023-09-27T16:12:04.3532821Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -10691,7 +10681,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "57ec9a65-89e7-472f-b682-9a5fcb324963"
+              "example": "73cca855-c923-40ff-9af1-14aecfd7ab72"
             }
           }
         }
@@ -11365,7 +11355,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "7cc43b64-2ef0-4861-b639-3f7c0a8aceea"
+          "example": "bfba0edf-5689-49fe-8eff-e9800042777f"
         },
         "aliases": {
           "type": "array",
@@ -11389,7 +11379,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "0ce8210e-8c96-481e-ae9b-3b043d76b858"
+          "example": "ea806fb9-33c4-49f4-8daa-8c3429d4e472"
         },
         "users": {
           "type": "array",
@@ -12748,6 +12738,126 @@
         }
       },
       "additionalProperties": false
+    },
+    "ActorNotFoundError-actor-enrichment-service": {
+      "properties": {
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "type": "object"
+    },
+    "ActorResponse-actor-enrichment-service": {
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "actorId": {
+          "type": "string"
+        },
+        "alternateNames": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "country": {
+          "type": "string"
+        },
+        "department": {
+          "type": "string"
+        },
+        "division": {
+          "type": "string"
+        },
+        "employeeType": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "inScope": {
+          "type": "boolean"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "locality": {
+          "type": "string"
+        },
+        "managerActorId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "parentActorId": {
+          "type": "string"
+        },
+        "region": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "active",
+        "actorId",
+        "alternateNames",
+        "inScope",
+        "name"
+      ],
+      "type": "object"
+    },
+    "AdoptionCreationRequest-actor-enrichment-service": {
+      "properties": {
+        "childActorId": {
+          "type": "string"
+        },
+        "parentActorId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "childActorId",
+        "parentActorId"
+      ],
+      "type": "object"
+    },
+    "AdoptionError-actor-enrichment-service": {
+      "properties": {
+        "reason": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "reason"
+      ],
+      "type": "object"
+    },
+    "AdoptionResponse-actor-enrichment-service": {
+      "properties": {
+        "childActorIds": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "uniqueItems": true
+        },
+        "parentActorId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "childActorIds",
+        "parentActorId"
+      ],
+      "type": "object"
     },
     "DateRange": {
       "description": "Finds events whose timestamp is within the given range, inclusive of endpoints.",
