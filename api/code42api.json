@@ -139,7 +139,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "1a21ef8d-e98e-4ed7-9a97-cf655e616e8f"
+            "example": "e9365046-2e1b-4b90-ab20-415f540378c4"
           }
         ],
         "responses": {
@@ -223,7 +223,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "65a06df4-fbac-47d6-b2d2-d50e8de6b963"
+            "example": "f1725416-c201-43ba-a544-28bdf9a33a87"
           }
         ],
         "responses": {
@@ -252,7 +252,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "71a284fc-f0a9-402b-9ac9-50c8012bf12d"
+                "f83ccc8d-c083-435d-8cd5-516230bc59f3"
               ],
               "items": {
                 "type": "string"
@@ -286,7 +286,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "fddcb0cd-3590-48e7-ab2c-1aa9a7109234"
+            "example": "899702f1-88df-480a-8136-db12006f91e6"
           }
         ],
         "responses": {
@@ -315,7 +315,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "677418f4-e419-4234-8d46-06bf769705b0"
+                "0e3483a8-4164-4df2-a397-c557c2ecea5e"
               ],
               "items": {
                 "type": "string"
@@ -350,7 +350,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "e9d3648e-34eb-4d8b-b722-7f62b7c08b56"
+            "example": "3a2b657d-80af-46bc-b51d-5ec390e8c5bb"
           }
         ],
         "responses": {
@@ -377,7 +377,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ff4360fc-b30f-40a9-be2b-d759c4f5fe9c"
+            "example": "71aa1738-694b-45d6-a6e0-ec5b35643dc7"
           }
         ],
         "responses": {
@@ -1617,6 +1617,7 @@
         "tags": [
           "User Risk Profiles"
         ],
+        "deprecated": true,
         "operationId": "AddCloudAliases",
         "summary": "Add cloud aliases to a user risk profile"
       }
@@ -1657,6 +1658,7 @@
         "tags": [
           "User Risk Profiles"
         ],
+        "deprecated": true,
         "operationId": "DeleteCloudAliases",
         "summary": "Delete cloud aliases from a user risk profile"
       }
@@ -5207,7 +5209,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-10-04T12:05:42.8866244Z"
+              "example": "2023-10-05T00:12:22.2387746Z"
             },
             "createdBy": {
               "type": "string",
@@ -5218,7 +5220,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-10-04T12:05:42.8866468Z"
+              "example": "2023-10-05T00:12:22.2387977Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -5275,7 +5277,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "0b3785b7-5eff-4612-be05-22a3cccc1eeb"
+              "example": "d88888e6-e55a-4366-98db-03e94ddcae9b"
             }
           }
         }
@@ -5949,7 +5951,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "0a02a858-ebc0-4a99-b16f-9c93fb82dbfe"
+          "example": "d2ae72c6-9784-4c7a-a194-12a26f57601d"
         },
         "aliases": {
           "type": "array",
@@ -5973,7 +5975,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "9fddac1a-bf69-4fa8-abd1-35b7853e4acf"
+          "example": "1c31ab80-8618-4159-876d-d216d092bb5b"
         },
         "users": {
           "type": "array",
@@ -7622,7 +7624,7 @@
         },
         "userId": {
           "description": "The ID of the user to add cloud aliases.",
-          "example": "123",
+          "example": 123,
           "type": "string"
         }
       },
@@ -7683,7 +7685,7 @@
         },
         "watchlistId": {
           "description": "A unique watchlist ID.",
-          "example": "123",
+          "example": 123,
           "type": "string"
         }
       },
@@ -7718,17 +7720,17 @@
       "additionalProperties": false,
       "properties": {
         "day": {
-          "description": "Day of month. Must be from 1 to 31 and valid for the year and month, or 0\n if specifying a year by itself or a year and month where the day is not\n significant.",
+          "description": "Day of month. Must be from 1 to 31 and valid for the year and month, or 0 if specifying a year by itself or a year and month where the day is not significant.",
           "format": "int32",
           "type": "integer"
         },
         "month": {
-          "description": "Month of year. Must be from 1 to 12, or 0 if specifying a year without a\n month and day.",
+          "description": "Month of year. Must be from 1 to 12, or 0 if specifying a year without a month and day.",
           "format": "int32",
           "type": "integer"
         },
         "year": {
-          "description": "Year of date. Must be from 1 to 9999, or 0 if specifying a date without\n a year.",
+          "description": "Year of date. Must be from 1 to 9999, or 0 if specifying a date without a year.",
           "format": "int32",
           "type": "integer"
         }
@@ -7746,7 +7748,7 @@
         },
         "userId": {
           "description": "The ID of the user to delete cloud aliases.",
-          "example": "123",
+          "example": 123,
           "type": "string"
         }
       },
@@ -7807,7 +7809,7 @@
         },
         "watchlistId": {
           "description": "A unique watchlist ID.",
-          "example": "123",
+          "example": 123,
           "type": "string"
         }
       },
@@ -7818,7 +7820,7 @@
       "properties": {
         "groupId": {
           "description": "A unique group ID.",
-          "example": "23",
+          "example": 23,
           "type": "string"
         },
         "name": {
@@ -7837,7 +7839,7 @@
         },
         "userId": {
           "description": "A unique user ID.",
-          "example": "23",
+          "example": 23,
           "type": "string"
         },
         "username": {
@@ -7876,7 +7878,7 @@
         },
         "groupId": {
           "description": "A unique group ID.",
-          "example": "23",
+          "example": 23,
           "type": "string"
         },
         "isDeleted": {
@@ -7902,7 +7904,7 @@
         },
         "userId": {
           "description": "A unique user ID.",
-          "example": "23",
+          "example": 23,
           "type": "string"
         },
         "username": {
@@ -8009,7 +8011,7 @@
       "additionalProperties": false,
       "properties": {
         "includedUsers": {
-          "description": "A paged collection of users explictly added as included users for a watchlist.",
+          "description": "A paged collection of users explictly added as included users for the list.",
           "items": {
             "$ref": "#/definitions/IncludedUser"
           },
@@ -8079,6 +8081,13 @@
         }
       },
       "type": "object"
+    },
+    "SortDirection": {
+      "enum": [
+        "ASC",
+        "DESC"
+      ],
+      "type": "string"
     },
     "UpdatedUserRiskProfile": {
       "additionalProperties": false,
@@ -8251,7 +8260,7 @@
         },
         "userId": {
           "description": "A unique user ID.",
-          "example": "23",
+          "example": 23,
           "type": "string"
         },
         "username": {
