@@ -139,7 +139,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "2034796d-f922-4d19-bec9-bc0adc317360"
+            "example": "aa87856d-92cd-471e-8695-2515824c454e"
           }
         ],
         "responses": {
@@ -223,7 +223,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "e20c52fd-6064-4d6a-9a14-9a71caac0594"
+            "example": "35811199-ea23-460c-affd-3ef5158cf35a"
           }
         ],
         "responses": {
@@ -252,7 +252,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "ec5b5842-857f-4193-b564-3d2f300c8d71"
+                "337cea68-b7ce-465c-b1b9-dad59a092c8a"
               ],
               "items": {
                 "type": "string"
@@ -286,7 +286,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "1331d7db-6820-439b-a91e-a0bf70fcfc92"
+            "example": "55dafcf1-5590-4685-ae24-de17dc4127af"
           }
         ],
         "responses": {
@@ -315,7 +315,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "5f022d27-c07e-406c-aa34-a79d0da20b41"
+                "e43f292f-3385-40bd-9aa2-e130f663a6f9"
               ],
               "items": {
                 "type": "string"
@@ -350,7 +350,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "d9750300-2110-4c14-adc3-411932498056"
+            "example": "fb8cc196-59fc-4f81-b552-baf28d313b87"
           }
         ],
         "responses": {
@@ -377,7 +377,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "05dabb86-76f7-4daf-932f-dcb2a0c295cb"
+            "example": "b2d9f200-4966-4de5-8c2c-810525e1a181"
           }
         ],
         "responses": {
@@ -718,7 +718,7 @@
         "deprecated": true
       }
     },
-    "/v1/actors/actor/{actorId}": {
+    "/v1/actors/actor/id/{actorId}": {
       "get": {
         "produces": [
           "application/json"
@@ -747,10 +747,10 @@
           "Actors"
         ],
         "operationId": "getByActorId",
-        "summary": "Retrieve information about an Actor by its actorId."
+        "summary": "Retrieve information about an actor by actorId"
       }
     },
-    "/v1/actors/actor/{actorId}/parent": {
+    "/v1/actors/actor/id/{actorId}/parent": {
       "get": {
         "produces": [
           "application/json"
@@ -777,8 +777,48 @@
         "tags": [
           "Actors"
         ],
+        "description": "Retrieve information about an actor's parent (or the actor themselves if they have no parent) by their actorId.",
         "operationId": "getParentByActorId",
-        "summary": "Retrieve information about an Actor (or its parent) by the actor's actorId."
+        "summary": "Retrieve information about an actor's parent by actorId"
+      }
+    },
+    "/v1/actors/actor/name/{name}/parent": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Name of the actor to search for.",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Actor (or parent) found and retrieved",
+            "schema": {
+              "$ref": "#/definitions/ActorResponse-actor-enrichment-service"
+            }
+          },
+          "404": {
+            "description": "Actor not found"
+          },
+          "409": {
+            "description": "Multiple actors found lacking adoption, but adjustments were made and calling this API again may produce different results"
+          },
+          "500": {
+            "description": "There was a problem locating the actor"
+          }
+        },
+        "tags": [
+          "Actors"
+        ],
+        "description": "Retrieve information about an actor's parent (or the actor themselves if they have no parent) by their name.",
+        "operationId": "getActorOrParentByName",
+        "summary": "Retrieve information about an actor's parent by name"
       }
     },
     "/v1/actors/adoption": {
@@ -825,8 +865,9 @@
         "tags": [
           "Actors"
         ],
+        "description": "Creates adoption between an actor and a requested parent by the actor's actorId and the parent's actorId.",
         "operationId": "addParent",
-        "summary": "Creates adoption between an Actor and a requested parent by the actor's actorId and the parent's actorId."
+        "summary": "Make one actor adopt another actor"
       }
     },
     "/v1/actors/adoption/{childActorId}": {
@@ -863,7 +904,7 @@
           "Actors"
         ],
         "operationId": "removeParent",
-        "summary": "Removes adoption from a child Actor by the actor's actorId."
+        "summary": "Remove adoption between two actors"
       }
     },
     "/v2/trusted-activities": {
@@ -5209,7 +5250,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-10-12T12:05:33.0330517Z"
+              "example": "2023-10-13T00:12:49.0934331Z"
             },
             "createdBy": {
               "type": "string",
@@ -5220,7 +5261,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-10-12T12:05:33.0330783Z"
+              "example": "2023-10-13T00:12:49.0934625Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -5277,7 +5318,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "de484b4b-c98c-4e6d-aff4-b3c8016eb256"
+              "example": "ca86aee1-618b-49af-b46d-890b0f1c5537"
             }
           }
         }
@@ -5951,7 +5992,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "2aa21631-2831-4080-b57f-ac70c9dd8470"
+          "example": "ebfdbdd0-9446-475f-a83a-d73edd8dc14b"
         },
         "aliases": {
           "type": "array",
@@ -5975,7 +6016,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "18970458-8104-4307-9f7d-c286b171cba6"
+          "example": "24ac1350-4625-45db-8981-37d5a03af08c"
         },
         "users": {
           "type": "array",
