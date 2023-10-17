@@ -139,7 +139,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "8622946c-9235-440a-bdd0-f2af24b40ee0"
+            "example": "d0b71341-ae7e-4b0a-8bfd-47ab7384481d"
           }
         ],
         "responses": {
@@ -223,7 +223,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6262972f-1c0d-460c-9948-b135b1faeae2"
+            "example": "77949124-532d-4519-b1c5-2a05fc5dd7f5"
           }
         ],
         "responses": {
@@ -252,7 +252,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "33343cab-d66c-4170-b73b-786fd295fb71"
+                "45ccd32e-0fba-4cce-870d-e8c1ae3a10f9"
               ],
               "items": {
                 "type": "string"
@@ -286,7 +286,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ba07d9eb-1aa3-42f5-8a30-14a6d08c77b1"
+            "example": "197223d5-de76-4b95-b599-4a71b65a8b11"
           }
         ],
         "responses": {
@@ -315,7 +315,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "65a018f8-2840-4f50-b1b6-c1a220e9f7c6"
+                "a9650524-d4e0-4de8-98c7-edf2a2acb09e"
               ],
               "items": {
                 "type": "string"
@@ -350,7 +350,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "877b3a6a-9282-4401-a249-99a46d2fc815"
+            "example": "b75a4958-dad1-458b-a654-5ae9d6851511"
           }
         ],
         "responses": {
@@ -377,7 +377,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "2ed977b4-3e1c-4226-b467-58ad68676338"
+            "example": "711d2737-c547-4d17-847b-794e934b1b9c"
           }
         ],
         "responses": {
@@ -747,7 +747,7 @@
           "Actors"
         ],
         "operationId": "getByActorId",
-        "summary": "Retrieve information about an actor by actorId"
+        "summary": "Get actor by actorId"
       }
     },
     "/v1/actors/actor/id/{actorId}/parent": {
@@ -779,7 +779,7 @@
         ],
         "description": "Retrieve information about an actor's parent (or the actor themselves if they have no parent) by their actorId.",
         "operationId": "getParentByActorId",
-        "summary": "Retrieve information about an actor's parent by actorId"
+        "summary": "Get actor by actorId, preferring their parent"
       }
     },
     "/v1/actors/actor/name/{name}/parent": {
@@ -818,7 +818,7 @@
         ],
         "description": "Retrieve information about an actor's parent (or the actor themselves if they have no parent) by their name.",
         "operationId": "getActorOrParentByName",
-        "summary": "Retrieve information about an actor's parent by name"
+        "summary": "Get actor by name, preferring their parent"
       }
     },
     "/v1/actors/adoption": {
@@ -867,7 +867,7 @@
         ],
         "description": "Creates adoption between an actor and a requested parent by the actor's actorId and the parent's actorId.",
         "operationId": "addParent",
-        "summary": "Make one actor adopt another actor"
+        "summary": "Make one actor adopt another"
       }
     },
     "/v1/actors/adoption/{childActorId}": {
@@ -903,6 +903,7 @@
         "tags": [
           "Actors"
         ],
+        "description": "Remove the adoption between two actors by removing the parent of a child actor.",
         "operationId": "removeParent",
         "summary": "Remove adoption between two actors"
       }
@@ -5250,7 +5251,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-10-16T12:05:44.1620237Z"
+              "example": "2023-10-17T00:12:40.437131Z"
             },
             "createdBy": {
               "type": "string",
@@ -5261,7 +5262,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-10-16T12:05:44.1620565Z"
+              "example": "2023-10-17T00:12:40.4371526Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -5318,7 +5319,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "115f06b1-bfa7-4a14-8fe1-e3b94cfa6ad1"
+              "example": "77f42ac2-b021-4c16-b8b0-f1f0c14b3a9f"
             }
           }
         }
@@ -5992,7 +5993,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "299b1056-09c9-431e-b248-ac36bbb27e6e"
+          "example": "a1e3693d-1149-4681-b3eb-e8cef7f83443"
         },
         "aliases": {
           "type": "array",
@@ -6016,7 +6017,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "09fe8283-d17f-47ea-94b8-5ac3603c3fb8"
+          "example": "2d174462-6f9e-4a9b-8ece-6fd75c517e88"
         },
         "users": {
           "type": "array",
