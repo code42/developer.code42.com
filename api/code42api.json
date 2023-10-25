@@ -510,7 +510,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "281bdde8-c957-42c3-bb06-cc3cbbe152eb"
+            "example": "5dc37b18-6309-4023-813d-d969b5878521"
           }
         ],
         "responses": {
@@ -594,7 +594,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "f10459a5-0db2-457b-b758-b69fa180ead8"
+            "example": "704557dc-7bdb-4b30-8a1e-6149c9c29ff4"
           }
         ],
         "responses": {
@@ -623,7 +623,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "acbbabdc-7cc6-4c87-98df-092efa2778dd"
+                "876f262b-9b85-497c-ae75-4ffc602d818c"
               ],
               "items": {
                 "type": "string"
@@ -657,7 +657,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "590c049b-ff28-4b28-acb8-7c214e88efd0"
+            "example": "c4bdba95-f0f3-48b4-b5d9-c27b4bee2863"
           }
         ],
         "responses": {
@@ -686,7 +686,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "16b19260-b5f4-4ba8-a44e-d928db2baddc"
+                "032de8a2-4c54-40fa-b368-4c133f0503f9"
               ],
               "items": {
                 "type": "string"
@@ -721,7 +721,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "259045a3-0cfd-40e5-8a68-7faa35ac9c87"
+            "example": "f086f527-9af2-4113-9980-df6411f5b7ff"
           }
         ],
         "responses": {
@@ -748,7 +748,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "983e7895-b279-4cf0-bccc-f3f20ac252cb"
+            "example": "cd05cb6c-4b5f-4eb3-a4e9-9b3b91e9da80"
           }
         ],
         "responses": {
@@ -2293,6 +2293,42 @@
         "summary": "Get actor by actorId"
       }
     },
+    "/v1/actors/actor/id/{actorId}/family": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "ActorId of any actor in the family to be retrieved",
+            "in": "path",
+            "name": "actorId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Actor family found and retrieved",
+            "schema": {
+              "$ref": "#/definitions/ActorFamilyResponse-actor-enrichment-service"
+            }
+          },
+          "404": {
+            "description": "Actor or family not found"
+          },
+          "500": {
+            "description": "There was a problem locating the actor family"
+          }
+        },
+        "tags": [
+          "actor-family-api-controller"
+        ],
+        "description": "Obtain the entire family of actors that has at least one member with the provided actorId.",
+        "operationId": "getFamilyByActorIdOfMember",
+        "summary": "Get family from any member's actorId"
+      }
+    },
     "/v1/actors/actor/id/{actorId}/parent": {
       "get": {
         "produces": [
@@ -2323,6 +2359,45 @@
         "description": "Retrieve information about an actor's parent (or the actor themselves if they have no parent) by their actorId.",
         "operationId": "getParentByActorId",
         "summary": "Get actor by actorId, preferring their parent"
+      }
+    },
+    "/v1/actors/actor/name/{name}/family": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Name of any actor in the family to be retrieved",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Actor family found and retrieved",
+            "schema": {
+              "$ref": "#/definitions/ActorFamilyResponse-actor-enrichment-service"
+            }
+          },
+          "404": {
+            "description": "Actor or family not found"
+          },
+          "409": {
+            "description": "Multiple actors found lacking adoption, but adjustments were made and calling this API again may produce different results"
+          },
+          "500": {
+            "description": "There was a problem locating the actor family"
+          }
+        },
+        "tags": [
+          "actor-family-api-controller"
+        ],
+        "description": "Obtain the entire family of actors that has at least one member with the provided name.",
+        "operationId": "getFamilyByNameOfMember",
+        "summary": "Get family from any member's name"
       }
     },
     "/v1/actors/actor/name/{name}/parent": {
@@ -2406,7 +2481,7 @@
           }
         },
         "tags": [
-          "Actors"
+          "adoption-api-controller"
         ],
         "description": "Creates adoption between an actor and a requested parent by the actor's actorId and the parent's actorId.",
         "operationId": "addParent",
@@ -2444,7 +2519,7 @@
           }
         },
         "tags": [
-          "Actors"
+          "adoption-api-controller"
         ],
         "description": "Remove the adoption between two actors by removing the parent of a child actor.",
         "operationId": "removeParent",
@@ -9516,7 +9591,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-10-24T12:05:18.5318497Z"
+              "example": "2023-10-25T00:12:24.6109085Z"
             },
             "createdBy": {
               "type": "string",
@@ -9527,7 +9602,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-10-24T12:05:18.5318806Z"
+              "example": "2023-10-25T00:12:24.6109309Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -9584,7 +9659,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "b1789476-74e7-4655-b072-dc27d19a4948"
+              "example": "1b54b966-b1ca-4a2b-803e-4230b49ed7fd"
             }
           }
         }
@@ -10258,7 +10333,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "8734e2cd-c90a-4ce5-86ea-9b1838313431"
+          "example": "ef85549a-a4bd-4259-b1a6-e90a81217c8b"
         },
         "aliases": {
           "type": "array",
@@ -10282,7 +10357,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "41ab3f27-992d-47cc-9c01-005c44ed7886"
+          "example": "48d227ad-0b1c-434d-8299-ee7c7783c5dd"
         },
         "users": {
           "type": "array",
@@ -10977,6 +11052,24 @@
         "CUSTOM"
       ],
       "type": "string"
+    },
+    "ActorFamilyResponse-actor-enrichment-service": {
+      "properties": {
+        "children": {
+          "items": {
+            "$ref": "#/definitions/ActorResponse-actor-enrichment-service"
+          },
+          "type": "array"
+        },
+        "parent": {
+          "$ref": "#/definitions/ActorResponse-actor-enrichment-service"
+        }
+      },
+      "required": [
+        "children",
+        "parent"
+      ],
+      "type": "object"
     },
     "ActorNotFoundError-actor-enrichment-service": {
       "properties": {
