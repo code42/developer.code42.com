@@ -139,7 +139,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "69da7a96-40ee-478d-b866-f85e375cac11"
+            "example": "94452a4d-8c5b-4930-bf69-093de44482eb"
           }
         ],
         "responses": {
@@ -223,7 +223,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "1debf5c3-5d8f-4927-9b21-8395f44cf732"
+            "example": "53f2e239-41e2-4f2e-83ff-3cb05704fa0f"
           }
         ],
         "responses": {
@@ -252,7 +252,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "aa1c7a44-57d0-43f1-b82d-4d8a7ae53e69"
+                "553e7328-348a-4033-b380-f17dd4a7050a"
               ],
               "items": {
                 "type": "string"
@@ -286,7 +286,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "4d6d388a-68be-4d51-ba28-342c24f0815a"
+            "example": "f0233f09-dba2-489b-8dfc-f8e11f47be02"
           }
         ],
         "responses": {
@@ -315,7 +315,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "ecbaaf05-0585-4d33-b67d-05ebec4e84c7"
+                "d847edae-d15b-4cca-b48c-3460aecf86e6"
               ],
               "items": {
                 "type": "string"
@@ -350,7 +350,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "6128334a-ace7-4d33-85f6-5deb7cce6d11"
+            "example": "a5dd6964-e291-4e18-802c-30dfc53e2462"
           }
         ],
         "responses": {
@@ -377,7 +377,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "8a52830d-9351-4b31-98c9-484faa43366d"
+            "example": "ec6cb297-a396-46c7-bd2a-f28378d60145"
           }
         ],
         "responses": {
@@ -5133,7 +5133,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2023-11-28T12:05:30.2431227Z"
+              "example": "2023-11-29T00:13:26.1817231Z"
             },
             "createdBy": {
               "type": "string",
@@ -5144,7 +5144,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2023-11-28T12:05:30.2431435Z"
+              "example": "2023-11-29T00:13:26.1817436Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -5201,7 +5201,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "135456be-57f2-4ece-a5e5-741c1f4ae5f6"
+              "example": "5209066f-2f19-41bc-8ebd-5fb18dec7454"
             }
           }
         }
@@ -5875,7 +5875,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "2ab50b0f-dc9d-4e97-9769-ae93ef265e1a"
+          "example": "3eb5fa53-82b3-4b8b-812a-ce289da884b6"
         },
         "aliases": {
           "type": "array",
@@ -5899,7 +5899,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "54b125e8-1385-4000-a257-78604dc2248b"
+          "example": "2541d9f1-9e78-4271-9eaa-b7270cccf712"
         },
         "users": {
           "type": "array",
@@ -11630,10 +11630,6 @@
           "x-nullable": true
         },
         "reportType": {
-          "enum": [
-            "REPORT_TYPE_AD_HOC",
-            "REPORT_TYPE_SAVED"
-          ],
           "example": "REPORT_TYPE_SAVED",
           "title": "Indicates if the report is \"REPORT_TYPE_AD_HOC\" or \"REPORT_TYPE_SAVED\".",
           "type": "string",
@@ -12588,10 +12584,6 @@
           "x-nullable": true
         },
         "type": {
-          "enum": [
-            "REPORT_TYPE_AD_HOC",
-            "REPORT_TYPE_SAVED"
-          ],
           "example": "REPORT_TYPE_SAVED",
           "title": "Indicates if the report is \"REPORT_TYPE_AD_HOC\" or \"REPORT_TYPE_SAVED\".",
           "type": "string",
