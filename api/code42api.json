@@ -139,7 +139,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "4494b557-4bd3-42e9-8506-35a414106a85"
+            "example": "968c0aac-e8a8-48fc-ac90-d30a0bc891bd"
           }
         ],
         "responses": {
@@ -223,7 +223,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "9efabc59-23ab-4d9b-b4b9-070ac55b25c0"
+            "example": "e8342907-74bc-4177-bb3a-4ec5e9c9ecde"
           }
         ],
         "responses": {
@@ -252,7 +252,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "9f50e977-2ea6-4e7e-9fc8-2157f1f04abd"
+                "09da8307-c8c5-4ff0-aa35-7152770dac8b"
               ],
               "items": {
                 "type": "string"
@@ -286,7 +286,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "16a0a408-6240-48b4-82fb-ed22082fe508"
+            "example": "1757dc56-4760-4ff7-9832-c624c74cfef1"
           }
         ],
         "responses": {
@@ -315,7 +315,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "ae20152a-2e43-4893-a4a2-bce18c3a8596"
+                "a0a41cae-05fc-488d-9ef5-132dd83e4773"
               ],
               "items": {
                 "type": "string"
@@ -350,7 +350,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "499d768d-7247-4930-b182-367eb86041ba"
+            "example": "9782d0f0-b94e-4a78-980d-3ffa3181cd4a"
           }
         ],
         "responses": {
@@ -377,7 +377,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "e8e254a0-76df-4bb1-aa21-55a01ac48eaa"
+            "example": "02138b15-4be1-4a30-8690-102c13bd5156"
           }
         ],
         "responses": {
@@ -4656,6 +4656,141 @@
         "summary": "Get actor by name, preferring their parent"
       }
     },
+    "/v1/actors/actor/search": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Find actors whose name (e.g. username/email) starts with this text, ignoring case.",
+            "in": "query",
+            "name": "nameStartsWith",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Find actors whose name (e.g. username/email) ends with this text, ignoring case.",
+            "in": "query",
+            "name": "nameEndsWith",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Find actors with the given active state.",
+            "in": "query",
+            "name": "active",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "default": 100,
+            "description": "The maximum number of results to return. Must be between 1 and 500.",
+            "format": "int32",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 1,
+            "description": "The page number of the result set to return. Page numbers start at 1.",
+            "format": "int32",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of the matching actors",
+            "schema": {
+              "$ref": "#/definitions/ActorsSearchResponse-actor-enrichment-service"
+            }
+          },
+          "400": {
+            "description": "A bad request error stating the failure reason",
+            "schema": {
+              "$ref": "#/definitions/ActorSearchProblemResponse-actor-enrichment-service"
+            }
+          }
+        },
+        "tags": [
+          "Actors"
+        ],
+        "operationId": "actorSearch",
+        "summary": "Get actors by criteria"
+      }
+    },
+    "/v1/actors/actor/search/parent": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Find actors whose name (e.g. username/email) starts with this text, ignoring case.",
+            "in": "query",
+            "name": "nameStartsWith",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Find actors whose name (e.g. username/email) ends with this text, ignoring case.",
+            "in": "query",
+            "name": "nameEndsWith",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "description": "Find actors with the given active state.",
+            "in": "query",
+            "name": "active",
+            "required": false,
+            "type": "boolean"
+          },
+          {
+            "default": 100,
+            "description": "The maximum number of results to return. Must be between 1 and 500.",
+            "format": "int32",
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "default": 1,
+            "description": "The page number of the result set to return. Page numbers start at 1.",
+            "format": "int32",
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A list of the matching actors",
+            "schema": {
+              "$ref": "#/definitions/ActorsSearchResponse-actor-enrichment-service"
+            }
+          },
+          "400": {
+            "description": "A bad request error stating the failure reason",
+            "schema": {
+              "$ref": "#/definitions/ActorSearchProblemResponse-actor-enrichment-service"
+            }
+          }
+        },
+        "tags": [
+          "Actors"
+        ],
+        "description": "Find parent actors (or the actor themselves if they have no parent) by the provided criteria.",
+        "operationId": "actorSearchFollowingAdoption",
+        "summary": "Get actors by criteria, preferring their parent"
+      }
+    },
     "/v1/actors/adoption": {
       "post": {
         "consumes": [
@@ -5133,7 +5268,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-01-11T12:05:22.0867897Z"
+              "example": "2024-01-12T00:13:10.591821Z"
             },
             "createdBy": {
               "type": "string",
@@ -5144,7 +5279,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-01-11T12:05:22.0868152Z"
+              "example": "2024-01-12T00:13:10.5918439Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -5201,7 +5336,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "9f3514ab-5933-4b76-83e0-4d0eb495dd9f"
+              "example": "765486cd-1271-477e-899e-dd0e520c1c68"
             }
           }
         }
@@ -5875,7 +6010,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "35b69c99-f89d-403a-8c6f-938281dedd0c"
+          "example": "51ba45d3-e009-4417-a160-2dc0114438ba"
         },
         "aliases": {
           "type": "array",
@@ -5899,7 +6034,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "bcf34757-1a86-473c-a094-9ef3270c505b"
+          "example": "c71bce74-0aa3-432e-bf84-eb4cf7018046"
         },
         "users": {
           "type": "array",
@@ -11370,6 +11505,58 @@
         "alternateNames",
         "inScope",
         "name"
+      ],
+      "type": "object"
+    },
+    "ActorSearchProblemResponse-actor-enrichment-service": {
+      "properties": {
+        "problem": {
+          "enum": [
+            "PAGE_SIZE_TOO_SMALL",
+            "PAGE_SIZE_TOO_LARGE",
+            "PAGE_TOO_SMALL"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "problem"
+      ],
+      "type": "object"
+    },
+    "ActorSearchResponse-actor-enrichment-service": {
+      "properties": {
+        "active": {
+          "type": "boolean"
+        },
+        "actorId": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "parentActorId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "active",
+        "actorId",
+        "name"
+      ],
+      "type": "object"
+    },
+    "ActorsSearchResponse-actor-enrichment-service": {
+      "properties": {
+        "actors": {
+          "items": {
+            "$ref": "#/definitions/ActorSearchResponse-actor-enrichment-service"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "actors"
       ],
       "type": "object"
     },
