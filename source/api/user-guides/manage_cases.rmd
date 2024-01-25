@@ -5,7 +5,7 @@ Typically, a security analyst will create a case based on an investigation that 
 
 ### Create a case
 
-When you create a case, you include a name for the case and any other information needed, such as the user UID of the person whom the case is about, the user UID of the person assigned to work on the case, a description of the case, and a summary of the findings. By default, when you create a case, its status is "open".
+When you create a case, you include a name for the case and any other information needed, such as the actor ID of the person whom the case is about, the user UID of the person assigned to work on the case, a description of the case, and a summary of the findings. By default, when you create a case, its status is "open".
 
 The following example demonstrates how to create a case with the [/v1/cases](/api#operation/createCaseUsingPOST) API.
 
@@ -13,13 +13,13 @@ The following example demonstrates how to create a case with the [/v1/cases](/ap
 curl -X POST <requestURL>/v1/cases \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>"" \
--d '{"assignee": "<userUID-of-assignee>", "description": "<description>", "findings": "<findings>", "name": "<name-of-case>", "subject": "<userUID-of-subject>" }'
+-d '{"assignee": "<userUID-of-assignee>", "description": "<description>", "findings": "<findings>", "name": "<name-of-case>", "subject": "<actorID-of-subject>" }'
 ```
 
 In the preceding example:
 
 * Replace `<userUID-of-assignee>` with the user UID of the person assigned to take the case.
-* Replace `<userUID-of-subject>` with the user UID of the person the case is about.
+* Replace `<actorID-of-subject>` with the actor ID of the person the case is about.
 
 ### Download case summary as a PDF
 

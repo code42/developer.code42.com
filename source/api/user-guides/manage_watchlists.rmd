@@ -1,36 +1,36 @@
 ## Manage watchlists
 
-### Add a user to a watchlist
+### Add an actor to a watchlist
 
-The following example demonstrates how to add a user to a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/add](/api#operation/AddIncludedUsers) API. To add multiple users, submit a comma-delimited list to the UserIds parameter.
+The following example demonstrates how to add a user to a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/add](/api#operation/AddIncludedUsers) API. To add multiple users, submit a comma-delimited list of actor IDs to the UserIds parameter.
 
 ```bash
 curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/add \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>" \
--d '{"userIds": ["<userUID>"]}'
+-d '{"userIds": ["<actorID>"]}'
 ```
 
 In the preceding example:
 
 * Replace `<watchlist_id>` with the watchlist ID obtained from the  [watchlists](api/#operation/ListWatchlists) API.
-* Replace `<userID>` with a list of user UIDs.
+* Replace `<actorID>` with a list of actor IDs.
 
-### Remove a user from a watchlist
+### Remove an actor from a watchlist
 
-The following example demonstrates how to remove a user from a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/delete](/api#operation/DeleteIncludedUsers) API. To remove multiple users, submit a comma-delimited list to the UserIds parameter.
+The following example demonstrates how to remove an actor from a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/delete](/api#operation/DeleteIncludedUsers) API. To remove multiple actors, submit a comma-delimited list to the UserIds parameter.
 
 ```bash
 curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/delete \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>" \
--d '{"userIds": ["<userUID>"]}'
+-d '{"userIds": ["<actorID>"]}'
 ```
 
 In the preceding example:
 
 * Replace `<watchlist_id>` with the watchlist ID obtained from the  [watchlists](api/#operation/ListWatchlists) API.
-* Replace `<userUIDs>` with a list of user UIDs.
+* Replace `<actorID>` with a list of actor IDs.
 
 
 ### Get a user risk profile
@@ -40,10 +40,10 @@ A user's risk profile appears in their watchlist entry, and includes notes about
 The following example demonstrates how to get a risk profile of a user with the [/v1/user-risk-profiles](/api#operation/ListUserRiskProfiles) API.
 
 ```bash
-curl -X GET <requestURL>/v1/user-risk-profiles/<userUID> \
+curl -X GET <requestURL>/v1/user-risk-profiles/<actorID> \
 -H 'content-type: application/json' \
--H "authorization: Bearer <AuthToken>" 
+-H "authorization: Bearer <AuthToken>"
 ```
 
-In the preceding example, replace `<userUID>` with the user's UID.
+In the preceding example, replace `<actorID>` with the actor's ID.
 
