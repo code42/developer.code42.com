@@ -41,6 +41,7 @@ docs::
 	source/api/user-guides/get_started.rmd \
 	source/api/user-guides/manage_alerts.rmd \
 	source/api/user-guides/manage_cases.rmd \
+	source/api/user-guides/manage_actors.rmd \
 	source/api/user-guides/manage_users.rmd \
 	source/api/user-guides/manage_watchlists.rmd \
 	source/api/user-guides/search_file_events.rmd \

@@ -1,10 +1,10 @@
 ## Manage users
 
-The User APIs are useful to get a user's basic information, or to get a quick snapshot of users who are active, inactive, or blocked. 
+The User APIs are useful to get a user's basic information, or to get a quick snapshot of users who are active, inactive, or blocked.
 
 ### Get a list of users
 
-To get a list of specific users, in the username field enter the Code42 usernames in a comma-separated list. To return a list of all users, leave the username field empty. Among other details, the returned results include the user's UID, Code42 username, and organization the user belongs to. 
+To get a list of specific users, in the username field enter the Code42 usernames in a comma-separated list. To return a list of all users, leave the username field empty. Among other details, the returned results include the user's UID, Code42 username, and organization the user belongs to.
 
 The following example demonstrates how to get a list of users using the [/v1/users](/api/#tag/User/paths/~1v1~1users/get) API.
 
@@ -18,7 +18,7 @@ curl -X GET <requestURL>/v1/users \
 
 ### Get a user
 
-You can get information on an individual user that includes the Code42 username, whether the user is active or blocked, and organization the user belongs to, among other things. 
+You can get information on an individual user that includes the Code42 username, whether the user is active or blocked, and organization the user belongs to, among other things.
 
 The following example demonstrates how to get information on a user with the [/v1/users/\<userId\>](/api/#tag/User/paths/~1v1~1users~1{userId}/get) API.
 
@@ -29,5 +29,4 @@ curl -X GET <requestURL>/v1/users/<userUID> \
 ```
 
 In the preceding example, replace `<userUID>` with the user's UID.
-
 

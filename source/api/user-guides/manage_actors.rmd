@@ -1,0 +1,18 @@
+## Manage actors
+
+The Actor APIs are useful to get an actor's basic information. Actors are the identities monitored by Incydr.
+
+### Get an actor
+
+You can get information on an individual actor that includes the name (usually an email address), and attributes about the actor like department and geography.
+
+The following example demonstrates how to get information on a user with the [/v1/actors/actor/name/\<name\>/parent](/api/#tag/Actors/operation/getActorOrParentByName) API.
+
+```bash
+curl -X GET <requestURL>/v1/actors/actor/name/<name>/parent \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>"
+```
+
+In the preceding example, replace `<name>` with the with the actor’s full username/email.
+
