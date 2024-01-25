@@ -371,7 +371,7 @@ Typically, a security analyst will create a case based on an investigation that 
 
 ### Create a case
 
-When you create a case, you include a name for the case and any other information needed, such as the user UID of the person whom the case is about, the user UID of the person assigned to work on the case, a description of the case, and a summary of the findings. By default, when you create a case, its status is "open".
+When you create a case, you include a name for the case and any other information needed, such as the actor ID of the person whom the case is about, the user UID of the person assigned to work on the case, a description of the case, and a summary of the findings. By default, when you create a case, its status is "open".
 
 The following example demonstrates how to create a case with the [/v1/cases](/api#operation/createCaseUsingPOST) API.
 
@@ -379,13 +379,13 @@ The following example demonstrates how to create a case with the [/v1/cases](/ap
 curl -X POST <requestURL>/v1/cases \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>"" \
--d '{"assignee": "<userUID-of-assignee>", "description": "<description>", "findings": "<findings>", "name": "<name-of-case>", "subject": "<userUID-of-subject>" }'
+-d '{"assignee": "<userUID-of-assignee>", "description": "<description>", "findings": "<findings>", "name": "<name-of-case>", "subject": "<actorID-of-subject>" }'
 ```
 
 In the preceding example:
 
 * Replace `<userUID-of-assignee>` with the user UID of the person assigned to take the case.
-* Replace `<userUID-of-subject>` with the user UID of the person the case is about.
+* Replace `<actorID-of-subject>` with the actor ID of the person the case is about.
 
 ### Download case summary as a PDF
 
@@ -431,13 +431,32 @@ curl -X GET '<requestURL>/v1/cases' \
 ```
 
 
+## Manage actors
+
+The Actor APIs are useful to get an actor's basic information. Actors are the identities monitored by Incydr.
+
+### Get an actor
+
+You can get information on an individual actor that includes the name (usually an email address), and attributes about the actor like department and geography.
+
+The following example demonstrates how to get information on a user with the [/v1/actors/actor/name/\<name\>/parent](/api/#tag/Actors/operation/getActorOrParentByName) API.
+
+```bash
+curl -X GET <requestURL>/v1/actors/actor/name/<name>/parent \
+-H 'content-type: application/json' \
+-H "authorization: Bearer <AuthToken>"
+```
+
+In the preceding example, replace `<name>` with the with the actor’s full username/email.
+
+
 ## Manage users
 
-The User APIs are useful to get a user's basic information, or to get a quick snapshot of users who are active, inactive, or blocked. 
+The User APIs are useful to get a user's basic information, or to get a quick snapshot of users who are active, inactive, or blocked.
 
 ### Get a list of users
 
-To get a list of specific users, in the username field enter the Code42 usernames in a comma-separated list. To return a list of all users, leave the username field empty. Among other details, the returned results include the user's UID, Code42 username, and organization the user belongs to. 
+To get a list of specific users, in the username field enter the Code42 usernames in a comma-separated list. To return a list of all users, leave the username field empty. Among other details, the returned results include the user's UID, Code42 username, and organization the user belongs to.
 
 The following example demonstrates how to get a list of users using the [/v1/users](/api/#tag/User/paths/~1v1~1users/get) API.
 
@@ -451,7 +470,7 @@ curl -X GET <requestURL>/v1/users \
 
 ### Get a user
 
-You can get information on an individual user that includes the Code42 username, whether the user is active or blocked, and organization the user belongs to, among other things. 
+You can get information on an individual user that includes the Code42 username, whether the user is active or blocked, and organization the user belongs to, among other things.
 
 The following example demonstrates how to get information on a user with the [/v1/users/\<userId\>](/api/#tag/User/paths/~1v1~1users~1{userId}/get) API.
 
@@ -464,40 +483,39 @@ curl -X GET <requestURL>/v1/users/<userUID> \
 In the preceding example, replace `<userUID>` with the user's UID.
 
 
-
 ## Manage watchlists
 
-### Add a user to a watchlist
+### Add an actor to a watchlist
 
-The following example demonstrates how to add a user to a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/add](/api#operation/AddIncludedUsers) API. To add multiple users, submit a comma-delimited list to the UserIds parameter.
+The following example demonstrates how to add a user to a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/add](/api#operation/AddIncludedUsers) API. To add multiple users, submit a comma-delimited list of actor IDs to the UserIds parameter.
 
 ```bash
 curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/add \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>" \
--d '{"userIds": ["<userUID>"]}'
+-d '{"userIds": ["<actorID>"]}'
 ```
 
 In the preceding example:
 
 * Replace `<watchlist_id>` with the watchlist ID obtained from the  [watchlists](api/#operation/ListWatchlists) API.
-* Replace `<userID>` with a list of user UIDs.
+* Replace `<actorID>` with a list of actor IDs.
 
-### Remove a user from a watchlist
+### Remove an actor from a watchlist
 
-The following example demonstrates how to remove a user from a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/delete](/api#operation/DeleteIncludedUsers) API. To remove multiple users, submit a comma-delimited list to the UserIds parameter.
+The following example demonstrates how to remove an actor from a watchlist using the [/v1/watchlists/\<watchlist_id\>/included-users/delete](/api#operation/DeleteIncludedUsers) API. To remove multiple actors, submit a comma-delimited list to the UserIds parameter.
 
 ```bash
 curl -X POST <requestURL>/v1/watchlists/<watchlist_id>/included-users/delete \
 -H 'content-type: application/json' \
 -H "authorization: Bearer <AuthToken>" \
--d '{"userIds": ["<userUID>"]}'
+-d '{"userIds": ["<actorID>"]}'
 ```
 
 In the preceding example:
 
 * Replace `<watchlist_id>` with the watchlist ID obtained from the  [watchlists](api/#operation/ListWatchlists) API.
-* Replace `<userUIDs>` with a list of user UIDs.
+* Replace `<actorID>` with a list of actor IDs.
 
 
 ### Get a user risk profile
@@ -507,12 +525,12 @@ A user's risk profile appears in their watchlist entry, and includes notes about
 The following example demonstrates how to get a risk profile of a user with the [/v1/user-risk-profiles](/api#operation/ListUserRiskProfiles) API.
 
 ```bash
-curl -X GET <requestURL>/v1/user-risk-profiles/<userUID> \
+curl -X GET <requestURL>/v1/user-risk-profiles/<actorID> \
 -H 'content-type: application/json' \
--H "authorization: Bearer <AuthToken>" 
+-H "authorization: Bearer <AuthToken>"
 ```
 
-In the preceding example, replace `<userUID>` with the user's UID.
+In the preceding example, replace `<actorID>` with the actor's ID.
 
 
 ## Search file events
