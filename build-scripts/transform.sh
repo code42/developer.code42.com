@@ -7,7 +7,6 @@ main() {
   RULES_V1="${docs}/alert-rules"
   RULES_V2="${docs}/alert-rules-v2"
   TRUSTED_ACTIVITIES_V2="${docs}/trusted-activities.json"
-  WATCHLISTS="${docs}/watchlists.json"
   FILE_EVENTS="${docs}/file-events.json"
   CASES="${docs}/cases.json"
   ACTORS="${docs}/actors.json"
@@ -20,10 +19,9 @@ main() {
   jq '.paths[][].tags |= [ "Audit Log" ]' < ${docs}/audit > $TMP && mv $TMP ${docs}/audit
 
   ### Trusted Activities v2
-  # Remove static TA v2 docs until we can swap over baldur
-  rm "${docs}/trusted-activities.yaml"
   # convert openapi 3 yaml to swagger 2 json
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/trusted-activities > $TRUSTED_ACTIVITIES_V2
+  rm "${docs}/trusted-activities"
 
   ### File Events
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/file-events > $FILE_EVENTS
@@ -57,20 +55,25 @@ main() {
   jq 'del(.paths."/v2/alert-rules/{id}/remove-user-aliases")' < $RULES_V2 > $TMP && mv $TMP $RULES_V2
 
   ### Watchlists
+  WATCHLISTS="${docs}/watchlists.json"
   # convert openapi 3 yaml to swagger 2 json
-  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/watchlists.yaml > $WATCHLISTS
-  # rename tags
-  jq '.paths[][].tags[] |=
-  if . == "WatchlistService" then "Watchlists"
-  elif . == "UserRiskProfileService" then "User Risk Profiles"
-  elif . == "DepartmentsService" then "Departments"
-  elif . == "DirectoryGroupsService" then "Directory Groups"
-  else .
-  end' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/departments-v1 > "${docs}/departments-v1.json"
+  rm ${docs}/departments-v1
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/directory-groups-v1 > "${docs}/directory-groups-v1.json"
+  rm ${docs}/directory-groups-v1
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/watchlists-v1 > "${docs}/watchlists-v1.json"
+  rm ${docs}/watchlists-v1
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/watchlists-v2 > "${docs}/watchlists-v2.json"
+  rm ${docs}/watchlists-v2
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/risk-profiles-v1 > "${docs}/risk-profiles-v1.json"
+  rm ${docs}/risk-profiles-v1
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/risk-profiles-v2 > "${docs}/risk-profiles-v2.json"
+  rm ${docs}/risk-profiles-v2
+
   # set update-risk-profile PATCH description
-  jq '.paths[][] |=
-  if .operationId == "UpdateUserRiskProfile" then .description = {"$ref": "./api-descriptions/user_risk_profile_patch.rmd"}
-  else . end' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
+#  jq '.paths[][] |=
+#  if .operationId == "UpdateUserRiskProfile" then .description = {"$ref": "./api-descriptions/user_risk_profile_patch.rmd"}
+#  else . end' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
 
   ### Cases
   # convert openapi 3 yaml to swagger 2 json
