@@ -24,10 +24,6 @@ main() {
   rm "${docs}/trusted-activities.yaml"
   # convert openapi 3 yaml to swagger 2 json
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/trusted-activities > $TRUSTED_ACTIVITIES_V2
-  # rename tags
-  jq '.paths[][].tags |= [ "Trusted Activities" ]' < $TRUSTED_ACTIVITIES_V2 > $TMP && mv $TMP $TRUSTED_ACTIVITIES_V2
-  # mark trusted-activities summary fields with "v1" and "v2" accordingly
-  jq '.paths[][].summary |= "v2 - \(.)"' < $TRUSTED_ACTIVITIES_V2 > $TMP && mv $TMP $TRUSTED_ACTIVITIES_V2
 
   ### File Events
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/file-events > $FILE_EVENTS
