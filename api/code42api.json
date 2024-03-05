@@ -4337,7 +4337,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "be6ab123-cf6c-4536-ac6b-ba697c10b4f0"
+            "example": "d9d00532-8fc9-4064-a34a-807689e8ea62"
           }
         ],
         "responses": {
@@ -4421,7 +4421,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "2aa9b535-e4a5-4cbd-9a62-5ed1790b4e50"
+            "example": "ef4c65b9-da85-47b6-a45e-e877b43546ff"
           }
         ],
         "responses": {
@@ -4450,7 +4450,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "02b32403-34c4-4ae0-96ef-b3b6dafecff7"
+                "76c9d8c1-0eba-46cb-83a1-2bcecd83f8ac"
               ],
               "items": {
                 "type": "string"
@@ -4484,7 +4484,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "5b5a23b7-9900-4d22-89e7-a69f2efba16c"
+            "example": "daaf38c9-2b43-41aa-aeec-bffc8298c61e"
           }
         ],
         "responses": {
@@ -4513,7 +4513,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "638fb11d-4787-43e4-bceb-08298fb4577c"
+                "3968d8bb-ede9-40c8-9d1d-ecdb4bff53be"
               ],
               "items": {
                 "type": "string"
@@ -4548,7 +4548,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ee251287-0019-461e-9662-10916404602b"
+            "example": "e32c41e5-3481-4711-8e98-83c461b31eef"
           }
         ],
         "responses": {
@@ -4575,7 +4575,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "18753acd-9715-42bf-abc2-257be26e932f"
+            "example": "bb276931-1f55-42e1-81de-5cf60d67eb34"
           }
         ],
         "responses": {
@@ -7627,16 +7627,18 @@
           "x-nullable": true
         },
         "groupClause": {
+          "default": "AND",
           "enum": [
             "AND",
             "OR"
           ],
           "example": "OR",
-          "title": "Grouping clause for any specified groups.  Default is `AND`.",
+          "title": "Grouping clause for any specified groups.",
           "type": "string",
           "x-nullable": true
         },
         "groups": {
+          "default": [],
           "items": {
             "$ref": "#/definitions/FilterGroupSearchTermV1-file-events"
           },
@@ -7644,12 +7646,13 @@
           "type": "array"
         },
         "srtDir": {
+          "default": "desc",
           "enum": [
             "asc",
             "desc"
           ],
           "example": "asc",
-          "title": "Sort direction.  Default is `desc`.",
+          "title": "Sort direction.",
           "type": "string",
           "x-nullable": true
         },
@@ -7917,16 +7920,18 @@
           "x-nullable": true
         },
         "groupClause": {
+          "default": "AND",
           "enum": [
             "AND",
             "OR"
           ],
           "example": "OR",
-          "title": "Grouping clause for any specified groups.  Default is `AND`.",
+          "title": "Grouping clause for any specified groups.",
           "type": "string",
           "x-nullable": true
         },
         "groups": {
+          "default": [],
           "items": {
             "$ref": "#/definitions/FilterGroupSearchTermV2-file-events"
           },
@@ -7934,12 +7939,13 @@
           "type": "array"
         },
         "srtDir": {
+          "default": "desc",
           "enum": [
             "asc",
             "desc"
           ],
           "example": "asc",
-          "title": "Sort direction.  Default is `desc`.",
+          "title": "Sort direction.",
           "type": "string",
           "x-nullable": true
         },
@@ -8237,7 +8243,8 @@
         },
         "mimeType": {
           "title": "The MIME type of the file. For endpoint events, if the mimeTypeByBytes differs from mimeTypeByExtension, this indicates the most likely MIME type for the file. For activity observed by a web browser, this is the only MIME type reported.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "mimeTypeByBytes": {
           "example": "text/csv",
@@ -8310,8 +8317,7 @@
         "acquiredFrom",
         "classifications",
         "directoryId",
-        "hash",
-        "mimeType"
+        "hash"
       ],
       "title": "Metadata about the file for this event.",
       "type": "object"
@@ -9103,18 +9109,21 @@
       "x-nullable": true
     },
     "FilterGroupSearchTermV1-file-events": {
+      "default": [],
       "properties": {
         "filterClause": {
+          "default": "AND",
           "enum": [
             "AND",
             "OR"
           ],
           "example": "AND",
-          "title": "Grouping clause for filters.  Default is `AND`.",
+          "title": "Grouping clause for filters.",
           "type": "string",
           "x-nullable": true
         },
         "filters": {
+          "default": [],
           "items": {
             "$ref": "#/definitions/SearchFilterSearchTermV1-file-events"
           },
@@ -9129,18 +9138,21 @@
       "type": "object"
     },
     "FilterGroupSearchTermV2-file-events": {
+      "default": [],
       "properties": {
         "filterClause": {
+          "default": "AND",
           "enum": [
             "AND",
             "OR"
           ],
           "example": "AND",
-          "title": "Grouping clause for filters.  Default is `AND`.",
+          "title": "Grouping clause for filters.",
           "type": "string",
           "x-nullable": true
         },
         "filters": {
+          "default": [],
           "items": {
             "$ref": "#/definitions/SearchFilterSearchTermV2-file-events"
           },
@@ -9215,12 +9227,13 @@
     "GroupingRequestSearchTermV1-file-events": {
       "properties": {
         "groupClause": {
+          "default": "AND",
           "enum": [
             "AND",
             "OR"
           ],
           "example": "AND",
-          "title": "Grouping clause for any specified groups.  Default is `AND`.",
+          "title": "Grouping clause for any specified groups.",
           "type": "string",
           "x-nullable": true
         },
@@ -9320,6 +9333,7 @@
           "type": "string"
         },
         "groups": {
+          "default": [],
           "items": {
             "$ref": "#/definitions/FilterGroupSearchTermV1-file-events"
           },
@@ -9343,12 +9357,13 @@
     "GroupingRequestSearchTermV2-file-events": {
       "properties": {
         "groupClause": {
+          "default": "AND",
           "enum": [
             "AND",
             "OR"
           ],
           "example": "AND",
-          "title": "Grouping clause for any specified groups.  Default is `AND`.",
+          "title": "Grouping clause for any specified groups.",
           "type": "string",
           "x-nullable": true
         },
@@ -9503,6 +9518,7 @@
           "type": "string"
         },
         "groups": {
+          "default": [],
           "items": {
             "$ref": "#/definitions/FilterGroupSearchTermV2-file-events"
           },
@@ -9838,14 +9854,14 @@
       "properties": {
         "preventativeControl": {
           "title": "The preventative action applied to this event. For example, \"ALLOWED_TRUSTED_ACTIVITY\" or \"BLOCKED\".",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "userJustification": {
           "$ref": "#/definitions/UserJustification-file-events"
         }
       },
       "required": [
-        "preventativeControl",
         "userJustification"
       ],
       "title": "Metadata about preventative actions applied to file activity. Only applies to events for users on a preventative watchlist.",
@@ -10666,8 +10682,10 @@
       "type": "object"
     },
     "SearchFilterSearchTermV1-file-events": {
+      "default": [],
       "properties": {
         "operator": {
+          "default": "IS",
           "enum": [
             "IS",
             "IS_NOT",
@@ -10683,7 +10701,7 @@
             "DOES_NOT_EXIST"
           ],
           "example": "IS_NOT",
-          "title": "The type of match to perform.  Default value is `IS`.",
+          "title": "The type of match to perform.",
           "type": "string",
           "x-nullable": true
         },
@@ -10794,8 +10812,10 @@
       "type": "object"
     },
     "SearchFilterSearchTermV2-file-events": {
+      "default": [],
       "properties": {
         "operator": {
+          "default": "IS",
           "enum": [
             "IS",
             "IS_NOT",
@@ -10811,7 +10831,7 @@
             "DOES_NOT_EXIST"
           ],
           "example": "IS_NOT",
-          "title": "The type of match to perform.  Default value is `IS`.",
+          "title": "The type of match to perform.",
           "type": "string",
           "x-nullable": true
         },
@@ -10979,16 +10999,18 @@
     "SearchRequestSearchTermV1-file-events": {
       "properties": {
         "groupClause": {
+          "default": "AND",
           "enum": [
             "AND",
             "OR"
           ],
           "example": "OR",
-          "title": "Grouping clause for any specified groups.  Default is `AND`.",
+          "title": "Grouping clause for any specified groups.",
           "type": "string",
           "x-nullable": true
         },
         "groups": {
+          "default": [],
           "items": {
             "$ref": "#/definitions/FilterGroupSearchTermV1-file-events"
           },
@@ -10996,32 +11018,35 @@
           "type": "array"
         },
         "pgNum": {
+          "default": 1,
           "example": 1,
           "format": "int32",
-          "title": "Page number for search; ignored if pgToken is included.  Default is 1.",
+          "title": "Page number for search; ignored if pgToken is included.",
           "type": "integer",
           "x-nullable": true
         },
         "pgSize": {
+          "default": 100,
           "example": 100,
           "format": "int32",
-          "title": "Max number of results to return for a page.  Default is 100.",
+          "title": "Max number of results to return for a page.",
           "type": "integer",
           "x-nullable": true
         },
         "pgToken": {
           "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
-          "title": "A token used to indicate the starting point for additional page results. Typically, you obtain the pgToken value from the nextPgToken provided in a previous request. A pgToken is the only way to page past 10,000 results. If pgToken is supplied, pgNum is ignored. Provide empty string to retrieve the 'first page of results and null to use the pgNum value.  Default is null.",
+          "title": "A token used to indicate the starting point for additional page results. Typically, you obtain the pgToken value from the nextPgToken provided in a previous request. A pgToken is the only way to page past 10,000 results. If pgToken is supplied, pgNum is ignored. Provide empty string to retrieve the 'first page of results and null to use the pgNum value.",
           "type": "string",
           "x-nullable": true
         },
         "srtDir": {
+          "default": "desc",
           "enum": [
             "asc",
             "desc"
           ],
           "example": "asc",
-          "title": "Sort direction.  Default is `desc`.",
+          "title": "Sort direction.",
           "type": "string",
           "x-nullable": true
         },
@@ -11130,16 +11155,18 @@
     "SearchRequestSearchTermV2-file-events": {
       "properties": {
         "groupClause": {
+          "default": "AND",
           "enum": [
             "AND",
             "OR"
           ],
           "example": "OR",
-          "title": "Grouping clause for any specified groups.  Default is `AND`.",
+          "title": "Grouping clause for any specified groups.",
           "type": "string",
           "x-nullable": true
         },
         "groups": {
+          "default": [],
           "items": {
             "$ref": "#/definitions/FilterGroupSearchTermV2-file-events"
           },
@@ -11147,32 +11174,35 @@
           "type": "array"
         },
         "pgNum": {
+          "default": 1,
           "example": 1,
           "format": "int32",
-          "title": "Page number for search; ignored if pgToken is included.  Default is 1.",
+          "title": "Page number for search; ignored if pgToken is included.",
           "type": "integer",
           "x-nullable": true
         },
         "pgSize": {
+          "default": 100,
           "example": 100,
           "format": "int32",
-          "title": "Max number of results to return for a page.  Default is 100.",
+          "title": "Max number of results to return for a page.",
           "type": "integer",
           "x-nullable": true
         },
         "pgToken": {
           "example": "0_147e9445-2f30-4a91-8b2a-9455332e880a_973435567569502913_986467523038446097_163",
-          "title": "A token used to indicate the starting point for additional page results. Typically, you obtain the pgToken value from the nextPgToken provided in a previous request. A pgToken is the only way to page past 10,000 results. If pgToken is supplied, pgNum is ignored. Provide empty string to retrieve the 'first page of results and null to use the pgNum value.  Default is null.",
+          "title": "A token used to indicate the starting point for additional page results. Typically, you obtain the pgToken value from the nextPgToken provided in a previous request. A pgToken is the only way to page past 10,000 results. If pgToken is supplied, pgNum is ignored. Provide empty string to retrieve the 'first page of results and null to use the pgNum value.",
           "type": "string",
           "x-nullable": true
         },
         "srtDir": {
+          "default": "desc",
           "enum": [
             "asc",
             "desc"
           ],
           "example": "asc",
-          "title": "Sort direction.  Default is `desc`.",
+          "title": "Sort direction.",
           "type": "string",
           "x-nullable": true
         },
@@ -14904,7 +14934,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-03-04T12:09:54.728775Z"
+              "example": "2024-03-05T00:12:36.6782836Z"
             },
             "createdBy": {
               "type": "string",
@@ -14915,7 +14945,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-03-04T12:09:54.7288032Z"
+              "example": "2024-03-05T00:12:36.6783071Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -14972,7 +15002,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "54ffc193-0588-4712-a445-836f0c5e667d"
+              "example": "a468eabf-9e9a-4df5-8dd8-1f33f048b2fe"
             }
           }
         }
@@ -15646,7 +15676,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "d7652623-8344-4aff-8de4-8570e629a4ef"
+          "example": "fe6c9aae-c23d-4eb4-b615-d9592582ddae"
         },
         "aliases": {
           "type": "array",
@@ -15670,7 +15700,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "8a73fbe7-7881-4588-899e-3cdb786e2e88"
+          "example": "760b30a4-61d4-4066-a5c6-70153aa4e1e6"
         },
         "users": {
           "type": "array",
@@ -15756,7 +15786,7 @@
         },
         "subject": {
           "example": "421380797518239242",
-          "title": "The user UID of the subject being investigated in this case.",
+          "title": "The actor ID of the subject being investigated in this case.",
           "type": "string"
         }
       },
@@ -16009,7 +16039,7 @@
         },
         "subject": {
           "example": "421380797518239242",
-          "title": "The user UID of the subject being investigated in this case.",
+          "title": "The actor ID of the subject being investigated in this case.",
           "type": "string"
         },
         "subjectUsername": {
@@ -16094,7 +16124,7 @@
         },
         "subject": {
           "example": "421380797518239242",
-          "title": "The user UID of the subject being investigated in this case.",
+          "title": "The actor ID of the subject being investigated in this case.",
           "type": "string"
         },
         "subjectUsername": {
@@ -16156,7 +16186,7 @@
         },
         "subject": {
           "example": "421380797518239242",
-          "title": "The user UID of the subject being investigated in this case.",
+          "title": "The actor ID of the subject being investigated in this case.",
           "type": "string"
         }
       },
