@@ -55,25 +55,18 @@ main() {
   jq 'del(.paths."/v2/alert-rules/{id}/remove-user-aliases")' < $RULES_V2 > $TMP && mv $TMP $RULES_V2
 
   ### Watchlists
-  WATCHLISTS="${docs}/watchlists.json"
   # convert openapi 3 yaml to swagger 2 json
-  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/departments-v1 > "${docs}/departments-v1.json"
-  rm ${docs}/departments-v1
-  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/directory-groups-v1 > "${docs}/directory-groups-v1.json"
-  rm ${docs}/directory-groups-v1
-  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/watchlists-v1 > "${docs}/watchlists-v1.json"
-  rm ${docs}/watchlists-v1
-  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/watchlists-v2 > "${docs}/watchlists-v2.json"
-  rm ${docs}/watchlists-v2
-  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/risk-profiles-v1 > "${docs}/risk-profiles-v1.json"
-  rm ${docs}/risk-profiles-v1
-  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/risk-profiles-v2 > "${docs}/risk-profiles-v2.json"
-  rm ${docs}/risk-profiles-v2
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/departments > "${docs}/departments.json"
+  rm ${docs}/departments
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/directory-groups > "${docs}/directory-groups.json"
+  rm ${docs}/directory-groups
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/watchlists > "${docs}/watchlists.json"
+  rm ${docs}/watchlists
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/risk-profiles > "${docs}/risk-profiles.json"
+  rm ${docs}/risk-profiles
 
   # set update-risk-profile PATCH description
-#  jq '.paths[][] |=
-#  if .operationId == "UpdateUserRiskProfile" then .description = {"$ref": "./api-descriptions/user_risk_profile_patch.rmd"}
-#  else . end' < $WATCHLISTS > $TMP && mv $TMP $WATCHLISTS
+  jq '.paths."/v2/actor-risk-profiles/{actor_id}".patch.description |= {"$ref": "./api-descriptions/user_risk_profile_patch.rmd"}' < "${docs}/risk-profiles.json" > $TMP && mv $TMP "${docs}/risk-profiles.json"
 
   ### Cases
   # convert openapi 3 yaml to swagger 2 json
