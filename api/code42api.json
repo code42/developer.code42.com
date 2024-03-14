@@ -151,6 +151,22 @@
           },
           {
             "in": "query",
+            "name": "agentHealthy",
+            "description": "Optionally retrieve agents with this health status. Agents that have no health issue types are considered healthy. Example: true",
+            "type": "boolean"
+          },
+          {
+            "in": "query",
+            "name": "anyOfAgentHealthIssueTypes",
+            "description": "Optionally retrieve agents that have (at least) any of the given issue type(s). Example: NOT_CONNECTING",
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "collectionFormat": "multi"
+          },
+          {
+            "in": "query",
             "name": "srtKey",
             "description": "Sort the list of agents by this criteria.\r\n            Available values : NAME, USER_ID, AGENT_TYPE, OS_HOSTNAME, LAST_CONNECTED, OS_NAME\r\n            Default value : NAME",
             "type": "string"
@@ -3176,7 +3192,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "d038286f-0fbf-43ef-bf54-0d8ed154deb3"
+            "example": "8ddd8c7f-099d-414a-8c66-c58e811eb380"
           }
         ],
         "responses": {
@@ -3260,7 +3276,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a3ad042f-6327-47dc-8349-9ae1a5fe0b3b"
+            "example": "079988b2-4083-4de6-b609-51300f1a2a05"
           }
         ],
         "responses": {
@@ -3289,7 +3305,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "07b7f566-3125-4766-a5a9-9271f129944e"
+                "60121bdd-2b3b-4d3e-9f40-ae07372fb0bb"
               ],
               "items": {
                 "type": "string"
@@ -3323,7 +3339,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "1d5f6c03-2b88-4d51-9b45-4ccb33780bc3"
+            "example": "c285d0ee-cbfa-4dde-89fc-79226631f020"
           }
         ],
         "responses": {
@@ -3352,7 +3368,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "1379b632-57fc-473b-906b-9fa23e5a89ca"
+                "0abaa451-fb15-4865-b5c5-90ba8b49a213"
               ],
               "items": {
                 "type": "string"
@@ -3387,7 +3403,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "bf5f364b-0277-4168-b1b5-f33aaa8048c4"
+            "example": "b08d697e-91f9-4f6a-944f-f0178db58d4c"
           }
         ],
         "responses": {
@@ -3414,7 +3430,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a68c7993-62c9-4013-a517-156f2a716737"
+            "example": "e41be167-d571-48a6-8b78-234ebdbe2864"
           }
         ],
         "responses": {
@@ -5428,6 +5444,14 @@
           "description": "Operating system of the device.",
           "type": "string"
         },
+        "machineId": {
+          "description": "Device machine ID.",
+          "type": "string"
+        },
+        "serialNumber": {
+          "description": "Authenticated agent serial number.",
+          "type": "string"
+        },
         "active": {
           "description": "Status of agent. true=Active, false=Deactivated.",
           "type": "boolean"
@@ -5435,6 +5459,13 @@
         "agentType": {
           "description": "Type of agent. Available values : CODE42AAT, COMBINED, CODE42",
           "type": "string"
+        },
+        "agentHealthIssueTypes": {
+          "description": "List of health issues with agent.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
         "appVersion": {
           "description": "The agent's App Version.",
@@ -10064,7 +10095,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-03-13T12:06:04.2924845Z"
+              "example": "2024-03-14T00:12:30.5281124Z"
             },
             "createdBy": {
               "type": "string",
@@ -10075,7 +10106,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-03-13T12:06:04.2925052Z"
+              "example": "2024-03-14T00:12:30.5281334Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -10132,7 +10163,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "677934b1-0b10-4d54-b26e-6b2e0aa9adad"
+              "example": "028edcca-1d60-4a9c-b519-404211d33c4c"
             }
           }
         }
@@ -10806,7 +10837,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "8f934574-6bbf-4d30-99dc-aa5187e1bfdd"
+          "example": "8121ef5d-4f39-4cb7-a937-9ff11a0e8952"
         },
         "aliases": {
           "type": "array",
@@ -10830,7 +10861,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "7b49f470-8e1d-45f3-a561-f3869886d7ac"
+          "example": "5800462f-169e-446b-8357-b49edca91e5e"
         },
         "users": {
           "type": "array",
