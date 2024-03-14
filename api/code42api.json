@@ -105,7 +105,7 @@
       }
     },
     {
-      "name": "User Risk Profiles",
+      "name": "Risk Profiles",
       "description": {
         "$ref": "./api-descriptions/user_risk_profiles.rmd"
       }
@@ -1470,451 +1470,340 @@
     },
     "/v2/trusted-activities": {
       "get": {
-        "tags": [
-          "Trusted Activities"
+        "produces": [
+          "application/json"
         ],
-        "summary": "v2 - Get a list of trusted activities",
-        "operationId": "listTrustedActivities",
         "parameters": [
           {
-            "name": "type",
-            "in": "query",
             "description": "The type of trusted activity to retrieve. More than one type can be supplied as part of the request parameters. If no types are provided, resources for ALL types are returned.",
+            "in": "query",
+            "name": "type",
             "required": false,
-            "schema": {
-              "type": "string",
-              "description": "The type of the trusted activity.",
-              "example": "DOMAIN"
-            }
+            "type": "string"
           },
           {
-            "name": "page",
-            "in": "query",
+            "default": "1",
             "description": "The page of results that should be returned.",
+            "in": "query",
+            "name": "page",
             "required": false,
-            "schema": {
-              "type": "string",
-              "default": "1"
-            }
+            "type": "string"
           },
           {
-            "name": "page_size",
-            "in": "query",
+            "default": "100",
             "description": "Max number of results to return on each page.",
+            "in": "query",
+            "name": "page_size",
             "required": false,
-            "schema": {
-              "type": "string",
-              "default": "100"
-            }
+            "type": "string"
           },
           {
-            "name": "sort_key",
-            "in": "query",
             "description": "The value on which the returned resources will be sorted. Secondary sorting occurs via the sortKey `UPDATE_TIME` for like values.",
+            "enum": [
+              "ACTIVITY_ID",
+              "DESCRIPTION",
+              "TYPE",
+              "UPDATED_BY_PRINCIPAL_NAME",
+              "UPDATE_TIME",
+              "VALUE"
+            ],
+            "in": "query",
+            "name": "sort_key",
             "required": false,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "ACTIVITY_ID",
-                "DESCRIPTION",
-                "TYPE",
-                "UPDATED_BY_PRINCIPAL_NAME",
-                "UPDATE_TIME",
-                "VALUE"
-              ]
-            }
+            "type": "string"
           },
           {
-            "name": "sort_direction",
-            "in": "query",
             "description": "The direction on which to sort the response.",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "in": "query",
+            "name": "sort_direction",
             "required": false,
-            "schema": {
-              "type": "string",
-              "enum": [
-                "ASC",
-                "DESC"
-              ]
-            }
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TrustedActivitiesListResponse-trusted-activities"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/TrustedActivitiesListResponse-trusted-activities"
             }
           },
           "400": {
             "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
           "500": {
             "description": "Unknown Error Occured",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           }
-        }
-      },
-      "post": {
+        },
         "tags": [
           "Trusted Activities"
         ],
-        "summary": "v2 - Create a new trusted activity",
-        "operationId": "createTrustResource",
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TrustedActivityRequest-trusted-activities"
-              }
+        "operationId": "listTrustedActivities",
+        "summary": "v2 - Get a list of trusted activities"
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TrustedActivityRequest-trusted-activities"
             }
-          },
-          "required": true
-        },
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TrustedActivityResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/TrustedActivityResponse-trusted-activities"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
           "401": {
             "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
           "403": {
             "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
           "409": {
             "description": "Conflict",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
           "500": {
             "description": "Unknown Error Occured",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           }
-        }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "createTrustResource",
+        "summary": "v2 - Create a new trusted activity"
       }
     },
     "/v2/trusted-activities/{activity_id}": {
-      "get": {
-        "tags": [
-          "Trusted Activities"
+      "delete": {
+        "produces": [
+          "application/json"
         ],
-        "summary": "v2 - Get a single trusted activity",
-        "operationId": "getTrustedActivity",
         "parameters": [
           {
-            "name": "activity_id",
-            "in": "path",
             "description": "The id of the trusted activity.",
+            "format": "int32",
+            "in": "path",
+            "name": "activity_id",
             "required": true,
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "example": 1
+            "type": "integer"
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TrustedActivityResponse-trusted-activities"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/TrustedActivityResponse-trusted-activities"
             }
           },
           "400": {
             "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Unknown Error Occured",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Trusted Activities"
-        ],
-        "summary": "v2 - Delete a trusted activity",
-        "operationId": "deleteTrustResource",
-        "parameters": [
-          {
-            "name": "activity_id",
-            "in": "path",
-            "description": "The id of the trusted activity.",
-            "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TrustedActivityResponse-trusted-activities"
-                }
-              }
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
           "401": {
             "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
           "403": {
             "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
           "404": {
             "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
           "500": {
             "description": "Unknown Error Occured",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           }
-        }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "deleteTrustResource",
+        "summary": "v2 - Delete a trusted activity"
+      },
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The id of the trusted activity.",
+            "format": "int32",
+            "in": "path",
+            "name": "activity_id",
+            "required": true,
+            "type": "integer",
+            "x-example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TrustedActivityResponse-trusted-activities"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "500": {
+            "description": "Unknown Error Occured",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "getTrustedActivity",
+        "summary": "v2 - Get a single trusted activity"
       },
       "patch": {
-        "tags": [
-          "Trusted Activities"
+        "consumes": [
+          "application/json"
         ],
-        "summary": "v2 - Update an existing trusted activity",
-        "operationId": "updateTrustResource",
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
-            "name": "activity_id",
-            "in": "path",
             "description": "The id of the trusted activity.",
+            "format": "int32",
+            "in": "path",
+            "name": "activity_id",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
             "required": true,
             "schema": {
-              "type": "integer",
-              "format": "int32"
+              "$ref": "#/definitions/TrustedActivityRequest-trusted-activities"
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/TrustedActivityRequest-trusted-activities"
-              }
-            }
-          },
-          "required": true
-        },
         "responses": {
           "200": {
             "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/TrustedActivityResponse-trusted-activities"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
-            }
-          },
-          "403": {
-            "description": "Forbidden",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/TrustedActivityResponse-trusted-activities"
             }
           },
           "400": {
             "description": "Bad Request",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
           "409": {
             "description": "Conflict",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           },
           "500": {
             "description": "Unknown Error Occured",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse-trusted-activities"
-                }
-              }
+            "schema": {
+              "$ref": "#/definitions/ErrorResponse-trusted-activities"
             }
           }
-        }
+        },
+        "tags": [
+          "Trusted Activities"
+        ],
+        "operationId": "updateTrustResource",
+        "summary": "v2 - Update an existing trusted activity"
       }
     },
     "/v1/alert-rules/update-is-enabled": {
@@ -3177,6 +3066,49 @@
         "summary": "Download the file associated with an event, if present"
       }
     },
+    "/v1/directory-groups": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "The desired page of directory group results to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          },
+          {
+            "description": "Matches directory groups whose name is like the given value.",
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ListDirectoryGroupsResponse-directory-groups"
+            }
+          }
+        },
+        "tags": [
+          "Directory Groups"
+        ],
+        "summary": "Get a list of directory groups"
+      }
+    },
     "/v2/alert-rules/{id}": {
       "get": {
         "tags": [
@@ -3192,7 +3124,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "b82e959d-9ffa-4e9f-a3c8-63903c07e6d8"
+            "example": "5746458f-0f80-4586-ace5-23674e222e0c"
           }
         ],
         "responses": {
@@ -3276,7 +3208,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "7d444ec9-2ed2-4124-9f5d-bb56f63d2203"
+            "example": "38583036-a848-4a05-9c3b-aef0fcc82856"
           }
         ],
         "responses": {
@@ -3305,7 +3237,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "6ddcf11c-6976-4f7f-a35b-d070cd8157f6"
+                "84975175-b057-4cc6-b834-910facbc1d9b"
               ],
               "items": {
                 "type": "string"
@@ -3339,7 +3271,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "66d76b76-e920-4518-b287-cf4ad0669662"
+            "example": "17bd362e-00e8-4bc1-870b-e71084f1d11f"
           }
         ],
         "responses": {
@@ -3368,7 +3300,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "ca3c89b9-65a8-4bb1-a768-14f92e595ce8"
+                "1bc09ee1-c334-4f83-b66c-44e8d3b9ca48"
               ],
               "items": {
                 "type": "string"
@@ -3403,7 +3335,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "1b418fe4-d3e4-44b0-a4fd-867e1213bf95"
+            "example": "f0a6c1ef-c15b-44f7-90f5-d3d3bb26e0c8"
           }
         ],
         "responses": {
@@ -3430,7 +3362,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a11d52bb-814d-4895-aaff-d127ee97f77d"
+            "example": "ec4540db-d602-4d11-8a25-cc219526d68e"
           }
         ],
         "responses": {
@@ -3447,94 +3379,12 @@
         }
       }
     },
-    "/v1/departments": {
-      "get": {
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "description": "The desired page of department results to retrieve.",
-            "format": "int64",
-            "in": "query",
-            "name": "page",
-            "type": "integer"
-          },
-          {
-            "description": "The desired number of results per page.",
-            "format": "int64",
-            "in": "query",
-            "name": "page_size",
-            "type": "integer"
-          },
-          {
-            "description": "Matches departments whose name is like the given value.",
-            "in": "query",
-            "name": "name",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/ListDepartmentsResponse"
-            }
-          }
-        },
-        "tags": [
-          "Departments"
-        ],
-        "operationId": "ListDepartments",
-        "summary": "Get a list of departments"
-      }
-    },
-    "/v1/directory-groups": {
-      "get": {
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "description": "The desired page of directory group results to retrieve.",
-            "format": "int64",
-            "in": "query",
-            "name": "page",
-            "type": "integer"
-          },
-          {
-            "description": "The desired number of results per page.",
-            "format": "int64",
-            "in": "query",
-            "name": "page_size",
-            "type": "integer"
-          },
-          {
-            "description": "Matches directory groups whose name is like the given value.",
-            "in": "query",
-            "name": "name",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "schema": {
-              "$ref": "#/definitions/ListDirectoryGroupsResponse"
-            }
-          }
-        },
-        "tags": [
-          "Directory Groups"
-        ],
-        "operationId": "ListDirectoryGroups",
-        "summary": "Get a list of directory groups"
-      }
-    },
     "/v1/user-risk-profiles": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -3603,40 +3453,42 @@
             "description": "Matches users by whether the user is active.",
             "in": "query",
             "name": "active",
-            "type": "boolean"
+            "type": "string"
           },
           {
             "description": "Matches users by whether the user is deleted.",
             "in": "query",
             "name": "deleted",
-            "type": "boolean"
+            "type": "string"
           },
           {
             "description": "Matches users by whether the user is a support user.",
             "in": "query",
             "name": "support_user",
-            "type": "boolean"
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/ListUserRiskProfilesResponse"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.ListUserRiskProfilesResponse-risk-profiles"
             }
           }
         },
         "tags": [
-          "User Risk Profiles"
+          "Risk Profiles"
         ],
-        "operationId": "ListUserRiskProfiles",
-        "summary": "Get a list of user risk profiles"
+        "deprecated": true,
+        "summary": "V1 - Get a list of user risk profiles"
       }
     },
     "/v1/user-risk-profiles/{user_id}": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -3651,22 +3503,24 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/UserRiskProfile"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.UserRiskProfile-risk-profiles"
             }
           }
         },
         "tags": [
-          "User Risk Profiles"
+          "Risk Profiles"
         ],
-        "operationId": "GetUserRiskProfile",
-        "summary": "Get a user risk profile"
+        "deprecated": true,
+        "summary": "V1 - Get a user risk profile"
       },
       "patch": {
         "consumes": [
           "application/json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -3678,20 +3532,25 @@
           },
           {
             "collectionFormat": "multi",
-            "description": "The set of field mask paths.",
+            "description": "The mask of the fields to update.",
             "in": "query",
             "items": {
-              "description": "The set of field mask paths.",
               "type": "string"
             },
             "name": "paths",
             "type": "array"
           },
           {
+            "description": "",
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/UpdatedUserRiskProfile"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.UpdatedUserRiskProfile-risk-profiles"
+                }
+              ],
+              "description": "UpdatedUserRiskProfile"
             }
           }
         ],
@@ -3699,15 +3558,190 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/UserRiskProfile"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.UserRiskProfile-risk-profiles"
             }
           }
         },
         "tags": [
-          "User Risk Profiles"
+          "Risk Profiles"
         ],
-        "operationId": "UpdateUserRiskProfile",
-        "summary": "Update a user risk profile",
+        "deprecated": true,
+        "summary": "V1 - Update a user risk profile"
+      }
+    },
+    "/v2/actor-risk-profiles": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "The desired page of actor risk profile results to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          },
+          {
+            "description": "Matches actors whose manager has the given Code42 actor ID.",
+            "in": "query",
+            "name": "manager_id",
+            "type": "string"
+          },
+          {
+            "description": "Matches actors with the given job title.",
+            "in": "query",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "description": "Matches actors in the given division.",
+            "in": "query",
+            "name": "division",
+            "type": "string"
+          },
+          {
+            "description": "Matches actors in the given department.",
+            "in": "query",
+            "name": "department",
+            "type": "string"
+          },
+          {
+            "description": "Matches actors with the given employment type.",
+            "in": "query",
+            "name": "employment_type",
+            "type": "string"
+          },
+          {
+            "description": "Matches actors in the given country.",
+            "in": "query",
+            "name": "country",
+            "type": "string"
+          },
+          {
+            "description": "Matches actors the given region (state).",
+            "in": "query",
+            "name": "region",
+            "type": "string"
+          },
+          {
+            "description": "Matches actors in the given locality (city).",
+            "in": "query",
+            "name": "locality",
+            "type": "string"
+          },
+          {
+            "description": "Matches actors by whether the actor is active.",
+            "in": "query",
+            "name": "active",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ListActorRiskProfilesResponse-risk-profiles"
+            }
+          }
+        },
+        "tags": [
+          "Risk Profiles"
+        ],
+        "summary": "V2 - Get a list of actor risk profiles"
+      }
+    },
+    "/v2/actor-risk-profiles/{actor_id}": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique actor ID.",
+            "in": "path",
+            "name": "actor_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ActorRiskProfile-risk-profiles"
+            }
+          }
+        },
+        "tags": [
+          "Risk Profiles"
+        ],
+        "summary": "V2 - Get an actor risk profile"
+      },
+      "patch": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "The ID of the actor to update.",
+            "in": "path",
+            "name": "actor_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "collectionFormat": "multi",
+            "description": "The mask of the fields to update.",
+            "in": "query",
+            "items": {
+              "type": "string"
+            },
+            "name": "paths",
+            "type": "array"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistSdk.Model.UpdatedActorRiskProfile-risk-profiles"
+                }
+              ],
+              "description": "UpdatedActorRiskProfile"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ActorRiskProfile-risk-profiles"
+            }
+          }
+        },
+        "tags": [
+          "Risk Profiles"
+        ],
+        "summary": "V2 - Update an actor risk profile",
         "description": {
           "$ref": "./api-descriptions/user_risk_profile_patch.rmd"
         }
@@ -3716,7 +3750,9 @@
     "/v1/watchlists": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -3734,7 +3770,7 @@
             "type": "integer"
           },
           {
-            "description": "Matches watchlists where user is a member.",
+            "description": "The desired userId filter for membership",
             "in": "query",
             "name": "user_id",
             "type": "string"
@@ -3744,29 +3780,37 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/ListWatchlistsResponse"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.ListWatchlistsResponse-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "ListWatchlists",
-        "summary": "Get a list of watchlists"
+        "deprecated": true,
+        "summary": "V1 - Get a list of watchlists"
       },
       "post": {
         "consumes": [
           "application/json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
+            "description": "",
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/CreateWatchlistRequest"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.CreateWatchlistRequest-watchlists"
+                }
+              ],
+              "description": "CreateWatchlistRequest"
             }
           }
         ],
@@ -3774,21 +3818,23 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Watchlist"
+              "$ref": "#/definitions/WatchlistSdk.Model.Watchlist-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "CreateWatchlist",
-        "summary": "Create a new watchlist"
+        "deprecated": true,
+        "summary": "V1 - Create a new watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}": {
       "delete": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -3802,21 +3848,20 @@
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "additionalProperties": false,
-              "type": "object"
-            }
+            "schema": {}
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "DeleteWatchlist",
-        "summary": "Delete a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Delete a watchlist"
       },
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -3831,22 +3876,24 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Watchlist"
+              "$ref": "#/definitions/WatchlistSdk.Model.Watchlist-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "GetWatchlist",
-        "summary": "Get a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Get a watchlist"
       },
       "patch": {
         "consumes": [
           "application/json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -3858,20 +3905,25 @@
           },
           {
             "collectionFormat": "multi",
-            "description": "The set of field mask paths.",
+            "description": "The mask of the fields to update.",
             "in": "query",
             "items": {
-              "description": "The set of field mask paths.",
               "type": "string"
             },
             "name": "paths",
             "type": "array"
           },
           {
+            "description": "",
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/UpdatedWatchlist"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.UpdatedWatchlist-watchlists"
+                }
+              ],
+              "description": "UpdatedWatchlist"
             }
           }
         ],
@@ -3879,21 +3931,23 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/Watchlist"
+              "$ref": "#/definitions/WatchlistSdk.Model.Watchlist-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "UpdateWatchlist",
-        "summary": "Update a custom watchlist"
+        "deprecated": true,
+        "summary": "V1 - Update a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/excluded-users": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -3922,15 +3976,15 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/ListExcludedUsersResponse"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.ListExcludedUsersResponse-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "ListExcludedUsers",
-        "summary": "Get the list of users explicitly excluded from a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Get the list of users explicitly excluded on a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/excluded-users/add": {
@@ -3939,7 +3993,9 @@
           "application/json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -3950,27 +4006,30 @@
             "type": "string"
           },
           {
+            "description": "",
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/AddExcludedUsersRequest"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.AddExcludedUsersRequest-watchlists"
+                }
+              ],
+              "description": "AddExcludedUsersRequest"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "additionalProperties": false,
-              "type": "object"
-            }
+            "schema": {}
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "AddExcludedUsers",
-        "summary": "Explicitly exclude users from a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Explicitly exclude users from a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/excluded-users/delete": {
@@ -3979,7 +4038,9 @@
           "application/json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -3990,33 +4051,38 @@
             "type": "string"
           },
           {
+            "description": "",
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/DeleteExcludedUsersRequest"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.DeleteExcludedUsersRequest-watchlists"
+                }
+              ],
+              "description": "DeleteExcludedUsersRequest"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "additionalProperties": false,
-              "type": "object"
-            }
+            "schema": {}
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "DeleteExcludedUsers",
-        "summary": "Remove users that are explicitly excluded from a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Remove users that are explicitly excluded from a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/excluded-users/{user_id}": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4027,7 +4093,7 @@
             "type": "string"
           },
           {
-            "description": "A unique user ID.",
+            "description": "A user identifier.",
             "in": "path",
             "name": "user_id",
             "required": true,
@@ -4038,21 +4104,23 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/ExcludedUser"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.ExcludedUser-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "GetExcludedUser",
-        "summary": "Get an excluded user for a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Get an excluded user of a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-departments": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4081,15 +4149,15 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/ListIncludedDepartmentsResponse"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.ListIncludedDepartmentsResponse-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "ListIncludedDepartments",
-        "summary": "Get the list of departments explicitly included on a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Get the list of departments included on a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-departments/add": {
@@ -4098,7 +4166,9 @@
           "application/json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4109,27 +4179,30 @@
             "type": "string"
           },
           {
+            "description": "The request",
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/AddIncludedDepartmentsRequest"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.AddIncludedDepartmentsRequest-watchlists"
+                }
+              ],
+              "description": "AddIncludedDepartmentsRequest"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "additionalProperties": false,
-              "type": "object"
-            }
+            "schema": {}
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "AddIncludedDepartments",
-        "summary": "Explicitly include departments on a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Add departments to a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-departments/delete": {
@@ -4138,7 +4211,9 @@
           "application/json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4149,33 +4224,38 @@
             "type": "string"
           },
           {
+            "description": "The request",
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/DeleteIncludedDepartmentsRequest"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.DeleteIncludedDepartmentsRequest-watchlists"
+                }
+              ],
+              "description": "DeleteIncludedDepartmentsRequest"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "additionalProperties": false,
-              "type": "object"
-            }
+            "schema": {}
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "DeleteIncludedDepartments",
-        "summary": "Remove departments that are explicitly included on a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Remove departments included on a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-departments/{department}": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4197,21 +4277,23 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/IncludedDepartment"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.IncludedDepartment-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "GetIncludedDepartment",
-        "summary": "Get an included department for a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Get an included department of a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-directory-groups": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4240,15 +4322,15 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/ListIncludedDirectoryGroupsResponse"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.ListIncludedDirectoryGroupsResponse-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "ListIncludedDirectoryGroups",
-        "summary": "Get the list of directory groups explicitly included on a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Get the list of directory groups included on a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-directory-groups/add": {
@@ -4257,7 +4339,9 @@
           "application/json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4268,27 +4352,30 @@
             "type": "string"
           },
           {
+            "description": "The request",
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/AddIncludedDirectoryGroupsRequest"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.AddIncludedDirectoryGroupsRequest-watchlists"
+                }
+              ],
+              "description": "AddIncludedDirectoryGroupsRequest"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "additionalProperties": false,
-              "type": "object"
-            }
+            "schema": {}
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "AddIncludedDirectoryGroups",
-        "summary": "Explicitly include directory groups on a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Add directory groups to a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-directory-groups/delete": {
@@ -4297,7 +4384,9 @@
           "application/json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4308,33 +4397,38 @@
             "type": "string"
           },
           {
+            "description": "The request",
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/DeleteIncludedDirectoryGroupsRequest"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.DeleteIncludedDirectoryGroupsRequest-watchlists"
+                }
+              ],
+              "description": "DeleteIncludedDirectoryGroupsRequest"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "additionalProperties": false,
-              "type": "object"
-            }
+            "schema": {}
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "DeleteIncludedDirectoryGroups",
-        "summary": "Remove directory groups that are explicitly included on a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Remove directory groups included on a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-directory-groups/{group_id}": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4345,7 +4439,7 @@
             "type": "string"
           },
           {
-            "description": "A unique group ID.",
+            "description": "A directory group id.",
             "in": "path",
             "name": "group_id",
             "required": true,
@@ -4356,21 +4450,23 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/IncludedDirectoryGroup"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.IncludedDepartment-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "GetIncludedDirectoryGroup",
-        "summary": "Get an included directory group for a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Get an included directory group of a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-users": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4399,15 +4495,15 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/ListIncludedUsersResponse"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.ListIncludedUsersResponse-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "ListIncludedUsers",
-        "summary": "Get the list of users explicitly included on a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Get the list of users explicitly included on a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-users/add": {
@@ -4416,7 +4512,9 @@
           "application/json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4427,27 +4525,30 @@
             "type": "string"
           },
           {
+            "description": "",
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/AddIncludedUsersRequest"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.AddIncludedUsersRequest-watchlists"
+                }
+              ],
+              "description": "AddIncludedUsersRequest"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "additionalProperties": false,
-              "type": "object"
-            }
+            "schema": {}
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "AddIncludedUsers",
-        "summary": "Explicitly include users on a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Explicitly include users on a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-users/delete": {
@@ -4456,7 +4557,9 @@
           "application/json"
         ],
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4467,33 +4570,38 @@
             "type": "string"
           },
           {
+            "description": "",
             "in": "body",
             "name": "body",
             "schema": {
-              "$ref": "#/definitions/DeleteIncludedUsersRequest"
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.DeleteIncludedUsersRequest-watchlists"
+                }
+              ],
+              "description": "DeleteIncludedUsersRequest"
             }
           }
         ],
         "responses": {
           "200": {
             "description": "Success",
-            "schema": {
-              "additionalProperties": false,
-              "type": "object"
-            }
+            "schema": {}
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "DeleteIncludedUsers",
-        "summary": "Remove users that are explicitly included on a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Remove users that are explicitly included on a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/included-users/{user_id}": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4504,7 +4612,7 @@
             "type": "string"
           },
           {
-            "description": "A unique user ID.",
+            "description": "A user identifier.",
             "in": "path",
             "name": "user_id",
             "required": true,
@@ -4515,21 +4623,23 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/IncludedUser"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.IncludedUser-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "GetIncludedUser",
-        "summary": "Get an included user for a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Get an included user of a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/members": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4558,21 +4668,23 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/ListWatchlistMembersResponse"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.ListWatchlistMembersResponse-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "ListWatchlistMembers",
-        "summary": "Get a list of all members of a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Get a list of all members of a watchlist"
       }
     },
     "/v1/watchlists/{watchlist_id}/members/{user_id}": {
       "get": {
         "produces": [
-          "application/json"
+          "text/plain",
+          "application/json",
+          "text/json"
         ],
         "parameters": [
           {
@@ -4594,15 +4706,962 @@
           "200": {
             "description": "Success",
             "schema": {
-              "$ref": "#/definitions/WatchlistMember"
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.WatchlistMember-watchlists"
             }
           }
         },
         "tags": [
           "Watchlists"
         ],
-        "operationId": "GetWatchlistMember",
-        "summary": "Get a member of a watchlist"
+        "deprecated": true,
+        "summary": "V1 - Get a member of a watchlist"
+      }
+    },
+    "/v2/watchlists": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "The desired page of watchlist results to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          },
+          {
+            "description": "The desired actorId filter for membership",
+            "in": "query",
+            "name": "actor_id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ListWatchlistsResponse-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get a list of watchlists"
+      },
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistSdk.Model.CreateWatchlistRequest-watchlists"
+                }
+              ],
+              "description": "CreateWatchlistRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.Watchlist-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Create a new watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}": {
+      "delete": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Delete a watchlist"
+      },
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.Watchlist-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get a watchlist"
+      },
+      "patch": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "The ID of the watchlist to update.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "collectionFormat": "multi",
+            "description": "The mask of the fields to update.",
+            "in": "query",
+            "items": {
+              "type": "string"
+            },
+            "name": "paths",
+            "type": "array"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistSdk.Model.UpdatedWatchlist-watchlists"
+                }
+              ],
+              "description": "UpdatedWatchlist"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.Watchlist-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Update a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/excluded-actors": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The desired page of excluded actors to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ListExcludedActorsResponse-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get the list of actors explicitly excluded on a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/excluded-actors/add": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistSdk.Model.AddExcludedActorsRequest-watchlists"
+                }
+              ],
+              "description": "AddExcludedActorsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Explicitly exclude actors from a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/excluded-actors/delete": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistSdk.Model.DeleteExcludedActorsRequest-watchlists"
+                }
+              ],
+              "description": "DeleteExcludedActorsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Remove actors that are explicitly excluded from a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/excluded-actors/{actor_id}": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "An actor identifier.",
+            "in": "path",
+            "name": "actor_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ExcludedActor-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get an excluded actor of a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-actors": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The desired page of included actors to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ListIncludedActorsResponse-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get the list of actors explicitly included on a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-actors/add": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistSdk.Model.AddIncludedActorsRequest-watchlists"
+                }
+              ],
+              "description": "AddIncludedActorsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Explicitly include actors on a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-actors/delete": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistSdk.Model.DeleteIncludedActorsRequest-watchlists"
+                }
+              ],
+              "description": "DeleteIncludedActorsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Remove actors that are explicitly included on a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-actors/{actor_id}": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "An actor identifier.",
+            "in": "path",
+            "name": "actor_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.IncludedActor-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get an included actor of a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-departments": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The desired page of included departments to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ListIncludedDepartmentsResponse-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get the list of departments included on a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-departments/add": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The request",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistSdk.Model.AddIncludedDepartmentsRequest-watchlists"
+                }
+              ],
+              "description": "AddIncludedDepartmentsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Add departments to a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-departments/delete": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The request",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistSdk.Model.DeleteIncludedDepartmentsRequest-watchlists"
+                }
+              ],
+              "description": "DeleteIncludedDepartmentsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Remove departments included on a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-departments/{department}": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "A department.",
+            "in": "path",
+            "name": "department",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.IncludedDepartment-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get an included department of a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-directory-groups": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The desired page of included directory groups to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ListIncludedDirectoryGroupsResponse-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get the list of directory groups included on a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-directory-groups/add": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The request",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistSdk.Model.AddIncludedDirectoryGroupsRequest-watchlists"
+                }
+              ],
+              "description": "AddIncludedDirectoryGroupsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Add directory groups to a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-directory-groups/delete": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The request",
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/WatchlistSdk.Model.DeleteIncludedDirectoryGroupsRequest-watchlists"
+                }
+              ],
+              "description": "DeleteIncludedDirectoryGroupsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {}
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Remove directory groups included on a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/included-directory-groups/{group_id}": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "A directory group id.",
+            "in": "path",
+            "name": "group_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.IncludedDepartment-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get an included directory group of a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/members": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The desired page of members to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ListWatchlistMembersResponse-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get a list of all members of a watchlist"
+      }
+    },
+    "/v2/watchlists/{watchlist_id}/members/{actor_id}": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "A unique watchlist ID.",
+            "in": "path",
+            "name": "watchlist_id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "A unique actor ID.",
+            "in": "path",
+            "name": "actor_id",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.WatchlistMember-watchlists"
+            }
+          }
+        },
+        "tags": [
+          "Watchlists"
+        ],
+        "summary": "V2 - Get a member of a watchlist"
       }
     },
     "/v1/actors/actor/id/{actorId}": {
@@ -5003,6 +6062,49 @@
         "description": "Remove the adoption between two actors by removing the parent of a child actor.",
         "operationId": "removeParent",
         "summary": "Remove adoption between two actors"
+      }
+    },
+    "/v1/departments": {
+      "get": {
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "description": "The desired page of department results to retrieve.",
+            "format": "int64",
+            "in": "query",
+            "name": "page",
+            "type": "integer"
+          },
+          {
+            "description": "The desired number of results per page.",
+            "format": "int64",
+            "in": "query",
+            "name": "page_size",
+            "type": "integer"
+          },
+          {
+            "description": "Matches departments whose name is like the given value.",
+            "in": "query",
+            "name": "name",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/WatchlistSdk.Model.ListDepartmentsResponse-departments"
+            }
+          }
+        },
+        "tags": [
+          "Departments"
+        ],
+        "summary": "Get a list of departments"
       }
     },
     "/v2/file-events": {
@@ -10078,6 +11180,43 @@
       ],
       "type": "object"
     },
+    "WatchlistSdk.Model.DirectoryGroup-directory-groups": {
+      "additionalProperties": false,
+      "description": "DirectoryGroup",
+      "properties": {
+        "groupId": {
+          "description": "A unique group ID.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "name": {
+          "description": "Gets or Sets Name",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.ListDirectoryGroupsResponse-directory-groups": {
+      "additionalProperties": false,
+      "description": "ListDirectoryGroupsResponse",
+      "properties": {
+        "directoryGroups": {
+          "description": "Gets or Sets DirectoryGroups",
+          "items": {
+            "$ref": "#/definitions/WatchlistSdk.Model.DirectoryGroup-directory-groups"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "totalCount": {
+          "description": "The total count of all directory groups.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
     "RuleDetails-alert-rules-v2": {
       "allOf": [
         {
@@ -10095,7 +11234,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-03-14T12:06:12.4545572Z"
+              "example": "2024-03-14T15:10:35.7505972Z"
             },
             "createdBy": {
               "type": "string",
@@ -10106,7 +11245,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-03-14T12:06:12.4545823Z"
+              "example": "2024-03-14T15:10:35.7506205Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -10163,7 +11302,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "8e7bf0bf-c983-4733-be18-920a8063ac62"
+              "example": "3ab55eb1-0e6a-4289-acc3-5e44b9503a44"
             }
           }
         }
@@ -10837,7 +11976,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "7ee209a1-14b8-4d93-83e2-4ae362e943ad"
+          "example": "96cde0a5-f097-4f08-8159-d8ca90711a8f"
         },
         "aliases": {
           "type": "array",
@@ -10861,7 +12000,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "de85ae99-6797-4c6b-9ac3-87673bf96761"
+          "example": "28081eb2-14c6-4346-b176-3fbb34d53f19"
         },
         "users": {
           "type": "array",
@@ -10889,94 +12028,9 @@
         "EXCLUDE"
       ]
     },
-    "AddExcludedUsersRequest": {
+    "WatchlistDeprecatedSdk.Model.Date-risk-profiles": {
       "additionalProperties": false,
-      "properties": {
-        "userIds": {
-          "description": "A list of user IDs to add.",
-          "items": {
-            "description": "A list of user IDs to add.",
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "AddIncludedDepartmentsRequest": {
-      "additionalProperties": false,
-      "properties": {
-        "departments": {
-          "description": "A list of departments to add.",
-          "items": {
-            "description": "A list of departments to add.",
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "AddIncludedDirectoryGroupsRequest": {
-      "additionalProperties": false,
-      "properties": {
-        "groupIds": {
-          "description": "A list of group IDs to add.",
-          "items": {
-            "description": "A list of group IDs to add.",
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "AddIncludedUsersRequest": {
-      "additionalProperties": false,
-      "properties": {
-        "userIds": {
-          "description": "A list of user IDs to add.",
-          "items": {
-            "description": "A list of user IDs to add.",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "watchlistId": {
-          "description": "A unique watchlist ID.",
-          "example": 123,
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "CreateWatchlistRequest": {
-      "additionalProperties": false,
-      "properties": {
-        "description": {
-          "description": "The optional description of a custom watchlist.",
-          "example": "List of users that fit a custom use case.",
-          "maxLength": 250,
-          "type": "string"
-        },
-        "title": {
-          "description": "The required title for a custom watchlist.",
-          "example": "My Custom List",
-          "maxLength": 50,
-          "type": "string"
-        },
-        "watchlistType": {
-          "$ref": "#/definitions/WatchlistType",
-          "type": "string"
-        }
-      },
-      "required": [
-        "watchlistType"
-      ],
-      "type": "object"
-    },
-    "Date": {
-      "additionalProperties": false,
+      "description": "Date",
       "properties": {
         "day": {
           "description": "Day of month. Must be from 1 to 31 and valid for the year and month, or 0 if specifying a year by itself or a year and month where the day is not significant.",
@@ -10996,381 +12050,59 @@
       },
       "type": "object"
     },
-    "DeleteExcludedUsersRequest": {
+    "WatchlistDeprecatedSdk.Model.ListUserRiskProfilesResponse-risk-profiles": {
       "additionalProperties": false,
-      "properties": {
-        "userIds": {
-          "description": "A list of user IDs to delete.",
-          "items": {
-            "description": "A list of user IDs to delete.",
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "DeleteIncludedDepartmentsRequest": {
-      "additionalProperties": false,
-      "properties": {
-        "departments": {
-          "description": "A list of departments to delete.",
-          "items": {
-            "description": "A list of departments to delete.",
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "DeleteIncludedDirectoryGroupsRequest": {
-      "additionalProperties": false,
-      "properties": {
-        "groupIds": {
-          "description": "A list of group IDs to delete.",
-          "items": {
-            "description": "A list of group IDs to delete.",
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "DeleteIncludedUsersRequest": {
-      "additionalProperties": false,
-      "properties": {
-        "userIds": {
-          "description": "A list of user IDs to delete.",
-          "items": {
-            "description": "A list of user IDs to delete.",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "watchlistId": {
-          "description": "A unique watchlist ID.",
-          "example": 123,
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "DirectoryGroup": {
-      "additionalProperties": false,
-      "properties": {
-        "groupId": {
-          "description": "A unique group ID.",
-          "example": 23,
-          "type": "string"
-        },
-        "name": {
-          "example": "Research and development",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "ExcludedUser": {
-      "additionalProperties": false,
-      "properties": {
-        "addedTime": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "userId": {
-          "description": "A unique user ID.",
-          "example": 23,
-          "type": "string"
-        },
-        "username": {
-          "example": "foo@bar.com",
-          "type": "string"
-        }
-      },
-      "required": [
-        "addedTime"
-      ],
-      "type": "object"
-    },
-    "IncludedDepartment": {
-      "additionalProperties": false,
-      "properties": {
-        "addedTime": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "name": {
-          "example": "Engineering",
-          "type": "string"
-        }
-      },
-      "required": [
-        "addedTime"
-      ],
-      "type": "object"
-    },
-    "IncludedDirectoryGroup": {
-      "additionalProperties": false,
-      "properties": {
-        "addedTime": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "groupId": {
-          "description": "A unique group ID.",
-          "example": 23,
-          "type": "string"
-        },
-        "isDeleted": {
-          "description": "Whether the included group was deleted by the directory provider but still referenced by the watchlist",
-          "type": "boolean"
-        },
-        "name": {
-          "example": "Research and development",
-          "type": "string"
-        }
-      },
-      "required": [
-        "addedTime"
-      ],
-      "type": "object"
-    },
-    "IncludedUser": {
-      "additionalProperties": false,
-      "properties": {
-        "addedTime": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "userId": {
-          "description": "A unique user ID.",
-          "example": 23,
-          "type": "string"
-        },
-        "username": {
-          "example": "foo@bar.com",
-          "type": "string"
-        }
-      },
-      "required": [
-        "addedTime"
-      ],
-      "type": "object"
-    },
-    "ListDepartmentsResponse": {
-      "additionalProperties": false,
-      "properties": {
-        "departments": {
-          "items": {
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "totalCount": {
-          "description": "The total count of all departments.",
-          "example": 10,
-          "format": "int64",
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    "ListDirectoryGroupsResponse": {
-      "additionalProperties": false,
-      "properties": {
-        "directoryGroups": {
-          "items": {
-            "$ref": "#/definitions/DirectoryGroup"
-          },
-          "type": "array"
-        },
-        "totalCount": {
-          "description": "The total count of all directory groups.",
-          "example": 10,
-          "format": "int64",
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    "ListExcludedUsersResponse": {
-      "additionalProperties": false,
-      "properties": {
-        "excludedUsers": {
-          "items": {
-            "$ref": "#/definitions/ExcludedUser"
-          },
-          "type": "array"
-        },
-        "totalCount": {
-          "description": "The total count of all excluded users.",
-          "example": 10,
-          "format": "int64",
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    "ListIncludedDepartmentsResponse": {
-      "additionalProperties": false,
-      "properties": {
-        "includedDepartments": {
-          "items": {
-            "$ref": "#/definitions/IncludedDepartment"
-          },
-          "type": "array"
-        },
-        "totalCount": {
-          "description": "The total count of all included departments.",
-          "example": 10,
-          "format": "int64",
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    "ListIncludedDirectoryGroupsResponse": {
-      "additionalProperties": false,
-      "properties": {
-        "includedDirectoryGroups": {
-          "items": {
-            "$ref": "#/definitions/IncludedDirectoryGroup"
-          },
-          "type": "array"
-        },
-        "totalCount": {
-          "description": "The total count of all included directory groups.",
-          "example": 10,
-          "format": "int64",
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    "ListIncludedUsersResponse": {
-      "additionalProperties": false,
-      "properties": {
-        "includedUsers": {
-          "description": "A paged collection of users explictly added as included users for the list.",
-          "items": {
-            "$ref": "#/definitions/IncludedUser"
-          },
-          "type": "array"
-        },
-        "totalCount": {
-          "description": "The total count of all included users.",
-          "example": 10,
-          "format": "int64",
-          "type": "integer"
-        }
-      },
-      "type": "object"
-    },
-    "ListUserRiskProfilesResponse": {
-      "additionalProperties": false,
+      "description": "ListUserRiskProfilesResponse",
       "properties": {
         "totalCount": {
           "description": "The total count of all user risk profiles.",
-          "example": 10,
           "format": "int64",
           "type": "integer"
         },
         "userRiskProfiles": {
+          "description": "Gets or Sets UserRiskProfiles",
           "items": {
-            "$ref": "#/definitions/UserRiskProfile"
+            "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.UserRiskProfile-risk-profiles"
           },
-          "type": "array"
+          "type": "array",
+          "x-nullable": true
         }
       },
       "type": "object"
     },
-    "ListWatchlistMembersResponse": {
+    "WatchlistDeprecatedSdk.Model.UpdatedUserRiskProfile-risk-profiles": {
       "additionalProperties": false,
-      "properties": {
-        "totalCount": {
-          "description": "The total count of all watchlist members.",
-          "example": 10,
-          "format": "int64",
-          "type": "integer"
-        },
-        "watchlistMembers": {
-          "description": "A paged collection of users who are members of the watchlist.  These users may have been added as an included user, or are members of an included department, etc.",
-          "items": {
-            "$ref": "#/definitions/WatchlistMember"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "ListWatchlistsResponse": {
-      "additionalProperties": false,
-      "properties": {
-        "totalCount": {
-          "description": "The total count of all watchlists.",
-          "example": 10,
-          "format": "int64",
-          "type": "integer"
-        },
-        "watchlists": {
-          "description": "The list of watchlists.",
-          "items": {
-            "$ref": "#/definitions/Watchlist"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "SortDirection": {
-      "enum": [
-        "ASC",
-        "DESC"
-      ],
-      "type": "string"
-    },
-    "UpdatedUserRiskProfile": {
-      "additionalProperties": false,
+      "description": "UpdatedUserRiskProfile",
       "properties": {
         "endDate": {
-          "$ref": "#/definitions/Date"
+          "allOf": [
+            {
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.Date-risk-profiles"
+            }
+          ],
+          "description": "Gets or Sets EndDate",
+          "x-nullable": true
         },
         "notes": {
           "description": "Notes to add to the user risk profile.",
-          "example": "These are my notes",
           "type": "string",
           "x-nullable": true
         },
         "startDate": {
-          "$ref": "#/definitions/Date"
-        }
-      },
-      "type": "object"
-    },
-    "UpdatedWatchlist": {
-      "additionalProperties": false,
-      "properties": {
-        "description": {
-          "description": "Description for a custom watchlist.",
-          "example": "A watchlist for a custom use case.",
-          "maxLength": 250,
-          "type": "string",
+          "allOf": [
+            {
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.Date-risk-profiles"
+            }
+          ],
+          "description": "Gets or Sets StartDate",
           "x-nullable": true
-        },
-        "title": {
-          "description": "Title of a custom watchlist.",
-          "example": "My Custom watchlist title",
-          "maxLength": 50,
-          "nullable": false,
-          "type": "string"
         }
       },
       "type": "object"
     },
-    "UserRiskProfile": {
+    "WatchlistDeprecatedSdk.Model.UserRiskProfile-risk-profiles": {
       "additionalProperties": false,
+      "description": "UserRiskProfile",
       "properties": {
         "active": {
           "description": "Whether the user is active.",
@@ -11379,14 +12111,15 @@
         "cloudAliases": {
           "description": "A list of cloud aliases for the user.",
           "items": {
-            "description": "A list of cloud aliases for the user.",
             "type": "string"
           },
-          "type": "array"
+          "type": "array",
+          "x-nullable": true
         },
         "country": {
           "description": "The user's country.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "deleted": {
           "description": "Whether the user is deleted.",
@@ -11394,49 +12127,71 @@
         },
         "department": {
           "description": "The user's department.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "displayName": {
           "description": "The user's friendly display name.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "division": {
           "description": "The user's division.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "employmentType": {
           "description": "The user's employment type.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "endDate": {
-          "$ref": "#/definitions/Date"
+          "allOf": [
+            {
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.Date-risk-profiles"
+            }
+          ],
+          "description": "Gets or Sets EndDate",
+          "x-nullable": true
         },
         "locality": {
           "description": "The user's locality (city).",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "managerDisplayName": {
           "description": "The user's manager's friendly display name.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "managerId": {
           "description": "The Code42 user ID of the user's manager.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "managerUsername": {
           "description": "The Code42 username of the user's manager.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "notes": {
           "description": "Notes about the user.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "region": {
           "description": "The user's region (state).",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "startDate": {
-          "$ref": "#/definitions/Date"
+          "allOf": [
+            {
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.Date-risk-profiles"
+            }
+          ],
+          "description": "Gets or Sets StartDate",
+          "x-nullable": true
         },
         "supportUser": {
           "description": "Whether the user is a support user.",
@@ -11444,79 +12199,669 @@
         },
         "tenantId": {
           "description": "A unique tenant ID.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "title": {
           "description": "The user's job title.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "userId": {
           "description": "A unique user ID.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "username": {
           "description": "The user's Code42 username.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         }
       },
       "type": "object"
     },
-    "Watchlist": {
+    "WatchlistSdk.Model.ActorRiskProfile-risk-profiles": {
       "additionalProperties": false,
+      "description": "ActorRiskProfile",
       "properties": {
-        "description": {
-          "description": "Description for a custom watchlist.",
-          "type": "string"
+        "active": {
+          "description": "Whether the actor is active.",
+          "type": "boolean"
         },
-        "listType": {
-          "$ref": "#/definitions/WatchlistType",
-          "type": "string"
+        "actorId": {
+          "description": "A unique actor ID.",
+          "type": "string",
+          "x-nullable": true
         },
-        "stats": {
-          "$ref": "#/definitions/WatchlistStats"
+        "actorname": {
+          "description": "The actor's Code42 actorname.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "country": {
+          "description": "The actor's country.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "department": {
+          "description": "The actor's department.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "displayName": {
+          "description": "The actor's friendly display name.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "division": {
+          "description": "The actor's division.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "employmentType": {
+          "description": "The actor's employment type.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "endDate": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/WatchlistSdk.Model.Date-risk-profiles"
+            }
+          ],
+          "description": "Gets or Sets EndDate",
+          "x-nullable": true
+        },
+        "locality": {
+          "description": "The actor's locality (city).",
+          "type": "string",
+          "x-nullable": true
+        },
+        "managerActorname": {
+          "description": "The Code42 actorname of the actor's manager.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "managerDisplayName": {
+          "description": "The actor's manager's friendly display name.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "managerId": {
+          "description": "The Code42 actor ID of the actor's manager.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "notes": {
+          "description": "Notes about the actor.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "region": {
+          "description": "The actor's region (state).",
+          "type": "string",
+          "x-nullable": true
+        },
+        "startDate": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/WatchlistSdk.Model.Date-risk-profiles"
+            }
+          ],
+          "description": "Gets or Sets StartDate",
+          "x-nullable": true
         },
         "tenantId": {
           "description": "A unique tenant ID.",
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "title": {
-          "description": "Title for a custom watchlist.",
-          "type": "string"
+          "description": "The actor's job title.",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.Date-risk-profiles": {
+      "additionalProperties": false,
+      "description": "Date",
+      "properties": {
+        "day": {
+          "description": "Day of month. Must be from 1 to 31 and valid for the year and month, or 0 if specifying a year by itself or a year and month where the day is not significant.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "month": {
+          "description": "Month of year. Must be from 1 to 12, or 0 if specifying a year without a month and day.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "year": {
+          "description": "Year of date. Must be from 1 to 9999, or 0 if specifying a date without a year.",
+          "format": "int32",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.ListActorRiskProfilesResponse-risk-profiles": {
+      "additionalProperties": false,
+      "description": "ListActorRiskProfilesResponse",
+      "properties": {
+        "actorRiskProfiles": {
+          "description": "Gets or Sets ActorRiskProfiles",
+          "items": {
+            "$ref": "#/definitions/WatchlistSdk.Model.ActorRiskProfile-risk-profiles"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "totalCount": {
+          "description": "The total count of all actor risk profiles.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.UpdatedActorRiskProfile-risk-profiles": {
+      "additionalProperties": false,
+      "description": "UpdatedActorRiskProfile",
+      "properties": {
+        "endDate": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/WatchlistSdk.Model.Date-risk-profiles"
+            }
+          ],
+          "description": "Gets or Sets EndDate",
+          "x-nullable": true
+        },
+        "notes": {
+          "description": "Notes to add to the actor risk profile.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "startDate": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/WatchlistSdk.Model.Date-risk-profiles"
+            }
+          ],
+          "description": "Gets or Sets StartDate",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.AddExcludedUsersRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "AddExcludedUsersRequest",
+      "properties": {
+        "userIds": {
+          "description": "A list of user IDs to add.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.AddIncludedDepartmentsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "AddIncludedDepartmentsRequest",
+      "properties": {
+        "departments": {
+          "description": "A list of departments to add.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.AddIncludedDirectoryGroupsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "AddIncludedDirectoryGroupsRequest",
+      "properties": {
+        "groupIds": {
+          "description": "A list of group IDs to add.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.AddIncludedUsersRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "AddIncludedUsersRequest",
+      "properties": {
+        "userIds": {
+          "description": "A list of user IDs to add.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
         },
         "watchlistId": {
           "description": "A unique watchlist ID.",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.CreateWatchlistRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "CreateWatchlistRequest",
+      "properties": {
+        "description": {
+          "description": "The optional description of a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "title": {
+          "description": "The required title for a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "watchlistType": {
+          "description": "Gets or Sets WatchlistType",
+          "enum": [
+            "WATCHLISTTYPEUNSPECIFIED",
+            "CONTRACTEMPLOYEE",
+            "DEPARTINGEMPLOYEE",
+            "ELEVATEDACCESSPRIVILEGES",
+            "FLIGHTRISK",
+            "HIGHIMPACTEMPLOYEE",
+            "NEWEMPLOYEE",
+            "PERFORMANCECONCERNS",
+            "POORSECURITYPRACTICES",
+            "SUSPICIOUSSYSTEMACTIVITY",
+            "CUSTOM"
+          ],
           "type": "string"
         }
       },
-      "required": [
-        "listType"
-      ],
       "type": "object"
     },
-    "WatchlistMember": {
+    "WatchlistDeprecatedSdk.Model.DeleteExcludedUsersRequest-watchlists": {
       "additionalProperties": false,
+      "description": "DeleteExcludedUsersRequest",
+      "properties": {
+        "userIds": {
+          "description": "A list of user IDs to delete.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.DeleteIncludedDepartmentsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "DeleteIncludedDepartmentsRequest",
+      "properties": {
+        "departments": {
+          "description": "A list of departments to delete.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.DeleteIncludedDirectoryGroupsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "DeleteIncludedDirectoryGroupsRequest",
+      "properties": {
+        "groupIds": {
+          "description": "A list of group IDs to delete.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.DeleteIncludedUsersRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "DeleteIncludedUsersRequest",
+      "properties": {
+        "userIds": {
+          "description": "A list of user IDs to delete.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "watchlistId": {
+          "description": "A unique watchlist ID.",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.ExcludedUser-watchlists": {
+      "additionalProperties": false,
+      "description": "ExcludedUser",
       "properties": {
         "addedTime": {
+          "description": "Gets or Sets AddedTime",
           "format": "date-time",
           "type": "string"
         },
         "userId": {
           "description": "A unique user ID.",
-          "example": 23,
-          "type": "string"
+          "type": "string",
+          "x-nullable": true
         },
         "username": {
-          "example": "foo@bar.com",
-          "type": "string"
+          "description": "Gets or Sets Username",
+          "type": "string",
+          "x-nullable": true
         }
       },
-      "required": [
-        "addedTime"
-      ],
       "type": "object"
     },
-    "WatchlistStats": {
+    "WatchlistDeprecatedSdk.Model.IncludedDepartment-watchlists": {
       "additionalProperties": false,
+      "description": "IncludedDepartment",
+      "properties": {
+        "addedTime": {
+          "description": "Gets or Sets AddedTime",
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "description": "Gets or Sets Name",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.IncludedDirectoryGroup-watchlists": {
+      "additionalProperties": false,
+      "description": "IncludedDirectoryGroup",
+      "properties": {
+        "addedTime": {
+          "description": "Gets or Sets AddedTime",
+          "format": "date-time",
+          "type": "string"
+        },
+        "groupId": {
+          "description": "A unique group ID.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "isDeleted": {
+          "description": "Whether the included group was deleted by the directory provider but still referenced by the watchlist",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "Gets or Sets Name",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.IncludedUser-watchlists": {
+      "additionalProperties": false,
+      "description": "IncludedUser",
+      "properties": {
+        "addedTime": {
+          "description": "Gets or Sets AddedTime",
+          "format": "date-time",
+          "type": "string"
+        },
+        "userId": {
+          "description": "A unique user ID.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "username": {
+          "description": "Gets or Sets Username",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.ListExcludedUsersResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListExcludedUsersResponse",
+      "properties": {
+        "excludedUsers": {
+          "description": "Gets or Sets ExcludedUsers",
+          "items": {
+            "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.ExcludedUser-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "totalCount": {
+          "description": "The total count of all excluded users.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.ListIncludedDepartmentsResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListIncludedDepartmentsResponse",
+      "properties": {
+        "includedDepartments": {
+          "description": "Gets or Sets IncludedDepartments",
+          "items": {
+            "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.IncludedDepartment-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "totalCount": {
+          "description": "The total count of all included departments.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.ListIncludedDirectoryGroupsResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListIncludedDirectoryGroupsResponse",
+      "properties": {
+        "includedDirectoryGroups": {
+          "description": "Gets or Sets IncludedDirectoryGroups",
+          "items": {
+            "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.IncludedDirectoryGroup-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "totalCount": {
+          "description": "The total count of all included directory groups.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.ListIncludedUsersResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListIncludedUsersResponse",
+      "properties": {
+        "includedUsers": {
+          "description": "A paged collection of users explictly added as included users for the list.",
+          "items": {
+            "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.IncludedUser-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "totalCount": {
+          "description": "The total count of all included users.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.ListWatchlistMembersResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListWatchlistMembersResponse",
+      "properties": {
+        "totalCount": {
+          "description": "The total count of all watchlist members.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "watchlistMembers": {
+          "description": "A paged collection of users who are members of the watchlist.  These users may have been added as an included user, or are members of an included department, etc.",
+          "items": {
+            "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.WatchlistMember-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.ListWatchlistsResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListWatchlistsResponse",
+      "properties": {
+        "totalCount": {
+          "description": "The total count of all watchlists.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "watchlists": {
+          "description": "The list of watchlists.",
+          "items": {
+            "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.Watchlist-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.UpdatedWatchlist-watchlists": {
+      "additionalProperties": false,
+      "description": "UpdatedWatchlist",
+      "properties": {
+        "description": {
+          "description": "Description for a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "title": {
+          "description": "Title of a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.Watchlist-watchlists": {
+      "additionalProperties": false,
+      "description": "Watchlist",
+      "properties": {
+        "description": {
+          "description": "Description for a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "listType": {
+          "description": "Gets or Sets ListType",
+          "enum": [
+            "WATCHLISTTYPEUNSPECIFIED",
+            "CONTRACTEMPLOYEE",
+            "DEPARTINGEMPLOYEE",
+            "ELEVATEDACCESSPRIVILEGES",
+            "FLIGHTRISK",
+            "HIGHIMPACTEMPLOYEE",
+            "NEWEMPLOYEE",
+            "PERFORMANCECONCERNS",
+            "POORSECURITYPRACTICES",
+            "SUSPICIOUSSYSTEMACTIVITY",
+            "CUSTOM"
+          ],
+          "type": "string"
+        },
+        "stats": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/WatchlistDeprecatedSdk.Model.WatchlistStats-watchlists"
+            }
+          ],
+          "description": "Gets or Sets Stats",
+          "x-nullable": true
+        },
+        "tenantId": {
+          "description": "A unique tenant ID.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "title": {
+          "description": "Title for a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "watchlistId": {
+          "description": "A unique watchlist ID.",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.WatchlistMember-watchlists": {
+      "additionalProperties": false,
+      "description": "WatchlistMember",
+      "properties": {
+        "addedTime": {
+          "description": "Gets or Sets AddedTime",
+          "format": "date-time",
+          "type": "string"
+        },
+        "userId": {
+          "description": "A unique user ID.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "username": {
+          "description": "Gets or Sets Username",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistDeprecatedSdk.Model.WatchlistStats-watchlists": {
+      "additionalProperties": false,
+      "description": "WatchlistStats",
       "properties": {
         "excludedUsersCount": {
           "description": "The number of users explicitly excluded from the watchlist.",
@@ -11541,21 +12886,495 @@
       },
       "type": "object"
     },
-    "WatchlistType": {
-      "enum": [
-        "WATCHLIST_TYPE_UNSPECIFIED",
-        "CONTRACT_EMPLOYEE",
-        "DEPARTING_EMPLOYEE",
-        "ELEVATED_ACCESS_PRIVILEGES",
-        "FLIGHT_RISK",
-        "HIGH_IMPACT_EMPLOYEE",
-        "NEW_EMPLOYEE",
-        "PERFORMANCE_CONCERNS",
-        "POOR_SECURITY_PRACTICES",
-        "SUSPICIOUS_SYSTEM_ACTIVITY",
-        "CUSTOM"
-      ],
-      "type": "string"
+    "WatchlistSdk.Model.AddExcludedActorsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "AddExcludedActorsRequest",
+      "properties": {
+        "actorIds": {
+          "description": "A list of actor IDs to add.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.AddIncludedActorsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "AddIncludedActorsRequest",
+      "properties": {
+        "actorIds": {
+          "description": "A list of actor IDs to add.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "watchlistId": {
+          "description": "A unique watchlist ID.",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.AddIncludedDepartmentsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "AddIncludedDepartmentsRequest",
+      "properties": {
+        "departments": {
+          "description": "A list of departments to add.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.AddIncludedDirectoryGroupsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "AddIncludedDirectoryGroupsRequest",
+      "properties": {
+        "groupIds": {
+          "description": "A list of group IDs to add.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.CreateWatchlistRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "CreateWatchlistRequest",
+      "properties": {
+        "description": {
+          "description": "The optional description of a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "title": {
+          "description": "The required title for a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "watchlistType": {
+          "description": "Gets or Sets WatchlistType",
+          "enum": [
+            "WATCHLISTTYPEUNSPECIFIED",
+            "CONTRACTEMPLOYEE",
+            "DEPARTINGEMPLOYEE",
+            "ELEVATEDACCESSPRIVILEGES",
+            "FLIGHTRISK",
+            "HIGHIMPACTEMPLOYEE",
+            "NEWEMPLOYEE",
+            "PERFORMANCECONCERNS",
+            "POORSECURITYPRACTICES",
+            "SUSPICIOUSSYSTEMACTIVITY",
+            "CUSTOM"
+          ],
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.DeleteExcludedActorsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "DeleteExcludedActorsRequest",
+      "properties": {
+        "actorIds": {
+          "description": "A list of actor IDs to delete.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.DeleteIncludedActorsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "DeleteIncludedActorsRequest",
+      "properties": {
+        "actorIds": {
+          "description": "A list of actor IDs to delete.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "watchlistId": {
+          "description": "A unique watchlist ID.",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.DeleteIncludedDepartmentsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "DeleteIncludedDepartmentsRequest",
+      "properties": {
+        "departments": {
+          "description": "A list of departments to delete.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.DeleteIncludedDirectoryGroupsRequest-watchlists": {
+      "additionalProperties": false,
+      "description": "DeleteIncludedDirectoryGroupsRequest",
+      "properties": {
+        "groupIds": {
+          "description": "A list of group IDs to delete.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.ExcludedActor-watchlists": {
+      "additionalProperties": false,
+      "description": "ExcludedActor",
+      "properties": {
+        "actorId": {
+          "description": "A unique actor ID.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "actorname": {
+          "description": "Gets or Sets Actorname",
+          "type": "string",
+          "x-nullable": true
+        },
+        "addedTime": {
+          "description": "Gets or Sets AddedTime",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.IncludedActor-watchlists": {
+      "additionalProperties": false,
+      "description": "IncludedActor",
+      "properties": {
+        "actorId": {
+          "description": "A unique actor ID.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "actorname": {
+          "description": "Gets or Sets Actorname",
+          "type": "string",
+          "x-nullable": true
+        },
+        "addedTime": {
+          "description": "Gets or Sets AddedTime",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.IncludedDepartment-watchlists": {
+      "additionalProperties": false,
+      "description": "IncludedDepartment",
+      "properties": {
+        "addedTime": {
+          "description": "Gets or Sets AddedTime",
+          "format": "date-time",
+          "type": "string"
+        },
+        "name": {
+          "description": "Gets or Sets Name",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.IncludedDirectoryGroup-watchlists": {
+      "additionalProperties": false,
+      "description": "IncludedDirectoryGroup",
+      "properties": {
+        "addedTime": {
+          "description": "Gets or Sets AddedTime",
+          "format": "date-time",
+          "type": "string"
+        },
+        "groupId": {
+          "description": "A unique group ID.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "isDeleted": {
+          "description": "Whether the included group was deleted by the directory provider but still referenced by the watchlist",
+          "type": "boolean"
+        },
+        "name": {
+          "description": "Gets or Sets Name",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.ListExcludedActorsResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListExcludedActorsResponse",
+      "properties": {
+        "excludedActors": {
+          "description": "Gets or Sets ExcludedActors",
+          "items": {
+            "$ref": "#/definitions/WatchlistSdk.Model.ExcludedActor-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "totalCount": {
+          "description": "The total count of all excluded actors.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.ListIncludedActorsResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListIncludedActorsResponse",
+      "properties": {
+        "includedActors": {
+          "description": "A paged collection of actors explictly added as included actors for the list.",
+          "items": {
+            "$ref": "#/definitions/WatchlistSdk.Model.IncludedActor-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "totalCount": {
+          "description": "The total count of all included actors.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.ListIncludedDepartmentsResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListIncludedDepartmentsResponse",
+      "properties": {
+        "includedDepartments": {
+          "description": "Gets or Sets IncludedDepartments",
+          "items": {
+            "$ref": "#/definitions/WatchlistSdk.Model.IncludedDepartment-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "totalCount": {
+          "description": "The total count of all included departments.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.ListIncludedDirectoryGroupsResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListIncludedDirectoryGroupsResponse",
+      "properties": {
+        "includedDirectoryGroups": {
+          "description": "Gets or Sets IncludedDirectoryGroups",
+          "items": {
+            "$ref": "#/definitions/WatchlistSdk.Model.IncludedDirectoryGroup-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "totalCount": {
+          "description": "The total count of all included directory groups.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.ListWatchlistMembersResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListWatchlistMembersResponse",
+      "properties": {
+        "totalCount": {
+          "description": "The total count of all watchlist members.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "watchlistMembers": {
+          "description": "A paged collection of actors who are members of the watchlist.  These actors may have been added as an included actor, or are members of an included department, etc.",
+          "items": {
+            "$ref": "#/definitions/WatchlistSdk.Model.WatchlistMember-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.ListWatchlistsResponse-watchlists": {
+      "additionalProperties": false,
+      "description": "ListWatchlistsResponse",
+      "properties": {
+        "totalCount": {
+          "description": "The total count of all watchlists.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "watchlists": {
+          "description": "The list of watchlists.",
+          "items": {
+            "$ref": "#/definitions/WatchlistSdk.Model.Watchlist-watchlists"
+          },
+          "type": "array",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.UpdatedWatchlist-watchlists": {
+      "additionalProperties": false,
+      "description": "UpdatedWatchlist",
+      "properties": {
+        "description": {
+          "description": "Description for a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "title": {
+          "description": "Title of a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.Watchlist-watchlists": {
+      "additionalProperties": false,
+      "description": "Watchlist",
+      "properties": {
+        "description": {
+          "description": "Description for a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "listType": {
+          "description": "Gets or Sets ListType",
+          "enum": [
+            "WATCHLISTTYPEUNSPECIFIED",
+            "CONTRACTEMPLOYEE",
+            "DEPARTINGEMPLOYEE",
+            "ELEVATEDACCESSPRIVILEGES",
+            "FLIGHTRISK",
+            "HIGHIMPACTEMPLOYEE",
+            "NEWEMPLOYEE",
+            "PERFORMANCECONCERNS",
+            "POORSECURITYPRACTICES",
+            "SUSPICIOUSSYSTEMACTIVITY",
+            "CUSTOM"
+          ],
+          "type": "string"
+        },
+        "stats": {
+          "allOf": [
+            {
+              "$ref": "#/definitions/WatchlistSdk.Model.WatchlistStats-watchlists"
+            }
+          ],
+          "description": "Gets or Sets Stats",
+          "x-nullable": true
+        },
+        "tenantId": {
+          "description": "A unique tenant ID.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "title": {
+          "description": "Title for a custom watchlist.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "watchlistId": {
+          "description": "A unique watchlist ID.",
+          "type": "string",
+          "x-nullable": true
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.WatchlistMember-watchlists": {
+      "additionalProperties": false,
+      "description": "WatchlistMember",
+      "properties": {
+        "actorId": {
+          "description": "A unique actor ID.",
+          "type": "string",
+          "x-nullable": true
+        },
+        "actorname": {
+          "description": "Gets or Sets Actorname",
+          "type": "string",
+          "x-nullable": true
+        },
+        "addedTime": {
+          "description": "Gets or Sets AddedTime",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "WatchlistSdk.Model.WatchlistStats-watchlists": {
+      "additionalProperties": false,
+      "description": "WatchlistStats",
+      "properties": {
+        "excludedActorsCount": {
+          "description": "The number of actors explicitly excluded from the watchlist.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "includedActorsCount": {
+          "description": "The number of actors explicitly included on the watchlist.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "includedDepartmentsCount": {
+          "description": "The number of departments explicitly included on the watchlist.",
+          "format": "int64",
+          "type": "integer"
+        },
+        "includedDirectoryGroupsCount": {
+          "description": "The number of directory groups explicitly included on the watchlist.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "type": "object"
     },
     "ActorFamilyResponse-actor-enrichment-service": {
       "properties": {
@@ -11745,6 +13564,26 @@
         "childActorIds",
         "parentActorId"
       ],
+      "type": "object"
+    },
+    "WatchlistSdk.Model.ListDepartmentsResponse-departments": {
+      "additionalProperties": false,
+      "description": "ListDepartmentsResponse",
+      "properties": {
+        "departments": {
+          "description": "Gets or Sets Departments",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "x-nullable": true
+        },
+        "totalCount": {
+          "description": "The total count of all departments.",
+          "format": "int64",
+          "type": "integer"
+        }
+      },
       "type": "object"
     },
     "AcquiredFrom-file-events": {
