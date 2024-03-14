@@ -1,8 +1,10 @@
 HTTP PATCH methods support partially updating a resource. To accomplish this, each request must specify exactly which
 fields are to be updated. This is commonly called the "field mask", and in this endpoint is provided by the `paths` query
-param. Any keys in the request body that aren't in the field mask paths are ignored. This enables one to request an
+param. Any keys in the request body that aren't in the field mask paths are ignored.
+
+This enables a user to request an
 object via a GET request, change the desired fields, then send back the same full object, without the possibility of
-overwriting some other request that had happened in the meantime that had modified a different, unrelated field.
+overwriting some other update request on that object that had happened in the meantime and modified a different, unrelated field.
 
 For example:
 
