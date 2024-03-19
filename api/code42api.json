@@ -3124,7 +3124,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "be744847-b35a-4d0e-ad33-b2406e9c0f48"
+            "example": "2dde1799-7ce5-40be-bc25-591940f7c591"
           }
         ],
         "responses": {
@@ -3208,7 +3208,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "38cf90b4-6448-4668-8a68-8fc028f1924e"
+            "example": "f03eed8d-db00-4521-91fd-5b09f0c08e94"
           }
         ],
         "responses": {
@@ -3237,7 +3237,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "5be76f21-24e3-4065-a9e0-e84321a22b26"
+                "e5ca0e23-9776-4818-ba7a-afe84713d333"
               ],
               "items": {
                 "type": "string"
@@ -3271,7 +3271,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "9c673574-b0ff-4fe0-9b86-3aac8cc1265a"
+            "example": "388ede61-d985-4e17-accb-22c6dd3ca594"
           }
         ],
         "responses": {
@@ -3300,7 +3300,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "1851c345-25ce-4d75-b259-53047c8932c6"
+                "f2bdb9ca-fe66-46f7-802a-2d64d76096f2"
               ],
               "items": {
                 "type": "string"
@@ -3335,7 +3335,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a6f76acd-65ab-4ebe-a51f-8dda0fbf641c"
+            "example": "3325c951-1e65-466a-a916-34fa0a84d8aa"
           }
         ],
         "responses": {
@@ -3362,7 +3362,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "77369b08-3f8a-4c7c-bf81-0b20bf95101a"
+            "example": "8b511484-79e6-4b90-8a70-0663e9983161"
           }
         ],
         "responses": {
@@ -11234,7 +11234,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-03-18T12:05:26.1838015Z"
+              "example": "2024-03-19T00:12:55.3799997Z"
             },
             "createdBy": {
               "type": "string",
@@ -11245,7 +11245,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-03-18T12:05:26.183826Z"
+              "example": "2024-03-19T00:12:55.3800218Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -11302,7 +11302,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "8953089c-fd15-4b57-bf30-103d1295b806"
+              "example": "337bd4f6-ec13-4a69-8065-dffb2725de49"
             }
           }
         }
@@ -11976,7 +11976,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "49fcd99f-5cab-4520-b214-7ca4d7f57d3d"
+          "example": "60a3596d-b4db-41b4-9192-d368759d3055"
         },
         "aliases": {
           "type": "array",
@@ -12000,7 +12000,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "a028861f-5810-4aaa-ba76-09869dcca662"
+          "example": "7b4dce04-eb2e-4965-a93d-7b74b6236ceb"
         },
         "users": {
           "type": "array",
@@ -16082,7 +16082,8 @@
             "SEARCH_FAILED",
             "QUERY_TIMEOUT",
             "ILLEGAL_SORT",
-            "ILLEGAL_GROUP"
+            "ILLEGAL_GROUP",
+            "RESPONSE_CONTENT_TOO_LARGE"
           ],
           "example": "SEARCH_FAILED",
           "title": "The type of problem that occured.",
@@ -16126,7 +16127,8 @@
             "SEARCH_FAILED",
             "QUERY_TIMEOUT",
             "ILLEGAL_SORT",
-            "ILLEGAL_GROUP"
+            "ILLEGAL_GROUP",
+            "RESPONSE_CONTENT_TOO_LARGE"
           ],
           "example": "SEARCH_FAILED",
           "title": "The type of problem that occured.",
