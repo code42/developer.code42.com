@@ -158,7 +158,7 @@
           {
             "in": "query",
             "name": "anyOfAgentHealthIssueTypes",
-            "description": "Optionally retrieve agents that have (at least) any of the given issue type(s). Example: NOT_CONNECTING",
+            "description": "Optionally retrieve agents that have (at least) any of the given issue type(s). Health issue types include the following: NOT_CONNECTING, NOT_SENDING_SECURITY_EVENTS",
             "type": "array",
             "items": {
               "type": "string"
@@ -3124,7 +3124,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "663e4a4a-dee8-4bbe-a84b-6815e8dfed87"
+            "example": "2c06a393-9db2-4155-bd0a-15b8fc0a28bc"
           }
         ],
         "responses": {
@@ -3208,7 +3208,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "44e2d8c1-5092-47b4-818d-d3e4ecdf5d39"
+            "example": "056a417c-eb85-4c78-82d5-36ddf75bca84"
           }
         ],
         "responses": {
@@ -3237,7 +3237,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "292ed6f6-7866-4952-bd18-9903c36fd23a"
+                "7b3b4cce-649f-4d91-b591-87a7ad943341"
               ],
               "items": {
                 "type": "string"
@@ -3271,7 +3271,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "2206c617-a072-4773-847c-a0cb160b6400"
+            "example": "59f79839-2144-4159-ac4e-e1d4cbd3a506"
           }
         ],
         "responses": {
@@ -3300,7 +3300,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "abc7cd6a-cfd9-44a3-92cc-c5836c4fbd8f"
+                "42df4a1b-3eb5-4bf8-93d6-962410678e00"
               ],
               "items": {
                 "type": "string"
@@ -3335,7 +3335,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "4dc99137-9622-49a6-9bb2-f60e04e789fd"
+            "example": "f34b917c-9a62-4a22-8354-aaa90cb73b5c"
           }
         ],
         "responses": {
@@ -3362,7 +3362,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "41bfe0ce-1abf-4d7f-b0e4-dc09c065cc1b"
+            "example": "b59a56c7-3d43-482c-a5c3-68226769551f"
           }
         ],
         "responses": {
@@ -11234,7 +11234,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-03-19T12:05:54.0650632Z"
+              "example": "2024-03-20T00:12:31.1843347Z"
             },
             "createdBy": {
               "type": "string",
@@ -11245,7 +11245,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-03-19T12:05:54.065087Z"
+              "example": "2024-03-20T00:12:31.1843592Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -11302,7 +11302,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "0b597fc6-6b66-46eb-8df6-95ee0396d3f8"
+              "example": "d2a87a8a-9b2a-45a5-8c0f-72e5ab062a47"
             }
           }
         }
@@ -11976,7 +11976,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "70f89d73-9003-41a8-99d2-fdb99b00a8a1"
+          "example": "810df7f5-4ffd-4260-9901-b3302cd342b2"
         },
         "aliases": {
           "type": "array",
@@ -12000,7 +12000,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "e092afdb-2de7-42c9-b541-cef2fb859dc2"
+          "example": "98420306-fd1f-4b0d-81d4-b9f283934aef"
         },
         "users": {
           "type": "array",
