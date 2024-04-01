@@ -21,9 +21,9 @@
       }
     },
     {
-      "name": "Alerts and Sessions",
+      "name": "Alerts",
       "description": {
-        "$ref": "./api-descriptions/sessions.rmd"
+        "$ref": "./api-descriptions/alerts.rmd"
       }
     },
     {
@@ -2130,512 +2130,6 @@
         "deprecated": true
       }
     },
-    "/v1/sessions": {
-      "get": {
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "description": "The id of the actor to limit the search to.",
-            "in": "query",
-            "name": "actor_id",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "description": "Only include sessions beginning on or after this instant.",
-            "format": "int64",
-            "in": "query",
-            "name": "on_or_after",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "description": "Only include sessions beginning before this instant.",
-            "format": "int64",
-            "in": "query",
-            "name": "before",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "description": "Only include sessions that have a matching alert status. Defaults to 'true'.",
-            "in": "query",
-            "name": "has_alerts",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "description": "Which way to order the results.  If not provided, results are ordered by end time.",
-            "enum": [
-              "end_time",
-              "score"
-            ],
-            "in": "query",
-            "name": "order_by",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "collectionFormat": "multi",
-            "description": "List of risk indicators that must be present on the sessions before they are returned.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "risk_indicators",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "description": "Which way to order the results.  Either 'ASC' or 'DESC'.  If not provided, results are sorted descending",
-            "enum": [
-              "ASC",
-              "DESC"
-            ],
-            "in": "query",
-            "name": "sort_direction",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "collectionFormat": "multi",
-            "description": "Only include sessions that have a matching state.",
-            "in": "query",
-            "items": {
-              "$ref": "#/definitions/SessionState-sessions"
-            },
-            "name": "state",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "collectionFormat": "multi",
-            "description": "Only include sessions that have a matching severity value.  0 indicates no risk, 1 = low, 2 = moderate, 3 = high, 4 = critical",
-            "in": "query",
-            "items": {
-              "format": "int32",
-              "maximum": 4,
-              "minimum": 0,
-              "type": "integer"
-            },
-            "name": "severity",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "collectionFormat": "multi",
-            "description": "Optional list of rule ids to filter upon.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "rule_id",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "collectionFormat": "multi",
-            "description": "Optional list of watchlist ids to filter upon.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "watchlist_id",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "default": 0,
-            "description": "The page number to return, starting with 0.  If not provided, 0 is assumed.",
-            "format": "int32",
-            "in": "query",
-            "minimum": 0,
-            "name": "page_number",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "default": 10,
-            "description": "The number of results to return in a page. Max of '50'.",
-            "format": "int32",
-            "in": "query",
-            "maximum": 1000,
-            "minimum": 0,
-            "name": "page_size",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "description": "The content inspection status to limit the search to.",
-            "enum": [
-              "PENDING",
-              "FOUND",
-              "NOT_FOUND"
-            ],
-            "in": "query",
-            "name": "content_inspection_status",
-            "required": false,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Session detail",
-            "schema": {
-              "$ref": "#/definitions/SessionContainer-sessions"
-            }
-          },
-          "400": {
-            "description": "If any of the search parameters are malformed or otherwise invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse-sessions"
-            }
-          }
-        },
-        "tags": [
-          "Alerts and Sessions"
-        ],
-        "operationId": "SearchSessions",
-        "summary": "V2 - Search for sessions (includes  alerts)."
-      }
-    },
-    "/v1/sessions/change-state": {
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ChangeStateByIdsRequest-sessions"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "The state was changed successfully."
-          },
-          "400": {
-            "description": "The requested new state was malformed or was an otherwise invalid state transition.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse-sessions"
-            }
-          },
-          "404": {
-            "description": "The specified session could not be found."
-          }
-        },
-        "tags": [
-          "Alerts and Sessions"
-        ],
-        "operationId": "ChangeSessionStateByIds",
-        "summary": "V2 - Change the state of multiple sessions by ID  (includes  alerts)."
-      }
-    },
-    "/v1/sessions/change-states": {
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "description": "The id of the actor to limit the search to.",
-            "in": "query",
-            "name": "actor_id",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "description": "Only include sessions beginning on or after this instant.",
-            "format": "int64",
-            "in": "query",
-            "name": "on_or_after",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "description": "Only include sessions beginning before this instant.",
-            "format": "int64",
-            "in": "query",
-            "name": "before",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "description": "Only include sessions that have a matching alert status.",
-            "in": "query",
-            "name": "has_alerts",
-            "required": false,
-            "type": "boolean"
-          },
-          {
-            "collectionFormat": "multi",
-            "description": "List of risk indicators that must be present on the sessions before they are returned.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "risk_indicators",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "collectionFormat": "multi",
-            "description": "Only include sessions that have a matching state.",
-            "in": "query",
-            "items": {
-              "$ref": "#/definitions/SessionState-sessions"
-            },
-            "name": "state",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "collectionFormat": "multi",
-            "description": "Only include sessions that have a matching severity value.  0 indicates no risk, 1 = low, 2 = moderate, 3 = high, 4 = critical",
-            "in": "query",
-            "items": {
-              "format": "int32",
-              "maximum": 4,
-              "minimum": 0,
-              "type": "integer"
-            },
-            "name": "severity",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "collectionFormat": "multi",
-            "description": "Optional list of rule ids to filter upon.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "rule_id",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "collectionFormat": "multi",
-            "description": "Optional list of watchlist ids to filter upon.",
-            "in": "query",
-            "items": {
-              "type": "string"
-            },
-            "name": "watchlist_id",
-            "required": false,
-            "type": "array"
-          },
-          {
-            "description": "The content inspection status to limit the search to.",
-            "enum": [
-              "PENDING",
-              "FOUND",
-              "NOT_FOUND"
-            ],
-            "in": "query",
-            "name": "content_inspection_status",
-            "required": false,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ChangeStatesRequest-sessions"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Session detail",
-            "schema": {
-              "properties": {
-                "continuationToken": {
-                  "description": "Null if state changes have been published, otherwise a token to use on subsequent calls.",
-                  "nullable": true,
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "If any of the search parameters are malformed or otherwise invalid",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse-sessions"
-            }
-          }
-        },
-        "tags": [
-          "Alerts and Sessions"
-        ],
-        "operationId": "ChangeSessionStates",
-        "summary": "V2 - Change the state of multiple sessions by  other search criteria (includes alerts)."
-      }
-    },
-    "/v1/sessions/{id}": {
-      "get": {
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "description": "The session id",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Session detail",
-            "schema": {
-              "$ref": "#/definitions/SessionDetail-sessions"
-            }
-          },
-          "404": {
-            "description": "If the requested session could not be found."
-          }
-        },
-        "tags": [
-          "Alerts and Sessions"
-        ],
-        "operationId": "GetSessionDetail",
-        "summary": "V2 - Get the details of a session (includes  alerts)."
-      }
-    },
-    "/v1/sessions/{id}/add-note": {
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "description": "The id of the session to add a note to.",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/AddNoteRequest-sessions"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "The note was added successfully."
-          },
-          "400": {
-            "description": "The note was too long, or there were too many notes already added to this session.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse-sessions"
-            }
-          },
-          "404": {
-            "description": "The specified session could not be found."
-          }
-        },
-        "tags": [
-          "Alerts and Sessions"
-        ],
-        "operationId": "AddNote",
-        "summary": "V2 - Add a note to the session (includes  alerts)."
-      }
-    },
-    "/v1/sessions/{id}/change-state": {
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "description": "The session id to change state on.",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ChangeStateRequest-sessions"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "The state was changed successfully."
-          },
-          "400": {
-            "description": "The requested new state was malformed or was an otherwise invalid state transition.",
-            "schema": {
-              "$ref": "#/definitions/ErrorResponse-sessions"
-            }
-          },
-          "404": {
-            "description": "The specified session could not be found."
-          }
-        },
-        "tags": [
-          "Alerts and Sessions"
-        ],
-        "operationId": "ChangeSessionState",
-        "summary": "V2 - Change the state of a single session by ID (includes alerts)."
-      }
-    },
-    "/v1/sessions/{id}/events": {
-      "get": {
-        "parameters": [
-          {
-            "description": "The session id",
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "File events that are part of the session."
-          },
-          "404": {
-            "description": "If the requested session could not be found or if there are no alerts associated with that session."
-          }
-        },
-        "tags": [
-          "Alerts and Sessions"
-        ],
-        "description": "Gets the file event metadata for all events that are associated with alerted upon activity as part of the session.\\nWill return the same as the file event API search query, more details on that in the [file event API documentation](https://developer.code42.com/api/#tag/File-Events/operation/searchEvents).",
-        "operationId": "GetSessionEvents",
-        "summary": "V2 - Get the events that were alerted on as part of the session."
-      }
-    },
     "/v1/audit/export": {
       "post": {
         "consumes": [
@@ -3630,7 +3124,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "92da3d09-2e85-4d87-909d-2bd99805d6a0"
+            "example": "7aed2be7-bb00-4f7a-a5b9-c77bcad4ec94"
           }
         ],
         "responses": {
@@ -3714,7 +3208,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "c1164c65-2b4a-4fe4-82ce-28a527808337"
+            "example": "45520a9c-3c65-4278-af52-4b057ef116e7"
           }
         ],
         "responses": {
@@ -3743,7 +3237,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "c3e47a0d-7689-4bb7-bf10-2cf5d75c721d"
+                "4a0263c4-705c-48b2-93aa-c022cdae7dc0"
               ],
               "items": {
                 "type": "string"
@@ -3777,7 +3271,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a4b9af61-be8b-4026-a365-6124f0d6bc96"
+            "example": "cc0d904e-54fd-466e-89e3-c9cc347039ba"
           }
         ],
         "responses": {
@@ -3806,7 +3300,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "0db83a9a-fa02-4c40-b01a-ec9c6f11ed7b"
+                "db33741f-fbfb-4622-9b11-90da98b1f5f9"
               ],
               "items": {
                 "type": "string"
@@ -3841,7 +3335,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "71b70031-728f-43cf-9a48-c1fdd9b821b4"
+            "example": "6851c4cb-4caa-4032-936b-20cd3780bfb7"
           }
         ],
         "responses": {
@@ -3868,7 +3362,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "dbf1bb1a-e0e3-47a7-9758-bbe2d5382fc1"
+            "example": "1c819bff-bd2a-4899-8df5-ae4817876ade"
           }
         ],
         "responses": {
@@ -6568,6 +6062,568 @@
         "description": "Remove the adoption between two actors by removing the parent of a child actor.",
         "operationId": "removeParent",
         "summary": "Remove adoption between two actors"
+      }
+    },
+    "/v1/sessions/{id}": {
+      "get": {
+        "summary": "V2 - Get the details of a session (includes  alerts).",
+        "operationId": "GetSessionDetail",
+        "tags": [
+          "Alerts and Sessions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The session id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "123"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionDetail-sessions"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "If the requested session could not be found."
+          }
+        }
+      }
+    },
+    "/v1/sessions": {
+      "get": {
+        "summary": "V2 - Search for sessions (includes  alerts).",
+        "operationId": "SearchSessions",
+        "tags": [
+          "Alerts and Sessions"
+        ],
+        "parameters": [
+          {
+            "name": "actor_id",
+            "in": "query",
+            "description": "The id of the actor to limit the search to.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "on_or_after",
+            "in": "query",
+            "description": "Only include sessions beginning on or after this instant.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "description": "Only include sessions beginning before this instant.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "has_alerts",
+            "in": "query",
+            "description": "Only include sessions that have a matching alert status. Defaults to 'true'.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "order_by",
+            "in": "query",
+            "description": "Which way to order the results.  If not provided, results are ordered by end time.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "end_time",
+                "score"
+              ]
+            }
+          },
+          {
+            "name": "risk_indicators",
+            "in": "query",
+            "description": "List of risk indicators that must be present on the sessions before they are returned.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "sort_direction",
+            "in": "query",
+            "description": "Which way to order the results.  Either 'ASC' or 'DESC'.  If not provided, results are sorted descending",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "ASC",
+                "DESC"
+              ]
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "Only include sessions that have a matching state.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SessionState-sessions"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "severity",
+            "in": "query",
+            "description": "Only include sessions that have a matching severity value.  0 indicates no risk, 1 = low, 2 = moderate, 3 = high, 4 = critical",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32",
+                "minimum": 0,
+                "maximum": 4
+              }
+            }
+          },
+          {
+            "name": "rule_id",
+            "in": "query",
+            "description": "Optional list of rule ids to filter upon.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "watchlist_id",
+            "in": "query",
+            "description": "Optional list of watchlist ids to filter upon.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "page_number",
+            "in": "query",
+            "description": "The page number to return, starting with 0.  If not provided, 0 is assumed.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0,
+              "minimum": 0
+            }
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "description": "The number of results to return in a page. Max of '50'.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10,
+              "minimum": 0,
+              "maximum": 1000
+            }
+          },
+          {
+            "name": "content_inspection_status",
+            "in": "query",
+            "description": "The content inspection status to limit the search to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "$ref": "#/components/schemas/ContentInspectionStatus-sessions"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Session detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionContainer-sessions"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If any of the search parameters are malformed or otherwise invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse-sessions"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/sessions/{id}/add-note": {
+      "post": {
+        "summary": "V2 - Add a note to the session (includes  alerts).",
+        "operationId": "AddNote",
+        "tags": [
+          "Alerts and Sessions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The id of the session to add a note to.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddNoteRequest-sessions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "The note was added successfully."
+          },
+          "400": {
+            "description": "The note was too long, or there were too many notes already added to this session.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse-sessions"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The specified session could not be found."
+          }
+        }
+      }
+    },
+    "/v1/sessions/{id}/change-state": {
+      "post": {
+        "summary": "V2 - Change the state of a single session by ID (includes alerts).",
+        "operationId": "ChangeSessionState",
+        "tags": [
+          "Alerts and Sessions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The session id to change state on.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeStateRequest-sessions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "The state was changed successfully."
+          },
+          "400": {
+            "description": "The requested new state was malformed or was an otherwise invalid state transition.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse-sessions"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The specified session could not be found."
+          }
+        }
+      }
+    },
+    "/v1/sessions/change-state": {
+      "post": {
+        "summary": "V2 - Change the state of multiple sessions by ID  (includes  alerts).",
+        "operationId": "ChangeSessionStateByIds",
+        "tags": [
+          "Alerts and Sessions"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeStateByIdsRequest-sessions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "204": {
+            "description": "The state was changed successfully."
+          },
+          "400": {
+            "description": "The requested new state was malformed or was an otherwise invalid state transition.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse-sessions"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The specified session could not be found."
+          }
+        }
+      }
+    },
+    "/v1/sessions/change-states": {
+      "post": {
+        "summary": "V2 - Change the state of multiple sessions by  other search criteria (includes alerts).",
+        "operationId": "ChangeSessionStates",
+        "tags": [
+          "Alerts and Sessions"
+        ],
+        "parameters": [
+          {
+            "name": "actor_id",
+            "in": "query",
+            "description": "The id of the actor to limit the search to.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "on_or_after",
+            "in": "query",
+            "description": "Only include sessions beginning on or after this instant.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "before",
+            "in": "query",
+            "description": "Only include sessions beginning before this instant.",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "name": "has_alerts",
+            "in": "query",
+            "description": "Only include sessions that have a matching alert status.",
+            "required": false,
+            "schema": {
+              "type": "boolean"
+            }
+          },
+          {
+            "name": "risk_indicators",
+            "in": "query",
+            "description": "List of risk indicators that must be present on the sessions before they are returned.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "Only include sessions that have a matching state.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/SessionState-sessions"
+              }
+            },
+            "style": "form",
+            "explode": true
+          },
+          {
+            "name": "severity",
+            "in": "query",
+            "description": "Only include sessions that have a matching severity value.  0 indicates no risk, 1 = low, 2 = moderate, 3 = high, 4 = critical",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32",
+                "minimum": 0,
+                "maximum": 4
+              }
+            }
+          },
+          {
+            "name": "rule_id",
+            "in": "query",
+            "description": "Optional list of rule ids to filter upon.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "watchlist_id",
+            "in": "query",
+            "description": "Optional list of watchlist ids to filter upon.",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
+            "name": "content_inspection_status",
+            "in": "query",
+            "description": "The content inspection status to limit the search to.",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "$ref": "#/components/schemas/ContentInspectionStatus-sessions"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChangeStatesRequest-sessions"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Session detail",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "continuationToken": {
+                      "type": "string",
+                      "description": "Null if state changes have been published, otherwise a token to use on subsequent calls.",
+                      "nullable": true
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "If any of the search parameters are malformed or otherwise invalid",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse-sessions"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/v1/sessions/{id}/events": {
+      "get": {
+        "summary": "V2 - Get the events that were alerted on as part of the session.",
+        "description": "Gets the file event metadata for all events that are associated with alerted upon activity as part of the session.\\nWill return the same as the file event API search query, more details on that in the [file event API documentation](https://developer.code42.com/api/#tag/File-Events/operation/searchEvents).",
+        "operationId": "GetSessionEvents",
+        "tags": [
+          "Alerts and Sessions"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The session id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "123"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "File events that are part of the session."
+          },
+          "404": {
+            "description": "If the requested session could not be found or if there are no alerts associated with that session."
+          }
+        }
       }
     },
     "/v1/departments": {
@@ -10959,465 +11015,6 @@
         }
       ]
     },
-    "AddNoteRequest-sessions": {
-      "description": "Request body to add a note to a session.",
-      "properties": {
-        "noteContent": {
-          "description": "The content of the note to add.",
-          "maxLength": 2000,
-          "type": "string"
-        }
-      },
-      "required": [
-        "noteContent"
-      ],
-      "type": "object"
-    },
-    "ChangeStateByIdsRequest-sessions": {
-      "description": "Request body to request a change in state for a session.",
-      "properties": {
-        "ids": {
-          "description": "List of session ids to assign state.",
-          "items": {
-            "maximum": 100,
-            "type": "string"
-          },
-          "maximum": 100,
-          "minimum": 1,
-          "type": "array"
-        },
-        "newState": {
-          "$ref": "#/definitions/SessionState-sessions",
-          "description": "The new state to assign the session(s)."
-        }
-      },
-      "required": [
-        "newState",
-        "ids"
-      ],
-      "type": "object"
-    },
-    "ChangeStateRequest-sessions": {
-      "description": "Request body to request a change in state for a session.",
-      "properties": {
-        "newState": {
-          "$ref": "#/definitions/SessionState-sessions",
-          "description": "The new state to assign the session."
-        }
-      },
-      "required": [
-        "newState"
-      ],
-      "type": "object"
-    },
-    "ChangeStatesRequest-sessions": {
-      "description": "Request body to request a change in state for a session.",
-      "properties": {
-        "continuationToken": {
-          "maxLength": 100,
-          "type": "string"
-        },
-        "newState": {
-          "$ref": "#/definitions/SessionState-sessions",
-          "description": "The new state to assign the sessions."
-        }
-      },
-      "required": [
-        "newState"
-      ],
-      "type": "object"
-    },
-    "ContentInspectionEventResults-sessions": {
-      "description": "The results of content inspection",
-      "properties": {
-        "eventId": {
-          "description": "The id of the event that this result pertains to.",
-          "type": "string"
-        },
-        "piiType": {
-          "default": [],
-          "description": "The type of PII found.",
-          "items": {
-            "$ref": "#/definitions/PiiType-sessions"
-          },
-          "type": "string"
-        },
-        "status": {
-          "$ref": "#/definitions/ContentInspectionStatus-sessions",
-          "description": "The status of content inspection."
-        }
-      },
-      "type": "object"
-    },
-    "ContentInspectionResults-sessions": {
-      "description": "The results of content inspection",
-      "properties": {
-        "eventResults": {
-          "default": [],
-          "description": "The list of all content inspection events that have occurred.",
-          "items": {
-            "$ref": "#/definitions/ContentInspectionEventResults-sessions"
-          },
-          "type": "array"
-        },
-        "status": {
-          "$ref": "#/definitions/ContentInspectionStatus-sessions",
-          "description": "The status of content inspection."
-        }
-      },
-      "type": "object"
-    },
-    "ContentInspectionStatus-sessions": {
-      "enum": [
-        "PENDING",
-        "FOUND",
-        "NOT_FOUND"
-      ],
-      "type": "string"
-    },
-    "ErrorResponse-sessions": {
-      "description": "A generic error response",
-      "properties": {
-        "msg": {
-          "description": "The message associated with the error.",
-          "nullable": false,
-          "type": "string"
-        }
-      },
-      "required": [
-        "msg"
-      ],
-      "type": "object"
-    },
-    "Note-sessions": {
-      "description": "A free-form note added by a user about this session.",
-      "properties": {
-        "content": {
-          "description": "The contents of the note.",
-          "maxLength": 2000,
-          "type": "string"
-        },
-        "id": {
-          "description": "The identifer for this note.  Only unique within this session.",
-          "type": "string"
-        },
-        "sourceTimestamp": {
-          "description": "The instant at which this note was added.",
-          "format": "int64",
-          "type": "integer"
-        },
-        "userId": {
-          "description": "The user id of the user that created the note.",
-          "type": "string"
-        }
-      },
-      "required": [
-        "content",
-        "id",
-        "sourceTimestamp",
-        "userId"
-      ],
-      "type": "object"
-    },
-    "PiiType-sessions": {
-      "enum": [
-        "AWS_ACCESS_KEY",
-        "AWS_SECRET_KEY",
-        "BANK_ACCOUNT_NUMBER",
-        "BANK_ROUTING",
-        "CA_HEALTH_NUMBER",
-        "CA_SOCIAL_INSURANCE_NUMBER",
-        "CREDIT_DEBIT_NUMBER",
-        "DRIVER_ID",
-        "EMAIL",
-        "IN_AADHAAR",
-        "IN_NREGA",
-        "IN_PERMANENT_ACCOUNT_NUMBER",
-        "IN_VOTER_NUMBER",
-        "INTERNATIONAL_BANK_ACCOUNT_NUMBER",
-        "PASSPORT_NUMBER",
-        "PASSWORD",
-        "PHONE",
-        "SSN",
-        "SWIFT_CODE",
-        "UK_NATIONAL_HEALTH_SERVICE_NUMBER",
-        "UK_NATIONAL_INSURANCE_NUMBER",
-        "UK_UNIQUE_TAXPAYER_REFERENCE_NUMBER",
-        "USERNAME",
-        "US_INDIVIDUAL_TAX_IDENTIFICATION_NUMBER",
-        "VEHICLE_IDENTIFICATION_NUMBER"
-      ],
-      "type": "string"
-    },
-    "RiskIndicator-sessions": {
-      "description": "A summary of the appearance of a risk indicator within a session.",
-      "properties": {
-        "eventCount": {
-          "description": "The number of events associated with this risk indicator and weight.",
-          "type": "integer"
-        },
-        "id": {
-          "description": "The id of the risk indicator.",
-          "type": "string"
-        },
-        "name": {
-          "description": "This field is a deprecated duplicate. The id of the risk indicator.",
-          "type": "string",
-          "x-deprecated": true
-        },
-        "weight": {
-          "description": "The weight associated to the risk indicator.",
-          "type": "integer"
-        }
-      },
-      "required": [
-        "id",
-        "weight",
-        "eventCount"
-      ],
-      "type": "object"
-    },
-    "Score-sessions": {
-      "description": "A record of a risk score that was assigned to a session.",
-      "properties": {
-        "score": {
-          "description": "The risk score that was assigned.",
-          "type": "integer"
-        },
-        "severity": {
-          "description": "The high-level \"severity\" assigned from the risk score.",
-          "type": "integer"
-        },
-        "sourceTimestamp": {
-          "description": "The instant at which this risk score was assigned.",
-          "format": "int64",
-          "type": "integer"
-        }
-      },
-      "required": [
-        "score",
-        "severity",
-        "sourceTimestamp"
-      ],
-      "type": "object"
-    },
-    "SessionContainer-sessions": {
-      "description": "Results for a session query.",
-      "properties": {
-        "items": {
-          "default": [],
-          "description": "List of sessions that matched the query criteria.",
-          "items": {
-            "$ref": "#/definitions/SessionDetail-sessions"
-          },
-          "type": "array"
-        },
-        "totalCount": {
-          "description": "The total number of matching results across all pages.",
-          "format": "int64",
-          "type": "integer"
-        }
-      },
-      "required": [
-        "items",
-        "totalCount"
-      ],
-      "type": "object"
-    },
-    "SessionDetail-sessions": {
-      "properties": {
-        "actorId": {
-          "description": "The id of the actor that generated the session.",
-          "type": "string"
-        },
-        "beginTime": {
-          "description": "The unix time in milliseconds of when this session began.",
-          "format": "int64",
-          "type": "integer"
-        },
-        "contentInspectionResults": {
-          "$ref": "#/definitions/ContentInspectionResults-sessions",
-          "description": "The results of content inspection, if applicable"
-        },
-        "contextSummary": {
-          "description": "An English summary of the contextual aspects of this session is any were identified.",
-          "type": "string"
-        },
-        "criticalEvents": {
-          "default": 0,
-          "description": "The number of events in the session with a critical risk severity.",
-          "type": "integer"
-        },
-        "endTime": {
-          "description": "The unix time in milliseconds of when this session ended.",
-          "format": "int64",
-          "type": "integer"
-        },
-        "exfiltrationSummary": {
-          "description": "An English summary of the exfiltration (if any) in this session.",
-          "type": "string"
-        },
-        "firstObserved": {
-          "description": "The unix time in milliseconds at which this session was first observed.",
-          "format": "int64",
-          "type": "integer"
-        },
-        "highEvents": {
-          "default": 0,
-          "description": "The number of events in the session with a high risk severity.",
-          "type": "integer"
-        },
-        "lastUpdated": {
-          "description": "The unix time in milliseconds at which this session was last updated.",
-          "format": "int64",
-          "type": "integer"
-        },
-        "lowEvents": {
-          "default": 0,
-          "description": "The number of events in the session with a low risk severity.",
-          "type": "integer"
-        },
-        "moderateEvents": {
-          "default": 0,
-          "description": "The number of events in the session with a moderate risk severity.",
-          "type": "integer"
-        },
-        "noRiskEvents": {
-          "default": 0,
-          "description": "The number of events in the session with a no risk severity.",
-          "type": "integer"
-        },
-        "notes": {
-          "default": [],
-          "description": "The set of notes associated with this session.",
-          "items": {
-            "$ref": "#/definitions/Note-sessions"
-          },
-          "type": "array"
-        },
-        "riskIndicators": {
-          "default": [],
-          "description": "The list of risk indicator/weight combinations observed in this session.",
-          "items": {
-            "$ref": "#/definitions/RiskIndicator-sessions"
-          },
-          "type": "array"
-        },
-        "scores": {
-          "default": [],
-          "description": "The history of all score assignments for this session.",
-          "items": {
-            "$ref": "#/definitions/Score-sessions"
-          },
-          "type": "array"
-        },
-        "sessionId": {
-          "description": "The session id.",
-          "type": "string"
-        },
-        "states": {
-          "default": [],
-          "description": "The history of states this session has been in.",
-          "items": {
-            "$ref": "#/definitions/State-sessions"
-          },
-          "type": "array"
-        },
-        "tenantId": {
-          "description": "The tenant id.",
-          "type": "string"
-        },
-        "triggeredAlerts": {
-          "default": [],
-          "description": "The list of all alerts that were triggered by activity in this session.",
-          "items": {
-            "$ref": "#/definitions/TriggeredAlert-sessions"
-          },
-          "type": "array"
-        },
-        "userId": {
-          "description": "(Deprecated) The id of the actor that generated the session.",
-          "type": "string",
-          "x-deprecated": true
-        }
-      },
-      "required": [
-        "sessionId",
-        "tenantId",
-        "actorId",
-        "userId",
-        "beginTime",
-        "endTime",
-        "firstObserved",
-        "lastUpdated",
-        "noRiskEvents",
-        "lowEvents",
-        "moderateEvents",
-        "highEvents",
-        "criticalEvents",
-        "notes",
-        "riskIndicators",
-        "scores",
-        "triggeredAlerts",
-        "states"
-      ],
-      "type": "object"
-    },
-    "SessionState-sessions": {
-      "enum": [
-        "OPEN",
-        "IN_PROGRESS",
-        "CLOSED",
-        "CLOSED_TP",
-        "CLOSED_FP",
-        "OPEN_NEW_DATA"
-      ],
-      "type": "string"
-    },
-    "State-sessions": {
-      "description": "A record of a state transition for a session.",
-      "properties": {
-        "sourceTimestamp": {
-          "description": "The instant at which the state transition took place.",
-          "format": "int64",
-          "type": "integer"
-        },
-        "state": {
-          "$ref": "#/definitions/SessionState-sessions",
-          "description": "The new state to assign the session."
-        },
-        "userId": {
-          "description": "The user id of the user that triggered this state change.  If this was triggered in response to some other action, it is possible for no user id to be available.",
-          "type": "string"
-        }
-      },
-      "required": [
-        "state",
-        "sourceTimestamp"
-      ],
-      "type": "object"
-    },
-    "TriggeredAlert-sessions": {
-      "properties": {
-        "alertId": {
-          "description": "The id of the alert that was triggered.",
-          "type": "string"
-        },
-        "lessonId": {
-          "description": "The id of the lesson triggered by the alert rule.",
-          "type": "string"
-        },
-        "ruleId": {
-          "description": "The id of the alert rule for the alert that was triggered.",
-          "type": "string"
-        }
-      },
-      "required": [
-        "alertId",
-        "ruleId"
-      ],
-      "type": "object"
-    },
     "DateRange": {
       "description": "Finds events whose timestamp is within the given range, inclusive of endpoints.",
       "properties": {
@@ -12199,7 +11796,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-04-01T15:53:03.5136566Z"
+              "example": "2024-04-01T16:36:07.644349Z"
             },
             "createdBy": {
               "type": "string",
@@ -12210,7 +11807,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-04-01T15:53:03.5136806Z"
+              "example": "2024-04-01T16:36:07.6443722Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -12267,7 +11864,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "27fa1acc-76ee-41d9-a146-5b400b2f8fac"
+              "example": "19ae4d64-5ed0-4c57-b8d6-64add00644fd"
             }
           }
         }
@@ -12941,7 +12538,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "d12d532b-f967-4dfa-a807-83213bc0bc57"
+          "example": "7bd22aa8-d8f5-4a7e-929a-812080da31b8"
         },
         "aliases": {
           "type": "array",
@@ -12965,7 +12562,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "5b71ee13-9aca-4e9d-9e73-a8bbb971eb97"
+          "example": "62d2f2a0-e776-4ed4-addc-9da460a27afb"
         },
         "users": {
           "type": "array",
