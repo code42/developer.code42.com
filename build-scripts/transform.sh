@@ -54,6 +54,11 @@ main() {
   # hide remove-user-aliases
   jq 'del(.paths."/v2/alert-rules/{id}/remove-user-aliases")' < $RULES_V2 > $TMP && mv $TMP $RULES_V2
 
+  ## Sessions
+  # convert openapi 3 yaml to swagger 2 json
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/sessions > "${docs}/sessions.json"
+  rm ${docs}/sessions
+
   ### Watchlists
   # convert openapi 3 yaml to swagger 2 json
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/departments > "${docs}/departments.json"
