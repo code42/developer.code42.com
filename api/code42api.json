@@ -1281,7 +1281,7 @@
         "tags": [
           "Alerts and Sessions"
         ],
-        "summary": "V1 - Change the state of a set of alerts.",
+        "summary": "Change the state of a set of alerts.",
         "description": "This endpoint is deprecated. Please use '/sessions/change-state' to update the state of one or many sessions.",
         "operationId": "Alerts_UpdateAlertState",
         "parameters": [
@@ -1312,7 +1312,7 @@
         "tags": [
           "Alerts and Sessions"
         ],
-        "summary": "V1 - Change the state of a batch alerts matching the given query filters.",
+        "summary": "Change the state of a batch alerts matching the given query filters.",
         "description": "This endpoint is deprecated. Please use '/sessions/change-state' to update the state of one or many sessions.\nUses the given filters and updates a batch of matching alerts to the given state.\nThis query uses batching, so the initial command can be sent with no continuation token but all subsequent commands\nshould supply the continuation token provided in the response of the previous request.",
         "operationId": "Alerts_UpdateAllAlertState",
         "parameters": [
@@ -1347,7 +1347,7 @@
         "tags": [
           "Alerts and Sessions"
         ],
-        "summary": "V1 - Add a note to an alert.",
+        "summary": "Add a note to an alert.",
         "description": "This endpoint is deprecated. Please use '/sessions/add-note` to add a note to a session.",
         "operationId": "Alerts_AddNoteToAlert",
         "parameters": [
@@ -1378,7 +1378,7 @@
         "tags": [
           "Alerts and Sessions"
         ],
-        "summary": "V1 - Search for alerts.",
+        "summary": "Search for alerts.",
         "description": "This endpoint is deprecated. Please use '/sessions' to search search sessions that contain alerts.",
         "operationId": "Alerts_QueryAlert",
         "parameters": [
@@ -1413,7 +1413,7 @@
         "tags": [
           "Alerts and Sessions"
         ],
-        "summary": "V1 - Get details about an alert.",
+        "summary": "Get details about an alert.",
         "description": "This endpoint is deprecated. Please use the '/sessions/{id}' endpoint instead.",
         "operationId": "Alerts_QueryAlertDetails",
         "parameters": [
@@ -3639,7 +3639,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "7c11b5d4-0b68-41ee-b61b-f65349967711"
+            "example": "46d278fc-7f88-4fdd-92a8-6c7db109e7ff"
           }
         ],
         "responses": {
@@ -3723,7 +3723,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "7865751c-68e2-4552-81de-4446f67ec967"
+            "example": "c49da3ed-edd9-4e5b-b61c-b79b838ff4e9"
           }
         ],
         "responses": {
@@ -3752,7 +3752,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "25bd3d86-3bb5-401e-b3b6-1170ff29d218"
+                "46b1ba6a-7415-41a5-ab7d-1e37809a933a"
               ],
               "items": {
                 "type": "string"
@@ -3786,7 +3786,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "4ecc950b-6de3-4e2c-af8d-8ce279cc8430"
+            "example": "ea1dd940-4c7a-47c9-82b3-505df075788b"
           }
         ],
         "responses": {
@@ -3815,7 +3815,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "15cabfcd-0fcb-4de3-a729-ef09289c3109"
+                "8e4a8ede-e45e-4dd8-8ba3-5112818f304a"
               ],
               "items": {
                 "type": "string"
@@ -3850,7 +3850,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "8f9d865b-7dc4-4cc4-81f0-838e58def526"
+            "example": "46f40f89-c55e-45f9-af38-1cda81539d61"
           }
         ],
         "responses": {
@@ -3877,7 +3877,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a39bd9f1-5760-4615-9f31-85ad7cf2ff42"
+            "example": "e6205e9f-2d66-430a-8bfd-abd08d3ff0be"
           }
         ],
         "responses": {
@@ -12200,7 +12200,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-04-04T12:05:50.1558017Z"
+              "example": "2024-04-05T00:13:17.3263635Z"
             },
             "createdBy": {
               "type": "string",
@@ -12211,7 +12211,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-04-04T12:05:50.1558277Z"
+              "example": "2024-04-05T00:13:17.3263854Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -12268,7 +12268,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "dcb6c3e6-3f1e-44ac-8859-7023f9b7beeb"
+              "example": "ab33275c-9cb0-43c0-a740-44e1876763ba"
             }
           }
         }
@@ -12942,7 +12942,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "233b0b4d-b4e5-44a8-90ed-a12082f2eca8"
+          "example": "cca4a065-c3a0-4dae-9032-cb859b0569ff"
         },
         "aliases": {
           "type": "array",
@@ -12966,7 +12966,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "d3b53bee-9157-4a17-a08a-08b75b71c95d"
+          "example": "a6e31855-2970-45ae-87c0-0c8c3914b329"
         },
         "users": {
           "type": "array",
