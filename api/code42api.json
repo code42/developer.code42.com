@@ -1002,7 +1002,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "50a24bec-005c-4c4f-9c38-b791f5d94d8b"
+            "example": "d6fa95a7-de31-474b-ba0f-af52dfe68c40"
           }
         ],
         "responses": {
@@ -1086,7 +1086,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "8c3290fc-b29d-4e47-b9bc-d29339a68305"
+            "example": "db48f3c9-caa2-471b-98fb-ec31e82fffe4"
           }
         ],
         "responses": {
@@ -1115,7 +1115,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "4462ac5a-1745-49be-8bea-1f2b8fb23baf"
+                "a4caf5e7-c53c-443a-b883-c279c493a315"
               ],
               "items": {
                 "type": "string"
@@ -1149,7 +1149,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "15502d49-b6e7-4a23-879b-c1a6167a0c89"
+            "example": "4047350d-4f4b-4678-9f78-90c254e35efe"
           }
         ],
         "responses": {
@@ -1178,7 +1178,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "32dfc9c1-5365-4c6f-98af-1623c05628c1"
+                "2c55f446-984b-41a8-870a-c95cca73e286"
               ],
               "items": {
                 "type": "string"
@@ -1213,7 +1213,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "e246ea47-0575-408f-a225-958142f77b18"
+            "example": "6f3ba8f9-be9e-44f7-9fde-f40becdc6eb9"
           }
         ],
         "responses": {
@@ -1240,7 +1240,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "2d085100-cba2-4ed2-92a5-4ff58c1cfa5c"
+            "example": "7cf588a6-3f8a-4e9c-8c95-7720d3d0981c"
           }
         ],
         "responses": {
@@ -6119,6 +6119,7 @@
         ],
         "parameters": [
           {
+            "description": "actorId of the actor to begin with",
             "in": "path",
             "name": "actorId",
             "required": true,
@@ -6401,7 +6402,7 @@
         "tags": [
           "Actors"
         ],
-        "description": "Creates adoption between an actor and a requested parent by the actor's actorId and the parent's actorId.",
+        "description": "Creates adoption between an actor and a requested parent by the actor's actorId and the parent's actorId. Activity originating from actors who have a parent will have said activity attributed to their parent.",
         "operationId": "addParent",
         "summary": "Make one actor adopt another"
       }
@@ -6413,6 +6414,7 @@
         ],
         "parameters": [
           {
+            "description": "actorId of the child actor",
             "in": "path",
             "name": "childActorId",
             "required": true,
@@ -9638,7 +9640,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-04-08T12:05:38.9347681Z"
+              "example": "2024-04-09T00:13:21.4831053Z"
             },
             "createdBy": {
               "type": "string",
@@ -9649,7 +9651,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-04-08T12:05:38.9347905Z"
+              "example": "2024-04-09T00:13:21.4831274Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -9706,7 +9708,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "4e464f58-1074-4476-8685-4b5555fbaff3"
+              "example": "fc1c878f-9129-44bb-93f7-ce2cb52d9c0d"
             }
           }
         }
@@ -10380,7 +10382,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "2d1525ef-46fb-4853-9f3b-2aefcca01749"
+          "example": "f2fd63ae-1415-405d-8ce4-1c692ad2d4f0"
         },
         "aliases": {
           "type": "array",
@@ -10404,7 +10406,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "adcc188d-90d0-491d-a867-c4909a194688"
+          "example": "e9673b72-434f-4c0b-b013-0d0e9981f22f"
         },
         "users": {
           "type": "array",
@@ -18376,6 +18378,7 @@
     "ActorFamilyResponse-actor-enrichment-service": {
       "properties": {
         "children": {
+          "description": "The child actors in the family.",
           "items": {
             "$ref": "#/definitions/ActorResponse-actor-enrichment-service"
           },
@@ -18394,6 +18397,7 @@
     "ActorNotFoundError-actor-enrichment-service": {
       "properties": {
         "reason": {
+          "description": "Details about the error.",
           "type": "string"
         }
       },
@@ -18403,57 +18407,75 @@
       "type": "object"
     },
     "ActorResponse-actor-enrichment-service": {
+      "description": "The child actors in the family.",
       "properties": {
         "active": {
+          "description": "The actor's active state.",
           "type": "boolean"
         },
         "actorId": {
+          "description": "The actor's identifier.",
           "type": "string"
         },
         "alternateNames": {
+          "description": "Other names the actor may have.",
           "items": {
+            "description": "Other names the actor may have.",
             "type": "string"
           },
           "type": "array",
           "uniqueItems": true
         },
         "country": {
+          "description": "The actor's country.",
           "type": "string"
         },
         "department": {
+          "description": "The actor's job department.",
           "type": "string"
         },
         "division": {
+          "description": "The actor's job division.",
           "type": "string"
         },
         "employeeType": {
+          "description": "The actor's employee type, such as if they are a contractor.",
           "type": "string"
         },
         "firstName": {
+          "description": "The actor's first/given name.",
           "type": "string"
         },
         "inScope": {
+          "description": "The actor's scope state. An actor is considered \"in scope\" if their activity is monitored in at least one data source.",
           "type": "boolean"
         },
         "lastName": {
+          "description": "The actor's last name.",
           "type": "string"
         },
         "locality": {
+          "description": "The actor's city.",
           "type": "string"
         },
         "managerActorId": {
+          "description": "The actorId of this actor's manager.",
           "type": "string"
         },
         "name": {
+          "description": "The actor's identifying name. This is usually a username/email.",
           "type": "string"
         },
         "parentActorId": {
+          "description": "The actorId of this actor's parent.",
           "type": "string"
         },
         "region": {
+          "description": "The actor's state.",
           "type": "string"
         },
         "title": {
+          "description": "The actor's job title.",
           "type": "string"
         }
       },
@@ -18469,6 +18491,7 @@
     "ActorSearchProblemResponse-actor-enrichment-service": {
       "properties": {
         "problem": {
+          "description": "An reason why the search failed.",
           "enum": [
             "PAGE_SIZE_TOO_SMALL",
             "PAGE_SIZE_TOO_LARGE",
@@ -18483,17 +18506,22 @@
       "type": "object"
     },
     "ActorSearchResponse-actor-enrichment-service": {
+      "description": "The matching actors.",
       "properties": {
         "active": {
+          "description": "The actor's active state.",
           "type": "boolean"
         },
         "actorId": {
+          "description": "The actor's actorId.",
           "type": "string"
         },
         "name": {
+          "description": "The actor's name.",
           "type": "string"
         },
         "parentActorId": {
+          "description": "The actor's parent actorId.",
           "type": "string"
         }
       },
@@ -18507,6 +18535,7 @@
     "ActorsSearchResponse-actor-enrichment-service": {
       "properties": {
         "actors": {
+          "description": "The matching actors.",
           "items": {
             "$ref": "#/definitions/ActorSearchResponse-actor-enrichment-service"
           },
@@ -18519,11 +18548,14 @@
       "type": "object"
     },
     "AdoptionCreationRequest-actor-enrichment-service": {
+      "description": "Requests that two actors be joined into a family.",
       "properties": {
         "childActorId": {
+          "description": "actorId of the actor to be a child in the family.",
           "type": "string"
         },
         "parentActorId": {
+          "description": "actorId of the actor to be the parent in the family.",
           "type": "string"
         }
       },
@@ -18536,6 +18568,7 @@
     "AdoptionError-actor-enrichment-service": {
       "properties": {
         "reason": {
+          "description": "Details about the error.",
           "type": "string"
         }
       },
@@ -18547,13 +18580,16 @@
     "AdoptionResponse-actor-enrichment-service": {
       "properties": {
         "childActorIds": {
+          "description": "The actorIds of any child actors in the family.",
           "items": {
+            "description": "The actorIds of any child actors in the family.",
             "type": "string"
           },
           "type": "array",
           "uniqueItems": true
         },
         "parentActorId": {
+          "description": "The actorId of the parent actor in the family.",
           "type": "string"
         }
       },
