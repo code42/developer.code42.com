@@ -1002,7 +1002,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "7d8a4957-a6bb-4366-98b9-459b30a42f4a"
+            "example": "936fc6d7-11f1-4cc2-83d5-79e30411235d"
           }
         ],
         "responses": {
@@ -1086,7 +1086,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b74df6e6-2061-4ae4-9392-13c2e019b139"
+            "example": "c0499a77-d952-4da9-8fb0-68751c3b9469"
           }
         ],
         "responses": {
@@ -1115,7 +1115,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "7197e555-1c59-4c21-b658-ee3e910c94dd"
+                "94eb8dc8-bf1b-42b8-99c4-6a718ba5094d"
               ],
               "items": {
                 "type": "string"
@@ -1149,7 +1149,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "37209a23-53b9-4024-b630-f2bdfd50282b"
+            "example": "318b9543-eab9-4aad-9f17-c178cade8911"
           }
         ],
         "responses": {
@@ -1178,7 +1178,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "7137f9de-e324-4c37-ac42-aaf4a3c3472e"
+                "b6c57577-996b-442d-a651-d6c8fc624abc"
               ],
               "items": {
                 "type": "string"
@@ -1213,7 +1213,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "473a0c46-de94-4915-bcbd-8c53c5973ce3"
+            "example": "ec316107-e892-4e29-8d62-063bc2f2906d"
           }
         ],
         "responses": {
@@ -1240,7 +1240,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "8178b7c2-d37d-41d1-9f05-84c6347c3da9"
+            "example": "8326ea90-b249-40d8-beb0-f38108a14511"
           }
         ],
         "responses": {
@@ -2393,7 +2393,42 @@
         }
       }
     },
-    "/v1/audit/export": {
+    "/v1/audit/search-results-export": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json",
+          "text/csv"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ExportRequest-audit"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/RpcSearchResponse-audit"
+            }
+          }
+        },
+        "tags": [
+          "Audit Log"
+        ],
+        "description": "Audit-log search, parameters follow an identical behavior for this results count query, as they would the general purpose audit-log search query.",
+        "operationId": "exportStreaming",
+        "summary": "Search for audit events, specifically for large result sets"
+      }
+    },
+    "/v1/audit/search-results-count": {
       "post": {
         "consumes": [
           "application/json"
@@ -2407,7 +2442,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/ExportRequest"
+              "$ref": "#/definitions/SearchAuditLogBody-audit"
             }
           }
         ],
@@ -2415,16 +2450,16 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/RpcExportResponse"
+              "$ref": "#/definitions/RpcSearchResultsCountResponse-audit"
             }
           }
         },
         "tags": [
           "Audit Log"
         ],
-        "description": "Perform an export of the data, getting back a download token that can be redeemed to get the actual file.",
-        "operationId": "export",
-        "summary": "Export search results to a file"
+        "description": "Returns the count of events found in a search with identical parameters and at the same time. Parameters follow an identical behavior for this results count query, as they would the audit-log search query.",
+        "operationId": "searchResultsCount",
+        "summary": "Get the number of events matching a search"
       }
     },
     "/v1/audit/search-audit-log": {
@@ -2442,7 +2477,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SearchAuditLogBody"
+              "$ref": "#/definitions/SearchAuditLogBody-audit"
             }
           }
         ],
@@ -2450,7 +2485,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/RpcSearchResponse"
+              "$ref": "#/definitions/RpcSearchResponse-audit"
             }
           }
         },
@@ -2462,7 +2497,7 @@
         "summary": "Search for audit events"
       }
     },
-    "/v1/audit/search-results-count": {
+    "/v1/audit/export": {
       "post": {
         "consumes": [
           "application/json"
@@ -2476,7 +2511,7 @@
             "name": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/SearchAuditLogBody"
+              "$ref": "#/definitions/ExportRequest-audit"
             }
           }
         ],
@@ -2484,51 +2519,16 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/RpcSearchResultsCountResponse"
+              "$ref": "#/definitions/RpcExportResponse-audit"
             }
           }
         },
         "tags": [
           "Audit Log"
         ],
-        "description": "Returns the count of events found in a search with identical parameters and at the same time. Parameters follow an identical behavior for this results count query, as they would the audit-log search query.",
-        "operationId": "searchResultsCount",
-        "summary": "Get the number of events matching a search"
-      }
-    },
-    "/v1/audit/search-results-export": {
-      "post": {
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json",
-          "text/csv"
-        ],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/ExportRequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/RpcSearchResponse"
-            }
-          }
-        },
-        "tags": [
-          "Audit Log"
-        ],
-        "description": "Audit-log search, parameters follow an identical behavior for this results count query, as they would the general purpose audit-log search query.",
-        "operationId": "exportStreaming",
-        "summary": "Search for audit events, specifically for large result sets"
+        "description": "Perform an export of the data, getting back a download token that can be redeemed to get the actual file.",
+        "operationId": "export",
+        "summary": "Export search results to a file"
       }
     },
     "/v1/audit/{method}": {
@@ -2549,7 +2549,7 @@
           "200": {
             "description": "OK",
             "schema": {
-              "$ref": "#/definitions/RpcSearchResponse"
+              "$ref": "#/definitions/RpcSearchResponse-audit"
             }
           }
         },
@@ -9640,7 +9640,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-04-10T12:05:25.6696545Z"
+              "example": "2024-04-10T16:06:59.72487Z"
             },
             "createdBy": {
               "type": "string",
@@ -9651,7 +9651,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-04-10T12:05:25.6696766Z"
+              "example": "2024-04-10T16:06:59.7248899Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -9708,7 +9708,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "ed85be80-c3ab-4be3-936c-af4d2dc2d288"
+              "example": "b3c72932-c25e-4936-b861-0eb407b7fc04"
             }
           }
         }
@@ -10382,7 +10382,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "65c957c0-a06e-48f3-880a-28f05e7a9dd9"
+          "example": "208e31a0-0145-4ef2-aaed-a3bbb89893c1"
         },
         "aliases": {
           "type": "array",
@@ -10406,7 +10406,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "045f0d9d-e4d0-4817-ae25-1d9c29b954bb"
+          "example": "2ce47eb5-3b9b-40fa-8973-cc4f0be917fe"
         },
         "users": {
           "type": "array",
@@ -11268,265 +11268,6 @@
           "x-nullable": true
         }
       },
-      "type": "object"
-    },
-    "DateRange": {
-      "description": "Finds events whose timestamp is within the given range, inclusive of endpoints.",
-      "properties": {
-        "endTime": {
-          "format": "date-time",
-          "type": "string"
-        },
-        "startTime": {
-          "format": "date-time",
-          "type": "string"
-        }
-      },
-      "type": "object"
-    },
-    "ExportRequest": {
-      "properties": {
-        "actorIds": {
-          "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
-          "example": "user@example.com",
-          "items": {
-            "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
-            "example": "user@example.com",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "actorIpAddresses": {
-          "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
-          "example": "127.0.0.1",
-          "items": {
-            "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
-            "example": "127.0.0.1",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "actorNames": {
-          "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
-          "example": "ExampleName",
-          "items": {
-            "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
-            "example": "ExampleName",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "dateRange": {
-          "$ref": "#/definitions/DateRange"
-        },
-        "eventTypes": {
-          "description": "Finds events whose type is one of the given types.",
-          "example": "support_user_access_disabled",
-          "items": {
-            "description": "Finds events whose type is one of the given types.",
-            "example": "support_user_access_disabled",
-            "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
-            "type": "string"
-          },
-          "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
-          "type": "array"
-        },
-        "resourceIds": {
-          "description": "Filters events that match resource_id",
-          "example": 1523,
-          "items": {
-            "description": "Filters events that match resource_id",
-            "example": "1523",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "userTypes": {
-          "description": "Filters events that match actor type",
-          "enum": [
-            "User",
-            "Support_User",
-            "Api_Client",
-            "System",
-            "Unknown"
-          ],
-          "example": "User",
-          "items": {
-            "description": "Filters events that match actor type",
-            "enum": [
-              "User",
-              "Support_User",
-              "Api_Client",
-              "System",
-              "Unknown"
-            ],
-            "example": "User",
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "type": "object"
-    },
-    "RpcExportResponse": {
-      "properties": {
-        "downloadToken": {
-          "description": "Download token to execute an export, acquired from the export api.",
-          "example": "07FIbJogTJ2aHTBcyreAbYOvsd0FlEKuLyNumVvkbOQ=",
-          "type": "string"
-        }
-      },
-      "required": [
-        "downloadToken"
-      ],
-      "type": "object"
-    },
-    "RpcSearchResponse": {
-      "properties": {
-        "events": {
-          "description": "A list of zero or more events matching the given criteria.",
-          "items": {
-            "additionalProperties": {
-              "description": "A list of zero or more events matching the given criteria.",
-              "type": "object"
-            },
-            "description": "A list of zero or more events matching the given criteria.",
-            "type": "object"
-          },
-          "type": "array"
-        },
-        "paginationRangeEndIndex": {
-          "description": "The index of the last result returned, in relation to total results found",
-          "example": 62,
-          "format": "int64",
-          "type": "integer"
-        },
-        "paginationRangeStartIndex": {
-          "description": "The index of the first result returned, in relation to total results found",
-          "example": 0,
-          "format": "int64",
-          "type": "integer"
-        }
-      },
-      "required": [
-        "events",
-        "paginationRangeEndIndex",
-        "paginationRangeStartIndex"
-      ],
-      "type": "object"
-    },
-    "RpcSearchResultsCountResponse": {
-      "properties": {
-        "totalResultCount": {
-          "description": "The total number of results found by this search",
-          "example": 104,
-          "format": "int64",
-          "type": "integer"
-        }
-      },
-      "required": [
-        "totalResultCount"
-      ],
-      "type": "object"
-    },
-    "SearchAuditLogBody": {
-      "properties": {
-        "actorIds": {
-          "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
-          "example": "user@example.com",
-          "items": {
-            "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
-            "example": "user@example.com",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "actorIpAddresses": {
-          "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
-          "example": "127.0.0.1",
-          "items": {
-            "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
-            "example": "127.0.0.1",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "actorNames": {
-          "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
-          "example": "ExampleName",
-          "items": {
-            "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
-            "example": "ExampleName",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "dateRange": {
-          "$ref": "#/definitions/DateRange"
-        },
-        "eventTypes": {
-          "description": "Finds events whose type is one of the given types.",
-          "example": "support_user_access_disabled",
-          "items": {
-            "description": "Finds events whose type is one of the given types.",
-            "example": "support_user_access_disabled",
-            "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
-            "type": "string"
-          },
-          "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
-          "type": "array"
-        },
-        "page": {
-          "default": 0,
-          "description": "Which page of events to view.",
-          "format": "int32",
-          "type": "integer"
-        },
-        "pageSize": {
-          "default": 100,
-          "description": "How many elements to return on each page.",
-          "format": "int32",
-          "type": "integer"
-        },
-        "resourceIds": {
-          "description": "Filters events that match resource_id.",
-          "example": 1523,
-          "items": {
-            "description": "Filters events that match resource_id.",
-            "example": "1523",
-            "type": "string"
-          },
-          "type": "array"
-        },
-        "userTypes": {
-          "description": "Filters events that match actor type.",
-          "enum": [
-            "USER",
-            "SUPPORT_USER",
-            "API_CLIENT",
-            "SYSTEM",
-            "UNKNOWN"
-          ],
-          "example": "User",
-          "items": {
-            "description": "Filters events that match actor type.",
-            "enum": [
-              "USER",
-              "SUPPORT_USER",
-              "API_CLIENT",
-              "SYSTEM",
-              "UNKNOWN"
-            ],
-            "example": "User",
-            "type": "string"
-          },
-          "type": "array"
-        }
-      },
-      "required": [
-        "page",
-        "pageSize"
-      ],
       "type": "object"
     },
     "ActivateAgentsRequest-core": {
@@ -18373,6 +18114,265 @@
           "type": "integer"
         }
       },
+      "type": "object"
+    },
+    "DateRange-audit": {
+      "description": "Finds events whose timestamp is within the given range, inclusive of endpoints.",
+      "properties": {
+        "endTime": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "startTime": {
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ExportRequest-audit": {
+      "properties": {
+        "actorIds": {
+          "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
+          "example": "user@example.com",
+          "items": {
+            "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
+            "example": "user@example.com",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "actorIpAddresses": {
+          "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
+          "example": "127.0.0.1",
+          "items": {
+            "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
+            "example": "127.0.0.1",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "actorNames": {
+          "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
+          "example": "ExampleName",
+          "items": {
+            "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
+            "example": "ExampleName",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dateRange": {
+          "$ref": "#/definitions/DateRange-audit"
+        },
+        "eventTypes": {
+          "description": "Finds events whose type is one of the given types.",
+          "example": "support_user_access_disabled",
+          "items": {
+            "description": "Finds events whose type is one of the given types.",
+            "example": "support_user_access_disabled",
+            "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
+            "type": "string"
+          },
+          "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
+          "type": "array"
+        },
+        "resourceIds": {
+          "description": "Filters events that match resource_id",
+          "example": 1523,
+          "items": {
+            "description": "Filters events that match resource_id",
+            "example": "1523",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "userTypes": {
+          "description": "Filters events that match actor type",
+          "enum": [
+            "User",
+            "Support_User",
+            "Api_Client",
+            "System",
+            "Unknown"
+          ],
+          "example": "User",
+          "items": {
+            "description": "Filters events that match actor type",
+            "enum": [
+              "User",
+              "Support_User",
+              "Api_Client",
+              "System",
+              "Unknown"
+            ],
+            "example": "User",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "RpcExportResponse-audit": {
+      "properties": {
+        "downloadToken": {
+          "description": "Download token to execute an export, acquired from the export api.",
+          "example": "abc",
+          "type": "string"
+        }
+      },
+      "required": [
+        "downloadToken"
+      ],
+      "type": "object"
+    },
+    "RpcSearchResponse-audit": {
+      "properties": {
+        "events": {
+          "description": "A list of zero or more events matching the given criteria.",
+          "items": {
+            "additionalProperties": {
+              "description": "A list of zero or more events matching the given criteria.",
+              "type": "object"
+            },
+            "description": "A list of zero or more events matching the given criteria.",
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "paginationRangeEndIndex": {
+          "description": "The index of the last result returned, in relation to total results found",
+          "example": 62,
+          "format": "int64",
+          "type": "integer"
+        },
+        "paginationRangeStartIndex": {
+          "description": "The index of the first result returned, in relation to total results found",
+          "example": 0,
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "events",
+        "paginationRangeEndIndex",
+        "paginationRangeStartIndex"
+      ],
+      "type": "object"
+    },
+    "RpcSearchResultsCountResponse-audit": {
+      "properties": {
+        "totalResultCount": {
+          "description": "The total number of results found by this search",
+          "example": 104,
+          "format": "int64",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "totalResultCount"
+      ],
+      "type": "object"
+    },
+    "SearchAuditLogBody-audit": {
+      "properties": {
+        "actorIds": {
+          "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
+          "example": "user@example.com",
+          "items": {
+            "description": "Finds events whose actor_id is one of the given ids. An actor may be a human user or a service.",
+            "example": "user@example.com",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "actorIpAddresses": {
+          "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
+          "example": "127.0.0.1",
+          "items": {
+            "description": "Finds events whose actor_ip_address is one of the given IP addresses.",
+            "example": "127.0.0.1",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "actorNames": {
+          "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
+          "example": "ExampleName",
+          "items": {
+            "description": "Finds events whose actor_name is one of the given names. An actor may be a human user or a service.",
+            "example": "ExampleName",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "dateRange": {
+          "$ref": "#/definitions/DateRange-audit"
+        },
+        "eventTypes": {
+          "description": "Finds events whose type is one of the given types.",
+          "example": "support_user_access_disabled",
+          "items": {
+            "description": "Finds events whose type is one of the given types.",
+            "example": "support_user_access_disabled",
+            "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
+            "type": "string"
+          },
+          "title": "Some examples: support_user_access_disabled, alert_note_edited, api_client_created, logged_in, case_archived, account_name_added, file_download, search_issued, federation_created, user_activated, risk_profile_cloud_alias_added",
+          "type": "array"
+        },
+        "page": {
+          "default": 0,
+          "description": "Which page of events to view.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "pageSize": {
+          "default": 100,
+          "description": "How many elements to return on each page.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "resourceIds": {
+          "description": "Filters events that match resource_id.",
+          "example": 1523,
+          "items": {
+            "description": "Filters events that match resource_id.",
+            "example": "1523",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "userTypes": {
+          "description": "Filters events that match actor type.",
+          "enum": [
+            "USER",
+            "SUPPORT_USER",
+            "API_CLIENT",
+            "SYSTEM",
+            "UNKNOWN"
+          ],
+          "example": "User",
+          "items": {
+            "description": "Filters events that match actor type.",
+            "enum": [
+              "USER",
+              "SUPPORT_USER",
+              "API_CLIENT",
+              "SYSTEM",
+              "UNKNOWN"
+            ],
+            "example": "User",
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "page",
+        "pageSize"
+      ],
       "type": "object"
     },
     "ActorFamilyResponse-actor-enrichment-service": {
