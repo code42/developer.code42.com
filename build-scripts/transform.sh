@@ -14,9 +14,7 @@ main() {
   echo "Applying transformations..."
 
   ### Audit log
-  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/audit-log.yaml > ${docs}/audit
-  jq '.paths |= with_entries( .key |= gsub("/rpc/search/"; "/v1/audit/") )' < ${docs}/audit > $TMP && mv $TMP ${docs}/audit
-  jq '.paths[][].tags |= [ "Audit Log" ]' < ${docs}/audit > $TMP && mv $TMP ${docs}/audit
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/audit > ${docs}/audit.json
 
   ### Trusted Activities v2
   # convert openapi 3 yaml to swagger 2 json
