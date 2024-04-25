@@ -1279,7 +1279,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "79b531f2-a501-413c-b3ac-8447a25c2581"
+            "example": "e2ef3f6e-4404-443b-b305-ac89c3d0058a"
           }
         ],
         "responses": {
@@ -1363,7 +1363,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "d4859e65-3290-4e3e-bda4-34c098062c5d"
+            "example": "a875a9fc-b696-4bfd-a6fb-8ffad9951985"
           }
         ],
         "responses": {
@@ -1392,7 +1392,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "3ca6185b-5929-47da-aff6-561bec200c55"
+                "e521ec6b-e6b6-4cad-9b76-45f247316529"
               ],
               "items": {
                 "type": "string"
@@ -1426,7 +1426,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "96eaa797-7ddf-4b6a-a439-b74ee5562308"
+            "example": "276ac9ab-5812-43f1-b887-cd13f261773a"
           }
         ],
         "responses": {
@@ -1455,7 +1455,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "e703f64b-ea95-48c2-a683-052fe2505bd3"
+                "9311a74a-8ffe-48a9-89e3-e548beff22a7"
               ],
               "items": {
                 "type": "string"
@@ -1490,7 +1490,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "fc33a945-551f-4f93-823e-676953ea65cb"
+            "example": "fb3712f8-dee2-4064-843e-c3ea08160fe8"
           }
         ],
         "responses": {
@@ -1517,7 +1517,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "7bc0c9e9-36e4-45b1-bb11-06243d7b0a8b"
+            "example": "c9d68a54-295b-4333-9205-991e3b2c4a2b"
           }
         ],
         "responses": {
@@ -13014,7 +13014,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-04-25T00:14:01.9473968Z"
+              "example": "2024-04-25T12:05:44.2625798Z"
             },
             "createdBy": {
               "type": "string",
@@ -13025,7 +13025,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-04-25T00:14:01.9474197Z"
+              "example": "2024-04-25T12:05:44.2626023Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -13082,7 +13082,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "c5df83f2-8968-4076-8b9e-62431b01ff8d"
+              "example": "86f87563-523c-4be9-98ad-1fe9378a3032"
             }
           }
         }
@@ -13756,7 +13756,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "713963fb-1f40-4670-8fbd-71cbb8f48bc5"
+          "example": "40cd1ea7-c1ba-4e75-8f2a-9cc780223412"
         },
         "aliases": {
           "type": "array",
@@ -13780,7 +13780,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "18ddd515-d5f7-426c-a8c9-09ace263f286"
+          "example": "a1d51bc2-4716-4417-b67d-845c6316401f"
         },
         "users": {
           "type": "array",
@@ -16427,12 +16427,18 @@
             "$ref": "#/definitions/TriggeredAlert-sessions"
           },
           "type": "array"
+        },
+        "userId": {
+          "description": "(Deprecated) The id of the actor that generated the session.",
+          "type": "string",
+          "x-deprecated": true
         }
       },
       "required": [
         "sessionId",
         "tenantId",
         "actorId",
+        "userId",
         "beginTime",
         "endTime",
         "firstObserved",
