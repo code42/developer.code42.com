@@ -1279,7 +1279,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "136f3d09-96aa-442f-8415-5a55acb2ddf8"
+            "example": "79b531f2-a501-413c-b3ac-8447a25c2581"
           }
         ],
         "responses": {
@@ -1363,7 +1363,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "f7a2f5be-082d-40bc-ab3d-edf2b36f14cf"
+            "example": "d4859e65-3290-4e3e-bda4-34c098062c5d"
           }
         ],
         "responses": {
@@ -1392,7 +1392,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "d2435eba-4b45-4bb2-a9be-0c1ec2a88f2a"
+                "3ca6185b-5929-47da-aff6-561bec200c55"
               ],
               "items": {
                 "type": "string"
@@ -1426,7 +1426,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "5f7efb7e-83c4-41d7-9b49-88ed73efb93c"
+            "example": "96eaa797-7ddf-4b6a-a439-b74ee5562308"
           }
         ],
         "responses": {
@@ -1455,7 +1455,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "e3b917d5-e656-47d1-b619-b152d1f51abb"
+                "e703f64b-ea95-48c2-a683-052fe2505bd3"
               ],
               "items": {
                 "type": "string"
@@ -1490,7 +1490,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "7bd6c35c-a8cd-4bbe-b535-378fb91c1618"
+            "example": "fc33a945-551f-4f93-823e-676953ea65cb"
           }
         ],
         "responses": {
@@ -1517,7 +1517,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "56b93960-d7ca-48d8-9e1c-819fe776f112"
+            "example": "7bc0c9e9-36e4-45b1-bb11-06243d7b0a8b"
           }
         ],
         "responses": {
@@ -3218,8 +3218,9 @@
             "description": "The content inspection status to limit the search to.",
             "enum": [
               "PENDING",
-              "FOUND",
-              "NOT_FOUND"
+              "PII_NOT_FOUND",
+              "PII_FOUND",
+              "UNPROCESSED"
             ],
             "in": "query",
             "name": "content_inspection_status",
@@ -3388,8 +3389,9 @@
             "description": "The content inspection status to limit the search to.",
             "enum": [
               "PENDING",
-              "FOUND",
-              "NOT_FOUND"
+              "PII_NOT_FOUND",
+              "PII_FOUND",
+              "UNPROCESSED"
             ],
             "in": "query",
             "name": "content_inspection_status",
@@ -3411,7 +3413,7 @@
             "schema": {
               "properties": {
                 "continuationToken": {
-                  "description": "Null if state changes have been published, otherwise a token to use on subsequent calls.",
+                  "description": "Null if all sessions matching the criteria have been updated, otherwise a token to use on subsequent calls.",
                   "nullable": true,
                   "type": "string"
                 }
@@ -3558,6 +3560,9 @@
     },
     "/v1/sessions/{id}/events": {
       "get": {
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "description": "The session id",
@@ -3569,7 +3574,15 @@
         ],
         "responses": {
           "200": {
-            "description": "File events that are part of the session."
+            "description": "File events that are part of the session.",
+            "schema": {
+              "properties": {
+                "queryResult": {
+                  "description": "Details on the events belonging to the session. Returns the same response object as the [file events API search](https://developer.code42.com/api/#tag/File-Events/operation/searchEvents).",
+                  "type": "object"
+                }
+              }
+            }
           },
           "404": {
             "description": "If the requested session could not be found or if there are no alerts associated with that session."
@@ -3578,7 +3591,7 @@
         "tags": [
           "Alerts and Sessions"
         ],
-        "description": "Gets the file event metadata for all events that are associated with alerted upon activity as part of the session.\\nWill return the same as the file event API search query, more details on that in the [file event API documentation](https://developer.code42.com/api/#tag/File-Events/operation/searchEvents).",
+        "description": "Gets the file event metadata for all events that are associated with alerted upon activity as part of the session.",
         "operationId": "GetSessionEvents",
         "summary": "Get the events that were alerted on as part of the session."
       }
@@ -13001,7 +13014,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-04-24T12:06:07.0596291Z"
+              "example": "2024-04-25T00:14:01.9473968Z"
             },
             "createdBy": {
               "type": "string",
@@ -13012,7 +13025,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-04-24T12:06:07.0596523Z"
+              "example": "2024-04-25T00:14:01.9474197Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -13069,7 +13082,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "2deaaac8-a599-4cfb-a7ad-ebd1bc9a6821"
+              "example": "c5df83f2-8968-4076-8b9e-62431b01ff8d"
             }
           }
         }
@@ -13743,7 +13756,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "de470383-8abe-46c2-91f2-19165ed83465"
+          "example": "713963fb-1f40-4670-8fbd-71cbb8f48bc5"
         },
         "aliases": {
           "type": "array",
@@ -13767,7 +13780,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "bf16280a-fb93-4f8f-9f05-af401f36c04f"
+          "example": "18ddd515-d5f7-426c-a8c9-09ace263f286"
         },
         "users": {
           "type": "array",
@@ -16155,8 +16168,9 @@
     "ContentInspectionStatus-sessions": {
       "enum": [
         "PENDING",
-        "FOUND",
-        "NOT_FOUND"
+        "PII_NOT_FOUND",
+        "PII_FOUND",
+        "UNPROCESSED"
       ],
       "type": "string"
     },
@@ -16413,18 +16427,12 @@
             "$ref": "#/definitions/TriggeredAlert-sessions"
           },
           "type": "array"
-        },
-        "userId": {
-          "description": "(Deprecated) The id of the actor that generated the session.",
-          "type": "string",
-          "x-deprecated": true
         }
       },
       "required": [
         "sessionId",
         "tenantId",
         "actorId",
-        "userId",
         "beginTime",
         "endTime",
         "firstObserved",
