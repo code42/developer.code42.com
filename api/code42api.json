@@ -1279,7 +1279,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "5c24c7d3-1e5b-4147-bac4-46f06de3c914"
+            "example": "cb84fe40-3d35-43ca-bd77-107cec41a2ef"
           }
         ],
         "responses": {
@@ -1363,7 +1363,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ea2180b4-7127-4993-a1db-7cd601767344"
+            "example": "699d97dd-50e0-46e7-9367-dd9a06ab2460"
           }
         ],
         "responses": {
@@ -1392,7 +1392,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "f4f6f832-1974-4b93-932c-8d5424adcde3"
+                "68dbf7e6-c84e-4d27-bedc-7dc5dc99cfa1"
               ],
               "items": {
                 "type": "string"
@@ -1426,7 +1426,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "82d5dd20-a671-4381-9d20-c7bef3cc6341"
+            "example": "245f47fb-002d-4735-8e94-5ab7c1569b97"
           }
         ],
         "responses": {
@@ -1455,7 +1455,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "1080ef46-d1cf-4748-8aa7-05debe61a27b"
+                "e8e6a5b0-a3fb-4563-b843-fe4f1d61dd93"
               ],
               "items": {
                 "type": "string"
@@ -1490,7 +1490,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "f12a327b-1e6f-4e27-8d22-b8225a9cc2e9"
+            "example": "f4bc5bbb-42f4-488c-9617-89d368b5e43e"
           }
         ],
         "responses": {
@@ -1517,7 +1517,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "ec85ecba-78a9-42b1-8e0c-4aafba4ef422"
+            "example": "6c39ecfe-ffd4-44c1-b45d-73b0f38fb77c"
           }
         ],
         "responses": {
@@ -13042,7 +13042,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-05-02T12:06:13.5098062Z"
+              "example": "2024-05-03T00:13:31.0239408Z"
             },
             "createdBy": {
               "type": "string",
@@ -13053,7 +13053,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-05-02T12:06:13.5098301Z"
+              "example": "2024-05-03T00:13:31.0239654Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -13110,7 +13110,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "4aa789ca-9bb4-4b5b-827e-328f5dd528c4"
+              "example": "6b96b143-9417-41b8-904d-03d0783a53cf"
             }
           }
         }
@@ -13784,7 +13784,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "0521133e-0860-465b-a12b-b23e31485980"
+          "example": "b7abc57f-10d0-45c5-8298-0c78d562fdb0"
         },
         "aliases": {
           "type": "array",
@@ -13808,7 +13808,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "c1781599-d633-428b-8070-4b2f0f8a8b9c"
+          "example": "63d72fa3-5d3f-4a14-9d50-edafd13eac76"
         },
         "users": {
           "type": "array",
@@ -16165,9 +16165,9 @@
         "piiType": {
           "description": "The type of PII found.",
           "items": {
-            "$ref": "#/definitions/PiiType-sessions"
+            "type": "string"
           },
-          "type": "string"
+          "type": "array"
         },
         "status": {
           "$ref": "#/definitions/ContentInspectionStatus-sessions",
@@ -16246,36 +16246,6 @@
       ],
       "type": "object"
     },
-    "PiiType-sessions": {
-      "enum": [
-        "AWS_ACCESS_KEY",
-        "AWS_SECRET_KEY",
-        "BANK_ACCOUNT_NUMBER",
-        "BANK_ROUTING",
-        "CA_HEALTH_NUMBER",
-        "CA_SOCIAL_INSURANCE_NUMBER",
-        "CREDIT_DEBIT_NUMBER",
-        "DRIVER_ID",
-        "EMAIL",
-        "IN_AADHAAR",
-        "IN_NREGA",
-        "IN_PERMANENT_ACCOUNT_NUMBER",
-        "IN_VOTER_NUMBER",
-        "INTERNATIONAL_BANK_ACCOUNT_NUMBER",
-        "PASSPORT_NUMBER",
-        "PASSWORD",
-        "PHONE",
-        "SSN",
-        "SWIFT_CODE",
-        "UK_NATIONAL_HEALTH_SERVICE_NUMBER",
-        "UK_NATIONAL_INSURANCE_NUMBER",
-        "UK_UNIQUE_TAXPAYER_REFERENCE_NUMBER",
-        "USERNAME",
-        "US_INDIVIDUAL_TAX_IDENTIFICATION_NUMBER",
-        "VEHICLE_IDENTIFICATION_NUMBER"
-      ],
-      "type": "string"
-    },
     "RiskIndicator-sessions": {
       "description": "A summary of the appearance of a risk indicator within a session.",
       "properties": {
@@ -16288,9 +16258,8 @@
           "type": "string"
         },
         "name": {
-          "description": "This field is a deprecated duplicate. The id of the risk indicator.",
-          "type": "string",
-          "x-deprecated": true
+          "description": "The name of the risk indicator.",
+          "type": "string"
         },
         "weight": {
           "description": "The weight associated to the risk indicator.",
@@ -16455,18 +16424,12 @@
             "$ref": "#/definitions/TriggeredAlert-sessions"
           },
           "type": "array"
-        },
-        "userId": {
-          "description": "(Deprecated) The id of the actor that generated the session.",
-          "type": "string",
-          "x-deprecated": true
         }
       },
       "required": [
         "sessionId",
         "tenantId",
         "actorId",
-        "userId",
         "beginTime",
         "endTime",
         "firstObserved",
