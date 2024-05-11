@@ -1279,7 +1279,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "2427ec3e-146c-464d-aefe-fa57f163d6cb"
+            "example": "4637b992-4dfa-48c3-8b24-46efea03f63a"
           }
         ],
         "responses": {
@@ -1363,7 +1363,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "9f2f2450-0157-4536-b387-5aa6e8a01518"
+            "example": "dae9dddd-1b4c-4e29-a531-31102a4b13b7"
           }
         ],
         "responses": {
@@ -1392,7 +1392,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "5a5abc73-8f94-4d30-a2df-1786714e9d78"
+                "400bdd2f-2f11-4ebb-ad47-7705d9f70ba0"
               ],
               "items": {
                 "type": "string"
@@ -1426,7 +1426,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "a264255b-d245-41e6-b21b-afc30225824a"
+            "example": "4533ef24-97c5-4227-b86e-c1a9f4025db8"
           }
         ],
         "responses": {
@@ -1455,7 +1455,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "9a5aa3b8-fcb0-4f0e-bdf8-5e6217f6487d"
+                "018c32f5-b358-4c84-8dda-2df617787770"
               ],
               "items": {
                 "type": "string"
@@ -1490,7 +1490,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "3ec163b1-1574-4ec6-b551-d5ce6f092dce"
+            "example": "0e9eafc9-3a01-4821-af3b-a517174256dc"
           }
         ],
         "responses": {
@@ -1517,7 +1517,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "1450a89a-da09-4932-a024-f04b0334b42d"
+            "example": "87773b90-0b05-4d4c-9fff-b143f794eca5"
           }
         ],
         "responses": {
@@ -7704,10 +7704,8 @@
               "destination.accountType",
               "destination.domains",
               "destination.remoteHostname",
-              "destinationIdentifiers.key",
-              "destinationIdentifiers.value",
-              "destinationIdentifiers.next.key",
-              "destinationIdentifiers.next.value",
+              "destinationIdentifiers",
+              "destinationIdentifierId",
               "process.executable",
               "process.owner",
               "process.extension.browser",
@@ -7892,10 +7890,8 @@
             "destination.accountType",
             "destination.domains",
             "destination.remoteHostname",
-            "destinationIdentifiers.key",
-            "destinationIdentifiers.value",
-            "destinationIdentifiers.next.key",
-            "destinationIdentifiers.next.value",
+            "destinationIdentifiers",
+            "destinationIdentifierId",
             "process.executable",
             "process.owner",
             "process.extension.browser",
@@ -9314,10 +9310,8 @@
             "destination.accountType",
             "destination.domains",
             "destination.remoteHostname",
-            "destinationIdentifiers.key",
-            "destinationIdentifiers.value",
-            "destinationIdentifiers.next.key",
-            "destinationIdentifiers.next.value",
+            "destinationIdentifiers",
+            "destinationIdentifierId",
             "process.executable",
             "process.owner",
             "process.extension.browser",
@@ -10211,10 +10205,8 @@
               "destination.accountType",
               "destination.domains",
               "destination.remoteHostname",
-              "destinationIdentifiers.key",
-              "destinationIdentifiers.value",
-              "destinationIdentifiers.next.key",
-              "destinationIdentifiers.next.value",
+              "destinationIdentifiers",
+              "destinationIdentifierId",
               "process.executable",
               "process.owner",
               "process.extension.browser",
@@ -10444,10 +10436,8 @@
             "destination.accountType",
             "destination.domains",
             "destination.remoteHostname",
-            "destinationIdentifiers.key",
-            "destinationIdentifiers.value",
-            "destinationIdentifiers.next.key",
-            "destinationIdentifiers.next.value",
+            "destinationIdentifiers",
+            "destinationIdentifierId",
             "process.executable",
             "process.owner",
             "process.extension.browser",
@@ -10796,10 +10786,8 @@
             "destination.accountType",
             "destination.domains",
             "destination.remoteHostname",
-            "destinationIdentifiers.key",
-            "destinationIdentifiers.value",
-            "destinationIdentifiers.next.key",
-            "destinationIdentifiers.next.value",
+            "destinationIdentifiers",
+            "destinationIdentifierId",
             "process.executable",
             "process.owner",
             "process.extension.browser",
@@ -11171,10 +11159,8 @@
             "destination.accountType",
             "destination.domains",
             "destination.remoteHostname",
-            "destinationIdentifiers.key",
-            "destinationIdentifiers.value",
-            "destinationIdentifiers.next.key",
-            "destinationIdentifiers.next.value",
+            "destinationIdentifiers",
+            "destinationIdentifierId",
             "process.executable",
             "process.owner",
             "process.extension.browser",
@@ -13042,7 +13028,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-05-10T12:05:25.350345Z"
+              "example": "2024-05-11T00:13:19.9053007Z"
             },
             "createdBy": {
               "type": "string",
@@ -13053,7 +13039,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-05-10T12:05:25.3503669Z"
+              "example": "2024-05-11T00:13:19.9053256Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -13110,7 +13096,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "803f2f7a-7e8b-4a9a-a4d1-cc2414b7e65d"
+              "example": "13665dd6-f715-427b-9c1e-16f7d3c95993"
             }
           }
         }
@@ -13784,7 +13770,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "e9003933-ff6a-4bdb-9819-97b49b2aab67"
+          "example": "e3781d66-c69e-4455-aefe-2e6df9b38fb8"
         },
         "aliases": {
           "type": "array",
@@ -13808,7 +13794,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "bf7e5f6b-a9a4-4dab-bcdc-0598c52ad406"
+          "example": "c1e112d0-3864-4806-9d70-71ad252cd654"
         },
         "users": {
           "type": "array",
