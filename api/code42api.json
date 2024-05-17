@@ -4200,7 +4200,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "8d6bb15d-3527-482d-9cf8-d6cc68a83639"
+            "example": "b5223d36-c865-4d24-aa49-ddee8dd4967b"
           }
         ],
         "responses": {
@@ -4284,7 +4284,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "02652ad8-20bd-4cb4-9685-6ed7428025b6"
+            "example": "e0ad8930-963f-4ffd-8446-ea757443c3f6"
           }
         ],
         "responses": {
@@ -4313,7 +4313,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "f1af22e9-3634-4f59-99cc-df7f753cc42c"
+                "7f5fe77c-bb75-4c8e-82d2-c09e0e082531"
               ],
               "items": {
                 "type": "string"
@@ -4347,7 +4347,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "761bcd9e-50d3-44ee-ba39-eb2546290c81"
+            "example": "4d22fb11-5b5d-4d81-846e-433ca5bae10b"
           }
         ],
         "responses": {
@@ -4376,7 +4376,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "db319d24-fc52-4302-98ba-249a28d6ef88"
+                "7f972190-7265-48aa-8362-8bbbef5ffbd5"
               ],
               "items": {
                 "type": "string"
@@ -4411,7 +4411,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "960c9fd1-0118-4c8c-b8fb-d952dfb38cab"
+            "example": "d2af3e43-f095-4005-b43f-d2863d475b03"
           }
         ],
         "responses": {
@@ -4438,7 +4438,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "643fdc02-9e04-42f5-8f20-a986004a16e8"
+            "example": "df110d5d-b1a5-48ec-a69c-9eb24da9b603"
           }
         ],
         "responses": {
@@ -10307,7 +10307,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-05-16T12:05:43.0964084Z"
+              "example": "2024-05-17T00:13:24.1629272Z"
             },
             "createdBy": {
               "type": "string",
@@ -10318,7 +10318,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-05-16T12:05:43.0964307Z"
+              "example": "2024-05-17T00:13:24.1629638Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -10375,7 +10375,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "00c45060-e1e0-4c5d-9c37-9c28cce51bbf"
+              "example": "0129c673-1c2f-473e-b0fb-edb55c13c09f"
             }
           }
         }
@@ -11049,7 +11049,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "3931acbd-06ce-411e-97a1-cb86b571a129"
+          "example": "cf4d96ba-204c-4a72-a4a3-abca6c459a9e"
         },
         "aliases": {
           "type": "array",
@@ -11073,7 +11073,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "068cc346-0f59-48bc-8a01-8d5d0fa57cb7"
+          "example": "9608fd91-38cb-4fcc-94b4-cce7afa8792a"
         },
         "users": {
           "type": "array",
@@ -13988,6 +13988,8 @@
               "source.accountName",
               "source.accountType",
               "source.domains",
+              "source.identifiers",
+              "source.identifier.id",
               "destination.category",
               "destination.name",
               "destination.user.email",
@@ -14015,8 +14017,8 @@
               "destination.accountType",
               "destination.domains",
               "destination.remoteHostname",
-              "destinationIdentifiers",
-              "destinationIdentifierId",
+              "destination.identifiers",
+              "destination.identifier.id",
               "process.executable",
               "process.owner",
               "process.extension.browser",
@@ -14056,6 +14058,8 @@
               "file.acquiredFrom.git.repositoryEmail",
               "file.acquiredFrom.git.repositoryUri",
               "file.acquiredFrom.git.repositoryUser",
+              "file.acquiredFrom.identifiers",
+              "file.acquiredFrom.identifier.id",
               "git.eventId",
               "git.lastCommitHash",
               "git.repositoryUri",
@@ -14174,6 +14178,8 @@
             "source.accountName",
             "source.accountType",
             "source.domains",
+            "source.identifiers",
+            "source.identifier.id",
             "destination.category",
             "destination.name",
             "destination.user.email",
@@ -14201,8 +14207,8 @@
             "destination.accountType",
             "destination.domains",
             "destination.remoteHostname",
-            "destinationIdentifiers",
-            "destinationIdentifierId",
+            "destination.identifiers",
+            "destination.identifier.id",
             "process.executable",
             "process.owner",
             "process.extension.browser",
@@ -14242,6 +14248,8 @@
             "file.acquiredFrom.git.repositoryEmail",
             "file.acquiredFrom.git.repositoryUri",
             "file.acquiredFrom.git.repositoryUser",
+            "file.acquiredFrom.identifiers",
+            "file.acquiredFrom.identifier.id",
             "git.eventId",
             "git.lastCommitHash",
             "git.repositoryUri",
@@ -15594,6 +15602,8 @@
             "source.accountName",
             "source.accountType",
             "source.domains",
+            "source.identifiers",
+            "source.identifier.id",
             "destination.category",
             "destination.name",
             "destination.user.email",
@@ -15621,8 +15631,8 @@
             "destination.accountType",
             "destination.domains",
             "destination.remoteHostname",
-            "destinationIdentifiers",
-            "destinationIdentifierId",
+            "destination.identifiers",
+            "destination.identifier.id",
             "process.executable",
             "process.owner",
             "process.extension.browser",
@@ -15662,6 +15672,8 @@
             "file.acquiredFrom.git.repositoryEmail",
             "file.acquiredFrom.git.repositoryUri",
             "file.acquiredFrom.git.repositoryUser",
+            "file.acquiredFrom.identifiers",
+            "file.acquiredFrom.identifier.id",
             "git.eventId",
             "git.lastCommitHash",
             "git.repositoryUri",
@@ -16489,6 +16501,8 @@
               "source.accountName",
               "source.accountType",
               "source.domains",
+              "source.identifiers",
+              "source.identifier.id",
               "destination.category",
               "destination.name",
               "destination.user.email",
@@ -16516,8 +16530,8 @@
               "destination.accountType",
               "destination.domains",
               "destination.remoteHostname",
-              "destinationIdentifiers",
-              "destinationIdentifierId",
+              "destination.identifiers",
+              "destination.identifier.id",
               "process.executable",
               "process.owner",
               "process.extension.browser",
@@ -16557,6 +16571,8 @@
               "file.acquiredFrom.git.repositoryEmail",
               "file.acquiredFrom.git.repositoryUri",
               "file.acquiredFrom.git.repositoryUser",
+              "file.acquiredFrom.identifiers",
+              "file.acquiredFrom.identifier.id",
               "git.eventId",
               "git.lastCommitHash",
               "git.repositoryUri",
@@ -16720,6 +16736,8 @@
             "source.accountName",
             "source.accountType",
             "source.domains",
+            "source.identifiers",
+            "source.identifier.id",
             "destination.category",
             "destination.name",
             "destination.user.email",
@@ -16747,8 +16765,8 @@
             "destination.accountType",
             "destination.domains",
             "destination.remoteHostname",
-            "destinationIdentifiers",
-            "destinationIdentifierId",
+            "destination.identifiers",
+            "destination.identifier.id",
             "process.executable",
             "process.owner",
             "process.extension.browser",
@@ -16788,6 +16806,8 @@
             "file.acquiredFrom.git.repositoryEmail",
             "file.acquiredFrom.git.repositoryUri",
             "file.acquiredFrom.git.repositoryUser",
+            "file.acquiredFrom.identifiers",
+            "file.acquiredFrom.identifier.id",
             "git.eventId",
             "git.lastCommitHash",
             "git.repositoryUri",
@@ -17070,6 +17090,8 @@
             "source.accountName",
             "source.accountType",
             "source.domains",
+            "source.identifiers",
+            "source.identifier.id",
             "destination.category",
             "destination.name",
             "destination.user.email",
@@ -17097,8 +17119,8 @@
             "destination.accountType",
             "destination.domains",
             "destination.remoteHostname",
-            "destinationIdentifiers",
-            "destinationIdentifierId",
+            "destination.identifiers",
+            "destination.identifier.id",
             "process.executable",
             "process.owner",
             "process.extension.browser",
@@ -17138,6 +17160,8 @@
             "file.acquiredFrom.git.repositoryEmail",
             "file.acquiredFrom.git.repositoryUri",
             "file.acquiredFrom.git.repositoryUser",
+            "file.acquiredFrom.identifiers",
+            "file.acquiredFrom.identifier.id",
             "git.eventId",
             "git.lastCommitHash",
             "git.repositoryUri",
@@ -17443,6 +17467,8 @@
             "source.accountName",
             "source.accountType",
             "source.domains",
+            "source.identifiers",
+            "source.identifier.id",
             "destination.category",
             "destination.name",
             "destination.user.email",
@@ -17470,8 +17496,8 @@
             "destination.accountType",
             "destination.domains",
             "destination.remoteHostname",
-            "destinationIdentifiers",
-            "destinationIdentifierId",
+            "destination.identifiers",
+            "destination.identifier.id",
             "process.executable",
             "process.owner",
             "process.extension.browser",
@@ -17511,6 +17537,8 @@
             "file.acquiredFrom.git.repositoryEmail",
             "file.acquiredFrom.git.repositoryUri",
             "file.acquiredFrom.git.repositoryUser",
+            "file.acquiredFrom.identifiers",
+            "file.acquiredFrom.identifier.id",
             "git.eventId",
             "git.lastCommitHash",
             "git.repositoryUri",
