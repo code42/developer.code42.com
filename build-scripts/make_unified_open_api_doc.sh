@@ -9,6 +9,8 @@ main() {
   jq '.paths |= $paths' --argfile paths ${docs_src}/paths.json swagger_template.json > ${docs_src}/merged_paths.json
   jq '.definitions |= $defs' --argfile defs ${docs_src}/defs.json ${docs_src}/merged_paths.json > ${docs_out}/code42api.json
 
+  sed -i.bak 's/x-deprecated/deprecated/g' "${docs_out}/code42api.json" && rm "${docs_out}/code42api.json.bak"
+
   # put the merged file into the directory for publishing
   cp ${docs_out}/code42api.json ${api_docs}
 }
