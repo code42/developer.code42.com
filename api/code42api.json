@@ -4200,7 +4200,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "3a19b846-eee4-4479-bcaf-4308f404541f"
+            "example": "1ca6c974-34cb-4ec5-9e5a-9b093ee26cd6"
           }
         ],
         "responses": {
@@ -4284,7 +4284,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "fe35e4be-c162-4e9f-a45c-d9530dd67c75"
+            "example": "5d329185-83bf-4255-b00e-066dfd3b7f8f"
           }
         ],
         "responses": {
@@ -4313,7 +4313,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "ce711251-2998-4277-aa9e-15e8c85cb820"
+                "7d8a070f-da12-4398-b50e-86df7f9109df"
               ],
               "items": {
                 "type": "string"
@@ -4347,7 +4347,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "0e6a1b86-9a2d-42ee-8b92-876e484a6d46"
+            "example": "eafdec37-f851-4b28-a481-f4f147cc4c6f"
           }
         ],
         "responses": {
@@ -4376,7 +4376,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "c4edd04e-fd5a-49d2-a07a-ca3c6bc5f774"
+                "60120e09-8c06-4368-a78c-6fef8a813984"
               ],
               "items": {
                 "type": "string"
@@ -4411,7 +4411,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "bb8e7630-6462-4e26-8f11-00f9a0613c1f"
+            "example": "4f9cce19-e091-4762-84e8-2539eac6e4be"
           }
         ],
         "responses": {
@@ -4438,7 +4438,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b84a61bb-c725-4d47-89e6-317ef0646b1a"
+            "example": "2c6db55b-bd97-4768-a711-1b64aa6bd010"
           }
         ],
         "responses": {
@@ -10307,7 +10307,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-05-29T12:05:52.955352Z"
+              "example": "2024-05-29T14:25:44.6391313Z"
             },
             "createdBy": {
               "type": "string",
@@ -10318,7 +10318,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-05-29T12:05:52.9553731Z"
+              "example": "2024-05-29T14:25:44.6391555Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -10375,7 +10375,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "b9167070-774b-411b-8bde-990f28ee14f3"
+              "example": "3bc0c06a-543d-4423-8cd7-72e165035765"
             }
           }
         }
@@ -10400,8 +10400,8 @@
         },
         "severity": {
           "description": "[Deprecated field] Indicates severity of rule.",
-          "x-deprecated": true,
-          "x-deprecatedMessage": "Severity rating is no longer important since risk severity is being used",
+          "deprecated": true,
+          "deprecatedMessage": "Severity rating is no longer important since risk severity is being used",
           "example": "",
           "allOf": [
             {
@@ -11049,7 +11049,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "8e21bcb0-3aa8-4b15-86b8-48814757afb0"
+          "example": "5c6ef7a7-38ae-450a-af3c-a83a75ab8ff2"
         },
         "aliases": {
           "type": "array",
@@ -11073,7 +11073,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "2244885a-ecca-4c38-9ce8-e5464c6e2e0c"
+          "example": "232cd97c-a4aa-4ab1-8675-f4c9ede56a99"
         },
         "users": {
           "type": "array",
@@ -14339,14 +14339,14 @@
           "example": "Image",
           "title": "A categorization of the file based on its contents.",
           "type": "string",
-          "x-deprecated": true,
+          "deprecated": true,
           "x-nullable": true
         },
         "categoryByExtension": {
           "example": "Document",
           "title": "A categorization of the file based on its extension.",
           "type": "string",
-          "x-deprecated": true,
+          "deprecated": true,
           "x-nullable": true
         },
         "changeType": {
@@ -14755,14 +14755,14 @@
           "example": "Image",
           "title": "A categorization of the file based on its contents.",
           "type": "string",
-          "x-deprecated": true,
+          "deprecated": true,
           "x-nullable": true
         },
         "fileCategoryByExtension": {
           "example": "Document",
           "title": "A categorization of the file based on its extension.",
           "type": "string",
-          "x-deprecated": true,
+          "deprecated": true,
           "x-nullable": true
         },
         "fileClassifications": {
