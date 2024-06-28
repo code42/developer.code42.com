@@ -4246,7 +4246,7 @@
             "required": true,
             "description": "Id of the rule.",
             "x-nullable": true,
-            "example": "a9858583-3554-4ab8-b3f9-5934e833c902"
+            "example": "863a41bc-2fd7-4cf7-9f07-1be1a4fc73c8"
           }
         ],
         "responses": {
@@ -4330,7 +4330,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "b8496400-3d65-4199-b9a5-57597bf1fdf6"
+            "example": "1f6ada00-291b-4e1d-bf9c-5c3db65262d5"
           }
         ],
         "responses": {
@@ -4359,7 +4359,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "02ab50bb-d6f4-4d8f-8e35-122b2e037f9c"
+                "7e67eb1e-4fed-487e-814b-ccac953a8940"
               ],
               "items": {
                 "type": "string"
@@ -4393,7 +4393,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "d65776c1-a494-449b-8bbc-3db3d811fcc8"
+            "example": "1fe4169d-29fa-41bf-a7ab-aa27967dec03"
           }
         ],
         "responses": {
@@ -4422,7 +4422,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "7cc97d34-0a35-4764-af58-a61b4d3b260d"
+                "cbd1c984-f2ab-4fa2-9cdc-86d0bc1ae89e"
               ],
               "items": {
                 "type": "string"
@@ -4457,7 +4457,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "d837e13c-3d09-4818-842d-e5ba3fd2a292"
+            "example": "04d86ea0-f4ee-4bdb-bb03-ce6e1da4556f"
           }
         ],
         "responses": {
@@ -4484,7 +4484,7 @@
             "required": true,
             "description": "The id of the rule.",
             "x-nullable": true,
-            "example": "63a44389-e568-441e-9f5e-a15f78c62092"
+            "example": "7279ebdc-1cfd-4978-970f-df4c98410006"
           }
         ],
         "responses": {
@@ -8946,9 +8946,7 @@
               "file.category",
               "file.mimeType",
               "file.mimeTypeByBytes",
-              "file.categoryByBytes",
               "file.mimeTypeByExtension",
-              "file.categoryByExtension",
               "file.sizeInBytes",
               "file.owner",
               "file.created",
@@ -9136,9 +9134,7 @@
             "file.category",
             "file.mimeType",
             "file.mimeTypeByBytes",
-            "file.categoryByBytes",
             "file.mimeTypeByExtension",
-            "file.categoryByExtension",
             "file.sizeInBytes",
             "file.owner",
             "file.created",
@@ -9343,20 +9339,6 @@
           "example": "Audio",
           "title": "A categorization of the file that is inferred from MIME type.",
           "type": "string",
-          "x-nullable": true
-        },
-        "categoryByBytes": {
-          "example": "Image",
-          "title": "A categorization of the file based on its contents.",
-          "type": "string",
-          "deprecated": true,
-          "x-nullable": true
-        },
-        "categoryByExtension": {
-          "example": "Document",
-          "title": "A categorization of the file based on its extension.",
-          "type": "string",
-          "deprecated": true,
           "x-nullable": true
         },
         "changeType": {
@@ -9653,19 +9635,6 @@
           "type": "string",
           "x-nullable": true
         },
-        "emailDlpPolicyNames": {
-          "example": [
-            "External recipient"
-          ],
-          "items": {
-            "example": "[\"External recipient\"]",
-            "title": "No longer in use. Deprecated September 2021.",
-            "type": "string"
-          },
-          "title": "No longer in use. Deprecated September 2021.",
-          "type": "array",
-          "x-nullable": true
-        },
         "emailFrom": {
           "example": "ari@example.com",
           "title": "The display name of the sender, as it appears in the \"From\" field in the email. In many cases, this is the same as emailSender, but it can be different if the message is sent by a server or other mail agent on behalf of someone else.",
@@ -9710,26 +9679,6 @@
           "type": "string",
           "x-nullable": true
         },
-        "eventType": {
-          "enum": [
-            "CREATED",
-            "MODIFIED",
-            "DELETED",
-            "UNCHANGED",
-            "READ_BY_APP",
-            "UNSUPPORTED",
-            "RULE_MATCH",
-            "RESTORE",
-            "OPEN",
-            "DOWNLOADED",
-            "PREVIEWED",
-            "EMAILED",
-            "PRINTED"
-          ],
-          "example": "MODIFIED",
-          "title": "Indicates the type of file event observed.",
-          "type": "string"
-        },
         "exposure": {
           "example": [
             "CloudStorage"
@@ -9759,20 +9708,6 @@
           "example": "Audio",
           "title": "A categorization of the file that is inferred from MIME type.",
           "type": "string",
-          "x-nullable": true
-        },
-        "fileCategoryByBytes": {
-          "example": "Image",
-          "title": "A categorization of the file based on its contents.",
-          "type": "string",
-          "deprecated": true,
-          "x-nullable": true
-        },
-        "fileCategoryByExtension": {
-          "example": "Document",
-          "title": "A categorization of the file based on its extension.",
-          "type": "string",
-          "deprecated": true,
           "x-nullable": true
         },
         "fileClassifications": {
@@ -9879,12 +9814,6 @@
           "example": "Mari's MacBook",
           "title": "The name reported by the device's operating system.  This may be different than the device name in the Code42 console.",
           "type": "string",
-          "x-nullable": true
-        },
-        "outsideActiveHours": {
-          "example": false,
-          "title": "Indicates whether or not this event occurred outside of the user's typical active hours using data modeling from the this user's prior activity.",
-          "type": "boolean",
           "x-nullable": true
         },
         "printJobName": {
@@ -10204,7 +10133,6 @@
       },
       "required": [
         "eventId",
-        "eventType",
         "exposure",
         "fieldErrors",
         "fileClassifications",
@@ -10560,9 +10488,7 @@
             "file.category",
             "file.mimeType",
             "file.mimeTypeByBytes",
-            "file.categoryByBytes",
             "file.mimeTypeByExtension",
-            "file.categoryByExtension",
             "file.sizeInBytes",
             "file.owner",
             "file.created",
@@ -11459,9 +11385,7 @@
               "file.category",
               "file.mimeType",
               "file.mimeTypeByBytes",
-              "file.categoryByBytes",
               "file.mimeTypeByExtension",
-              "file.categoryByExtension",
               "file.sizeInBytes",
               "file.owner",
               "file.created",
@@ -11694,9 +11618,7 @@
             "file.category",
             "file.mimeType",
             "file.mimeTypeByBytes",
-            "file.categoryByBytes",
             "file.mimeTypeByExtension",
-            "file.categoryByExtension",
             "file.sizeInBytes",
             "file.owner",
             "file.created",
@@ -12048,9 +11970,7 @@
             "file.category",
             "file.mimeType",
             "file.mimeTypeByBytes",
-            "file.categoryByBytes",
             "file.mimeTypeByExtension",
-            "file.categoryByExtension",
             "file.sizeInBytes",
             "file.owner",
             "file.created",
@@ -12425,9 +12345,7 @@
             "file.category",
             "file.mimeType",
             "file.mimeTypeByBytes",
-            "file.categoryByBytes",
             "file.mimeTypeByExtension",
-            "file.categoryByExtension",
             "file.sizeInBytes",
             "file.owner",
             "file.created",
@@ -15823,7 +15741,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-06-27T12:05:59.2032647Z"
+              "example": "2024-06-28T00:13:55.3509128Z"
             },
             "createdBy": {
               "type": "string",
@@ -15834,7 +15752,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-06-27T12:05:59.2032868Z"
+              "example": "2024-06-28T00:13:55.3509343Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -15891,7 +15809,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "ec384d06-e808-4ff5-a473-fca0ff3960d7"
+              "example": "73dbdc6a-15b0-4099-a8fe-9b95e87f3276"
             }
           }
         }
@@ -16565,7 +16483,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "67c9c112-a92d-4a37-af7a-769d25902f19"
+          "example": "b378a51a-80bd-4525-a22a-8b7865d6d5fd"
         },
         "aliases": {
           "type": "array",
@@ -16589,7 +16507,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "b0db05b2-671c-4529-9474-5dc594347f76"
+          "example": "3f5a8567-f952-4c59-8ff8-8473a9c8794c"
         },
         "users": {
           "type": "array",
