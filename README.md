@@ -4,7 +4,7 @@ To build the site locally, you will need the following:
 
 * [Ruby](https://www.ruby-lang.org/en/)  >= 2.4.1 and < 3.0
 * [homebrew](https://brew.sh/) (if using macOS)
-* [jq](https://stedolan.github.io/jq/)
+* [jq](https://stedolan.github.io/jq/) <= 1.6
 * [wget](https://www.gnu.org/software/wget/)
 * [api-spec-converter](https://www.npmjs.com/package/api-spec-converter)
 * [MarkdownTools2](https://pypi.org/project/MarkdownTools2/)
@@ -15,6 +15,7 @@ We are using Slate to build the documentation, so the dependencies for build can
 It is reproduced here with the additional steps needed for our other dependencies.
 
 ```
+setup_artifactory_auth_npm
 gem install bundler:2.1.4
 bundle install
 npm install api-spec-converter
