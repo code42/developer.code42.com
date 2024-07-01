@@ -52,7 +52,7 @@ jobs:
         run: npm install -g api-spec-converter
 
       - name: Build
-        run: make BUILD="build"
+        run: make BUILD="build" DOCS_SERVER="https://api.us.code42.com"
         env:
           ga_analytics_id: ${{ secrets.GA_ANALYTICS }}
 
