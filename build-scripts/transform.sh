@@ -16,6 +16,14 @@ main() {
   ### Audit log
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/audit > ${docs}/audit.json
 
+  ### Authority
+  echo "Authority..."
+  # The new api gateway lists the authority docs as "Authority" while Baldur lists them as "Core"
+  # This "if" check can be removed after Baldur has been removed
+  if [ -f "${docs}"/authority ]; then
+      api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/authority > ${docs}/authority.json
+  fi
+
   ### Trusted Activities v2
   # convert openapi 3 yaml to swagger 2 json
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/trusted-activities > $TRUSTED_ACTIVITIES_V2

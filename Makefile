@@ -3,7 +3,9 @@ DOCS_SRC = docs-src
 DOCS = $(DOCS_SRC)/docs
 DOCS_OUT = $(DOCS_SRC)/out
 API_DOCS = $(BUILD)/api
-DOCS_SERVER := "http://localhost:5000"
+DOCS_SERVER = "https://api.us.code42.com"
+# DOCS_SERVER = "http://localhost:5000" # Use this value as the docserver for a locally hosted baldur instance
+# DOCS_SERVER = "http://localhost:8080" # Use this value as the docserver for a locally hosted api gateway instance
 BUILD_SCRIPTS = build-scripts
 
 all:: clean docs html locations download transform definitions unify
