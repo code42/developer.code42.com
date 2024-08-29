@@ -6507,8 +6507,8 @@
             "in": "path",
             "required": true,
             "description": "Id of the rule.",
-            "x-nullable": true,
-            "example": "3a294e18-8e98-4932-b7e6-a5208376fc1e"
+            "x-nullable": false,
+            "example": "7d149735-57f9-4e64-bb37-ff2f57166a8a"
           }
         ],
         "responses": {
@@ -6591,8 +6591,8 @@
             "in": "path",
             "required": true,
             "description": "The id of the rule.",
-            "x-nullable": true,
-            "example": "424e2f05-f68e-4ce6-9961-4b9d668125d6"
+            "x-nullable": false,
+            "example": "9fc7f7bf-90c5-46dd-8754-55fd9605cab1"
           }
         ],
         "responses": {
@@ -6621,7 +6621,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "c5d8d7a1-ec8e-4db8-ad1c-432e35e953bf"
+                "a96059ad-f4db-494c-a173-13a2ec0ce2ad"
               ],
               "items": {
                 "type": "string"
@@ -6654,8 +6654,8 @@
             "in": "path",
             "required": true,
             "description": "The id of the rule.",
-            "x-nullable": true,
-            "example": "0ccff19f-51cf-47da-9442-3756b58b5956"
+            "x-nullable": false,
+            "example": "92c7ddc2-3e49-4f6f-90b4-0c91ef9e0293"
           }
         ],
         "responses": {
@@ -6684,7 +6684,7 @@
             "schema": {
               "type": "array",
               "example": [
-                "b5aa6b85-1569-4205-9eaa-45bf8d194c6f"
+                "6b0b416f-619e-487a-8738-9228ef1470d9"
               ],
               "items": {
                 "type": "string"
@@ -6718,8 +6718,8 @@
             "in": "path",
             "required": true,
             "description": "The id of the rule.",
-            "x-nullable": true,
-            "example": "8823bdbc-15eb-4af3-8c40-d71a1b8fc5c2"
+            "x-nullable": false,
+            "example": "724cb14d-9f5e-425b-89e9-d5ccee973bff"
           }
         ],
         "responses": {
@@ -6745,8 +6745,8 @@
             "in": "path",
             "required": true,
             "description": "The id of the rule.",
-            "x-nullable": true,
-            "example": "7d45d708-e106-4d80-b204-fd5dee2bc3c1"
+            "x-nullable": false,
+            "example": "2d95088f-e888-4429-93b1-36e785dda884"
           }
         ],
         "responses": {
@@ -17048,7 +17048,7 @@
               "type": "string",
               "description": "Time when the rule was created.",
               "format": "date-time",
-              "example": "2024-08-28T12:06:27.3813853Z"
+              "example": "2024-08-28T22:44:34.0844169Z"
             },
             "createdBy": {
               "type": "string",
@@ -17059,7 +17059,7 @@
               "type": "string",
               "description": "Time when the rule was last modified.",
               "format": "date-time",
-              "example": "2024-08-28T12:06:27.3814105Z"
+              "example": "2024-08-28T22:44:34.0844471Z"
             },
             "modifiedBy": {
               "type": "string",
@@ -17116,7 +17116,7 @@
             "id": {
               "type": "string",
               "description": "Unique identifier of the rule.",
-              "example": "13d353ad-b6ce-4166-ab02-c41107b978db"
+              "example": "bc39c4b6-1596-4384-93d3-bc31628ec67b"
             }
           }
         }
@@ -17790,7 +17790,7 @@
         "userIdFromAuthority": {
           "type": "string",
           "description": "User id that matches internal user identifier for our product.",
-          "example": "4d3c608f-cbb4-48d0-8792-bcb061657209"
+          "example": "8f48e32d-e7f5-4900-b708-918502a2b7a2"
         },
         "aliases": {
           "type": "array",
@@ -17814,7 +17814,7 @@
         "id": {
           "type": "string",
           "description": "The id of the rule.",
-          "example": "582f1193-92eb-4de4-8dbe-59e27fd74027"
+          "example": "4489cfcf-45a0-49b3-95bf-c5d7a6f35ece"
         },
         "users": {
           "type": "array",
