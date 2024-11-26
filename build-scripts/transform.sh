@@ -4,6 +4,7 @@ main() {
   local docs="${1:?Missing param docs at index 1.}"
   TMP=.transform.tmp
   ALERTS="${docs}/alerts"
+  AUTHORITY="${docs}/authority.json"
   RULES_V1="${docs}/alert-rules"
   RULES_V2="${docs}/alert-rules-v2"
   TRUSTED_ACTIVITIES_V2="${docs}/trusted-activities.json"
@@ -16,14 +17,21 @@ main() {
   ### Audit log
   echo "Transforming Audit Log docs..."
   api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/audit > ${docs}/audit.json
+  rm ${docs}/audit
 
   ### Authority
   echo "Transforming Authority docs..."
-  # The new api gateway lists the authority docs as "Authority" while Baldur lists them as "Core"
-  # This "if" check can be removed after Baldur has been removed
-  if [ -f "${docs}"/authority ]; then
-      api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/authority > ${docs}/authority.json
-  fi
+  api-spec-converter -f openapi_3 -t swagger_2 -c ${docs}/authority > $AUTHORITY
+  # The authority's File component schema overwrites FFS', rename it
+  ### SWAGGER 2 ###
+  jq '.definitions |= with_entries( if .key == "File" then .key |= "AuthorityFile" else . end)' < $AUTHORITY > $TMP && mv $TMP $AUTHORITY
+  jq '.definitions.RestoreGroup.properties.files.items."$ref" |= "#/definitions/AuthorityFile"' < $AUTHORITY > $TMP && mv $TMP $AUTHORITY
+
+  ### OPENAPI 3 ###
+#  jq '.components.schemas |= with_entries( if .key == "File" then .key |= "AuthorityFile" else . end)' < ${docs}/authority > $AUTHORITY
+#  jq '.components.schemas.RestoreGroup.properties.files.items."$ref" |= "#/components/schemas/AuthorityFile"' < $AUTHORITY > $TMP && mv $TMP $AUTHORITY
+
+  rm ${docs}/authority
 
   ### Trusted Activities v2
   echo "Transforming Trusted Activities docs..."
