@@ -7,7 +7,7 @@ main() {
   local docs_src="${2:?Missing param docs_src at index 2.}"
   json_docs=$(find ${docs} \! -name '*.yaml' -type f)
   jq -s '.[].paths' $json_docs | jq -s add > ${docs_src}/paths.json
-  jq -s '.[].definitions' $json_docs | jq -s add > ${docs_src}/defs.json
+  jq -s '.[].components.schemas' $json_docs | jq -s add > ${docs_src}/defs.json
 }
 
 main "$@"
