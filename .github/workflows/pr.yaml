@@ -10,7 +10,7 @@ jobs:
         ruby-version: 2.5
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup Python
         uses: actions/setup-python@v1
@@ -29,7 +29,7 @@ jobs:
         with:
             ruby-version: ${{ env.ruby-version }}
 
-      - uses: actions/cache@v2
+      - uses: actions/cache@v4
         with:
             path: vendor/bundle
             key: gems-${{ runner.os }}-${{ matrix.ruby-version }}-${{ hashFiles('**/Gemfile.lock') }}
